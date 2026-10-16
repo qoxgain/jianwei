@@ -1,0 +1,2 @@
+# Optional browser verification; install separately from application runtime.
+playwright==1.62.0

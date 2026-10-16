@@ -1,0 +1,43 @@
+{
+  "phase": "P0.1",
+  "workflow": "configuration_and_knowledge_workbench",
+  "input_source": "V3.0 handoff example knowledge; no production videos",
+  "real_video_evaluation": "NOT_RUN",
+  "production_deployment": false,
+  "annotation_minutes": "NOT_APPLICABLE_NO_REAL_SAMPLES",
+  "backend_tests": {
+    "passed": 67,
+    "failed": 0
+  },
+  "frontend_tests": {
+    "passed": 17,
+    "failed": 0
+  },
+  "reference_toolkit_tests": {
+    "passed": 29,
+    "failed": 0,
+    "scope": "synthetic_mechanism_only"
+  },
+  "browser_modes": [
+    "api",
+    "standalone_static_demo"
+  ],
+  "browser_passed": true,
+  "browser_file_protocol": "NOT_RUN_ADMIN_POLICY_BLOCKED",
+  "config_hash": "38777889cfdcf5d8d9936a27daf1801f0ccbc38e417737c2a37382c0889bd385",
+  "knowledge_hash": "4f4f0eeebf0b2c35c75babfb45babb0dee423ae8331c066b0a6b84fddd45ea4a",
+  "health_after_restart": {
+    "status": "ok",
+    "stage": "P0.1",
+    "database": "ok",
+    "schema_version": "0001_foundation",
+    "active_profile": "demo"
+  },
+  "fresh_baseline_versions": 1,
+  "artifacts": {
+    "demo/jianwei-p0.1.html": "8e5892d5e26130e87cce4bb277d27eebd2faf74ab5d5a217fb22590eb61cf607",
+    "demo/jianwei-p0.1-demo.zip": "1b34db6b8f20651b5a68b2825c45c309ceacaaad9209371bc7abef4d952306f5",
+    "requirements.lock": "f56da4c1a4f857f2ed47c667f019c8f1aa49d438e989bb03087fc377e87f3d11",
+    "apps/web/package-lock.json": "f1feb54e8c93a3c37b23324f601be6de2efa4f39d25d9cf0904416b8101e6178"
+  }
+}

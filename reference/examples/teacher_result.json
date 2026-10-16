@@ -1,0 +1,11 @@
+{
+  "schema_version": "3.0",
+  "request_id": "synthetic_request_001",
+  "observed_action_id": null,
+  "time_range_ms": [0, 2000],
+  "evidence_frame_ids": [],
+  "visible_cues": [],
+  "uncertainty": "格式示例未附真实图像，不能确认任何动作。",
+  "support_level": "insufficient",
+  "alternative_action_ids": []
+}

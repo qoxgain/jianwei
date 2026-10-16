@@ -1,0 +1,4 @@
+{"sample_id":"demo_train_a","episode_id":"episode_train_a","source_video_id":"synthetic_train_a","source_hash":"synthetic_hash_train_a","split":"train","start_ms":0,"end_ms":2000,"data_origin":"synthetic_format_example"}
+{"sample_id":"demo_calibration_a","episode_id":"episode_calibration_a","source_video_id":"synthetic_calibration_a","source_hash":"synthetic_hash_calibration_a","split":"calibration","start_ms":0,"end_ms":2000,"data_origin":"synthetic_format_example"}
+{"sample_id":"demo_dev_a","episode_id":"episode_dev_a","source_video_id":"synthetic_dev_a","source_hash":"synthetic_hash_dev_a","split":"dev","start_ms":0,"end_ms":2000,"data_origin":"synthetic_format_example"}
+{"sample_id":"demo_test_a","episode_id":"episode_test_a","source_video_id":"synthetic_test_a","source_hash":"synthetic_hash_test_a","split":"test","start_ms":0,"end_ms":2000,"data_origin":"synthetic_format_example"}

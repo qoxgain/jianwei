@@ -1,0 +1,82 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "3.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "request_id": {
+      "title": "Request Id",
+      "type": "string"
+    },
+    "observed_action_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Observed Action Id"
+    },
+    "time_range_ms": {
+      "items": {
+        "type": "integer"
+      },
+      "maxItems": 2,
+      "minItems": 2,
+      "title": "Time Range Ms",
+      "type": "array"
+    },
+    "evidence_frame_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Frame Ids",
+      "type": "array"
+    },
+    "visible_cues": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Visible Cues",
+      "type": "array"
+    },
+    "uncertainty": {
+      "title": "Uncertainty",
+      "type": "string"
+    },
+    "support_level": {
+      "enum": [
+        "insufficient",
+        "partial",
+        "strong"
+      ],
+      "title": "Support Level",
+      "type": "string"
+    },
+    "alternative_action_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Alternative Action Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "request_id",
+    "observed_action_id",
+    "time_range_ms",
+    "evidence_frame_ids",
+    "visible_cues",
+    "uncertainty",
+    "support_level",
+    "alternative_action_ids"
+  ],
+  "title": "TeacherResult",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

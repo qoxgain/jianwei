@@ -1,0 +1,109 @@
+# 人工业务知识包。名称/动作/顺序均为研发示例，正式上线需业务确认。
+# 同名动作的改名保留id；程序自动学习不得覆盖本文件。
+schema_version: '3.0'
+knowledge_version: garment-demo-3.0.0
+scene_id: garment_sop
+approval_status: draft
+approved_by: null
+actions:
+  - id: check_hem
+    name: 检查裤脚
+    aliases: [检查脚口, 裤脚检验]
+    description: 对裤脚缝边及收口进行可见的展开与检查。
+    status: approved
+    risk_level: general
+    observable_cues: [手部接触裤脚, 裤脚区域被展开并检查]
+    negative_cues: [仅拿起衣物不证明已经检查裤脚]
+    confusable_with: [check_side_seam, check_surface]
+    completion_rule: {name: visible_motion_over_interval, min_visible_seconds: 0.8, require_object_contact: true}
+    duration_prior_seconds: [1, 20]
+    positive_examples: []
+    negative_examples: []
+    prototype_refs: []
+  - id: check_side_seam
+    name: 检查侧缝
+    aliases: [侧缝检查]
+    description: 沿衣物侧缝展开或翻看缝线区域。
+    status: approved
+    risk_level: general
+    observable_cues: [手沿侧缝移动, 侧缝区域连续可见]
+    negative_cues: [只从侧边搬动衣物不算检查]
+    confusable_with: [check_hem, check_surface]
+    completion_rule: {name: visible_motion_over_interval, min_visible_seconds: 0.8, require_object_contact: true}
+    duration_prior_seconds: [1, 30]
+    positive_examples: []
+    negative_examples: []
+    prototype_refs: []
+  - id: check_waistband
+    name: 检查腰头
+    aliases: [腰头检验]
+    description: 展开或翻看腰头及其缝合区域。
+    status: approved
+    risk_level: general
+    observable_cues: [双手支撑腰头, 腰头被展开或翻看]
+    negative_cues: [只握住腰头提起裤子不算完整检查]
+    confusable_with: [check_pocket, check_zipper]
+    completion_rule: {name: visible_motion_over_interval, min_visible_seconds: 0.8, require_object_contact: true}
+    duration_prior_seconds: [1, 25]
+    positive_examples: []
+    negative_examples: []
+    prototype_refs: []
+  - id: check_pocket
+    name: 检查口袋
+    aliases: [检查袋布, 口袋检验]
+    description: 对袋口和袋布进行展开或探入式检查，区分普通抚平动作。
+    status: approved
+    risk_level: general
+    observable_cues: [袋口区域清晰可见, 手指进入袋口或袋布被展开, 多帧支持检查过程]
+    negative_cues: [仅抚平口袋外侧表面不足以确认, 仅手遮挡袋口不能推断已经检查]
+    confusable_with: [check_surface, check_waistband]
+    completion_rule: {name: visible_motion_over_interval, min_visible_seconds: 0.8, require_object_contact: true}
+    duration_prior_seconds: [1, 25]
+    positive_examples: []  # 注册真实视频sample_id后填写；不能用虚构ID代替。
+    negative_examples: []
+    prototype_refs: []
+  - id: check_surface
+    name: 检查表面
+    aliases: [表面检验]
+    description: 展开衣物表面，进行整体检查；不等于已证明没有微小缺陷。
+    status: approved
+    risk_level: general
+    observable_cues: [衣物表面展开, 操作覆盖预定检验区域]
+    negative_cues: [简单搬运衣物不证明检查完成]
+    confusable_with: [check_pocket, check_side_seam]
+    completion_rule: {name: visible_motion_over_interval, min_visible_seconds: 0.8, require_object_contact: true}
+    duration_prior_seconds: [1, 30]
+    positive_examples: []
+    negative_examples: []
+    prototype_refs: []
+  - id: check_zipper
+    name: 检查拉链
+    aliases: [拉链检验]
+    description: 新类草案，需要真实正反例和语义确认后注册。
+    status: draft
+    risk_level: general
+    observable_cues: [拉头发生可见移动, 拉链开合过程可见]
+    negative_cues: [仅触摸门襟不证明拉链已开合]
+    confusable_with: [check_waistband]
+    completion_rule: {name: manual_review_only, min_visible_seconds: 0.8, require_object_contact: true}
+    duration_prior_seconds: null
+    positive_examples: []
+    negative_examples: []
+    prototype_refs: []
+sop:
+  id: garment_inspection_demo
+  version: '3.0.0'
+  ordering: strict
+  nodes:
+    - {action_id: check_hem, required: true, min_count: 1, max_count: 2, role: inspector, group: main}
+    - {action_id: check_side_seam, required: true, min_count: 1, max_count: 2, role: inspector, group: main}
+    - {action_id: check_waistband, required: true, min_count: 1, max_count: 2, role: inspector, group: main}
+    - {action_id: check_pocket, required: true, min_count: 1, max_count: 2, role: inspector, group: main}
+    - {action_id: check_surface, required: true, min_count: 1, max_count: 2, role: inspector, group: main}
+  edges:
+    - {from_action: check_hem, to_action: check_side_seam}
+    - {from_action: check_side_seam, to_action: check_waistband}
+    - {from_action: check_waistband, to_action: check_pocket}
+    - {from_action: check_pocket, to_action: check_surface}
+  repeatable_edges: []
+curated_memory: []  # 填写操作列表时，与memory_patch.operations使用同一结构。

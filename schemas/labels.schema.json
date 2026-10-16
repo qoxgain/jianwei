@@ -1,0 +1,387 @@
+{
+  "$defs": {
+    "Action": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "aliases": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Aliases",
+          "type": "array"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "approved"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "risk_level": {
+          "enum": [
+            "general",
+            "critical"
+          ],
+          "title": "Risk Level",
+          "type": "string"
+        },
+        "observable_cues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Observable Cues",
+          "type": "array"
+        },
+        "negative_cues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Negative Cues",
+          "type": "array"
+        },
+        "confusable_with": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Confusable With",
+          "type": "array"
+        },
+        "completion_rule": {
+          "$ref": "#/$defs/CompletionRule"
+        },
+        "duration_prior_seconds": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Duration Prior Seconds"
+        },
+        "positive_examples": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Positive Examples",
+          "type": "array"
+        },
+        "negative_examples": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Negative Examples",
+          "type": "array"
+        },
+        "prototype_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Prototype Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "aliases",
+        "description",
+        "status",
+        "risk_level",
+        "observable_cues",
+        "negative_cues",
+        "confusable_with",
+        "completion_rule",
+        "duration_prior_seconds",
+        "positive_examples",
+        "negative_examples",
+        "prototype_refs"
+      ],
+      "title": "Action",
+      "type": "object"
+    },
+    "CompletionRule": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "enum": [
+            "visible_motion_over_interval",
+            "manual_review_only"
+          ],
+          "title": "Name",
+          "type": "string"
+        },
+        "min_visible_seconds": {
+          "minimum": 0,
+          "title": "Min Visible Seconds",
+          "type": "number"
+        },
+        "require_object_contact": {
+          "title": "Require Object Contact",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "min_visible_seconds",
+        "require_object_contact"
+      ],
+      "title": "CompletionRule",
+      "type": "object"
+    },
+    "Edge": {
+      "additionalProperties": false,
+      "properties": {
+        "from_action": {
+          "title": "From Action",
+          "type": "string"
+        },
+        "to_action": {
+          "title": "To Action",
+          "type": "string"
+        }
+      },
+      "required": [
+        "from_action",
+        "to_action"
+      ],
+      "title": "Edge",
+      "type": "object"
+    },
+    "PatchOperation": {
+      "additionalProperties": false,
+      "properties": {
+        "op": {
+          "enum": [
+            "reject_sample",
+            "relabel_sample",
+            "map_cluster",
+            "add_negative_pair"
+          ],
+          "title": "Op",
+          "type": "string"
+        },
+        "target_id": {
+          "title": "Target Id",
+          "type": "string"
+        },
+        "action_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Action Id"
+        },
+        "related_action_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Related Action Id"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "op",
+        "target_id",
+        "action_id",
+        "related_action_id",
+        "reason"
+      ],
+      "title": "PatchOperation",
+      "type": "object"
+    },
+    "SOP": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        },
+        "ordering": {
+          "enum": [
+            "strict",
+            "partial",
+            "unordered"
+          ],
+          "title": "Ordering",
+          "type": "string"
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/SOPNode"
+          },
+          "title": "Nodes",
+          "type": "array"
+        },
+        "edges": {
+          "items": {
+            "$ref": "#/$defs/Edge"
+          },
+          "title": "Edges",
+          "type": "array"
+        },
+        "repeatable_edges": {
+          "items": {
+            "$ref": "#/$defs/Edge"
+          },
+          "title": "Repeatable Edges",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "ordering",
+        "nodes",
+        "edges",
+        "repeatable_edges"
+      ],
+      "title": "SOP",
+      "type": "object"
+    },
+    "SOPNode": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "title": "Action Id",
+          "type": "string"
+        },
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "min_count": {
+          "minimum": 0,
+          "title": "Min Count",
+          "type": "integer"
+        },
+        "max_count": {
+          "minimum": 1,
+          "title": "Max Count",
+          "type": "integer"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string"
+        },
+        "group": {
+          "title": "Group",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action_id",
+        "required",
+        "min_count",
+        "max_count",
+        "role",
+        "group"
+      ],
+      "title": "SOPNode",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "3.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "knowledge_version": {
+      "minLength": 1,
+      "title": "Knowledge Version",
+      "type": "string"
+    },
+    "scene_id": {
+      "title": "Scene Id",
+      "type": "string"
+    },
+    "approval_status": {
+      "enum": [
+        "draft",
+        "approved"
+      ],
+      "title": "Approval Status",
+      "type": "string"
+    },
+    "approved_by": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Approved By"
+    },
+    "actions": {
+      "items": {
+        "$ref": "#/$defs/Action"
+      },
+      "minItems": 1,
+      "title": "Actions",
+      "type": "array"
+    },
+    "sop": {
+      "$ref": "#/$defs/SOP"
+    },
+    "curated_memory": {
+      "items": {
+        "$ref": "#/$defs/PatchOperation"
+      },
+      "title": "Curated Memory",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "knowledge_version",
+    "scene_id",
+    "approval_status",
+    "approved_by",
+    "actions",
+    "sop",
+    "curated_memory"
+  ],
+  "title": "Knowledge",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

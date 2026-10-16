@@ -1,0 +1,91 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "3.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "prediction_id": {
+      "title": "Prediction Id",
+      "type": "string"
+    },
+    "episode_id": {
+      "title": "Episode Id",
+      "type": "string"
+    },
+    "issued_at_pts_ms": {
+      "minimum": 0,
+      "title": "Issued At Pts Ms",
+      "type": "integer"
+    },
+    "input_max_pts_ms": {
+      "minimum": 0,
+      "title": "Input Max Pts Ms",
+      "type": "integer"
+    },
+    "target_start_pts_ms": {
+      "minimum": 0,
+      "title": "Target Start Pts Ms",
+      "type": "integer"
+    },
+    "target_end_pts_ms": {
+      "minimum": 0,
+      "title": "Target End Pts Ms",
+      "type": "integer"
+    },
+    "distribution": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Distribution",
+      "type": "object"
+    },
+    "prediction_kind": {
+      "enum": [
+        "next_event",
+        "future_state"
+      ],
+      "title": "Prediction Kind",
+      "type": "string"
+    },
+    "model_version": {
+      "title": "Model Version",
+      "type": "string"
+    },
+    "memory_version": {
+      "title": "Memory Version",
+      "type": "string"
+    },
+    "knowledge_version": {
+      "title": "Knowledge Version",
+      "type": "string"
+    },
+    "data_origin": {
+      "enum": [
+        "model",
+        "synthetic_features"
+      ],
+      "title": "Data Origin",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "prediction_id",
+    "episode_id",
+    "issued_at_pts_ms",
+    "input_max_pts_ms",
+    "target_start_pts_ms",
+    "target_end_pts_ms",
+    "distribution",
+    "prediction_kind",
+    "model_version",
+    "memory_version",
+    "knowledge_version",
+    "data_origin"
+  ],
+  "title": "Forecast",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

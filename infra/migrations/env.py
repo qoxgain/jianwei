@@ -1,0 +1,15 @@
+"""Alembic execution entry point, supplied a connection by Database.migrate."""
+
+from alembic import context
+
+
+def run_migrations() -> None:
+    connection = context.config.attributes.get("connection")
+    if connection is None:
+        raise RuntimeError("Run migrations through infra.database.Database.migrate()")
+    context.configure(connection=connection, target_metadata=None)
+    with context.begin_transaction():
+        context.run_migrations()
+
+
+run_migrations()

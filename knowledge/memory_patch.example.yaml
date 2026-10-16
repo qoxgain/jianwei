@@ -1,0 +1,17 @@
+# 操作格式示例，空操作不会改变数据；由未来导入服务验证数据库目标和版本。
+schema_version: '3.0'
+base_memory_version: replace_with_exported_version
+base_knowledge_version: garment-demo-3.0.0
+actor: replace_with_authenticated_actor
+reason: 人工修正样本和动作映射
+operations: []
+# - op: relabel_sample
+#   target_id: 已登记的sample_id
+#   action_id: check_pocket
+#   related_action_id: null
+#   reason: 经回看确认手进入袋口
+# - op: add_negative_pair
+#   target_id: 已登记的sample_id
+#   action_id: check_pocket
+#   related_action_id: check_surface
+#   reason: 普通抚平动作不能当作检查口袋

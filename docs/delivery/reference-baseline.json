@@ -1,0 +1,67 @@
+{
+  "scope": "synthetic_features_only",
+  "real_video_evaluation": false,
+  "production_deployment": false,
+  "train_episodes": 80,
+  "test_episodes": 40,
+  "future_feature_prediction": {
+    "baseline": "persistence",
+    "candidate": "ridge_head",
+    "train_pairs": 309,
+    "test_pairs": 158,
+    "baseline_mse": 0.26112904750302535,
+    "candidate_mse": 0.012135097761072449
+  },
+  "next_event_prediction": {
+    "baseline": "uniform",
+    "baseline_nll": 1.6094379124341003,
+    "candidate_nll": 0.10924835602198765,
+    "candidate_top1": 0.9873417721518988
+  },
+  "candidate_memory": {
+    "prototypes": 5,
+    "transitions": [
+      {
+        "from": "check_hem",
+        "to": "check_side_seam",
+        "count": 80
+      },
+      {
+        "from": "check_pocket",
+        "to": "check_surface",
+        "count": 80
+      },
+      {
+        "from": "check_side_seam",
+        "to": "check_pocket",
+        "count": 11
+      },
+      {
+        "from": "check_side_seam",
+        "to": "check_waistband",
+        "count": 69
+      },
+      {
+        "from": "check_waistband",
+        "to": "check_pocket",
+        "count": 69
+      }
+    ],
+    "activation": "not_performed"
+  },
+  "knowledge_sha256": "036ac0c69221f5181a001a497c86256e9d4397cde418717d085ac4529a50a07c",
+  "limitations": [
+    "No video decoding or encoder is implemented here.",
+    "Synthetic event semantics are provided by the independent generator.",
+    "The ridge head uses only training feature pairs; holdout data never updates memory.",
+    "This experiment cannot validate industrial accuracy or annotation savings."
+  ],
+  "provenance": "Unmodified handoff reference toolkit; synthetic feature generator only",
+  "unit_tests": {
+    "passed": 29,
+    "failed": 0,
+    "command": ".venv/bin/python -m unittest discover -s reference/tests -v"
+  },
+  "dataset_manifest_sha256": "4c9d4443bb9dee1bb04d1b045e98f1054bdc9bd459860a2cd0d0e4da725c6db5",
+  "candidate_weights_sha256": "b807eff39991744dc190c9d41a6a64b5634c676e8fe0bd4e8224cd194e582d0a"
+}

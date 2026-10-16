@@ -1,0 +1,101 @@
+{
+  "$defs": {
+    "PatchOperation": {
+      "additionalProperties": false,
+      "properties": {
+        "op": {
+          "enum": [
+            "reject_sample",
+            "relabel_sample",
+            "map_cluster",
+            "add_negative_pair"
+          ],
+          "title": "Op",
+          "type": "string"
+        },
+        "target_id": {
+          "title": "Target Id",
+          "type": "string"
+        },
+        "action_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Action Id"
+        },
+        "related_action_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Related Action Id"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "op",
+        "target_id",
+        "action_id",
+        "related_action_id",
+        "reason"
+      ],
+      "title": "PatchOperation",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "3.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "base_memory_version": {
+      "title": "Base Memory Version",
+      "type": "string"
+    },
+    "base_knowledge_version": {
+      "title": "Base Knowledge Version",
+      "type": "string"
+    },
+    "actor": {
+      "title": "Actor",
+      "type": "string"
+    },
+    "reason": {
+      "title": "Reason",
+      "type": "string"
+    },
+    "operations": {
+      "items": {
+        "$ref": "#/$defs/PatchOperation"
+      },
+      "title": "Operations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "base_memory_version",
+    "base_knowledge_version",
+    "actor",
+    "reason",
+    "operations"
+  ],
+  "title": "MemoryPatch",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

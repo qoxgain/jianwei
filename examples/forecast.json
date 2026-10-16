@@ -1,0 +1,15 @@
+{
+  "schema_version": "3.0",
+  "prediction_id": "synthetic_forecast_001",
+  "episode_id": "synthetic_episode_001",
+  "issued_at_pts_ms": 2000,
+  "input_max_pts_ms": 1999,
+  "target_start_pts_ms": 2500,
+  "target_end_pts_ms": 4500,
+  "distribution": {"check_pocket": 0.6, "check_surface": 0.4},
+  "prediction_kind": "future_state",
+  "model_version": "synthetic_predictor_001",
+  "memory_version": "synthetic_memory_001",
+  "knowledge_version": "garment-demo-3.0.0",
+  "data_origin": "synthetic_features"
+}
