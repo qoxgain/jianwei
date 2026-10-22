@@ -22,8 +22,8 @@ def api_files(tmp_path):
     (tmp_path / "knowledge").mkdir()
     config = tmp_path / "config/system.yaml"
     labels = tmp_path / "knowledge/labels.yaml"
-    config.write_text((ROOT / "config/system.yaml").read_text())
-    labels.write_text((ROOT / "knowledge/labels.yaml").read_text())
+    config.write_text((ROOT / "tests/fixtures/v30/config/system.yaml").read_text())
+    labels.write_text((ROOT / "tests/fixtures/v30/knowledge/labels.yaml").read_text())
     return config, labels
 
 

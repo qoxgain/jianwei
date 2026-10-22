@@ -1,535 +1,379 @@
 openapi: 3.1.0
 info:
-  title: 见微 V3 P0 核心学习API契约
-  version: 3.0.0
-  description: This is a specification, not an implemented server.
-servers:
-- url: /api/v1
+  title: 见微 P0.1.1 通用场景知识服务
+  version: 0.1.1
 paths:
-  /learning/ingestions:
-    post:
-      operationId: post_learning_ingestions
-      parameters:
-      - name: Idempotency-Key
-        in: header
-        required: true
-        schema: &id001
-          type: string
-          minLength: 1
-      security:
-      - bearerAuth: []
+  /api/health:
+    get:
+      summary: Health
+      operationId: health_api_health_get
       responses:
-        '202':
-          description: Asynchronous job or query result; implementation required
-          content:
-            application/json:
-              schema: &id002
-                type: object
-                additionalProperties: false
-                properties:
-                  job_id: *id001
-                  status:
-                    type: string
-                    enum:
-                    - PENDING
-                    - RUNNING
-                    - DONE
-                    - FAILED
-                    - SKIPPED
-                  status_url: *id001
-                required:
-                - job_id
-                - status
-                - status_url
-        default:
-          description: Structured error
-          content:
-            application/json:
-              schema: &id003
-                type: object
-                additionalProperties: false
-                properties:
-                  code: *id001
-                  message: *id001
-                  trace_id: *id001
-                required:
-                - code
-                - message
-                - trace_id
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: false
-              properties:
-                asset_ids: &id004
-                  type: array
-                  items: *id001
-                  minItems: 1
-                scene_id: *id001
-                split:
-                  type: string
-                  enum:
-                  - train
-                  - calibration
-                  - dev
-                  - test
-                manifest_id: *id001
-              required:
-              - asset_ids
-              - scene_id
-              - split
-              - manifest_id
-  /learning/jobs:
-    post:
-      operationId: post_learning_jobs
-      parameters:
-      - name: Idempotency-Key
-        in: header
-        required: true
-        schema: *id001
-      security:
-      - bearerAuth: []
-      responses:
-        '202':
-          description: Asynchronous job or query result; implementation required
-          content:
-            application/json:
-              schema: *id002
-        default:
-          description: Structured error
-          content:
-            application/json:
-              schema: *id003
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: false
-              properties:
-                dataset_version: *id001
-                task:
-                  type: string
-                  enum:
-                  - extract
-                  - segment
-                  - temporal_head
-                  - tsm
-                  - yolo_detector
-                  - evaluate
-                config_hash: *id001
-              required:
-              - dataset_version
-              - task
-              - config_hash
-  /knowledge/validate:
-    post:
-      operationId: post_knowledge_validate
-      parameters:
-      - name: Idempotency-Key
-        in: header
-        required: true
-        schema: *id001
-      security:
-      - bearerAuth: []
-      responses:
-        default:
-          description: Structured error
-          content:
-            application/json:
-              schema: *id003
         '200':
-          description: Validation only; no production writes
+          description: Successful Response
           content:
             application/json:
-              schema:
-                type: object
-                additionalProperties: false
-                properties:
-                  valid:
-                    type: boolean
-                  errors:
-                    type: array
-                    items: *id001
-                  validated_revision:
-                    type:
-                    - string
-                    - 'null'
-                  impact_summary:
-                    type: object
-                required:
-                - valid
-                - errors
-                - validated_revision
-                - impact_summary
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: false
-              properties:
-                base_version: *id001
-                knowledge:
-                  $ref: ../schemas/labels.schema.json
-              required:
-              - base_version
-              - knowledge
-  /knowledge/releases:
-    post:
-      operationId: post_knowledge_releases
-      parameters:
-      - name: Idempotency-Key
-        in: header
-        required: true
-        schema: *id001
-      security:
-      - bearerAuth: []
+              schema: {}
+  /api/scenes:
+    get:
+      summary: Scenes
+      operationId: scenes_api_scenes_get
       responses:
-        '202':
-          description: Asynchronous job or query result; implementation required
+        '200':
+          description: Successful Response
           content:
             application/json:
-              schema: *id002
-        default:
-          description: Structured error
-          content:
-            application/json:
-              schema: *id003
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: false
-              properties:
-                validated_revision: *id001
-                base_version: *id001
-              required:
-              - validated_revision
-              - base_version
-  /memory/patches:
-    post:
-      operationId: post_memory_patches
+              schema: {}
+  /api/scenes/{scene_id}:
+    get:
+      summary: Scene Bootstrap
+      operationId: scene_bootstrap_api_scenes__scene_id__get
       parameters:
-      - name: Idempotency-Key
-        in: header
-        required: true
-        schema: *id001
-      security:
-      - bearerAuth: []
-      responses:
-        '202':
-          description: Asynchronous job or query result; implementation required
-          content:
-            application/json:
-              schema: *id002
-        default:
-          description: Structured error
-          content:
-            application/json:
-              schema: *id003
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: ../schemas/memory_patch.schema.json
-  /observations/{id}/feedback:
-    post:
-      operationId: post_observations_id_feedback
-      parameters:
-      - name: id
+      - name: scene_id
         in: path
         required: true
-        schema: *id001
-      - name: Idempotency-Key
-        in: header
-        required: true
-        schema: *id001
-      security:
-      - bearerAuth: []
+        schema:
+          type: string
+          title: Scene Id
       responses:
-        '202':
-          description: Asynchronous job or query result; implementation required
+        '200':
+          description: Successful Response
           content:
             application/json:
-              schema: *id002
-        default:
-          description: Structured error
+              schema: {}
+        '422':
+          description: Validation Error
           content:
             application/json:
-              schema: *id003
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: false
-              properties:
-                decision:
-                  type: string
-                  enum:
-                  - confirm
-                  - reject
-                  - relabel
-                  - unknown
-                correct_action_id:
-                  type:
-                  - string
-                  - 'null'
-                evidence_ids: *id004
-                reason: *id001
-              required:
-              - decision
-              - correct_action_id
-              - evidence_ids
-              - reason
-  /evaluations/compare:
-    post:
-      operationId: post_evaluations_compare
-      parameters:
-      - name: Idempotency-Key
-        in: header
-        required: true
-        schema: *id001
-      security:
-      - bearerAuth: []
-      responses:
-        '202':
-          description: Asynchronous job or query result; implementation required
-          content:
-            application/json:
-              schema: *id002
-        default:
-          description: Structured error
-          content:
-            application/json:
-              schema: *id003
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: false
-              properties:
-                candidate_id: *id001
-                champion_id: *id001
-                dataset_hash: *id001
-                protocol_id: *id001
-              required:
-              - candidate_id
-              - champion_id
-              - dataset_hash
-              - protocol_id
-  /models/releases:
-    post:
-      operationId: post_models_releases
-      parameters:
-      - name: Idempotency-Key
-        in: header
-        required: true
-        schema: *id001
-      security:
-      - bearerAuth: []
-      responses:
-        '202':
-          description: Asynchronous job or query result; implementation required
-          content:
-            application/json:
-              schema: *id002
-        default:
-          description: Structured error
-          content:
-            application/json:
-              schema: *id003
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: false
-              properties:
-                candidate_id: *id001
-                evaluation_id: *id001
-                policy_version: *id001
-                expected_current_release: *id001
-              required:
-              - candidate_id
-              - evaluation_id
-              - policy_version
-              - expected_current_release
-  /models/rollback:
-    post:
-      operationId: post_models_rollback
-      parameters:
-      - name: Idempotency-Key
-        in: header
-        required: true
-        schema: *id001
-      security:
-      - bearerAuth: []
-      responses:
-        '202':
-          description: Asynchronous job or query result; implementation required
-          content:
-            application/json:
-              schema: *id002
-        default:
-          description: Structured error
-          content:
-            application/json:
-              schema: *id003
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              additionalProperties: false
-              properties:
-                release_id: *id001
-                target_release_id: *id001
-                reason: *id001
-              required:
-              - release_id
-              - target_release_id
-              - reason
-  /jobs/{job_id}:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/bootstrap:
     get:
-      operationId: get_jobs_job_id
+      summary: Bootstrap
+      description: Compatibility alias, always resolves to the configured default
+        scene.
+      operationId: bootstrap_api_bootstrap_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      deprecated: true
+  /api/config/validate:
+    post:
+      summary: Validate Configuration
+      operationId: validate_configuration_api_config_validate_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/knowledge/preview:
+    post:
+      summary: Scene Preview
+      operationId: scene_preview_api_scenes__scene_id__knowledge_preview_post
       parameters:
-      - name: job_id
+      - name: scene_id
         in: path
         required: true
-        schema: *id001
-      - name: cursor
-        in: query
         schema:
           type: string
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          minimum: 1
-          maximum: 200
-          default: 50
-      security:
-      - bearerAuth: []
+          title: Scene Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewRequest'
       responses:
         '200':
-          description: Asynchronous job or query result; implementation required
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
           content:
             application/json:
               schema:
-                type: object
-        default:
-          description: Structured error
-          content:
-            application/json:
-              schema: *id003
-  /memory/snapshots/{version}:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/knowledge/versions:
     get:
-      operationId: get_memory_snapshots_version
+      summary: Scene Versions
+      operationId: scene_versions_api_scenes__scene_id__knowledge_versions_get
       parameters:
-      - name: version
+      - name: scene_id
         in: path
         required: true
-        schema: *id001
-      - name: cursor
-        in: query
         schema:
           type: string
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          minimum: 1
-          maximum: 200
-          default: 50
-      security:
-      - bearerAuth: []
+          title: Scene Id
       responses:
         '200':
-          description: Asynchronous job or query result; implementation required
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
           content:
             application/json:
               schema:
-                type: object
-        default:
-          description: Structured error
-          content:
-            application/json:
-              schema: *id003
-  /predictions:
-    get:
-      operationId: get_predictions
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      summary: Scene Save
+      operationId: scene_save_api_scenes__scene_id__knowledge_versions_post
       parameters:
-      - name: cursor
-        in: query
+      - name: scene_id
+        in: path
+        required: true
         schema:
           type: string
-      - name: limit
-        in: query
-        schema:
-          type: integer
-          minimum: 1
-          maximum: 200
-          default: 50
-      security:
-      - bearerAuth: []
+          title: Scene Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VersionRequest'
       responses:
         '200':
-          description: Asynchronous job or query result; implementation required
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
           content:
             application/json:
               schema:
-                type: object
-        default:
-          description: Structured error
-          content:
-            application/json:
-              schema: *id003
-  /learning/clusters:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/knowledge/versions/{version_id}:
     get:
-      operationId: get_learning_clusters
+      summary: Scene Version Details
+      operationId: scene_version_details_api_scenes__scene_id__knowledge_versions__version_id__get
       parameters:
-      - name: cursor
-        in: query
+      - name: scene_id
+        in: path
+        required: true
         schema:
           type: string
-      - name: limit
-        in: query
+          title: Scene Id
+      - name: version_id
+        in: path
+        required: true
         schema:
-          type: integer
-          minimum: 1
-          maximum: 200
-          default: 50
-      security:
-      - bearerAuth: []
+          type: string
+          title: Version Id
       responses:
         '200':
-          description: Asynchronous job or query result; implementation required
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
           content:
             application/json:
               schema:
-                type: object
-        default:
-          description: Structured error
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/audit:
+    get:
+      summary: Scene Audit
+      operationId: scene_audit_api_scenes__scene_id__audit_get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      responses:
+        '200':
+          description: Successful Response
           content:
             application/json:
-              schema: *id003
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/knowledge/preview:
+    post:
+      summary: Preview Knowledge
+      operationId: preview_knowledge_api_knowledge_preview_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      deprecated: true
+  /api/knowledge/versions:
+    get:
+      summary: List Versions
+      operationId: list_versions_api_knowledge_versions_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      deprecated: true
+    post:
+      summary: Save Version
+      operationId: save_version_api_knowledge_versions_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VersionRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      deprecated: true
+  /api/knowledge/versions/{version_id}:
+    get:
+      summary: Version Details
+      operationId: version_details_api_knowledge_versions__version_id__get
+      deprecated: true
+      parameters:
+      - name: version_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Version Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/audit:
+    get:
+      summary: Audit History
+      operationId: audit_history_api_audit_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      deprecated: true
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PreviewRequest:
+      properties:
+        yaml:
+          type: string
+          maxLength: 262144
+          minLength: 1
+          title: Yaml
+      additionalProperties: false
+      type: object
+      required:
+      - yaml
+      title: PreviewRequest
+    ProfileRequest:
+      properties:
+        profile:
+          type: string
+          maxLength: 64
+          minLength: 1
+          title: Profile
+      additionalProperties: false
+      type: object
+      required:
+      - profile
+      title: ProfileRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    VersionRequest:
+      properties:
+        yaml:
+          type: string
+          maxLength: 262144
+          minLength: 1
+          title: Yaml
+        base_hash:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Base Hash
+      additionalProperties: false
+      type: object
+      required:
+      - yaml
+      - base_hash
+      title: VersionRequest

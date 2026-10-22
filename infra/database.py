@@ -7,7 +7,7 @@ from threading import Lock
 
 from alembic import command
 from alembic.config import Config
-from sqlalchemy import create_engine, event
+from sqlalchemy import create_engine, event, inspect, text
 from sqlalchemy.engine import make_url
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
@@ -42,13 +42,27 @@ class Database:
         finally:
             cursor.close()
 
-    def migrate(self) -> None:
+    def migrate(self, tenant_id: str | None = None, scene_id: str | None = None) -> None:
         """Apply committed schema revisions, preserving an in-memory connection."""
         configuration = Config()
         configuration.set_main_option("script_location", str(Path(__file__).parent / "migrations"))
-        with _MIGRATION_LOCK, self.engine.begin() as connection:
-            configuration.attributes["connection"] = connection
-            command.upgrade(configuration, "head")
+        with _MIGRATION_LOCK:
+            # A physical SQLite backup is made before touching the legacy revision.
+            with self.engine.connect() as connection:
+                tables = inspect(connection).get_table_names()
+                revision = connection.execute(text('SELECT version_num FROM alembic_version')).scalar() if 'alembic_version' in tables else None
+            db_path = self.engine.url.database
+            if revision == '0001_foundation' and db_path and db_path != ':memory:':
+                import sqlite3
+                backup_path = Path(db_path + '.pre-p011.sqlite')
+                if not backup_path.exists():
+                    with sqlite3.connect(db_path) as source, sqlite3.connect(backup_path) as target:
+                        source.backup(target)
+            with self.engine.begin() as connection:
+                configuration.attributes.update(connection=connection, tenant_id=tenant_id, scene_id=scene_id)
+                command.upgrade(configuration, "head")
+                from infra.legacy_data import record_legacy_mappings
+                record_legacy_mappings(connection)
 
     @contextmanager
     def session(self) -> Iterator[Session]:

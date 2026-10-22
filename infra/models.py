@@ -3,7 +3,7 @@
 from datetime import datetime, timezone
 from uuid import uuid4
 
-from sqlalchemy import CheckConstraint, DateTime, Index, String, Text
+from sqlalchemy import CheckConstraint, DateTime, Index, String, Text, UniqueConstraint
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.types import TypeDecorator
 
@@ -43,9 +43,12 @@ class Base(DeclarativeBase):
 
 class ConfigVersion(Base):
     __tablename__ = "config_versions"
+    __table_args__ = (UniqueConstraint('tenant_id', 'scene_id', 'config_hash', name='uq_config_scope_hash'),)
 
+    tenant_id: Mapped[str] = mapped_column(String(128), nullable=False, default='__legacy_unassigned__')
+    scene_id: Mapped[str] = mapped_column(String(128), nullable=False, default='__legacy_unassigned__')
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
-    config_hash: Mapped[str] = mapped_column(String(64), unique=True, nullable=False)
+    config_hash: Mapped[str] = mapped_column(String(64), nullable=False)
     profile: Mapped[str] = mapped_column(String(64), nullable=False)
     snapshot_json: Mapped[str] = mapped_column(Text, nullable=False)
     created_at: Mapped[datetime] = mapped_column(UTCDateTime(), default=utc_now, nullable=False)
@@ -54,12 +57,15 @@ class ConfigVersion(Base):
 class KnowledgeVersion(Base):
     __tablename__ = "knowledge_versions"
     __table_args__ = (
+        UniqueConstraint('tenant_id', 'scene_id', 'content_hash', name='uq_knowledge_scope_hash'),
         CheckConstraint("status IN ('baseline', 'candidate')", name="ck_knowledge_versions_status"),
         Index("ix_knowledge_versions_created_at", "created_at"),
     )
 
+    tenant_id: Mapped[str] = mapped_column(String(128), nullable=False, default='__legacy_unassigned__')
+    scene_id: Mapped[str] = mapped_column(String(128), nullable=False, default='__legacy_unassigned__')
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
-    content_hash: Mapped[str] = mapped_column(String(64), unique=True, nullable=False)
+    content_hash: Mapped[str] = mapped_column(String(64), nullable=False)
     knowledge_version: Mapped[str] = mapped_column(String(128), nullable=False)
     base_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
     status: Mapped[str] = mapped_column(String(16), nullable=False)
@@ -73,8 +79,20 @@ class AuditEvent(Base):
     __tablename__ = "audit_events"
     __table_args__ = (Index("ix_audit_events_entity_created", "entity_id", "created_at"),)
 
+    tenant_id: Mapped[str] = mapped_column(String(128), nullable=False, default='__legacy_unassigned__')
+    scene_id: Mapped[str] = mapped_column(String(128), nullable=False, default='__legacy_unassigned__')
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
     event_type: Mapped[str] = mapped_column(String(128), nullable=False)
     entity_id: Mapped[str] = mapped_column(String(128), nullable=False)
     payload_json: Mapped[str] = mapped_column(Text, nullable=False)
     created_at: Mapped[datetime] = mapped_column(UTCDateTime(), default=utc_now, nullable=False)
+
+
+class LegacyKnowledgeMapping(Base):
+    __tablename__ = 'legacy_knowledge_mappings'
+    version_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    old_hash: Mapped[str] = mapped_column(String(64), nullable=False)
+    normalized_hash: Mapped[str] = mapped_column(String(64), nullable=False)
+    normalized_json: Mapped[str] = mapped_column(Text, nullable=False)
+    normalized_yaml: Mapped[str] = mapped_column(Text, nullable=False)
+    node_map_json: Mapped[str] = mapped_column(Text, nullable=False)
