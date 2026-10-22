@@ -8,11 +8,25 @@ import json
 from pathlib import Path
 
 from packages.contracts.models import Forecast, Knowledge, MemoryPatch, SystemConfig, TeacherResult
+from packages.contracts.scenes import SceneKnowledge
+from packages.contracts.configuration import SceneConfig
+from packages.contracts.learning import Episode, FeatureSpace, FeatureBatch, ActivityObservation, Prediction, NormativeExpectation, MemorySnapshot, StateSnapshot, EventOccurrence
 
 
 ROOT = Path(__file__).resolve().parents[1]
 MODELS = {
     "system": SystemConfig,
+    "scene_config": SceneConfig,
+    "scene_knowledge": SceneKnowledge,
+    "episode": Episode,
+    "feature_space": FeatureSpace,
+    "feature_batch": FeatureBatch,
+    "observation": ActivityObservation,
+    "prediction": Prediction,
+    "normative_expectation": NormativeExpectation,
+    "memory_snapshot": MemorySnapshot,
+    "state_snapshot": StateSnapshot,
+    "event_occurrence": EventOccurrence,
     "labels": Knowledge,
     "memory_patch": MemoryPatch,
     "teacher_result": TeacherResult,

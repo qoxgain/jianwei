@@ -1,0 +1,199 @@
+{
+  "$defs": {
+    "FeatureSpace": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "3.1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "encoder_sha": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Encoder Sha",
+          "type": "string"
+        },
+        "preprocessing_sha": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Preprocessing Sha",
+          "type": "string"
+        },
+        "sampling_sha": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sampling Sha",
+          "type": "string"
+        },
+        "roi_policy_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Roi Policy Hash",
+          "type": "string"
+        },
+        "pooling": {
+          "minLength": 1,
+          "title": "Pooling",
+          "type": "string"
+        },
+        "dimension": {
+          "minimum": 1,
+          "title": "Dimension",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "contract_version",
+        "encoder_sha",
+        "preprocessing_sha",
+        "sampling_sha",
+        "roi_policy_hash",
+        "pooling",
+        "dimension"
+      ],
+      "title": "FeatureSpace",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "tenant_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "scene_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Scene Id",
+      "type": "string"
+    },
+    "contract_version": {
+      "const": "3.1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "episode_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Episode Id",
+      "type": "string"
+    },
+    "source_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Source Id",
+      "type": "string"
+    },
+    "source_video_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Source Video Id",
+      "type": "string"
+    },
+    "source_hash": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Source Hash",
+      "type": "string"
+    },
+    "entity_id": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Entity Id"
+    },
+    "pts_start_ms": {
+      "minimum": 0,
+      "title": "Pts Start Ms",
+      "type": "integer"
+    },
+    "pts_end_ms": {
+      "exclusiveMinimum": 0,
+      "title": "Pts End Ms",
+      "type": "integer"
+    },
+    "context": {
+      "patternProperties": {
+        "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "title": "Context",
+      "type": "object"
+    },
+    "feature_space": {
+      "$ref": "#/$defs/FeatureSpace"
+    },
+    "feature_space_id": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Feature Space Id",
+      "type": "string"
+    },
+    "quality": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Quality",
+      "type": "number"
+    },
+    "vector_uri": {
+      "minLength": 1,
+      "title": "Vector Uri",
+      "type": "string"
+    },
+    "data_origin": {
+      "enum": [
+        "real_video",
+        "synthetic_features"
+      ],
+      "title": "Data Origin",
+      "type": "string"
+    },
+    "split": {
+      "enum": [
+        "unassigned",
+        "train",
+        "calibration",
+        "test"
+      ],
+      "title": "Split",
+      "type": "string"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "scene_id",
+    "contract_version",
+    "episode_id",
+    "source_id",
+    "source_video_id",
+    "source_hash",
+    "entity_id",
+    "pts_start_ms",
+    "pts_end_ms",
+    "context",
+    "feature_space",
+    "feature_space_id",
+    "quality",
+    "vector_uri",
+    "data_origin",
+    "split"
+  ],
+  "title": "FeatureBatch",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

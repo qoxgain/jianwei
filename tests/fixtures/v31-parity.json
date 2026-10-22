@@ -1,0 +1,2538 @@
+{
+  "baselines": {
+    "garment_sop": {
+      "schema_version": "3.1",
+      "knowledge_version": "garment-demo-3.1.0",
+      "scene_id": "garment_sop",
+      "task_modes": [
+        "activity_recognition",
+        "procedure_compliance"
+      ],
+      "approval_status": "draft",
+      "approved_by": null,
+      "actions": [
+        {
+          "id": "check_hem",
+          "name": "检查裤脚",
+          "aliases": [
+            "检查脚口",
+            "裤脚检验"
+          ],
+          "description": "对裤脚缝边及收口进行可见的展开与检查。",
+          "status": "approved",
+          "risk_level": "general",
+          "observable_cues": [
+            "手部接触裤脚",
+            "裤脚区域被展开并检查"
+          ],
+          "negative_cues": [
+            "仅拿起衣物不证明已经检查裤脚"
+          ],
+          "confusable_with": [
+            "check_side_seam",
+            "check_surface"
+          ],
+          "completion_rule": {
+            "name": "visible_motion_over_interval",
+            "min_visible_seconds": 0.8,
+            "require_object_contact": true
+          },
+          "duration_prior_seconds": [
+            1.0,
+            20.0
+          ],
+          "positive_examples": [],
+          "negative_examples": [],
+          "prototype_refs": []
+        },
+        {
+          "id": "check_side_seam",
+          "name": "检查侧缝",
+          "aliases": [
+            "侧缝检查"
+          ],
+          "description": "沿衣物侧缝展开或翻看缝线区域。",
+          "status": "approved",
+          "risk_level": "general",
+          "observable_cues": [
+            "手沿侧缝移动",
+            "侧缝区域连续可见"
+          ],
+          "negative_cues": [
+            "只从侧边搬动衣物不算检查"
+          ],
+          "confusable_with": [
+            "check_hem",
+            "check_surface"
+          ],
+          "completion_rule": {
+            "name": "visible_motion_over_interval",
+            "min_visible_seconds": 0.8,
+            "require_object_contact": true
+          },
+          "duration_prior_seconds": [
+            1.0,
+            30.0
+          ],
+          "positive_examples": [],
+          "negative_examples": [],
+          "prototype_refs": []
+        },
+        {
+          "id": "check_waistband",
+          "name": "检查腰头",
+          "aliases": [
+            "腰头检验"
+          ],
+          "description": "展开或翻看腰头及其缝合区域。",
+          "status": "approved",
+          "risk_level": "general",
+          "observable_cues": [
+            "双手支撑腰头",
+            "腰头被展开或翻看"
+          ],
+          "negative_cues": [
+            "只握住腰头提起裤子不算完整检查"
+          ],
+          "confusable_with": [
+            "check_pocket",
+            "check_zipper"
+          ],
+          "completion_rule": {
+            "name": "visible_motion_over_interval",
+            "min_visible_seconds": 0.8,
+            "require_object_contact": true
+          },
+          "duration_prior_seconds": [
+            1.0,
+            25.0
+          ],
+          "positive_examples": [],
+          "negative_examples": [],
+          "prototype_refs": []
+        },
+        {
+          "id": "check_pocket",
+          "name": "检查口袋",
+          "aliases": [
+            "检查袋布",
+            "口袋检验"
+          ],
+          "description": "对袋口和袋布进行展开或探入式检查，区分普通抚平动作。",
+          "status": "approved",
+          "risk_level": "general",
+          "observable_cues": [
+            "袋口区域清晰可见",
+            "手指进入袋口或袋布被展开",
+            "多帧支持检查过程"
+          ],
+          "negative_cues": [
+            "仅抚平口袋外侧表面不足以确认",
+            "仅手遮挡袋口不能推断已经检查"
+          ],
+          "confusable_with": [
+            "check_surface",
+            "check_waistband"
+          ],
+          "completion_rule": {
+            "name": "visible_motion_over_interval",
+            "min_visible_seconds": 0.8,
+            "require_object_contact": true
+          },
+          "duration_prior_seconds": [
+            1.0,
+            25.0
+          ],
+          "positive_examples": [],
+          "negative_examples": [],
+          "prototype_refs": []
+        },
+        {
+          "id": "check_surface",
+          "name": "检查表面",
+          "aliases": [
+            "表面检验"
+          ],
+          "description": "展开衣物表面，进行整体检查；不等于已证明没有微小缺陷。",
+          "status": "approved",
+          "risk_level": "general",
+          "observable_cues": [
+            "衣物表面展开",
+            "操作覆盖预定检验区域"
+          ],
+          "negative_cues": [
+            "简单搬运衣物不证明检查完成"
+          ],
+          "confusable_with": [
+            "check_pocket",
+            "check_side_seam"
+          ],
+          "completion_rule": {
+            "name": "visible_motion_over_interval",
+            "min_visible_seconds": 0.8,
+            "require_object_contact": true
+          },
+          "duration_prior_seconds": [
+            1.0,
+            30.0
+          ],
+          "positive_examples": [],
+          "negative_examples": [],
+          "prototype_refs": []
+        },
+        {
+          "id": "check_zipper",
+          "name": "检查拉链",
+          "aliases": [
+            "拉链检验"
+          ],
+          "description": "新类草案，需要真实正反例和语义确认后注册。",
+          "status": "draft",
+          "risk_level": "general",
+          "observable_cues": [
+            "拉头发生可见移动",
+            "拉链开合过程可见"
+          ],
+          "negative_cues": [
+            "仅触摸门襟不证明拉链已开合"
+          ],
+          "confusable_with": [
+            "check_waistband"
+          ],
+          "completion_rule": {
+            "name": "manual_review_only",
+            "min_visible_seconds": 0.8,
+            "require_object_contact": true
+          },
+          "duration_prior_seconds": null,
+          "positive_examples": [],
+          "negative_examples": [],
+          "prototype_refs": []
+        }
+      ],
+      "states": [],
+      "events": [],
+      "workflow": {
+        "id": "garment_inspection_demo",
+        "version": "3.0.0",
+        "ordering": "strict",
+        "nodes": [
+          {
+            "node_id": "node_001_c41afd1fdbda",
+            "action_id": "check_hem",
+            "state_id": null,
+            "required": true,
+            "min_count": 1,
+            "max_count": 2,
+            "role": "inspector",
+            "group": "main"
+          },
+          {
+            "node_id": "node_002_1470aae1d2d5",
+            "action_id": "check_side_seam",
+            "state_id": null,
+            "required": true,
+            "min_count": 1,
+            "max_count": 2,
+            "role": "inspector",
+            "group": "main"
+          },
+          {
+            "node_id": "node_003_4c9d0491d3c1",
+            "action_id": "check_waistband",
+            "state_id": null,
+            "required": true,
+            "min_count": 1,
+            "max_count": 2,
+            "role": "inspector",
+            "group": "main"
+          },
+          {
+            "node_id": "node_004_8edcff9f6202",
+            "action_id": "check_pocket",
+            "state_id": null,
+            "required": true,
+            "min_count": 1,
+            "max_count": 2,
+            "role": "inspector",
+            "group": "main"
+          },
+          {
+            "node_id": "node_005_36fa889b8c75",
+            "action_id": "check_surface",
+            "state_id": null,
+            "required": true,
+            "min_count": 1,
+            "max_count": 2,
+            "role": "inspector",
+            "group": "main"
+          }
+        ],
+        "edges": [
+          {
+            "from_node": "node_001_c41afd1fdbda",
+            "to_node": "node_002_1470aae1d2d5"
+          },
+          {
+            "from_node": "node_002_1470aae1d2d5",
+            "to_node": "node_003_4c9d0491d3c1"
+          },
+          {
+            "from_node": "node_003_4c9d0491d3c1",
+            "to_node": "node_004_8edcff9f6202"
+          },
+          {
+            "from_node": "node_004_8edcff9f6202",
+            "to_node": "node_005_36fa889b8c75"
+          }
+        ],
+        "repeatable_edges": []
+      },
+      "curated_memory": []
+    },
+    "anonymous_observation": {
+      "schema_version": "3.1",
+      "knowledge_version": "demo-3.1.0",
+      "approval_status": "draft",
+      "approved_by": null,
+      "states": [],
+      "events": [],
+      "workflow": null,
+      "curated_memory": [],
+      "scene_id": "anonymous_observation",
+      "task_modes": [
+        "activity_recognition"
+      ],
+      "actions": []
+    },
+    "workshop_safety": {
+      "schema_version": "3.1",
+      "knowledge_version": "demo-3.1.0",
+      "approval_status": "draft",
+      "approved_by": null,
+      "states": [
+        {
+          "id": "outside_zone",
+          "name": "区域外",
+          "description": "人员位于限制区域外",
+          "status": "draft",
+          "observable_cues": [
+            "人员在边界外"
+          ]
+        },
+        {
+          "id": "inside_zone",
+          "name": "区域内",
+          "description": "人员进入限制区域",
+          "status": "draft",
+          "observable_cues": [
+            "人员跨过边界"
+          ]
+        }
+      ],
+      "events": [
+        {
+          "id": "zone_entry",
+          "name": "区域进入",
+          "description": "进入限制区域的候选事件",
+          "status": "draft",
+          "risk_level": "critical",
+          "trigger": {
+            "type": "state_transition",
+            "from_state": "outside_zone",
+            "to_state": "inside_zone"
+          }
+        }
+      ],
+      "workflow": null,
+      "curated_memory": [],
+      "scene_id": "workshop_safety",
+      "task_modes": [
+        "event_monitoring"
+      ],
+      "actions": []
+    },
+    "electronics_assembly": {
+      "schema_version": "3.1",
+      "knowledge_version": "demo-3.1.0",
+      "approval_status": "draft",
+      "approved_by": null,
+      "states": [],
+      "events": [],
+      "workflow": {
+        "id": "assembly",
+        "version": "1.0",
+        "ordering": "strict",
+        "nodes": [
+          {
+            "node_id": "node_1",
+            "action_id": "pick_material",
+            "state_id": null,
+            "required": true,
+            "min_count": 1,
+            "max_count": 1,
+            "role": "operator",
+            "group": "main"
+          },
+          {
+            "node_id": "node_2",
+            "action_id": "assemble",
+            "state_id": null,
+            "required": true,
+            "min_count": 1,
+            "max_count": 1,
+            "role": "operator",
+            "group": "main"
+          },
+          {
+            "node_id": "node_3",
+            "action_id": "inspect",
+            "state_id": null,
+            "required": true,
+            "min_count": 1,
+            "max_count": 1,
+            "role": "operator",
+            "group": "main"
+          },
+          {
+            "node_id": "node_4",
+            "action_id": "assemble",
+            "state_id": null,
+            "required": true,
+            "min_count": 1,
+            "max_count": 1,
+            "role": "operator",
+            "group": "main"
+          },
+          {
+            "node_id": "node_5",
+            "action_id": "inspect",
+            "state_id": null,
+            "required": true,
+            "min_count": 1,
+            "max_count": 1,
+            "role": "operator",
+            "group": "main"
+          }
+        ],
+        "edges": [
+          {
+            "from_node": "node_1",
+            "to_node": "node_2"
+          },
+          {
+            "from_node": "node_2",
+            "to_node": "node_3"
+          },
+          {
+            "from_node": "node_3",
+            "to_node": "node_4"
+          },
+          {
+            "from_node": "node_4",
+            "to_node": "node_5"
+          }
+        ],
+        "repeatable_edges": []
+      },
+      "curated_memory": [],
+      "scene_id": "electronics_assembly",
+      "task_modes": [
+        "activity_recognition",
+        "procedure_compliance"
+      ],
+      "actions": [
+        {
+          "id": "pick_material",
+          "name": "取料",
+          "aliases": [],
+          "description": "取料的可见过程",
+          "status": "approved",
+          "risk_level": "general",
+          "observable_cues": [
+            "取料的连续画面证据"
+          ],
+          "negative_cues": [
+            "仅出现对象不代表动作完成"
+          ],
+          "confusable_with": [],
+          "completion_rule": {
+            "name": "visible_motion_over_interval",
+            "min_visible_seconds": 0.8,
+            "require_object_contact": true
+          },
+          "duration_prior_seconds": null,
+          "positive_examples": [],
+          "negative_examples": [],
+          "prototype_refs": []
+        },
+        {
+          "id": "assemble",
+          "name": "装配",
+          "aliases": [],
+          "description": "装配的可见过程",
+          "status": "approved",
+          "risk_level": "general",
+          "observable_cues": [
+            "装配的连续画面证据"
+          ],
+          "negative_cues": [
+            "仅出现对象不代表动作完成"
+          ],
+          "confusable_with": [],
+          "completion_rule": {
+            "name": "visible_motion_over_interval",
+            "min_visible_seconds": 0.8,
+            "require_object_contact": true
+          },
+          "duration_prior_seconds": null,
+          "positive_examples": [],
+          "negative_examples": [],
+          "prototype_refs": []
+        },
+        {
+          "id": "inspect",
+          "name": "检查",
+          "aliases": [],
+          "description": "检查的可见过程",
+          "status": "approved",
+          "risk_level": "general",
+          "observable_cues": [
+            "检查的连续画面证据"
+          ],
+          "negative_cues": [
+            "仅出现对象不代表动作完成"
+          ],
+          "confusable_with": [],
+          "completion_rule": {
+            "name": "visible_motion_over_interval",
+            "min_visible_seconds": 0.8,
+            "require_object_contact": true
+          },
+          "duration_prior_seconds": null,
+          "positive_examples": [],
+          "negative_examples": [],
+          "prototype_refs": []
+        }
+      ]
+    }
+  },
+  "cases": [
+    {
+      "name": "garment_sop",
+      "scene_id": "garment_sop",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "garment-demo-3.1.0",
+        "scene_id": "garment_sop",
+        "task_modes": [
+          "activity_recognition",
+          "procedure_compliance"
+        ],
+        "approval_status": "draft",
+        "approved_by": null,
+        "actions": [
+          {
+            "id": "check_hem",
+            "name": "检查裤脚",
+            "aliases": [
+              "检查脚口",
+              "裤脚检验"
+            ],
+            "description": "对裤脚缝边及收口进行可见的展开与检查。",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "手部接触裤脚",
+              "裤脚区域被展开并检查"
+            ],
+            "negative_cues": [
+              "仅拿起衣物不证明已经检查裤脚"
+            ],
+            "confusable_with": [
+              "check_side_seam",
+              "check_surface"
+            ],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": [
+              1.0,
+              20.0
+            ],
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "check_side_seam",
+            "name": "检查侧缝",
+            "aliases": [
+              "侧缝检查"
+            ],
+            "description": "沿衣物侧缝展开或翻看缝线区域。",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "手沿侧缝移动",
+              "侧缝区域连续可见"
+            ],
+            "negative_cues": [
+              "只从侧边搬动衣物不算检查"
+            ],
+            "confusable_with": [
+              "check_hem",
+              "check_surface"
+            ],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": [
+              1.0,
+              30.0
+            ],
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "check_waistband",
+            "name": "检查腰头",
+            "aliases": [
+              "腰头检验"
+            ],
+            "description": "展开或翻看腰头及其缝合区域。",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "双手支撑腰头",
+              "腰头被展开或翻看"
+            ],
+            "negative_cues": [
+              "只握住腰头提起裤子不算完整检查"
+            ],
+            "confusable_with": [
+              "check_pocket",
+              "check_zipper"
+            ],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": [
+              1.0,
+              25.0
+            ],
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "check_pocket",
+            "name": "检查口袋",
+            "aliases": [
+              "检查袋布",
+              "口袋检验"
+            ],
+            "description": "对袋口和袋布进行展开或探入式检查，区分普通抚平动作。",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "袋口区域清晰可见",
+              "手指进入袋口或袋布被展开",
+              "多帧支持检查过程"
+            ],
+            "negative_cues": [
+              "仅抚平口袋外侧表面不足以确认",
+              "仅手遮挡袋口不能推断已经检查"
+            ],
+            "confusable_with": [
+              "check_surface",
+              "check_waistband"
+            ],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": [
+              1.0,
+              25.0
+            ],
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "check_surface",
+            "name": "检查表面",
+            "aliases": [
+              "表面检验"
+            ],
+            "description": "展开衣物表面，进行整体检查；不等于已证明没有微小缺陷。",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "衣物表面展开",
+              "操作覆盖预定检验区域"
+            ],
+            "negative_cues": [
+              "简单搬运衣物不证明检查完成"
+            ],
+            "confusable_with": [
+              "check_pocket",
+              "check_side_seam"
+            ],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": [
+              1.0,
+              30.0
+            ],
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "check_zipper",
+            "name": "检查拉链",
+            "aliases": [
+              "拉链检验"
+            ],
+            "description": "新类草案，需要真实正反例和语义确认后注册。",
+            "status": "draft",
+            "risk_level": "general",
+            "observable_cues": [
+              "拉头发生可见移动",
+              "拉链开合过程可见"
+            ],
+            "negative_cues": [
+              "仅触摸门襟不证明拉链已开合"
+            ],
+            "confusable_with": [
+              "check_waistband"
+            ],
+            "completion_rule": {
+              "name": "manual_review_only",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          }
+        ],
+        "states": [],
+        "events": [],
+        "workflow": {
+          "id": "garment_inspection_demo",
+          "version": "3.0.0",
+          "ordering": "strict",
+          "nodes": [
+            {
+              "node_id": "node_001_c41afd1fdbda",
+              "action_id": "check_hem",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 2,
+              "role": "inspector",
+              "group": "main"
+            },
+            {
+              "node_id": "node_002_1470aae1d2d5",
+              "action_id": "check_side_seam",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 2,
+              "role": "inspector",
+              "group": "main"
+            },
+            {
+              "node_id": "node_003_4c9d0491d3c1",
+              "action_id": "check_waistband",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 2,
+              "role": "inspector",
+              "group": "main"
+            },
+            {
+              "node_id": "node_004_8edcff9f6202",
+              "action_id": "check_pocket",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 2,
+              "role": "inspector",
+              "group": "main"
+            },
+            {
+              "node_id": "node_005_36fa889b8c75",
+              "action_id": "check_surface",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 2,
+              "role": "inspector",
+              "group": "main"
+            }
+          ],
+          "edges": [
+            {
+              "from_node": "node_001_c41afd1fdbda",
+              "to_node": "node_002_1470aae1d2d5"
+            },
+            {
+              "from_node": "node_002_1470aae1d2d5",
+              "to_node": "node_003_4c9d0491d3c1"
+            },
+            {
+              "from_node": "node_003_4c9d0491d3c1",
+              "to_node": "node_004_8edcff9f6202"
+            },
+            {
+              "from_node": "node_004_8edcff9f6202",
+              "to_node": "node_005_36fa889b8c75"
+            }
+          ],
+          "repeatable_edges": []
+        },
+        "curated_memory": []
+      },
+      "valid": true,
+      "hash": "92fa83709264f1cf01b24869e8c1f45a2d36ae63f299e29053f07c2ed5f90b5f",
+      "diff": {
+        "states": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "events": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "workflow_nodes": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "added": [],
+        "removed": [],
+        "changed": [],
+        "sop_changed": false,
+        "metadata_changed": []
+      }
+    },
+    {
+      "name": "anonymous_observation",
+      "scene_id": "anonymous_observation",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [],
+        "events": [],
+        "workflow": null,
+        "curated_memory": [],
+        "scene_id": "anonymous_observation",
+        "task_modes": [
+          "activity_recognition"
+        ],
+        "actions": []
+      },
+      "valid": true,
+      "hash": "aea39d7f966b366613c885ffa2792b6c0e6b7a01b0e15d0cbeb4e846db7594d6",
+      "diff": {
+        "states": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "events": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "workflow_nodes": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "added": [],
+        "removed": [],
+        "changed": [],
+        "sop_changed": false,
+        "metadata_changed": []
+      }
+    },
+    {
+      "name": "workshop_safety",
+      "scene_id": "workshop_safety",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [
+          {
+            "id": "outside_zone",
+            "name": "区域外",
+            "description": "人员位于限制区域外",
+            "status": "draft",
+            "observable_cues": [
+              "人员在边界外"
+            ]
+          },
+          {
+            "id": "inside_zone",
+            "name": "区域内",
+            "description": "人员进入限制区域",
+            "status": "draft",
+            "observable_cues": [
+              "人员跨过边界"
+            ]
+          }
+        ],
+        "events": [
+          {
+            "id": "zone_entry",
+            "name": "区域进入",
+            "description": "进入限制区域的候选事件",
+            "status": "draft",
+            "risk_level": "critical",
+            "trigger": {
+              "type": "state_transition",
+              "from_state": "outside_zone",
+              "to_state": "inside_zone"
+            }
+          }
+        ],
+        "workflow": null,
+        "curated_memory": [],
+        "scene_id": "workshop_safety",
+        "task_modes": [
+          "event_monitoring"
+        ],
+        "actions": []
+      },
+      "valid": true,
+      "hash": "25d37029c5bd126b4420c2de597367511a68886677c1c3f60c51acff37f51f85",
+      "diff": {
+        "states": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "events": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "workflow_nodes": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "added": [],
+        "removed": [],
+        "changed": [],
+        "sop_changed": false,
+        "metadata_changed": []
+      }
+    },
+    {
+      "name": "electronics_assembly",
+      "scene_id": "electronics_assembly",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [],
+        "events": [],
+        "workflow": {
+          "id": "assembly",
+          "version": "1.0",
+          "ordering": "strict",
+          "nodes": [
+            {
+              "node_id": "node_1",
+              "action_id": "pick_material",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_2",
+              "action_id": "assemble",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_3",
+              "action_id": "inspect",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_4",
+              "action_id": "assemble",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_5",
+              "action_id": "inspect",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            }
+          ],
+          "edges": [
+            {
+              "from_node": "node_1",
+              "to_node": "node_2"
+            },
+            {
+              "from_node": "node_2",
+              "to_node": "node_3"
+            },
+            {
+              "from_node": "node_3",
+              "to_node": "node_4"
+            },
+            {
+              "from_node": "node_4",
+              "to_node": "node_5"
+            }
+          ],
+          "repeatable_edges": []
+        },
+        "curated_memory": [],
+        "scene_id": "electronics_assembly",
+        "task_modes": [
+          "activity_recognition",
+          "procedure_compliance"
+        ],
+        "actions": [
+          {
+            "id": "pick_material",
+            "name": "取料",
+            "aliases": [],
+            "description": "取料的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "取料的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "assemble",
+            "name": "装配",
+            "aliases": [],
+            "description": "装配的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "装配的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "inspect",
+            "name": "检查",
+            "aliases": [],
+            "description": "检查的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "检查的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          }
+        ]
+      },
+      "valid": true,
+      "hash": "30e210cb7cafced51cc045a1e20b370c5a9e30e2879fae21a9b6a375b06019d8",
+      "diff": {
+        "states": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "events": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "workflow_nodes": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "added": [],
+        "removed": [],
+        "changed": [],
+        "sop_changed": false,
+        "metadata_changed": []
+      }
+    },
+    {
+      "name": "rename-node-instance",
+      "scene_id": "electronics_assembly",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [],
+        "events": [],
+        "workflow": {
+          "id": "assembly",
+          "version": "1.0",
+          "ordering": "strict",
+          "nodes": [
+            {
+              "node_id": "node_1",
+              "action_id": "pick_material",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_2",
+              "action_id": "assemble",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_3",
+              "action_id": "inspect",
+              "state_id": null,
+              "required": true,
+              "min_count": 0,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_4",
+              "action_id": "assemble",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_5",
+              "action_id": "inspect",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            }
+          ],
+          "edges": [
+            {
+              "from_node": "node_1",
+              "to_node": "node_2"
+            },
+            {
+              "from_node": "node_2",
+              "to_node": "node_3"
+            },
+            {
+              "from_node": "node_3",
+              "to_node": "node_4"
+            },
+            {
+              "from_node": "node_4",
+              "to_node": "node_5"
+            }
+          ],
+          "repeatable_edges": []
+        },
+        "curated_memory": [],
+        "scene_id": "electronics_assembly",
+        "task_modes": [
+          "activity_recognition",
+          "procedure_compliance"
+        ],
+        "actions": [
+          {
+            "id": "pick_material",
+            "name": "取料",
+            "aliases": [],
+            "description": "取料的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "取料的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "assemble",
+            "name": "装配",
+            "aliases": [],
+            "description": "装配的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "装配的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "inspect",
+            "name": "检查",
+            "aliases": [],
+            "description": "检查的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "检查的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          }
+        ]
+      },
+      "valid": true,
+      "hash": "ce9dc5973a66e2d3a3ce4ed404e36ebcd0655fb5f70b1e58fdf513b4cdb435d1",
+      "diff": {
+        "states": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "events": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "workflow_nodes": {
+          "added": [],
+          "removed": [],
+          "changed": [
+            {
+              "id": "node_3",
+              "fields": [
+                "min_count"
+              ]
+            }
+          ]
+        },
+        "added": [],
+        "removed": [],
+        "changed": [],
+        "sop_changed": true,
+        "metadata_changed": []
+      }
+    },
+    {
+      "name": "missing-workflow",
+      "scene_id": "electronics_assembly",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [],
+        "events": [],
+        "workflow": null,
+        "curated_memory": [],
+        "scene_id": "electronics_assembly",
+        "task_modes": [
+          "activity_recognition",
+          "procedure_compliance"
+        ],
+        "actions": [
+          {
+            "id": "pick_material",
+            "name": "取料",
+            "aliases": [],
+            "description": "取料的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "取料的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "assemble",
+            "name": "装配",
+            "aliases": [],
+            "description": "装配的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "装配的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "inspect",
+            "name": "检查",
+            "aliases": [],
+            "description": "检查的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "检查的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          }
+        ]
+      },
+      "valid": false,
+      "hash": null,
+      "diff": null
+    },
+    {
+      "name": "duplicate-node",
+      "scene_id": "electronics_assembly",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [],
+        "events": [],
+        "workflow": {
+          "id": "assembly",
+          "version": "1.0",
+          "ordering": "strict",
+          "nodes": [
+            {
+              "node_id": "node_1",
+              "action_id": "pick_material",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_1",
+              "action_id": "assemble",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_3",
+              "action_id": "inspect",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_4",
+              "action_id": "assemble",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_5",
+              "action_id": "inspect",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            }
+          ],
+          "edges": [
+            {
+              "from_node": "node_1",
+              "to_node": "node_2"
+            },
+            {
+              "from_node": "node_2",
+              "to_node": "node_3"
+            },
+            {
+              "from_node": "node_3",
+              "to_node": "node_4"
+            },
+            {
+              "from_node": "node_4",
+              "to_node": "node_5"
+            }
+          ],
+          "repeatable_edges": []
+        },
+        "curated_memory": [],
+        "scene_id": "electronics_assembly",
+        "task_modes": [
+          "activity_recognition",
+          "procedure_compliance"
+        ],
+        "actions": [
+          {
+            "id": "pick_material",
+            "name": "取料",
+            "aliases": [],
+            "description": "取料的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "取料的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "assemble",
+            "name": "装配",
+            "aliases": [],
+            "description": "装配的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "装配的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "inspect",
+            "name": "检查",
+            "aliases": [],
+            "description": "检查的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "检查的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          }
+        ]
+      },
+      "valid": false,
+      "hash": null,
+      "diff": null
+    },
+    {
+      "name": "wrong-scene",
+      "scene_id": "anonymous_observation",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [],
+        "events": [],
+        "workflow": null,
+        "curated_memory": [],
+        "scene_id": "other",
+        "task_modes": [
+          "activity_recognition"
+        ],
+        "actions": []
+      },
+      "valid": false,
+      "hash": null,
+      "diff": null
+    },
+    {
+      "name": "unrecognized-field",
+      "scene_id": "anonymous_observation",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [],
+        "events": [],
+        "workflow": null,
+        "curated_memory": [],
+        "scene_id": "anonymous_observation",
+        "task_modes": [
+          "activity_recognition"
+        ],
+        "actions": [],
+        "execute": "ignored?"
+      },
+      "valid": false,
+      "hash": null,
+      "diff": null
+    },
+    {
+      "name": "mode-change",
+      "scene_id": "anonymous_observation",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [],
+        "events": [],
+        "workflow": null,
+        "curated_memory": [],
+        "scene_id": "anonymous_observation",
+        "task_modes": [
+          "event_monitoring"
+        ],
+        "actions": []
+      },
+      "valid": false,
+      "hash": null,
+      "diff": null
+    },
+    {
+      "name": "duplicate-mode",
+      "scene_id": "anonymous_observation",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [],
+        "events": [],
+        "workflow": null,
+        "curated_memory": [],
+        "scene_id": "anonymous_observation",
+        "task_modes": [
+          "activity_recognition",
+          "activity_recognition"
+        ],
+        "actions": []
+      },
+      "valid": false,
+      "hash": null,
+      "diff": null
+    },
+    {
+      "name": "rule-reference",
+      "scene_id": "workshop_safety",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [
+          {
+            "id": "outside_zone",
+            "name": "区域外",
+            "description": "人员位于限制区域外",
+            "status": "draft",
+            "observable_cues": [
+              "人员在边界外"
+            ]
+          },
+          {
+            "id": "inside_zone",
+            "name": "区域内",
+            "description": "人员进入限制区域",
+            "status": "draft",
+            "observable_cues": [
+              "人员跨过边界"
+            ]
+          }
+        ],
+        "events": [
+          {
+            "id": "zone_entry",
+            "name": "区域进入",
+            "description": "进入限制区域的候选事件",
+            "status": "draft",
+            "risk_level": "critical",
+            "trigger": {
+              "type": "state_transition",
+              "from_state": "outside_zone",
+              "to_state": "absent"
+            }
+          }
+        ],
+        "workflow": null,
+        "curated_memory": [],
+        "scene_id": "workshop_safety",
+        "task_modes": [
+          "event_monitoring"
+        ],
+        "actions": []
+      },
+      "valid": false,
+      "hash": null,
+      "diff": null
+    },
+    {
+      "name": "unapproved-rule",
+      "scene_id": "workshop_safety",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [
+          {
+            "id": "outside_zone",
+            "name": "区域外",
+            "description": "人员位于限制区域外",
+            "status": "draft",
+            "observable_cues": [
+              "人员在边界外"
+            ]
+          },
+          {
+            "id": "inside_zone",
+            "name": "区域内",
+            "description": "人员进入限制区域",
+            "status": "draft",
+            "observable_cues": [
+              "人员跨过边界"
+            ]
+          }
+        ],
+        "events": [
+          {
+            "id": "zone_entry",
+            "name": "区域进入",
+            "description": "进入限制区域的候选事件",
+            "status": "approved",
+            "risk_level": "critical",
+            "trigger": {
+              "type": "state_transition",
+              "from_state": "outside_zone",
+              "to_state": "inside_zone"
+            }
+          }
+        ],
+        "workflow": null,
+        "curated_memory": [],
+        "scene_id": "workshop_safety",
+        "task_modes": [
+          "event_monitoring"
+        ],
+        "actions": []
+      },
+      "valid": false,
+      "hash": null,
+      "diff": null
+    },
+    {
+      "name": "arbitrary-script",
+      "scene_id": "workshop_safety",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [
+          {
+            "id": "outside_zone",
+            "name": "区域外",
+            "description": "人员位于限制区域外",
+            "status": "draft",
+            "observable_cues": [
+              "人员在边界外"
+            ]
+          },
+          {
+            "id": "inside_zone",
+            "name": "区域内",
+            "description": "人员进入限制区域",
+            "status": "draft",
+            "observable_cues": [
+              "人员跨过边界"
+            ]
+          }
+        ],
+        "events": [
+          {
+            "id": "zone_entry",
+            "name": "区域进入",
+            "description": "进入限制区域的候选事件",
+            "status": "draft",
+            "risk_level": "critical",
+            "trigger": {
+              "type": "script",
+              "code": "never execute"
+            }
+          }
+        ],
+        "workflow": null,
+        "curated_memory": [],
+        "scene_id": "workshop_safety",
+        "task_modes": [
+          "event_monitoring"
+        ],
+        "actions": []
+      },
+      "valid": false,
+      "hash": null,
+      "diff": null
+    },
+    {
+      "name": "unknown-sample",
+      "scene_id": "garment_sop",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "garment-demo-3.1.0",
+        "scene_id": "garment_sop",
+        "task_modes": [
+          "activity_recognition",
+          "procedure_compliance"
+        ],
+        "approval_status": "draft",
+        "approved_by": null,
+        "actions": [
+          {
+            "id": "check_hem",
+            "name": "检查裤脚",
+            "aliases": [
+              "检查脚口",
+              "裤脚检验"
+            ],
+            "description": "对裤脚缝边及收口进行可见的展开与检查。",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "手部接触裤脚",
+              "裤脚区域被展开并检查"
+            ],
+            "negative_cues": [
+              "仅拿起衣物不证明已经检查裤脚"
+            ],
+            "confusable_with": [
+              "check_side_seam",
+              "check_surface"
+            ],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": [
+              1.0,
+              20.0
+            ],
+            "positive_examples": [
+              "missing"
+            ],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "check_side_seam",
+            "name": "检查侧缝",
+            "aliases": [
+              "侧缝检查"
+            ],
+            "description": "沿衣物侧缝展开或翻看缝线区域。",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "手沿侧缝移动",
+              "侧缝区域连续可见"
+            ],
+            "negative_cues": [
+              "只从侧边搬动衣物不算检查"
+            ],
+            "confusable_with": [
+              "check_hem",
+              "check_surface"
+            ],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": [
+              1.0,
+              30.0
+            ],
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "check_waistband",
+            "name": "检查腰头",
+            "aliases": [
+              "腰头检验"
+            ],
+            "description": "展开或翻看腰头及其缝合区域。",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "双手支撑腰头",
+              "腰头被展开或翻看"
+            ],
+            "negative_cues": [
+              "只握住腰头提起裤子不算完整检查"
+            ],
+            "confusable_with": [
+              "check_pocket",
+              "check_zipper"
+            ],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": [
+              1.0,
+              25.0
+            ],
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "check_pocket",
+            "name": "检查口袋",
+            "aliases": [
+              "检查袋布",
+              "口袋检验"
+            ],
+            "description": "对袋口和袋布进行展开或探入式检查，区分普通抚平动作。",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "袋口区域清晰可见",
+              "手指进入袋口或袋布被展开",
+              "多帧支持检查过程"
+            ],
+            "negative_cues": [
+              "仅抚平口袋外侧表面不足以确认",
+              "仅手遮挡袋口不能推断已经检查"
+            ],
+            "confusable_with": [
+              "check_surface",
+              "check_waistband"
+            ],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": [
+              1.0,
+              25.0
+            ],
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "check_surface",
+            "name": "检查表面",
+            "aliases": [
+              "表面检验"
+            ],
+            "description": "展开衣物表面，进行整体检查；不等于已证明没有微小缺陷。",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "衣物表面展开",
+              "操作覆盖预定检验区域"
+            ],
+            "negative_cues": [
+              "简单搬运衣物不证明检查完成"
+            ],
+            "confusable_with": [
+              "check_pocket",
+              "check_side_seam"
+            ],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": [
+              1.0,
+              30.0
+            ],
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "check_zipper",
+            "name": "检查拉链",
+            "aliases": [
+              "拉链检验"
+            ],
+            "description": "新类草案，需要真实正反例和语义确认后注册。",
+            "status": "draft",
+            "risk_level": "general",
+            "observable_cues": [
+              "拉头发生可见移动",
+              "拉链开合过程可见"
+            ],
+            "negative_cues": [
+              "仅触摸门襟不证明拉链已开合"
+            ],
+            "confusable_with": [
+              "check_waistband"
+            ],
+            "completion_rule": {
+              "name": "manual_review_only",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          }
+        ],
+        "states": [],
+        "events": [],
+        "workflow": {
+          "id": "garment_inspection_demo",
+          "version": "3.0.0",
+          "ordering": "strict",
+          "nodes": [
+            {
+              "node_id": "node_001_c41afd1fdbda",
+              "action_id": "check_hem",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 2,
+              "role": "inspector",
+              "group": "main"
+            },
+            {
+              "node_id": "node_002_1470aae1d2d5",
+              "action_id": "check_side_seam",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 2,
+              "role": "inspector",
+              "group": "main"
+            },
+            {
+              "node_id": "node_003_4c9d0491d3c1",
+              "action_id": "check_waistband",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 2,
+              "role": "inspector",
+              "group": "main"
+            },
+            {
+              "node_id": "node_004_8edcff9f6202",
+              "action_id": "check_pocket",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 2,
+              "role": "inspector",
+              "group": "main"
+            },
+            {
+              "node_id": "node_005_36fa889b8c75",
+              "action_id": "check_surface",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 2,
+              "role": "inspector",
+              "group": "main"
+            }
+          ],
+          "edges": [
+            {
+              "from_node": "node_001_c41afd1fdbda",
+              "to_node": "node_002_1470aae1d2d5"
+            },
+            {
+              "from_node": "node_002_1470aae1d2d5",
+              "to_node": "node_003_4c9d0491d3c1"
+            },
+            {
+              "from_node": "node_003_4c9d0491d3c1",
+              "to_node": "node_004_8edcff9f6202"
+            },
+            {
+              "from_node": "node_004_8edcff9f6202",
+              "to_node": "node_005_36fa889b8c75"
+            }
+          ],
+          "repeatable_edges": []
+        },
+        "curated_memory": []
+      },
+      "valid": false,
+      "hash": null,
+      "diff": null
+    },
+    {
+      "name": "ordinary-cycle",
+      "scene_id": "electronics_assembly",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [],
+        "events": [],
+        "workflow": {
+          "id": "assembly",
+          "version": "1.0",
+          "ordering": "strict",
+          "nodes": [
+            {
+              "node_id": "node_1",
+              "action_id": "pick_material",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_2",
+              "action_id": "assemble",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_3",
+              "action_id": "inspect",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_4",
+              "action_id": "assemble",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_5",
+              "action_id": "inspect",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            }
+          ],
+          "edges": [
+            {
+              "from_node": "node_1",
+              "to_node": "node_2"
+            },
+            {
+              "from_node": "node_2",
+              "to_node": "node_3"
+            },
+            {
+              "from_node": "node_3",
+              "to_node": "node_4"
+            },
+            {
+              "from_node": "node_4",
+              "to_node": "node_5"
+            },
+            {
+              "from_node": "node_5",
+              "to_node": "node_1"
+            }
+          ],
+          "repeatable_edges": []
+        },
+        "curated_memory": [],
+        "scene_id": "electronics_assembly",
+        "task_modes": [
+          "activity_recognition",
+          "procedure_compliance"
+        ],
+        "actions": [
+          {
+            "id": "pick_material",
+            "name": "取料",
+            "aliases": [],
+            "description": "取料的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "取料的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "assemble",
+            "name": "装配",
+            "aliases": [],
+            "description": "装配的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "装配的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "inspect",
+            "name": "检查",
+            "aliases": [],
+            "description": "检查的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "检查的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          }
+        ]
+      },
+      "valid": false,
+      "hash": null,
+      "diff": null
+    },
+    {
+      "name": "explicit-rework",
+      "scene_id": "electronics_assembly",
+      "value": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "approval_status": "draft",
+        "approved_by": null,
+        "states": [],
+        "events": [],
+        "workflow": {
+          "id": "assembly",
+          "version": "1.0",
+          "ordering": "strict",
+          "nodes": [
+            {
+              "node_id": "node_1",
+              "action_id": "pick_material",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_2",
+              "action_id": "assemble",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_3",
+              "action_id": "inspect",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_4",
+              "action_id": "assemble",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            },
+            {
+              "node_id": "node_5",
+              "action_id": "inspect",
+              "state_id": null,
+              "required": true,
+              "min_count": 1,
+              "max_count": 1,
+              "role": "operator",
+              "group": "main"
+            }
+          ],
+          "edges": [
+            {
+              "from_node": "node_1",
+              "to_node": "node_2"
+            },
+            {
+              "from_node": "node_2",
+              "to_node": "node_3"
+            },
+            {
+              "from_node": "node_3",
+              "to_node": "node_4"
+            },
+            {
+              "from_node": "node_4",
+              "to_node": "node_5"
+            }
+          ],
+          "repeatable_edges": [
+            {
+              "from_node": "node_5",
+              "to_node": "node_1"
+            }
+          ]
+        },
+        "curated_memory": [],
+        "scene_id": "electronics_assembly",
+        "task_modes": [
+          "activity_recognition",
+          "procedure_compliance"
+        ],
+        "actions": [
+          {
+            "id": "pick_material",
+            "name": "取料",
+            "aliases": [],
+            "description": "取料的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "取料的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "assemble",
+            "name": "装配",
+            "aliases": [],
+            "description": "装配的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "装配的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          },
+          {
+            "id": "inspect",
+            "name": "检查",
+            "aliases": [],
+            "description": "检查的可见过程",
+            "status": "approved",
+            "risk_level": "general",
+            "observable_cues": [
+              "检查的连续画面证据"
+            ],
+            "negative_cues": [
+              "仅出现对象不代表动作完成"
+            ],
+            "confusable_with": [],
+            "completion_rule": {
+              "name": "visible_motion_over_interval",
+              "min_visible_seconds": 0.8,
+              "require_object_contact": true
+            },
+            "duration_prior_seconds": null,
+            "positive_examples": [],
+            "negative_examples": [],
+            "prototype_refs": []
+          }
+        ]
+      },
+      "valid": true,
+      "hash": "62ffab1d0f5c0d17121d6220bf5bd8c3f8b852378034ad8acc8f96c84d75c04b",
+      "diff": {
+        "states": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "events": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "workflow_nodes": {
+          "added": [],
+          "removed": [],
+          "changed": []
+        },
+        "added": [],
+        "removed": [],
+        "changed": [],
+        "sop_changed": true,
+        "metadata_changed": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+# 研发示例；没有视频推理或学习效果。人工知识不被机器覆盖。
+schema_version: '3.1'
+knowledge_version: demo-3.1.0
+approval_status: draft
+approved_by: null
+states: []
+events: []
+workflow: null
+curated_memory: []
+scene_id: anonymous_observation
+task_modes:
+- activity_recognition
+actions: []

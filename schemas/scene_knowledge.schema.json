@@ -1,0 +1,671 @@
+{
+  "$defs": {
+    "Action": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "aliases": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Aliases",
+          "type": "array"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "approved"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "risk_level": {
+          "enum": [
+            "general",
+            "critical"
+          ],
+          "title": "Risk Level",
+          "type": "string"
+        },
+        "observable_cues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Observable Cues",
+          "type": "array"
+        },
+        "negative_cues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Negative Cues",
+          "type": "array"
+        },
+        "confusable_with": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Confusable With",
+          "type": "array"
+        },
+        "completion_rule": {
+          "$ref": "#/$defs/CompletionRule"
+        },
+        "duration_prior_seconds": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Duration Prior Seconds"
+        },
+        "positive_examples": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Positive Examples",
+          "type": "array"
+        },
+        "negative_examples": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Negative Examples",
+          "type": "array"
+        },
+        "prototype_refs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Prototype Refs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "aliases",
+        "description",
+        "status",
+        "risk_level",
+        "observable_cues",
+        "negative_cues",
+        "confusable_with",
+        "completion_rule",
+        "duration_prior_seconds",
+        "positive_examples",
+        "negative_examples",
+        "prototype_refs"
+      ],
+      "title": "Action",
+      "type": "object"
+    },
+    "CompletionRule": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "enum": [
+            "visible_motion_over_interval",
+            "manual_review_only"
+          ],
+          "title": "Name",
+          "type": "string"
+        },
+        "min_visible_seconds": {
+          "minimum": 0,
+          "title": "Min Visible Seconds",
+          "type": "number"
+        },
+        "require_object_contact": {
+          "title": "Require Object Contact",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "min_visible_seconds",
+        "require_object_contact"
+      ],
+      "title": "CompletionRule",
+      "type": "object"
+    },
+    "EventDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "approved"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "risk_level": {
+          "enum": [
+            "general",
+            "critical"
+          ],
+          "title": "Risk Level",
+          "type": "string"
+        },
+        "trigger": {
+          "discriminator": {
+            "mapping": {
+              "manual_review": "#/$defs/ManualRule",
+              "object_interaction": "#/$defs/ObjectInteractionRule",
+              "state_transition": "#/$defs/StateTransitionRule",
+              "time_evidence": "#/$defs/TimeEvidenceRule"
+            },
+            "propertyName": "type"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ManualRule"
+            },
+            {
+              "$ref": "#/$defs/TimeEvidenceRule"
+            },
+            {
+              "$ref": "#/$defs/ObjectInteractionRule"
+            },
+            {
+              "$ref": "#/$defs/StateTransitionRule"
+            }
+          ],
+          "title": "Trigger"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "status",
+        "risk_level",
+        "trigger"
+      ],
+      "title": "EventDefinition",
+      "type": "object"
+    },
+    "ManualRule": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "manual_review",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "title": "ManualRule",
+      "type": "object"
+    },
+    "ObjectInteractionRule": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "object_interaction",
+          "title": "Type",
+          "type": "string"
+        },
+        "action_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "Action Id",
+          "type": "string"
+        },
+        "object_name": {
+          "minLength": 1,
+          "title": "Object Name",
+          "type": "string"
+        },
+        "min_seconds": {
+          "minimum": 0,
+          "title": "Min Seconds",
+          "type": "number"
+        }
+      },
+      "required": [
+        "type",
+        "action_id",
+        "object_name",
+        "min_seconds"
+      ],
+      "title": "ObjectInteractionRule",
+      "type": "object"
+    },
+    "PatchOperation": {
+      "additionalProperties": false,
+      "properties": {
+        "op": {
+          "enum": [
+            "reject_sample",
+            "relabel_sample",
+            "map_cluster",
+            "add_negative_pair"
+          ],
+          "title": "Op",
+          "type": "string"
+        },
+        "target_id": {
+          "title": "Target Id",
+          "type": "string"
+        },
+        "action_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Action Id"
+        },
+        "related_action_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Related Action Id"
+        },
+        "reason": {
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "op",
+        "target_id",
+        "action_id",
+        "related_action_id",
+        "reason"
+      ],
+      "title": "PatchOperation",
+      "type": "object"
+    },
+    "StateDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "approved"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "observable_cues": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Observable Cues",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "status",
+        "observable_cues"
+      ],
+      "title": "StateDefinition",
+      "type": "object"
+    },
+    "StateTransitionRule": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "state_transition",
+          "title": "Type",
+          "type": "string"
+        },
+        "from_state": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "From State",
+          "type": "string"
+        },
+        "to_state": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "To State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "from_state",
+        "to_state"
+      ],
+      "title": "StateTransitionRule",
+      "type": "object"
+    },
+    "TimeEvidenceRule": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "time_evidence",
+          "title": "Type",
+          "type": "string"
+        },
+        "action_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "Action Id",
+          "type": "string"
+        },
+        "min_seconds": {
+          "minimum": 0,
+          "title": "Min Seconds",
+          "type": "number"
+        }
+      },
+      "required": [
+        "type",
+        "action_id",
+        "min_seconds"
+      ],
+      "title": "TimeEvidenceRule",
+      "type": "object"
+    },
+    "Workflow": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        },
+        "ordering": {
+          "enum": [
+            "strict",
+            "partial",
+            "unordered"
+          ],
+          "title": "Ordering",
+          "type": "string"
+        },
+        "nodes": {
+          "items": {
+            "$ref": "#/$defs/WorkflowNode"
+          },
+          "minItems": 1,
+          "title": "Nodes",
+          "type": "array"
+        },
+        "edges": {
+          "items": {
+            "$ref": "#/$defs/WorkflowEdge"
+          },
+          "title": "Edges",
+          "type": "array"
+        },
+        "repeatable_edges": {
+          "items": {
+            "$ref": "#/$defs/WorkflowEdge"
+          },
+          "title": "Repeatable Edges",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "ordering",
+        "nodes",
+        "edges",
+        "repeatable_edges"
+      ],
+      "title": "Workflow",
+      "type": "object"
+    },
+    "WorkflowEdge": {
+      "additionalProperties": false,
+      "properties": {
+        "from_node": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "From Node",
+          "type": "string"
+        },
+        "to_node": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "To Node",
+          "type": "string"
+        }
+      },
+      "required": [
+        "from_node",
+        "to_node"
+      ],
+      "title": "WorkflowEdge",
+      "type": "object"
+    },
+    "WorkflowNode": {
+      "additionalProperties": false,
+      "properties": {
+        "node_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "Node Id",
+          "type": "string"
+        },
+        "action_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Action Id"
+        },
+        "state_id": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "State Id"
+        },
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "min_count": {
+          "minimum": 0,
+          "title": "Min Count",
+          "type": "integer"
+        },
+        "max_count": {
+          "minimum": 1,
+          "title": "Max Count",
+          "type": "integer"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string"
+        },
+        "group": {
+          "title": "Group",
+          "type": "string"
+        }
+      },
+      "required": [
+        "node_id",
+        "action_id",
+        "state_id",
+        "required",
+        "min_count",
+        "max_count",
+        "role",
+        "group"
+      ],
+      "title": "WorkflowNode",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "3.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "knowledge_version": {
+      "minLength": 1,
+      "title": "Knowledge Version",
+      "type": "string"
+    },
+    "scene_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Scene Id",
+      "type": "string"
+    },
+    "task_modes": {
+      "items": {
+        "enum": [
+          "activity_recognition",
+          "event_monitoring",
+          "procedure_compliance"
+        ],
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Task Modes",
+      "type": "array"
+    },
+    "approval_status": {
+      "enum": [
+        "draft",
+        "approved"
+      ],
+      "title": "Approval Status",
+      "type": "string"
+    },
+    "approved_by": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Approved By"
+    },
+    "actions": {
+      "items": {
+        "$ref": "#/$defs/Action"
+      },
+      "title": "Actions",
+      "type": "array"
+    },
+    "states": {
+      "items": {
+        "$ref": "#/$defs/StateDefinition"
+      },
+      "title": "States",
+      "type": "array"
+    },
+    "events": {
+      "items": {
+        "$ref": "#/$defs/EventDefinition"
+      },
+      "title": "Events",
+      "type": "array"
+    },
+    "workflow": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Workflow"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "curated_memory": {
+      "items": {
+        "$ref": "#/$defs/PatchOperation"
+      },
+      "title": "Curated Memory",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "knowledge_version",
+    "scene_id",
+    "task_modes",
+    "approval_status",
+    "approved_by",
+    "actions",
+    "states",
+    "events",
+    "workflow",
+    "curated_memory"
+  ],
+  "title": "SceneKnowledge",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

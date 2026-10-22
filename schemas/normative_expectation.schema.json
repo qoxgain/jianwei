@@ -1,0 +1,66 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "tenant_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "scene_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Scene Id",
+      "type": "string"
+    },
+    "contract_version": {
+      "const": "3.1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "kind": {
+      "const": "normative_expected",
+      "title": "Kind",
+      "type": "string"
+    },
+    "episode_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Episode Id",
+      "type": "string"
+    },
+    "workflow_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Workflow Id",
+      "type": "string"
+    },
+    "workflow_version": {
+      "title": "Workflow Version",
+      "type": "string"
+    },
+    "knowledge_hash": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Knowledge Hash",
+      "type": "string"
+    },
+    "allowed_node_ids": {
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+        "type": "string"
+      },
+      "title": "Allowed Node Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "scene_id",
+    "contract_version",
+    "kind",
+    "episode_id",
+    "workflow_id",
+    "workflow_version",
+    "knowledge_hash",
+    "allowed_node_ids"
+  ],
+  "title": "NormativeExpectation",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

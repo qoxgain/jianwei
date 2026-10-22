@@ -1,9 +1,7 @@
-# 见微唯一运行配置入口。业务语义与规范单独放 knowledge/labels.yaml。
-# 数值是研发初值，不代表已验证的工业性能。切换环境只改active_profile。
-config_version: '3.0'
+# 唯一运行配置入口。场景知识分包；source_id与旧scene_id保持不变。
+config_version: '3.1'
 active_profile: demo
 active_scene: garment_sop
-knowledge_file: knowledge/labels.yaml
 profiles:
   demo:
     mode: demo
@@ -23,7 +21,19 @@ profiles:
     auth_enabled: false
     jwt_secret_ref: env://JIANWEI_JWT_SECRET
     sources:
-      - {id: cam_01, type: synthetic, uri: 'synthetic://feature_demo', scene_id: garment_sop, roi_xyxy: [0.02, 0.02, 0.98, 0.98]}
+    - id: cam_01
+      type: synthetic
+      uri: synthetic://feature_demo
+      scene_ids:
+      - garment_sop
+      - electronics_assembly
+      - workshop_safety
+      - anonymous_observation
+      roi_xyxy:
+      - 0.02
+      - 0.02
+      - 0.98
+      - 0.98
   lab:
     mode: replay
     tenant_id: tenant_lab
@@ -42,9 +52,20 @@ profiles:
     auth_enabled: true
     jwt_secret_ref: env://JIANWEI_JWT_SECRET
     sources:
-      - {id: cam_01, type: file, uri: './data_lab/inbox/production.mp4', scene_id: garment_sop, roi_xyxy: [0.02, 0.02, 0.98, 0.98]}
+    - id: cam_01
+      type: file
+      uri: ./data_lab/inbox/production.mp4
+      scene_ids:
+      - garment_sop
+      - electronics_assembly
+      - workshop_safety
+      - anonymous_observation
+      roi_xyxy:
+      - 0.02
+      - 0.02
+      - 0.98
+      - 0.98
   site:
-    # IP为环境填写示例，不是已探测或已部署地址。
     mode: live
     tenant_id: tenant_site_a
     data_root: /data/jianwei
@@ -62,7 +83,19 @@ profiles:
     auth_enabled: true
     jwt_secret_ref: env://JIANWEI_JWT_SECRET
     sources:
-      - {id: cam_01, type: rtsp, uri: 'env://JIANWEI_CAMERA_01_RTSP', scene_id: garment_sop, roi_xyxy: [0.02, 0.02, 0.98, 0.98]}
+    - id: cam_01
+      type: rtsp
+      uri: env://JIANWEI_CAMERA_01_RTSP
+      scene_ids:
+      - garment_sop
+      - electronics_assembly
+      - workshop_safety
+      - anonymous_observation
+      roi_xyxy:
+      - 0.02
+      - 0.02
+      - 0.98
+      - 0.98
 paths:
   inbox: inbox
   clips: clips
@@ -87,8 +120,8 @@ video:
 encoder:
   adapter: existing_features
   frozen: true
-  feature_dim: 512  # 接真实编码器必须读取实际维度并同步修改，不能假定固定512。
-  weights_sha256: null  # 现场填实际权重hash；预检会检查。
+  feature_dim: 512
+  weights_sha256: null
   preprocessing_version: clip16-2s-roi-v1
   pooling: adapter_defined
   checkpoint_revision: to_be_pinned_at_integration
@@ -105,7 +138,11 @@ teacher:
 region:
   enabled: true
   original_resolution: true
-  proposal_methods: [configured_roi, detector, motion, tiling]
+  proposal_methods:
+  - configured_roi
+  - detector
+  - motion
+  - tiling
   tile_size_px: 640
   tile_overlap: 0.2
   expand_ratio: 0.18
@@ -119,7 +156,10 @@ learning:
   min_new_episodes: 50
   cooldown_hours: 24.0
   history_windows: 8
-  forecast_horizons_seconds: [0.5, 2.0, 5.0]
+  forecast_horizons_seconds:
+  - 0.5
+  - 2.0
+  - 5.0
   temporal_adapter: causal_tcn
   hidden_dim: 128
   epochs: 30
@@ -135,11 +175,17 @@ learning:
   empirical_prior_weight_max: 0.2
   allow_cross_tenant: false
   train_split: train
-  train_adapters: [temporal_head, tsm, yolo_detector]
+  train_adapters:
+  - temporal_head
+  - tsm
+  - yolo_detector
   require_verified_boxes_for_detector: true
 evaluation:
   minimum_gold_events_per_class: 30
-  seeds: [17, 29, 43]
+  seeds:
+  - 17
+  - 29
+  - 43
   bootstrap_iterations: 1000
   confidence_level: 0.95
   required_macro_f1_gain: 0.01
@@ -157,12 +203,15 @@ release:
   critical_requires_confirmation: true
   shadow_min_episodes: 100
   shadow_min_hours: 8.0
-  canary_percentages: [10, 50, 100]
+  canary_percentages:
+  - 10
+  - 50
+  - 100
   switch_at_episode_boundary: true
   preserve_previous_versions: 3
 resources:
   max_training_jobs: 1
-  training_window_local: '22:00-06:00'
+  training_window_local: 22:00-06:00
   max_train_minutes: 120
   gpu_memory_fraction_max: 0.8
   pause_train_on_inference_queue: 8
@@ -183,16 +232,6 @@ media:
     proxy_rtsp_base: rtsp://10.0.0.20:8554
     webrtc_public_base: https://jianwei.example.internal/webrtc
     hls_public_base: https://jianwei.example.internal/hls
-session:
-  require_style_and_camera: true
-  exclusive_camera: true
-  lease_ttl_seconds: 30
-  lease_heartbeat_seconds: 10
-  max_session_minutes: 20
-  score_base: 100
-  verified_missing_penalty: 1
-  missing_without_evidence: REVIEW_REQUIRED
-  separate_rework: true
 retention:
   raw_video_days: 15
   evidence_days: 30
@@ -212,3 +251,101 @@ demo:
   noise_std: 0.08
   ridge_l2: 1.0
   skip_branch_probability: 0.15
+scenes:
+  garment_sop:
+    display_name: 服装SOP检验
+    task_modes:
+    - activity_recognition
+    - procedure_compliance
+    learning_capabilities:
+    - unlabeled_temporal_learning
+    - prototype_learning
+    knowledge_file: knowledge/scenes/garment_sop.yaml
+    episode_policy:
+      mode: manual_or_external_cycle
+      window_seconds: null
+    session_policy:
+      required_context_keys:
+      - camera_id
+      - product_style_id
+      exclusive_resource_key: camera_id
+      lease_ttl_seconds: 30
+      lease_heartbeat_seconds: 10
+      max_session_minutes: 20
+    context_schema:
+      camera_id:
+        type: string
+        description: 注册相机
+      product_style_id:
+        type: string
+        description: 款式
+    business_extension:
+      type: garment_inspection
+      score_base: 100
+      verified_missing_penalty: 1
+      missing_without_evidence: REVIEW_REQUIRED
+      separate_rework: true
+  electronics_assembly:
+    display_name: 电子装配
+    task_modes:
+    - activity_recognition
+    - procedure_compliance
+    learning_capabilities:
+    - unlabeled_temporal_learning
+    knowledge_file: knowledge/scenes/electronics_assembly.yaml
+    episode_policy:
+      mode: external_cycle
+      window_seconds: null
+    session_policy:
+      required_context_keys:
+      - station_id
+      - work_order_id
+      exclusive_resource_key: station_id
+      lease_ttl_seconds: 30
+      lease_heartbeat_seconds: 10
+      max_session_minutes: 20
+    context_schema:
+      station_id:
+        type: string
+        description: station_id
+      work_order_id:
+        type: string
+        description: work_order_id
+    business_extension: null
+  workshop_safety:
+    display_name: 车间安全
+    task_modes:
+    - event_monitoring
+    learning_capabilities:
+    - unlabeled_temporal_learning
+    knowledge_file: knowledge/scenes/workshop_safety.yaml
+    episode_policy:
+      mode: fixed_window
+      window_seconds: 60
+    session_policy:
+      required_context_keys: []
+      exclusive_resource_key: null
+      lease_ttl_seconds: 30
+      lease_heartbeat_seconds: 10
+      max_session_minutes: 20
+    context_schema: {}
+    business_extension: null
+  anonymous_observation:
+    display_name: 通用无标注观察
+    task_modes:
+    - activity_recognition
+    learning_capabilities:
+    - unlabeled_temporal_learning
+    - anonymous_cluster_discovery
+    knowledge_file: knowledge/scenes/anonymous_observation.yaml
+    episode_policy:
+      mode: manual_or_fixed_window
+      window_seconds: 60
+    session_policy:
+      required_context_keys: []
+      exclusive_resource_key: null
+      lease_ttl_seconds: 30
+      lease_heartbeat_seconds: 10
+      max_session_minutes: 20
+    context_schema: {}
+    business_extension: null

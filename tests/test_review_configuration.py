@@ -17,9 +17,9 @@ ROOT = Path(__file__).resolve().parents[1]
 def config_file(tmp_path):
     (tmp_path / "config").mkdir()
     (tmp_path / "knowledge").mkdir()
-    (tmp_path / "knowledge/labels.yaml").write_text((ROOT / "knowledge/labels.yaml").read_text())
+    (tmp_path / "knowledge/labels.yaml").write_text((ROOT / "tests/fixtures/v30/knowledge/labels.yaml").read_text())
     path = tmp_path / "config/system.yaml"
-    path.write_text((ROOT / "config/system.yaml").read_text())
+    path.write_text((ROOT / "tests/fixtures/v30/config/system.yaml").read_text())
     return path
 
 

@@ -1,0 +1,34 @@
+# 研发示例；没有视频推理或学习效果。人工知识不被机器覆盖。
+schema_version: '3.1'
+knowledge_version: demo-3.1.0
+approval_status: draft
+approved_by: null
+states:
+- id: outside_zone
+  name: 区域外
+  description: 人员位于限制区域外
+  status: draft
+  observable_cues:
+  - 人员在边界外
+- id: inside_zone
+  name: 区域内
+  description: 人员进入限制区域
+  status: draft
+  observable_cues:
+  - 人员跨过边界
+events:
+- id: zone_entry
+  name: 区域进入
+  description: 进入限制区域的候选事件
+  status: draft
+  risk_level: critical
+  trigger:
+    type: state_transition
+    from_state: outside_zone
+    to_state: inside_zone
+workflow: null
+curated_memory: []
+scene_id: workshop_safety
+task_modes:
+- event_monitoring
+actions: []

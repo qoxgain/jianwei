@@ -1,0 +1,128 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "tenant_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "scene_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Scene Id",
+      "type": "string"
+    },
+    "contract_version": {
+      "const": "3.1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "prediction_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Prediction Id",
+      "type": "string"
+    },
+    "episode_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Episode Id",
+      "type": "string"
+    },
+    "source_video_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Source Video Id",
+      "type": "string"
+    },
+    "feature_space_id": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Feature Space Id",
+      "type": "string"
+    },
+    "kind": {
+      "const": "empirical_forecast",
+      "title": "Kind",
+      "type": "string"
+    },
+    "prediction_kind": {
+      "enum": [
+        "next_event",
+        "future_state"
+      ],
+      "title": "Prediction Kind",
+      "type": "string"
+    },
+    "issued_at_pts_ms": {
+      "minimum": 0,
+      "title": "Issued At Pts Ms",
+      "type": "integer"
+    },
+    "input_max_pts_ms": {
+      "minimum": 0,
+      "title": "Input Max Pts Ms",
+      "type": "integer"
+    },
+    "target_start_pts_ms": {
+      "minimum": 0,
+      "title": "Target Start Pts Ms",
+      "type": "integer"
+    },
+    "target_end_pts_ms": {
+      "minimum": 0,
+      "title": "Target End Pts Ms",
+      "type": "integer"
+    },
+    "distribution": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Distribution",
+      "type": "object"
+    },
+    "predictor_version": {
+      "title": "Predictor Version",
+      "type": "string"
+    },
+    "knowledge_version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Knowledge Version"
+    },
+    "memory_version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Memory Version"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "scene_id",
+    "contract_version",
+    "prediction_id",
+    "episode_id",
+    "source_video_id",
+    "feature_space_id",
+    "kind",
+    "prediction_kind",
+    "issued_at_pts_ms",
+    "input_max_pts_ms",
+    "target_start_pts_ms",
+    "target_end_pts_ms",
+    "distribution",
+    "predictor_version",
+    "knowledge_version",
+    "memory_version"
+  ],
+  "title": "Prediction",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

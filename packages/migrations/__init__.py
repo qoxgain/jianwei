@@ -1,0 +1,1 @@
+"""Explicit lossless legacy adapters."""

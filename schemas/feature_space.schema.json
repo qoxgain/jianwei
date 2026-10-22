@@ -1,0 +1,52 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "const": "3.1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "encoder_sha": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Encoder Sha",
+      "type": "string"
+    },
+    "preprocessing_sha": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Preprocessing Sha",
+      "type": "string"
+    },
+    "sampling_sha": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Sampling Sha",
+      "type": "string"
+    },
+    "roi_policy_hash": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Roi Policy Hash",
+      "type": "string"
+    },
+    "pooling": {
+      "minLength": 1,
+      "title": "Pooling",
+      "type": "string"
+    },
+    "dimension": {
+      "minimum": 1,
+      "title": "Dimension",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "contract_version",
+    "encoder_sha",
+    "preprocessing_sha",
+    "sampling_sha",
+    "roi_policy_hash",
+    "pooling",
+    "dimension"
+  ],
+  "title": "FeatureSpace",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

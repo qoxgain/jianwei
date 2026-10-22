@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @pytest.fixture
 def labels():
-    return parse_yaml((ROOT / "knowledge/labels.yaml").read_text())
+    return parse_yaml((ROOT / "tests/fixtures/v30/knowledge/labels.yaml").read_text())
 
 
 @pytest.mark.parametrize("text,code", [
@@ -48,7 +48,7 @@ def test_yaml_rejects_ambiguous_or_unsafe_inputs_without_echoing_values(text, co
     ("learning", "allow_cross_tenant", 0),
 ])
 def test_literal_boolean_invariants_reject_yaml_integer_lookalikes(section, field, value):
-    config = parse_yaml((ROOT / "config/system.yaml").read_text())
+    config = parse_yaml((ROOT / "tests/fixtures/v30/config/system.yaml").read_text())
     config[section][field] = value
     with pytest.raises(ValidationError):
         SystemConfig.model_validate(config)

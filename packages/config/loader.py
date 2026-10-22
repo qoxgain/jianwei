@@ -13,6 +13,9 @@ import re
 from urllib.parse import urlsplit
 from pydantic import ValidationError
 from packages.contracts.models import SystemConfig, Profile, Knowledge
+from packages.contracts.configuration import SceneConfig
+from packages.contracts.scenes import SceneSpec, SceneKnowledge
+from packages.migrations.legacy_v3 import legacy_scene
 from packages.config.errors import ContractError, schema_errors
 from packages.config.yaml import parse_yaml
 from packages.knowledge.service import parse_knowledge, content_hash
@@ -60,22 +63,27 @@ def _redact(value, key=""):
 
 @dataclass(frozen=True)
 class Bundle:
-    config: SystemConfig
+    config: SystemConfig | SceneConfig
     profile: Profile
     root: Path
     path: Path
     config_hash: str
     snapshot: dict
-    knowledge: Knowledge
+    knowledge: Knowledge | SceneKnowledge
     knowledge_yaml: str
     paths: dict[str, Path]
+    scenes: dict[str, SceneSpec]
 
-    def current_knowledge(self) -> tuple[Knowledge, str]:
+    def current_knowledge(self, scene_id: str | None = None) -> tuple[Knowledge | SceneKnowledge, str]:
+        scene_id = scene_id or self.config.active_scene
+        if scene_id not in self.scenes:
+            raise ContractError('SCENE_NOT_FOUND', '场景不存在')
+        spec = self.scenes[scene_id]
         try:
-            text = resolve_path(self.root, self.config.knowledge_file).read_text(encoding="utf-8")
+            text = resolve_path(self.root, spec.knowledge_file).read_text(encoding="utf-8")
         except OSError:
             raise ContractError("KNOWLEDGE_FILE_MISSING", "无法读取配置指定的知识包文件") from None
-        return parse_knowledge(text, self.config.active_scene), text
+        return parse_knowledge(text, scene_id, spec.task_modes if self.config.config_version == '3.1' else None), text
 
 
 def _check_reference(value: str) -> None:
@@ -117,7 +125,7 @@ def load_bundle(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", p
     if profile is not None:
         raw["active_profile"] = profile
     try:
-        config = SystemConfig.model_validate(raw)
+        config = (SceneConfig if raw.get('config_version') == '3.1' else SystemConfig).model_validate(raw)
     except ValidationError as error:
         raise ContractError("CONFIG_INVALID", "运行配置不满足严格契约", schema_errors(error)) from None
     for item in config.profiles.values():
@@ -141,14 +149,18 @@ def load_bundle(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", p
     paths = {name: resolve_path(data_root, value) for name, value in config.paths.model_dump().items()}
     if any(not value.is_relative_to(data_root) for value in paths.values()):
         raise ContractError("PATH_OUTSIDE_DATA_ROOT", "paths 解析结果不得离开 data_root")
-    try:
-        knowledge_yaml = resolve_path(root, config.knowledge_file).read_text(encoding="utf-8")
-    except OSError:
-        raise ContractError("KNOWLEDGE_FILE_MISSING", "无法读取配置指定的知识包文件") from None
-    knowledge = parse_knowledge(knowledge_yaml, config.active_scene)
-    snapshot = _redact(config.model_dump())
+    scenes = config.scenes if isinstance(config, SceneConfig) else {config.active_scene: legacy_scene(config)}
+    loaded = {}
+    for scene_id, spec in scenes.items():
+        try:
+            text = resolve_path(root, spec.knowledge_file).read_text(encoding="utf-8")
+        except OSError:
+            raise ContractError("KNOWLEDGE_FILE_MISSING", f"无法读取场景知识包：{scene_id}") from None
+        loaded[scene_id] = (parse_knowledge(text, scene_id, spec.task_modes if isinstance(config, SceneConfig) else None), text)
+    knowledge, knowledge_yaml = loaded[config.active_scene]
+    snapshot = _redact(config.model_dump(exclude={'knowledge_file', 'session'} if isinstance(config, SceneConfig) else None))
     return Bundle(config=config, profile=selected, root=root, path=path, config_hash=content_hash(snapshot),
-                  snapshot=snapshot, knowledge=knowledge, knowledge_yaml=knowledge_yaml, paths=paths)
+                  snapshot=snapshot, knowledge=knowledge, knowledge_yaml=knowledge_yaml, paths=paths, scenes=scenes)
 
 
 def required_references(profile: Profile) -> dict[str, str]:
@@ -196,13 +208,13 @@ def database_url(bundle: Bundle) -> str:
 
 def assert_demo_service(bundle: Bundle) -> None:
     if bundle.profile.mode != "demo" or bundle.config.active_profile != "demo":
-        raise ContractError("PROFILE_SERVICE_UNAVAILABLE", "P0.1 服务仅支持 demo；真实视频、鉴权和现场服务尚未实现")
+        raise ContractError("PROFILE_SERVICE_UNAVAILABLE", "P0.1.1 服务仅支持 demo；真实视频、鉴权和现场服务尚未实现")
     if bundle.profile.auth_enabled:
         raise ContractError("AUTH_NOT_IMPLEMENTED", "鉴权尚未实现，不能把 auth_enabled 视为安全能力")
     if not is_loopback(bundle.profile.api_host):
-        raise ContractError("LOOPBACK_REQUIRED", "P0.1 API 必须绑定回环地址；通过受控预览访问单用户 demo")
+        raise ContractError("LOOPBACK_REQUIRED", "P0.1.1 API 必须绑定回环地址；通过受控预览访问单用户 demo")
     if not bundle.profile.database_url.startswith("sqlite:///"):
-        raise ContractError("DATABASE_UNSUPPORTED", "P0.1 服务仅接通 SQLite，其他数据库尚未验证")
+        raise ContractError("DATABASE_UNSUPPORTED", "P0.1.1 服务仅接通 SQLite，其他数据库尚未验证")
 
 
 def profile_status(bundle: Bundle, profile_name: str) -> dict:
@@ -220,7 +232,7 @@ def profile_status(bundle: Bundle, profile_name: str) -> dict:
         else:
             checks.append({"code": "ENV_PRESENT", "status": "passed", "message": f"已检测到环境变量：{name}；未验证远端授权"})
     if profile.mode != "demo":
-        if bundle.knowledge.approval_status != "approved":
+        if any(bundle.current_knowledge(scene_id)[0].approval_status != "approved" for scene_id in bundle.scenes):
             blocked("KNOWLEDGE_DRAFT", "知识包仍为草案，现场使用前需要业务批准")
         weights = resolve_path(bundle.root, profile.encoder_weights)
         if not weights.is_file():

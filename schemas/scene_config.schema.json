@@ -1,0 +1,1332 @@
+{
+  "$defs": {
+    "ContextField": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "string",
+            "integer",
+            "number",
+            "boolean"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "description"
+      ],
+      "title": "ContextField",
+      "type": "object"
+    },
+    "Demo": {
+      "additionalProperties": false,
+      "properties": {
+        "seed": {
+          "title": "Seed",
+          "type": "integer"
+        },
+        "train_episodes": {
+          "minimum": 5,
+          "title": "Train Episodes",
+          "type": "integer"
+        },
+        "test_episodes": {
+          "minimum": 5,
+          "title": "Test Episodes",
+          "type": "integer"
+        },
+        "feature_dim": {
+          "minimum": 6,
+          "title": "Feature Dim",
+          "type": "integer"
+        },
+        "noise_std": {
+          "exclusiveMinimum": 0,
+          "title": "Noise Std",
+          "type": "number"
+        },
+        "ridge_l2": {
+          "exclusiveMinimum": 0,
+          "title": "Ridge L2",
+          "type": "number"
+        },
+        "skip_branch_probability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Skip Branch Probability",
+          "type": "number"
+        }
+      },
+      "required": [
+        "seed",
+        "train_episodes",
+        "test_episodes",
+        "feature_dim",
+        "noise_std",
+        "ridge_l2",
+        "skip_branch_probability"
+      ],
+      "title": "Demo",
+      "type": "object"
+    },
+    "Encoder": {
+      "additionalProperties": false,
+      "properties": {
+        "adapter": {
+          "enum": [
+            "existing_features",
+            "videomae",
+            "vjepa2"
+          ],
+          "title": "Adapter",
+          "type": "string"
+        },
+        "frozen": {
+          "const": true,
+          "title": "Frozen",
+          "type": "boolean"
+        },
+        "feature_dim": {
+          "minimum": 1,
+          "title": "Feature Dim",
+          "type": "integer"
+        },
+        "weights_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Weights Sha256"
+        },
+        "preprocessing_version": {
+          "title": "Preprocessing Version",
+          "type": "string"
+        },
+        "pooling": {
+          "title": "Pooling",
+          "type": "string"
+        },
+        "checkpoint_revision": {
+          "title": "Checkpoint Revision",
+          "type": "string"
+        }
+      },
+      "required": [
+        "adapter",
+        "frozen",
+        "feature_dim",
+        "weights_sha256",
+        "preprocessing_version",
+        "pooling",
+        "checkpoint_revision"
+      ],
+      "title": "Encoder",
+      "type": "object"
+    },
+    "EpisodePolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "manual_cycle",
+            "external_cycle",
+            "fixed_window",
+            "manual_or_external_cycle",
+            "manual_or_fixed_window"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "window_seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Window Seconds"
+        }
+      },
+      "required": [
+        "mode",
+        "window_seconds"
+      ],
+      "title": "EpisodePolicy",
+      "type": "object"
+    },
+    "Evaluation": {
+      "additionalProperties": false,
+      "properties": {
+        "minimum_gold_events_per_class": {
+          "minimum": 1,
+          "title": "Minimum Gold Events Per Class",
+          "type": "integer"
+        },
+        "seeds": {
+          "items": {
+            "type": "integer"
+          },
+          "minItems": 1,
+          "title": "Seeds",
+          "type": "array"
+        },
+        "bootstrap_iterations": {
+          "minimum": 100,
+          "title": "Bootstrap Iterations",
+          "type": "integer"
+        },
+        "confidence_level": {
+          "exclusiveMaximum": 1,
+          "exclusiveMinimum": 0.5,
+          "title": "Confidence Level",
+          "type": "number"
+        },
+        "required_macro_f1_gain": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Required Macro F1 Gain",
+          "type": "number"
+        },
+        "max_old_macro_f1_drop": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Max Old Macro F1 Drop",
+          "type": "number"
+        },
+        "max_old_class_f1_drop": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Max Old Class F1 Drop",
+          "type": "number"
+        },
+        "gain_ci_lower_min": {
+          "title": "Gain Ci Lower Min",
+          "type": "number"
+        },
+        "max_false_alarm_ratio": {
+          "minimum": 1,
+          "title": "Max False Alarm Ratio",
+          "type": "number"
+        },
+        "max_coverage_drop": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Max Coverage Drop",
+          "type": "number"
+        },
+        "online_p95_ms_budget": {
+          "minimum": 1,
+          "title": "Online P95 Ms Budget",
+          "type": "integer"
+        },
+        "protocol_version": {
+          "title": "Protocol Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "minimum_gold_events_per_class",
+        "seeds",
+        "bootstrap_iterations",
+        "confidence_level",
+        "required_macro_f1_gain",
+        "max_old_macro_f1_drop",
+        "max_old_class_f1_drop",
+        "gain_ci_lower_min",
+        "max_false_alarm_ratio",
+        "max_coverage_drop",
+        "online_p95_ms_budget",
+        "protocol_version"
+      ],
+      "title": "Evaluation",
+      "type": "object"
+    },
+    "GarmentExtension": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "garment_inspection",
+          "title": "Type",
+          "type": "string"
+        },
+        "score_base": {
+          "title": "Score Base",
+          "type": "integer"
+        },
+        "verified_missing_penalty": {
+          "minimum": 0,
+          "title": "Verified Missing Penalty",
+          "type": "integer"
+        },
+        "missing_without_evidence": {
+          "const": "REVIEW_REQUIRED",
+          "title": "Missing Without Evidence",
+          "type": "string"
+        },
+        "separate_rework": {
+          "title": "Separate Rework",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type",
+        "score_base",
+        "verified_missing_penalty",
+        "missing_without_evidence",
+        "separate_rework"
+      ],
+      "title": "GarmentExtension",
+      "type": "object"
+    },
+    "Learning": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "auto_train": {
+          "title": "Auto Train",
+          "type": "boolean"
+        },
+        "auto_evaluate": {
+          "title": "Auto Evaluate",
+          "type": "boolean"
+        },
+        "freeze_foundation_models": {
+          "const": true,
+          "title": "Freeze Foundation Models",
+          "type": "boolean"
+        },
+        "min_new_episodes": {
+          "minimum": 1,
+          "title": "Min New Episodes",
+          "type": "integer"
+        },
+        "cooldown_hours": {
+          "exclusiveMinimum": 0,
+          "title": "Cooldown Hours",
+          "type": "number"
+        },
+        "history_windows": {
+          "minimum": 1,
+          "title": "History Windows",
+          "type": "integer"
+        },
+        "forecast_horizons_seconds": {
+          "items": {
+            "type": "number"
+          },
+          "minItems": 1,
+          "title": "Forecast Horizons Seconds",
+          "type": "array"
+        },
+        "temporal_adapter": {
+          "enum": [
+            "ridge",
+            "causal_tcn",
+            "gru"
+          ],
+          "title": "Temporal Adapter",
+          "type": "string"
+        },
+        "hidden_dim": {
+          "minimum": 1,
+          "title": "Hidden Dim",
+          "type": "integer"
+        },
+        "epochs": {
+          "minimum": 1,
+          "title": "Epochs",
+          "type": "integer"
+        },
+        "batch_size": {
+          "minimum": 1,
+          "title": "Batch Size",
+          "type": "integer"
+        },
+        "learning_rate": {
+          "exclusiveMinimum": 0,
+          "title": "Learning Rate",
+          "type": "number"
+        },
+        "ridge_l2": {
+          "exclusiveMinimum": 0,
+          "title": "Ridge L2",
+          "type": "number"
+        },
+        "dirichlet_alpha": {
+          "exclusiveMinimum": 0,
+          "title": "Dirichlet Alpha",
+          "type": "number"
+        },
+        "pseudo_label_fraction_max": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Pseudo Label Fraction Max",
+          "type": "number"
+        },
+        "replay_old_fraction": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Replay Old Fraction",
+          "type": "number"
+        },
+        "min_independent_cycles_per_action": {
+          "minimum": 1,
+          "title": "Min Independent Cycles Per Action",
+          "type": "integer"
+        },
+        "min_audited_events_per_action": {
+          "minimum": 1,
+          "title": "Min Audited Events Per Action",
+          "type": "integer"
+        },
+        "pseudo_precision_wilson_lower_min": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Pseudo Precision Wilson Lower Min",
+          "type": "number"
+        },
+        "empirical_prior_weight_max": {
+          "maximum": 0.5,
+          "minimum": 0,
+          "title": "Empirical Prior Weight Max",
+          "type": "number"
+        },
+        "allow_cross_tenant": {
+          "const": false,
+          "title": "Allow Cross Tenant",
+          "type": "boolean"
+        },
+        "train_split": {
+          "const": "train",
+          "title": "Train Split",
+          "type": "string"
+        },
+        "train_adapters": {
+          "items": {
+            "enum": [
+              "temporal_head",
+              "tsm",
+              "yolo_detector"
+            ],
+            "type": "string"
+          },
+          "title": "Train Adapters",
+          "type": "array"
+        },
+        "require_verified_boxes_for_detector": {
+          "const": true,
+          "title": "Require Verified Boxes For Detector",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "enabled",
+        "auto_train",
+        "auto_evaluate",
+        "freeze_foundation_models",
+        "min_new_episodes",
+        "cooldown_hours",
+        "history_windows",
+        "forecast_horizons_seconds",
+        "temporal_adapter",
+        "hidden_dim",
+        "epochs",
+        "batch_size",
+        "learning_rate",
+        "ridge_l2",
+        "dirichlet_alpha",
+        "pseudo_label_fraction_max",
+        "replay_old_fraction",
+        "min_independent_cycles_per_action",
+        "min_audited_events_per_action",
+        "pseudo_precision_wilson_lower_min",
+        "empirical_prior_weight_max",
+        "allow_cross_tenant",
+        "train_split",
+        "train_adapters",
+        "require_verified_boxes_for_detector"
+      ],
+      "title": "Learning",
+      "type": "object"
+    },
+    "Media": {
+      "additionalProperties": false,
+      "properties": {
+        "engine": {
+          "const": "mediamtx",
+          "title": "Engine",
+          "type": "string"
+        },
+        "proxy_rtsp_base": {
+          "title": "Proxy Rtsp Base",
+          "type": "string"
+        },
+        "webrtc_public_base": {
+          "title": "Webrtc Public Base",
+          "type": "string"
+        },
+        "hls_public_base": {
+          "title": "Hls Public Base",
+          "type": "string"
+        }
+      },
+      "required": [
+        "engine",
+        "proxy_rtsp_base",
+        "webrtc_public_base",
+        "hls_public_base"
+      ],
+      "title": "Media",
+      "type": "object"
+    },
+    "Paths": {
+      "additionalProperties": false,
+      "properties": {
+        "inbox": {
+          "title": "Inbox",
+          "type": "string"
+        },
+        "clips": {
+          "title": "Clips",
+          "type": "string"
+        },
+        "features": {
+          "title": "Features",
+          "type": "string"
+        },
+        "datasets": {
+          "title": "Datasets",
+          "type": "string"
+        },
+        "memory": {
+          "title": "Memory",
+          "type": "string"
+        },
+        "reports": {
+          "title": "Reports",
+          "type": "string"
+        },
+        "logs": {
+          "title": "Logs",
+          "type": "string"
+        },
+        "demo_output": {
+          "title": "Demo Output",
+          "type": "string"
+        }
+      },
+      "required": [
+        "inbox",
+        "clips",
+        "features",
+        "datasets",
+        "memory",
+        "reports",
+        "logs",
+        "demo_output"
+      ],
+      "title": "Paths",
+      "type": "object"
+    },
+    "Region": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "original_resolution": {
+          "const": true,
+          "title": "Original Resolution",
+          "type": "boolean"
+        },
+        "proposal_methods": {
+          "items": {
+            "enum": [
+              "configured_roi",
+              "detector",
+              "motion",
+              "tiling"
+            ],
+            "type": "string"
+          },
+          "title": "Proposal Methods",
+          "type": "array"
+        },
+        "tile_size_px": {
+          "minimum": 32,
+          "title": "Tile Size Px",
+          "type": "integer"
+        },
+        "tile_overlap": {
+          "exclusiveMaximum": 1,
+          "minimum": 0,
+          "title": "Tile Overlap",
+          "type": "number"
+        },
+        "expand_ratio": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Expand Ratio",
+          "type": "number"
+        },
+        "max_regions": {
+          "minimum": 1,
+          "title": "Max Regions",
+          "type": "integer"
+        },
+        "min_original_short_side_px": {
+          "minimum": 1,
+          "title": "Min Original Short Side Px",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "enabled",
+        "original_resolution",
+        "proposal_methods",
+        "tile_size_px",
+        "tile_overlap",
+        "expand_ratio",
+        "max_regions",
+        "min_original_short_side_px"
+      ],
+      "title": "Region",
+      "type": "object"
+    },
+    "Release": {
+      "additionalProperties": false,
+      "properties": {
+        "memory_policy": {
+          "enum": [
+            "gated_auto_known_class",
+            "manual"
+          ],
+          "title": "Memory Policy",
+          "type": "string"
+        },
+        "student_policy": {
+          "enum": [
+            "shadow_then_gated_canary",
+            "manual"
+          ],
+          "title": "Student Policy",
+          "type": "string"
+        },
+        "new_class_requires_confirmation": {
+          "const": true,
+          "title": "New Class Requires Confirmation",
+          "type": "boolean"
+        },
+        "critical_requires_confirmation": {
+          "const": true,
+          "title": "Critical Requires Confirmation",
+          "type": "boolean"
+        },
+        "shadow_min_episodes": {
+          "minimum": 1,
+          "title": "Shadow Min Episodes",
+          "type": "integer"
+        },
+        "shadow_min_hours": {
+          "exclusiveMinimum": 0,
+          "title": "Shadow Min Hours",
+          "type": "number"
+        },
+        "canary_percentages": {
+          "items": {
+            "type": "integer"
+          },
+          "minItems": 1,
+          "title": "Canary Percentages",
+          "type": "array"
+        },
+        "switch_at_episode_boundary": {
+          "const": true,
+          "title": "Switch At Episode Boundary",
+          "type": "boolean"
+        },
+        "preserve_previous_versions": {
+          "minimum": 2,
+          "title": "Preserve Previous Versions",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "memory_policy",
+        "student_policy",
+        "new_class_requires_confirmation",
+        "critical_requires_confirmation",
+        "shadow_min_episodes",
+        "shadow_min_hours",
+        "canary_percentages",
+        "switch_at_episode_boundary",
+        "preserve_previous_versions"
+      ],
+      "title": "Release",
+      "type": "object"
+    },
+    "Resources": {
+      "additionalProperties": false,
+      "properties": {
+        "max_training_jobs": {
+          "minimum": 1,
+          "title": "Max Training Jobs",
+          "type": "integer"
+        },
+        "training_window_local": {
+          "title": "Training Window Local",
+          "type": "string"
+        },
+        "max_train_minutes": {
+          "minimum": 1,
+          "title": "Max Train Minutes",
+          "type": "integer"
+        },
+        "gpu_memory_fraction_max": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Gpu Memory Fraction Max",
+          "type": "number"
+        },
+        "pause_train_on_inference_queue": {
+          "minimum": 1,
+          "title": "Pause Train On Inference Queue",
+          "type": "integer"
+        },
+        "random_seed": {
+          "title": "Random Seed",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "max_training_jobs",
+        "training_window_local",
+        "max_train_minutes",
+        "gpu_memory_fraction_max",
+        "pause_train_on_inference_queue",
+        "random_seed"
+      ],
+      "title": "Resources",
+      "type": "object"
+    },
+    "Retention": {
+      "additionalProperties": false,
+      "properties": {
+        "raw_video_days": {
+          "minimum": 1,
+          "title": "Raw Video Days",
+          "type": "integer"
+        },
+        "evidence_days": {
+          "minimum": 1,
+          "title": "Evidence Days",
+          "type": "integer"
+        },
+        "feature_days": {
+          "minimum": 1,
+          "title": "Feature Days",
+          "type": "integer"
+        },
+        "audit_days": {
+          "minimum": 1,
+          "title": "Audit Days",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "raw_video_days",
+        "evidence_days",
+        "feature_days",
+        "audit_days"
+      ],
+      "title": "Retention",
+      "type": "object"
+    },
+    "SceneProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "demo",
+            "replay",
+            "live"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "tenant_id": {
+          "title": "Tenant Id",
+          "type": "string"
+        },
+        "data_root": {
+          "title": "Data Root",
+          "type": "string"
+        },
+        "model_root": {
+          "title": "Model Root",
+          "type": "string"
+        },
+        "api_host": {
+          "title": "Api Host",
+          "type": "string"
+        },
+        "api_port": {
+          "maximum": 65535,
+          "minimum": 1,
+          "title": "Api Port",
+          "type": "integer"
+        },
+        "public_base_url": {
+          "title": "Public Base Url",
+          "type": "string"
+        },
+        "database_url": {
+          "title": "Database Url",
+          "type": "string"
+        },
+        "redis_url": {
+          "title": "Redis Url",
+          "type": "string"
+        },
+        "teacher_enabled": {
+          "title": "Teacher Enabled",
+          "type": "boolean"
+        },
+        "teacher_base_url": {
+          "title": "Teacher Base Url",
+          "type": "string"
+        },
+        "teacher_api_key_ref": {
+          "title": "Teacher Api Key Ref",
+          "type": "string"
+        },
+        "device": {
+          "title": "Device",
+          "type": "string"
+        },
+        "encoder_weights": {
+          "title": "Encoder Weights",
+          "type": "string"
+        },
+        "auth_enabled": {
+          "title": "Auth Enabled",
+          "type": "boolean"
+        },
+        "jwt_secret_ref": {
+          "title": "Jwt Secret Ref",
+          "type": "string"
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/SourceBinding"
+          },
+          "title": "Sources",
+          "type": "array"
+        }
+      },
+      "required": [
+        "mode",
+        "tenant_id",
+        "data_root",
+        "model_root",
+        "api_host",
+        "api_port",
+        "public_base_url",
+        "database_url",
+        "redis_url",
+        "teacher_enabled",
+        "teacher_base_url",
+        "teacher_api_key_ref",
+        "device",
+        "encoder_weights",
+        "auth_enabled",
+        "jwt_secret_ref",
+        "sources"
+      ],
+      "title": "SceneProfile",
+      "type": "object"
+    },
+    "SceneSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "display_name": {
+          "minLength": 1,
+          "title": "Display Name",
+          "type": "string"
+        },
+        "task_modes": {
+          "items": {
+            "enum": [
+              "activity_recognition",
+              "event_monitoring",
+              "procedure_compliance"
+            ],
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Task Modes",
+          "type": "array"
+        },
+        "learning_capabilities": {
+          "items": {
+            "enum": [
+              "unlabeled_temporal_learning",
+              "prototype_learning",
+              "anonymous_cluster_discovery"
+            ],
+            "type": "string"
+          },
+          "title": "Learning Capabilities",
+          "type": "array"
+        },
+        "knowledge_file": {
+          "minLength": 1,
+          "title": "Knowledge File",
+          "type": "string"
+        },
+        "episode_policy": {
+          "$ref": "#/$defs/EpisodePolicy"
+        },
+        "session_policy": {
+          "$ref": "#/$defs/SessionPolicy"
+        },
+        "context_schema": {
+          "patternProperties": {
+            "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$": {
+              "$ref": "#/$defs/ContextField"
+            }
+          },
+          "title": "Context Schema",
+          "type": "object"
+        },
+        "business_extension": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/GarmentExtension"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "display_name",
+        "task_modes",
+        "learning_capabilities",
+        "knowledge_file",
+        "episode_policy",
+        "session_policy",
+        "context_schema",
+        "business_extension"
+      ],
+      "title": "SceneSpec",
+      "type": "object"
+    },
+    "SessionPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "required_context_keys": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+            "type": "string"
+          },
+          "title": "Required Context Keys",
+          "type": "array"
+        },
+        "exclusive_resource_key": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Exclusive Resource Key"
+        },
+        "lease_ttl_seconds": {
+          "minimum": 1,
+          "title": "Lease Ttl Seconds",
+          "type": "integer"
+        },
+        "lease_heartbeat_seconds": {
+          "minimum": 1,
+          "title": "Lease Heartbeat Seconds",
+          "type": "integer"
+        },
+        "max_session_minutes": {
+          "minimum": 1,
+          "title": "Max Session Minutes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "required_context_keys",
+        "exclusive_resource_key",
+        "lease_ttl_seconds",
+        "lease_heartbeat_seconds",
+        "max_session_minutes"
+      ],
+      "title": "SessionPolicy",
+      "type": "object"
+    },
+    "SourceBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "synthetic",
+            "file",
+            "rtsp"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "uri": {
+          "title": "Uri",
+          "type": "string"
+        },
+        "scene_ids": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Scene Ids",
+          "type": "array"
+        },
+        "roi_xyxy": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "title": "Roi Xyxy",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "uri",
+        "scene_ids",
+        "roi_xyxy"
+      ],
+      "title": "SourceBinding",
+      "type": "object"
+    },
+    "Teacher": {
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "frozen": {
+          "const": true,
+          "title": "Frozen",
+          "type": "boolean"
+        },
+        "timeout_seconds": {
+          "exclusiveMinimum": 0,
+          "title": "Timeout Seconds",
+          "type": "integer"
+        },
+        "max_concurrency": {
+          "minimum": 1,
+          "title": "Max Concurrency",
+          "type": "integer"
+        },
+        "max_queue": {
+          "minimum": 1,
+          "title": "Max Queue",
+          "type": "integer"
+        },
+        "max_frames": {
+          "minimum": 1,
+          "title": "Max Frames",
+          "type": "integer"
+        },
+        "max_calls_per_camera_hour": {
+          "minimum": 0,
+          "title": "Max Calls Per Camera Hour",
+          "type": "integer"
+        },
+        "include_forecast_in_prompt": {
+          "const": false,
+          "title": "Include Forecast In Prompt",
+          "type": "boolean"
+        },
+        "output_schema": {
+          "title": "Output Schema",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model",
+        "frozen",
+        "timeout_seconds",
+        "max_concurrency",
+        "max_queue",
+        "max_frames",
+        "max_calls_per_camera_hour",
+        "include_forecast_in_prompt",
+        "output_schema"
+      ],
+      "title": "Teacher",
+      "type": "object"
+    },
+    "UI": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "theme": {
+          "enum": [
+            "dark",
+            "light"
+          ],
+          "title": "Theme",
+          "type": "string"
+        },
+        "video_ratio": {
+          "maximum": 0.8,
+          "minimum": 0.3,
+          "title": "Video Ratio",
+          "type": "number"
+        },
+        "timezone": {
+          "title": "Timezone",
+          "type": "string"
+        },
+        "demo_banner": {
+          "const": true,
+          "title": "Demo Banner",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "title",
+        "theme",
+        "video_ratio",
+        "timezone",
+        "demo_banner"
+      ],
+      "title": "UI",
+      "type": "object"
+    },
+    "Video": {
+      "additionalProperties": false,
+      "properties": {
+        "clip_seconds": {
+          "exclusiveMinimum": 0,
+          "title": "Clip Seconds",
+          "type": "number"
+        },
+        "stride_seconds": {
+          "exclusiveMinimum": 0,
+          "title": "Stride Seconds",
+          "type": "number"
+        },
+        "frames_per_clip": {
+          "minimum": 2,
+          "title": "Frames Per Clip",
+          "type": "integer"
+        },
+        "quality_min": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Quality Min",
+          "type": "number"
+        },
+        "missing_frame_fraction_max": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Missing Frame Fraction Max",
+          "type": "number"
+        },
+        "reconnect_seconds": {
+          "minimum": 1,
+          "title": "Reconnect Seconds",
+          "type": "integer"
+        },
+        "queue_size": {
+          "minimum": 1,
+          "title": "Queue Size",
+          "type": "integer"
+        },
+        "queue_policy": {
+          "const": "drop_oldest",
+          "title": "Queue Policy",
+          "type": "string"
+        },
+        "pre_event_seconds": {
+          "minimum": 0,
+          "title": "Pre Event Seconds",
+          "type": "number"
+        },
+        "post_event_seconds": {
+          "minimum": 0,
+          "title": "Post Event Seconds",
+          "type": "number"
+        },
+        "allowed_lateness_seconds": {
+          "minimum": 0,
+          "title": "Allowed Lateness Seconds",
+          "type": "number"
+        }
+      },
+      "required": [
+        "clip_seconds",
+        "stride_seconds",
+        "frames_per_clip",
+        "quality_min",
+        "missing_frame_fraction_max",
+        "reconnect_seconds",
+        "queue_size",
+        "queue_policy",
+        "pre_event_seconds",
+        "post_event_seconds",
+        "allowed_lateness_seconds"
+      ],
+      "title": "Video",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "config_version": {
+      "const": "3.1",
+      "title": "Config Version",
+      "type": "string"
+    },
+    "active_profile": {
+      "title": "Active Profile",
+      "type": "string"
+    },
+    "active_scene": {
+      "title": "Active Scene",
+      "type": "string"
+    },
+    "knowledge_file": {
+      "default": null,
+      "title": "Knowledge File",
+      "type": "null"
+    },
+    "profiles": {
+      "additionalProperties": {
+        "$ref": "#/$defs/SceneProfile"
+      },
+      "title": "Profiles",
+      "type": "object"
+    },
+    "paths": {
+      "$ref": "#/$defs/Paths"
+    },
+    "video": {
+      "$ref": "#/$defs/Video"
+    },
+    "encoder": {
+      "$ref": "#/$defs/Encoder"
+    },
+    "teacher": {
+      "$ref": "#/$defs/Teacher"
+    },
+    "region": {
+      "$ref": "#/$defs/Region"
+    },
+    "learning": {
+      "$ref": "#/$defs/Learning"
+    },
+    "evaluation": {
+      "$ref": "#/$defs/Evaluation"
+    },
+    "release": {
+      "$ref": "#/$defs/Release"
+    },
+    "resources": {
+      "$ref": "#/$defs/Resources"
+    },
+    "media": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Media"
+      },
+      "title": "Media",
+      "type": "object"
+    },
+    "session": {
+      "default": null,
+      "title": "Session",
+      "type": "null"
+    },
+    "retention": {
+      "$ref": "#/$defs/Retention"
+    },
+    "ui": {
+      "$ref": "#/$defs/UI"
+    },
+    "demo": {
+      "$ref": "#/$defs/Demo"
+    },
+    "scenes": {
+      "minProperties": 1,
+      "patternProperties": {
+        "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$": {
+          "$ref": "#/$defs/SceneSpec"
+        }
+      },
+      "title": "Scenes",
+      "type": "object"
+    }
+  },
+  "required": [
+    "config_version",
+    "active_profile",
+    "active_scene",
+    "profiles",
+    "paths",
+    "video",
+    "encoder",
+    "teacher",
+    "region",
+    "learning",
+    "evaluation",
+    "release",
+    "resources",
+    "media",
+    "retention",
+    "ui",
+    "demo",
+    "scenes"
+  ],
+  "title": "SceneConfig",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

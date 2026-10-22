@@ -1,0 +1,88 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "tenant_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Tenant Id",
+      "type": "string"
+    },
+    "scene_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Scene Id",
+      "type": "string"
+    },
+    "contract_version": {
+      "const": "3.1",
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "snapshot_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Snapshot Id",
+      "type": "string"
+    },
+    "parent_id": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Parent Id"
+    },
+    "feature_space_id": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Feature Space Id",
+      "type": "string"
+    },
+    "knowledge_hash": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Knowledge Hash",
+      "type": "string"
+    },
+    "state": {
+      "enum": [
+        "candidate",
+        "active",
+        "revoked"
+      ],
+      "title": "State",
+      "type": "string"
+    },
+    "sample_manifest_hash": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Sample Manifest Hash",
+      "type": "string"
+    },
+    "evaluation_report_id": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Evaluation Report Id"
+    }
+  },
+  "required": [
+    "tenant_id",
+    "scene_id",
+    "contract_version",
+    "snapshot_id",
+    "parent_id",
+    "feature_space_id",
+    "knowledge_hash",
+    "state",
+    "sample_manifest_hash",
+    "evaluation_report_id"
+  ],
+  "title": "MemorySnapshot",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

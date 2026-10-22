@@ -1,0 +1,125 @@
+# 研发示例；没有视频推理或学习效果。人工知识不被机器覆盖。
+schema_version: '3.1'
+knowledge_version: demo-3.1.0
+approval_status: draft
+approved_by: null
+states: []
+events: []
+workflow:
+  id: assembly
+  version: '1.0'
+  ordering: strict
+  nodes:
+  - node_id: node_1
+    action_id: pick_material
+    state_id: null
+    required: true
+    min_count: 1
+    max_count: 1
+    role: operator
+    group: main
+  - node_id: node_2
+    action_id: assemble
+    state_id: null
+    required: true
+    min_count: 1
+    max_count: 1
+    role: operator
+    group: main
+  - node_id: node_3
+    action_id: inspect
+    state_id: null
+    required: true
+    min_count: 1
+    max_count: 1
+    role: operator
+    group: main
+  - node_id: node_4
+    action_id: assemble
+    state_id: null
+    required: true
+    min_count: 1
+    max_count: 1
+    role: operator
+    group: main
+  - node_id: node_5
+    action_id: inspect
+    state_id: null
+    required: true
+    min_count: 1
+    max_count: 1
+    role: operator
+    group: main
+  edges:
+  - from_node: node_1
+    to_node: node_2
+  - from_node: node_2
+    to_node: node_3
+  - from_node: node_3
+    to_node: node_4
+  - from_node: node_4
+    to_node: node_5
+  repeatable_edges: []
+curated_memory: []
+scene_id: electronics_assembly
+task_modes:
+- activity_recognition
+- procedure_compliance
+actions:
+- id: pick_material
+  name: 取料
+  aliases: []
+  description: 取料的可见过程
+  status: approved
+  risk_level: general
+  observable_cues:
+  - 取料的连续画面证据
+  negative_cues:
+  - 仅出现对象不代表动作完成
+  confusable_with: []
+  completion_rule:
+    name: visible_motion_over_interval
+    min_visible_seconds: 0.8
+    require_object_contact: true
+  duration_prior_seconds: null
+  positive_examples: []
+  negative_examples: []
+  prototype_refs: []
+- id: assemble
+  name: 装配
+  aliases: []
+  description: 装配的可见过程
+  status: approved
+  risk_level: general
+  observable_cues:
+  - 装配的连续画面证据
+  negative_cues:
+  - 仅出现对象不代表动作完成
+  confusable_with: []
+  completion_rule:
+    name: visible_motion_over_interval
+    min_visible_seconds: 0.8
+    require_object_contact: true
+  duration_prior_seconds: null
+  positive_examples: []
+  negative_examples: []
+  prototype_refs: []
+- id: inspect
+  name: 检查
+  aliases: []
+  description: 检查的可见过程
+  status: approved
+  risk_level: general
+  observable_cues:
+  - 检查的连续画面证据
+  negative_cues:
+  - 仅出现对象不代表动作完成
+  confusable_with: []
+  completion_rule:
+    name: visible_motion_over_interval
+    min_visible_seconds: 0.8
+    require_object_contact: true
+  duration_prior_seconds: null
+  positive_examples: []
+  negative_examples: []
+  prototype_refs: []
