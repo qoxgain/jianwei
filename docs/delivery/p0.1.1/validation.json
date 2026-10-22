@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-22",
+  "branch": "codex/p0-1-foundation",
+  "baseline_commit": "c0c19678727b327b58d4e62012196aa8a4791aef",
+  "stage": "P0.1.1",
+  "full_acceptance": false,
+  "python": {
+    "passed": 110,
+    "failed": 0,
+    "warnings": 1
+  },
+  "web": {
+    "passed": 43,
+    "failed": 0
+  },
+  "reference": {
+    "passed": 29,
+    "data": "synthetic mechanism tests"
+  },
+  "build": "passed",
+  "build_demo": "passed",
+  "package_zip_integrity": "passed",
+  "migration": {
+    "old_knowledge_records": 2,
+    "preserved_records": 2,
+    "normalized_mappings": 2,
+    "repeat_identical": true,
+    "backup_created": true
+  },
+  "browser": {
+    "status": "not_run",
+    "screenshots": [],
+    "reason": "Chromium installation unavailable; hosted browser cannot reach local application and denies file URLs"
+  },
+  "ci": {
+    "status": "not_observed_at_local_validation"
+  },
+  "real_video": "not_implemented",
+  "real_training": "not_implemented",
+  "p02_started": false
+}

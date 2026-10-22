@@ -1,5 +1,5 @@
 import labelsYaml from '../../../knowledge/labels.yaml?raw';
-import systemYaml from '../../../config/system.yaml?raw';
+import systemYaml from '../../../tests/fixtures/v30/config/system.yaml?raw';
 import { contentHash, knowledgeDiff, parseYaml, previewKnowledge, systemValidate } from './validation';
 import type { Bootstrap, Knowledge, Preview, Profile, Version } from './types';
 

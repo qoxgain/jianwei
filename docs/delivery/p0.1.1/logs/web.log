@@ -1,0 +1,18 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @jianwei/web@0.1.0 test
+> vitest run
+
+
+ RUN  v4.0.18 /workspace/scratch/d660ee0ac9d3/jianwei/apps/web
+
+ ✓ src/validation.test.ts (14 tests) 194ms
+ ✓ src/service.test.ts (3 tests) 448ms
+ ✓ src/scenes.test.ts (26 tests) 1031ms
+     ✓ isolates all four scenes and preserves baseline hashes after refresh  592ms
+
+ Test Files  3 passed (3)
+      Tests  43 passed (43)
+   Start at  14:13:20
+   Duration  1.67s (transform 381ms, setup 0ms, import 1.12s, tests 1.67s, environment 0ms)
+

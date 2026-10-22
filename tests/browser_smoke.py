@@ -23,6 +23,7 @@ def exercise(page, address, mode, screenshots):
     expect(page.locator(".connection")).to_contain_text("浏览器演示" if mode == "offline" else "API 已连接")
     page.screenshot(path=str(screenshots / f"{mode}-overview.png"), full_page=True, animations="disabled")
     page.get_by_role("button", name="编辑动作与 SOP").click()
+    page.get_by_role("button", name="检查口袋", exact=True).click()
     name = page.get_by_label("动作名称", exact=True)
     # A temporary invalid field must remain editable, and must not be saved.
     name.fill("")
@@ -37,6 +38,7 @@ def exercise(page, address, mode, screenshots):
     expect(page.get_by_text("未激活候选", exact=True).first).to_be_visible()
     page.reload()
     page.get_by_role("button", name="编辑动作与 SOP").click()
+    page.get_by_role("button", name="检查口袋", exact=True).click()
     expect(page.get_by_label("动作名称", exact=True)).to_have_value("检查口袋")
     page.get_by_role("tab", name=re.compile("版本记录")).click()
     expect(page.get_by_text("未激活候选", exact=True).first).to_be_visible()

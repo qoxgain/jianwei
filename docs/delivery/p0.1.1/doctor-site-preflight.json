@@ -1,0 +1,111 @@
+{
+  "check": "preflight",
+  "stage": "P0.1.1",
+  "profile": "site",
+  "config_hash": "a47b1d45942f44233282706432c8426db491f62e72b1fc52a5b4f7f04286e999",
+  "knowledge_hash": "92fa83709264f1cf01b24869e8c1f45a2d36ae63f299e29053f07c2ed5f90b5f",
+  "status": "BLOCKED",
+  "profile_status": {
+    "id": "site",
+    "name": "现场环境",
+    "mode": "live",
+    "static_valid": true,
+    "runtime_ready": false,
+    "checks": [
+      {
+        "code": "SCHEMA_VALID",
+        "status": "passed",
+        "message": "严格 schema、重复键、引用及语义交叉检查通过"
+      },
+      {
+        "code": "ENV_MISSING",
+        "status": "blocked",
+        "message": "缺少环境变量：JIANWEI_DATABASE_URL（database_url）"
+      },
+      {
+        "code": "ENV_MISSING",
+        "status": "blocked",
+        "message": "缺少环境变量：JIANWEI_TEACHER_KEY（teacher_api_key_ref）"
+      },
+      {
+        "code": "ENV_MISSING",
+        "status": "blocked",
+        "message": "缺少环境变量：JIANWEI_JWT_SECRET（jwt_secret_ref）"
+      },
+      {
+        "code": "ENV_MISSING",
+        "status": "blocked",
+        "message": "缺少环境变量：JIANWEI_CAMERA_01_RTSP（source.cam_01）"
+      },
+      {
+        "code": "KNOWLEDGE_DRAFT",
+        "status": "blocked",
+        "message": "知识包仍为草案，现场使用前需要业务批准"
+      },
+      {
+        "code": "ENCODER_WEIGHTS_MISSING",
+        "status": "blocked",
+        "message": "缺少配置指定的编码器权重"
+      },
+      {
+        "code": "ENCODER_SHA_NOT_PINNED",
+        "status": "blocked",
+        "message": "编码器权重 SHA-256 尚未锁定"
+      },
+      {
+        "code": "AUTH_NOT_IMPLEMENTED",
+        "status": "blocked",
+        "message": "鉴权服务尚未实现，不能提供 lab/site 服务"
+      },
+      {
+        "code": "PIPELINE_NOT_IMPLEMENTED",
+        "status": "blocked",
+        "message": "真实视频管线和模型运行待后续阶段实现"
+      },
+      {
+        "code": "RUNTIME_NOT_CHECKED",
+        "status": "not_run",
+        "message": "未连接数据库、Redis、教师或相机，未加载模型，未验证 GPU/FFmpeg"
+      }
+    ],
+    "blockers": [
+      {
+        "code": "ENV_MISSING",
+        "message": "缺少环境变量：JIANWEI_DATABASE_URL（database_url）"
+      },
+      {
+        "code": "ENV_MISSING",
+        "message": "缺少环境变量：JIANWEI_TEACHER_KEY（teacher_api_key_ref）"
+      },
+      {
+        "code": "ENV_MISSING",
+        "message": "缺少环境变量：JIANWEI_JWT_SECRET（jwt_secret_ref）"
+      },
+      {
+        "code": "ENV_MISSING",
+        "message": "缺少环境变量：JIANWEI_CAMERA_01_RTSP（source.cam_01）"
+      },
+      {
+        "code": "KNOWLEDGE_DRAFT",
+        "message": "知识包仍为草案，现场使用前需要业务批准"
+      },
+      {
+        "code": "ENCODER_WEIGHTS_MISSING",
+        "message": "缺少配置指定的编码器权重"
+      },
+      {
+        "code": "ENCODER_SHA_NOT_PINNED",
+        "message": "编码器权重 SHA-256 尚未锁定"
+      },
+      {
+        "code": "AUTH_NOT_IMPLEMENTED",
+        "message": "鉴权服务尚未实现，不能提供 lab/site 服务"
+      },
+      {
+        "code": "PIPELINE_NOT_IMPLEMENTED",
+        "message": "真实视频管线和模型运行待后续阶段实现"
+      }
+    ]
+  },
+  "note": "仅检查本地配置和前置条件；未验证相机、模型、外部服务或生产能力。"
+}

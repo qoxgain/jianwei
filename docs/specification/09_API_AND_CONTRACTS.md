@@ -1,5 +1,7 @@
 # 09 接口与事件契约
 
+> 当前P0.1.1实现边界与3.1契约以 [最终任务书](../plans/P0.1.1-final.md)、[交付记录](../delivery/P0.1.1.md) 和 [P0.2衔接](../P0.2-CONTRACTS.md) 为准；本文其余算法/商业化能力为后续目标。
+
 ## 通用协议
 
 HTTP JSON，`/api/v1`；OpenAPI3.1核心契约见 `contracts/openapi.yaml`。所有写请求携带Idempotency-Key及鉴权上下文；tenant由服务端验证。长任务202返回job_id/status_url。冲突409、结构错误422、缺权限403、依赖未就绪503。错误体含code/message/trace_id，不返回凭证、任意文件路径或堆栈。
@@ -24,7 +26,7 @@ HTTP JSON，`/api/v1`；OpenAPI3.1核心契约见 `contracts/openapi.yaml`。所
 
 ## 预测事件
 
-`prediction.created`含event_id、tenant_id、camera_id、episode_id、entity_id、seq、issued_at、input_max_pts_ms、target_start/end_pts_ms、topk或概率分布、prediction_kind、model_version、memory_version、knowledge_version、data_origin。事件ID稳定且写入后不可覆盖。
+`prediction.created`含event_id、tenant_id、scene_id、source_id、episode_id、entity_id、seq、issued_at、input_max_pts_ms、target_start/end_pts_ms、topk或概率分布、prediction_kind、model_version、memory_version、knowledge_version、data_origin。事件ID稳定且写入后不可覆盖。
 
 `observation.verified`只记录独立证据、动作和质量层级。`prediction.scored`引用两个已存在ID，记录是否可评分及理由；发生时间在结果可获得之后。`memory.candidate_built`、`memory.activated`、`training.started/completed/skipped`、`evaluation.completed`、`release.changed`、`state.corrected`使用相同事件外壳。
 
@@ -44,6 +46,6 @@ WebSocket `/ws/v1/scenes/{scene_id}`先发runtime.snapshot，之后seq递增。�
 
 ## 数据清单
 
-每行至少包含sample_id、source_video_id、source_hash、episode_id、split、start_ms、end_ms、data_origin。生产扩展tenant、camera、operator_group、style_family、feature_space、quality_tier、evidence_id、annotation_revision及box_verified。`examples/dataset_manifest.jsonl`仅为合成格式示例；校验工具拒绝source/episode/hash跨分区。
+每行至少包含sample_id、source_video_id、source_hash、episode_id、split、start_ms、end_ms、data_origin。生产扩展tenant、scene、source、entity、context、feature_space、quality_tier、evidence_id、annotation_revision及box_verified。`examples/dataset_manifest.jsonl`仅为合成格式示例；校验工具拒绝source/episode/hash跨分区。
 
 评估比较双方必须有相同dataset_hash和protocol_id，明确每类样本数、置信区间、coverage、误报率及延迟。参考compare_versions只实现数值门槛，不实现真实模型测量、bootstrap或部署；这些需按任务书补全。

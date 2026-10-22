@@ -1,0 +1,62 @@
+{
+  "source": "Actual local TestClient responses; configuration fixtures only, no video data",
+  "anonymous_observation": {
+    "project": {
+      "name": "见微",
+      "version": "3.0",
+      "stage": "P0.1.1",
+      "title": "见微 多模态自学习感知平台"
+    },
+    "tenant_id": "tenant_demo",
+    "active_scene": "anonymous_observation",
+    "capabilities": {
+      "configuration": true,
+      "knowledge_preview": true,
+      "knowledge_versioning": true,
+      "video_ingest": false,
+      "training": false,
+      "live_inference": false,
+      "authentication": false
+    },
+    "knowledge": {
+      "hash": "aea39d7f966b366613c885ffa2792b6c0e6b7a01b0e15d0cbeb4e846db7594d6",
+      "data": {
+        "schema_version": "3.1",
+        "knowledge_version": "demo-3.1.0",
+        "scene_id": "anonymous_observation",
+        "task_modes": [
+          "activity_recognition"
+        ],
+        "approval_status": "draft",
+        "approved_by": null,
+        "actions": [],
+        "states": [],
+        "events": [],
+        "workflow": null,
+        "curated_memory": []
+      }
+    }
+  },
+  "assembly_repeated_action_nodes": [
+    {
+      "node_id": "node_3",
+      "action_id": "inspect",
+      "state_id": null,
+      "required": true,
+      "min_count": 1,
+      "max_count": 1,
+      "role": "operator",
+      "group": "main"
+    },
+    {
+      "node_id": "node_5",
+      "action_id": "inspect",
+      "state_id": null,
+      "required": true,
+      "min_count": 1,
+      "max_count": 1,
+      "role": "operator",
+      "group": "main"
+    }
+  ]
+}

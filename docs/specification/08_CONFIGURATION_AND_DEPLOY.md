@@ -1,5 +1,7 @@
 # 08 配置和部署调试
 
+> 当前P0.1.1实现边界与3.1契约以 [最终任务书](../plans/P0.1.1-final.md)、[交付记录](../delivery/P0.1.1.md) 和 [P0.2衔接](../P0.2-CONTRACTS.md) 为准；本文其余算法/商业化能力为后续目标。
+
 ## 唯一配置入口
 
 所有运行参数以 `config/system.yaml`为事实来源。profile不是多份独立配置，而是同一文件中的环境块。路径解析固定以配置文件所在目录的上一级作为项目根；各相对路径与当前shell工作目录无关。`paths`子目录相对选中profile的data_root；模型从model_root管理，具体encoder_weights为显式路径。
@@ -15,7 +17,7 @@
 | 无GPU机制验证 | active_profile=demo | 合成特征示例可运行，明确演示来源 |
 | 本地录像研究 | active_profile=lab，source.uri、encoder_weights、device | 检查视频和权重，导入真实数据；教师可关闭 |
 | 客户生产 | active_profile=site，IP/域名/目录、数据库和相机env | auth开启，正式标签，模型SHA锁定，禁止模拟回退 |
-| 新工序 | labels.yaml新增draft及样例 | 候选注册、核验与独立评估 |
+| 新工序 | 对应场景知识包新增draft及样例 | 候选注册、核验与独立评估 |
 | 新行业 | knowledge_file指向新知识包、active_scene及source.scene_id同步 | 要验证模型适配和成像能力，不承诺改YAML就获得新视觉能力 |
 
 所有相机的ROI采用原始帧归一化xyxy。单工位模板迁到新角度必须重新检查ROI和特征分布。前端WebRTC/HLS地址来自同一profile的media块，部署生成器负责反向代理配置；不能手改生成的MediaMTX文件导致配置分叉。

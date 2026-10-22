@@ -1,5 +1,7 @@
 # 04 系统架构与数据存储
 
+> 当前P0.1.1实现边界与3.1契约以 [最终任务书](../plans/P0.1.1-final.md)、[交付记录](../delivery/P0.1.1.md) 和 [P0.2衔接](../P0.2-CONTRACTS.md) 为准；本文其余算法/商业化能力为后续目标。
+
 ## 服务边界
 
 ```mermaid
@@ -36,7 +38,7 @@ P0参考工具使用NumPy、SQLite、YAML；正式实现使用FastAPI、SQLAlche
 
 ## 时间与特征协议
 
-所有事件含UTC时间和源视频PTS；同步按PTS而非接口返回时间。多摄像头关联需要时钟偏差测量及对齐容忍值。FeatureBatch含 `tenant_id,scene_id,camera_id,episode_id,entity_id,style_family,source_video_id,source_hash,feature_space_id,encoder_sha,preprocess_sha,pts_start_ms,pts_end_ms,quality,vector_uri`。
+所有事件含UTC时间和源视频PTS；同步按PTS而非接口返回时间。多摄像头关联需要时钟偏差测量及对齐容忍值。FeatureBatch含 `tenant_id,scene_id,source_id,episode_id,entity_id,context,source_video_id,source_hash,feature_space_id,feature_space,pts_start_ms,pts_end_ms,quality,vector_uri,split,data_origin`。
 
 长视频编码只输出低频特征，原视频用分段对象存储与索引，避免逐帧BLOB进入关系库。ROI从原始分辨率帧提取，记录原图坐标、变换、帧ID和track_id。特征空间不兼容时拒绝相似度计算；名称相同或维度相同不证明兼容。
 
@@ -44,7 +46,7 @@ P0参考工具使用NumPy、SQLite、YAML；正式实现使用FastAPI、SQLAlche
 
 | 表 | 核心字段与约束 |
 |---|---|
-| episodes | tenant、camera、style、sop_version、status、parent_rework_id；完整周期独立ID |
+| episodes | tenant、scene、source、entity、context、PTS、status；完整观察过程独立ID，返修只在业务扩展 |
 | camera_leases | tenant+camera唯一；owner_session、expires_at、fencing_token |
 | evidence | source_hash、video范围、原图ROI、质量、留存期；内容hash去重 |
 | feature_batches | evidence_id、feature_space_id、vector_uri、时间窗；唯一evidence+space+window |
@@ -66,7 +68,7 @@ P0参考工具使用NumPy、SQLite、YAML；正式实现使用FastAPI、SQLAlche
 
 ## 版本元组与一致性
 
-一次发布绑定 `config_hash + knowledge_hash + feature_space_id + memory_version + predictor_version + student_version + evaluation_protocol_version`。会话开始锁定元组；模型灰度按完整episode分配，不在半件衣物中切换。回滚必须同时恢复相容的模型、原型和知识引用，不能只替换权重文件。
+一次发布绑定 `config_hash + knowledge_hash + feature_space_id + memory_version + predictor_version + student_version + evaluation_protocol_version`。会话开始锁定元组；模型灰度按完整episode分配，不在观察周期中途切换。回滚必须同时恢复相容的模型、原型和知识引用，不能只替换权重文件。
 
 写入观测、修正和训练触发使用业务幂等键；至少一次投递场景下通过唯一索引去重。训练使用单工位/模型族分布式锁和冷却期，任务重试不重复生成可发布版本。导入、标签核验、模型加载先写临时目录，hash校验后原子提交。
 

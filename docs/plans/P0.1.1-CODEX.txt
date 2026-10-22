@@ -1,0 +1,27 @@
+【2026-10-22最终补充】以同目录 P0.1.1-final.md v1.1为依据。先阅读 docs/delivery/P0.1.1.md 核对当前已实现内容，禁止重复重做已通过项。保留旧 garment_sop 场景ID，遵循严格因果不等式和跨场景原始源分组约束。若本期有浏览器验收阻塞，先补验，不直接进入P0.2。
+
+你是 qoxgain/jianwei 仓库的执行开发者。请在 codex/p0-1-foundation 分支（审查基线提交 c0c19678727b327b58d4e62012196aa8a4791aef；若 HEAD 已更新，以仓库实际状态为准并先报告差异）完成“见微 V3.0 P0.1.1 通用场景架构补强与主线A技术衔接”，先不要进入P0.2。
+
+【必须先阅读】README.md、AGENTS.md、docs/delivery/P0.1.md、docs/ROADMAP.md、docs/specification/02_SELF_LEARNING_ENGINE.md、04_ARCHITECTURE_AND_DATA.md、07_CODEX_TASKBOOK.md，以及随本指令提供的《见微_V3_P0.1.1_通用化与主线A技术衔接_最终任务书.md》。若任务书尚未放入仓库，请先告知文件缺失并把本指令内要求作为最低约束；最好的方式是将任务书放入 docs/plans/ 再执行。不要仅阅读旧版P0.1.1修订任务书而忽略本次最终版。
+
+【总目标】把以服装为默认示例的P0.1基础工作台改成通用动作/状态/事件/流程知识底座。服装只是一个插件化场景包，系统需面向电子装配、安全监测、装备制造、海洋作业及未来其他动态场景。P0.1.1是主线A三个研究方向（主动感知、连续状态/自监督时序、少样本抗遗忘）的公共前置工程，不要求现在实现真实模型学习。
+
+【必须实现】
+1. 保留原P0.1全部功能：严格YAML/Schema校验、env引用和脱敏、配置/知识编辑、diff预览、不可变候选、SQLite迁移、审计、浏览器静态Demo、单用户回环地址边界。
+2. 将 config/system.yaml 升到v3.1的scenes注册结构，active_scene只作为默认场景；独立场景知识、任务模式、来源绑定、episode/session策略；旧v3.0配置和labels.yaml可显式无损迁移，不覆盖旧记录或旧hash。支持同时加载多个场景。
+3. 至少支持 activity_recognition、event_monitoring、procedure_compliance。SOP/workflow仅在procedure_compliance必需。特别必须支持 actions=[]、events=[]、workflow=null 的“通用无标注观察”场景，可配置、校验、保存，作为P0.2—P0.3自监督学习入口。不要要求先有动作名才能导入视频。
+4. ActionDefinition、ActivityObservation、StateDefinition/StateSnapshot、EventDefinition/EventOccurrence和WorkflowNode分开；node_id与action_id分开，重复同一动作节点合法；empirical_forecast、visual_observation、normative_expected分开，预测不能自证完成动作，SOP不得充当未来实际训练标签。
+5. 服装专用款式、评分、漏检扣分、返修、独占相机等约束下沉到可类型校验的场景扩展/session_policy；通用Episode使用tenant/scene/source/entity/episode/时间/context，不要求style_family。无SOP事件场景不用款号也不产生质检评分。
+6. API、DB、审计、知识候选加入scene作用域和tenant作用域；在P0.1.1单用户Demo下做作用域隔离，不声称实现正式RBAC。原API以deprecated兼容默认场景。Alembic迁移必须保留旧baseline/candidate内容、ID与hash，并建立新旧哈希映射；重复迁移幂等。
+7. 前端改成通用场景选择与知识工作台；服装专用插图/用语只在服装场景；电子装配展示同一inspect动作两次；车间安全无SOP；通用无标签场景动作表为空亦不报错。真实视频、训练和准确率没有实现时明确“未接入/未验证”，不可用模拟数据冒充。
+8. 更新Pydantic、JSON Schema、OpenAPI、TypeScript、代码测试、README和ROADMAP。为P0.2预留FeatureBatch/feature_space_id/source/episode/PTS/context等严格数据契约，为P0.3预留因果预测与未来观测隔离，为P0.4—P0.7预留候选标签、Memory、训练、评测和版本发布语义，但不要提前实现整个训练系统。
+
+【四个必须可运行的配置fixture】A服装SOP（兼容旧五动作+一个草案及款式规则）；B电子装配SOP（同一inspect在不同node_id重复）；C车间安全event_monitoring（无SOP，无款号）；D通用无标签场景（actions/events空、workflow为空，无业务动作标签）。四者使用同一套核心API/页面实现。
+
+【实施顺序】先给简短实施计划和拟编辑文件，再执行任务书T0→T5：旧数据/四场景回归测试→严格契约与显式旧版迁移→多场景配置加载→作用域DB/API→前端通用化→文档/Schema/测试。禁止为了让测试通过而删旧数据、放宽全部字段为Any、降低权限或改成不校验。尽量按契约迁移、后端、前端三个提交批次开展。
+
+【技术依赖，不要颠倒】P0.2先处理真实MP4/NPZ、冻结编码器和特征空间；P0.3才研究无标注匿名动作簇与因果时序预测；P0.4/0.5才加入Qwen候选语义、少量人工锚点、记忆和预测—观测校正；P0.6/0.7才做学生模型训练、抗遗忘和独立评测；Agentic Perception/区域动态精查可在P1/P3深化。P0.1.1只能实现这些能力的前置数据结构与必要测试。
+
+【最低自动验收】旧V3.0资料和SQLite候选无损、迁移重复执行结果一致；4场景均可切换/编辑/预览/保存/刷新；procedure_compliance无workflow必须拒绝、event_monitoring无workflow合法、actions为空合法；重复node_id拒绝而相同action_id多节点允许；不同场景版本不可串读；live禁止synthetic及假就绪；前端无跨场景文字污染；原pytest/前端测试/build/browser smoke回归通过。GitHub Actions如果没有实际成功运行记录，不得宣称CI成功。
+
+【交付】直接提交代码到工作分支（不擅自合并main或部署生产环境）；输出commit SHA、修改文件清单、迁移记录、四场景验收表、实际执行的测试命令及通过/失败结果、UI截图、未完成项与P0.2衔接建议。真实视频和模型结果一律标为“未验证/未运行”，合成数据只可用于机制或界面测试。除遇到真实权限、数据或外部资源阻塞，不用逐项询问我是否继续。

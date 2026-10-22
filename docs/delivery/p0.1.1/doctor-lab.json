@@ -1,0 +1,8 @@
+{
+  "check": "static",
+  "stage": "P0.1.1",
+  "profile": "lab",
+  "config_hash": "ff62877e864a2db1bce6daed89bc39fc1e88cfcdb61525a47d572439e9716085",
+  "knowledge_hash": "92fa83709264f1cf01b24869e8c1f45a2d36ae63f299e29053f07c2ed5f90b5f",
+  "status": "PASS"
+}
