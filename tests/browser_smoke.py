@@ -7,6 +7,7 @@ import argparse
 import json
 import re
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from playwright.sync_api import sync_playwright, expect
 
@@ -17,7 +18,7 @@ def exercise(page, address, mode, screenshots):
     errors = []
     requests = []
     page.on("pageerror", lambda error: errors.append(str(error)))
-    page.on("request", lambda request: requests.append(request.url))
+    page.on("request", lambda request: requests.append((request.url, request.resource_type)))
     page.goto(address)
     expect(page.get_by_role("heading", name="从一个场景，开始看见。")).to_be_visible()
     expect(page.locator(".connection")).to_contain_text("浏览器演示" if mode == "offline" else "API 已连接")
@@ -67,10 +68,15 @@ def exercise(page, address, mode, screenshots):
     if page.get_by_role("button", name="关闭提示", exact=True).is_visible():
         page.get_by_role("button", name="关闭提示", exact=True).click()
     assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1"), "mobile horizontal overflow"
-    page.screenshot(path=str(screenshots / f"{mode}-mobile.png"), full_page=True, animations="disabled")
+    page.screenshot(path=str(screenshots / f"{mode}-mobile.png"), full_page=False, animations="disabled")
     assert not errors, errors
     if mode == "offline":
-        assert not [url for url in requests if url.startswith(("http:", "https:")) and url != address], requests
+        # Scene selection updates the query string before reload. Only the same
+        # self-contained document may load; assets/API/external requests may not.
+        document_url = urlsplit(address)
+        assert not [(url, kind) for url, kind in requests
+                    if url.startswith(("http:", "https:")) and
+                    (kind != "document" or urlsplit(url)[:3] != document_url[:3])], requests
     return {"mode": mode, "passed": True, "console_errors": errors,
             "checks": ["boot", "edit-invalid-recover", "preview", "candidate-save", "reload-persistence", "baseline-unchanged", "duplicate-yaml-rejected", "environment-blockers", "mobile-width"]}
 

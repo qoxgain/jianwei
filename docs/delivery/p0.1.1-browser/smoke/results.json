@@ -1,0 +1,34 @@
+[
+  {
+    "mode": "api",
+    "passed": true,
+    "console_errors": [],
+    "checks": [
+      "boot",
+      "edit-invalid-recover",
+      "preview",
+      "candidate-save",
+      "reload-persistence",
+      "baseline-unchanged",
+      "duplicate-yaml-rejected",
+      "environment-blockers",
+      "mobile-width"
+    ]
+  },
+  {
+    "mode": "offline",
+    "passed": true,
+    "console_errors": [],
+    "checks": [
+      "boot",
+      "edit-invalid-recover",
+      "preview",
+      "candidate-save",
+      "reload-persistence",
+      "baseline-unchanged",
+      "duplicate-yaml-rejected",
+      "environment-blockers",
+      "mobile-width"
+    ]
+  }
+]

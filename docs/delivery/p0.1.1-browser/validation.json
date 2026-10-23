@@ -1,0 +1,34 @@
+{
+  "baseline_commit": "29690eb0807095dda071bc5f0ab936502f5f8cf4",
+  "date": "2026-10-23",
+  "browser": "Chromium 154.0.8037.57 built on Debian GNU/Linux 13 (trixie)",
+  "viewport_desktop": {
+    "width": 1440,
+    "height": 1000
+  },
+  "viewport_mobile": {
+    "width": 390,
+    "height": 844
+  },
+  "modes": [
+    "api",
+    "offline_static_http"
+  ],
+  "scenes": [
+    "garment_sop",
+    "electronics_assembly",
+    "workshop_safety",
+    "anonymous_observation"
+  ],
+  "changes": [
+    "inline SVG favicon avoids unnecessary favicon.ico 404",
+    "offline smoke accepts same-document scene query on reload",
+    "four-scene script now checks console errors, mobile layout and offline requests"
+  ],
+  "build_sha256": {
+    "apps/web/dist/index.html": "0411c357f43408568cacc1d125ab314f68349444d2b70a5bed9fc8d572ed8318",
+    "apps/web/dist-demo/index.html": "c8efbac5b62fdb6c1b0be8d73bfff5e22490ba228f8afd8ada7eee1a657b60a3"
+  },
+  "passed": true,
+  "data": "isolated temporary SQLite, illustrative YAML only; no real videos or inference"
+}

@@ -1,0 +1,66 @@
+[
+  {
+    "mode": "api",
+    "scenes": [
+      {
+        "scene": "garment_sop",
+        "edit_preview_save_refresh": true,
+        "baseline_unchanged": true,
+        "desktop_and_mobile": true
+      },
+      {
+        "scene": "electronics_assembly",
+        "edit_preview_save_refresh": true,
+        "baseline_unchanged": true,
+        "desktop_and_mobile": true
+      },
+      {
+        "scene": "workshop_safety",
+        "edit_preview_save_refresh": true,
+        "baseline_unchanged": true,
+        "desktop_and_mobile": true
+      },
+      {
+        "scene": "anonymous_observation",
+        "edit_preview_save_refresh": true,
+        "baseline_unchanged": true,
+        "desktop_and_mobile": true
+      }
+    ],
+    "page_errors": [],
+    "console_errors": [],
+    "offline_document_only": false
+  },
+  {
+    "mode": "offline",
+    "scenes": [
+      {
+        "scene": "garment_sop",
+        "edit_preview_save_refresh": true,
+        "baseline_unchanged": true,
+        "desktop_and_mobile": true
+      },
+      {
+        "scene": "electronics_assembly",
+        "edit_preview_save_refresh": true,
+        "baseline_unchanged": true,
+        "desktop_and_mobile": true
+      },
+      {
+        "scene": "workshop_safety",
+        "edit_preview_save_refresh": true,
+        "baseline_unchanged": true,
+        "desktop_and_mobile": true
+      },
+      {
+        "scene": "anonymous_observation",
+        "edit_preview_save_refresh": true,
+        "baseline_unchanged": true,
+        "desktop_and_mobile": true
+      }
+    ],
+    "page_errors": [],
+    "console_errors": [],
+    "offline_document_only": true
+  }
+]
