@@ -16,6 +16,7 @@ class Scope(Strict):
 class Episode(Scope):
     contract_version: Literal['3.1']
     episode_id: Identifier
+    time_domain_id: Identifier = 'legacy'
     source_id: Identifier
     source_video_id: Identifier
     source_hash: Sha
@@ -159,8 +160,8 @@ def assert_compatible(left: FeatureBatch, right: FeatureBatch):
 
 def assert_future_pair(history: FeatureBatch, target: FeatureBatch, issued_at_pts_ms: int):
     assert_compatible(history, target)
-    if (history.source_video_id, history.source_hash, history.source_id, history.episode_id, history.entity_id, history.split) != (
-        target.source_video_id, target.source_hash, target.source_id, target.episode_id, target.entity_id, target.split):
-        raise ValueError('禁止跨视频、实体、周期或split配对')
+    if (history.source_video_id, history.source_hash, history.source_id, history.episode_id, history.entity_id, history.split, history.time_domain_id) != (
+        target.source_video_id, target.source_hash, target.source_id, target.episode_id, target.entity_id, target.split, target.time_domain_id):
+        raise ValueError('禁止跨视频、实体、周期、时间域或split配对')
     if history.split != 'train': raise ValueError('自监督训练只能读取train')
     if not history.pts_end_ms <= issued_at_pts_ms < target.pts_start_ms: raise ValueError('目标窗口不在未来')

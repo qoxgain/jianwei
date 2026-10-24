@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
-  title: 见微 P0.1.1 通用场景知识服务
-  version: 0.1.1
+  title: 见微 P0.2 数据接入与知识服务
+  version: 0.2.0
 paths:
   /api/health:
     get:
@@ -59,6 +59,204 @@ paths:
             application/json:
               schema: {}
       deprecated: true
+  /api/ingestion/capabilities:
+    get:
+      summary: Ingestion Capabilities
+      operationId: ingestion_capabilities_api_ingestion_capabilities_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /api/uploads:
+    post:
+      summary: Upload Artifact
+      operationId: upload_artifact_api_uploads_post
+      parameters:
+      - name: kind
+        in: query
+        required: true
+        schema:
+          enum:
+          - mp4
+          - npz
+          - encoder
+          type: string
+          title: Kind
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/imports:
+    post:
+      summary: Enqueue Import
+      operationId: enqueue_import_api_scenes__scene_id__imports_post
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportRequest'
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      summary: List Imports
+      operationId: list_imports_api_scenes__scene_id__imports_get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/imports/example:
+    post:
+      summary: Example Import
+      operationId: example_import_api_scenes__scene_id__imports_example_post
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/imports/{import_id}:
+    get:
+      summary: Get Import
+      operationId: get_import_api_scenes__scene_id__imports__import_id__get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      - name: import_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Import Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/imports/{import_id}/retry:
+    post:
+      summary: Retry Import
+      operationId: retry_import_api_scenes__scene_id__imports__import_id__retry_post
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      - name: import_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Import Id
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/imports/{import_id}/manifest:
+    get:
+      summary: Download Manifest
+      operationId: download_manifest_api_scenes__scene_id__imports__import_id__manifest_get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      - name: import_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Import Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/config/validate:
     post:
       summary: Validate Configuration
@@ -306,6 +504,67 @@ paths:
       deprecated: true
 components:
   schemas:
+    ClockAnchor:
+      properties:
+        domain_index:
+          type: integer
+          minimum: 0.0
+          title: Domain Index
+        pts_ms:
+          type: integer
+          minimum: 0.0
+          title: Pts Ms
+        capture_utc:
+          type: string
+          title: Capture Utc
+      additionalProperties: false
+      type: object
+      required:
+      - domain_index
+      - pts_ms
+      - capture_utc
+      title: ClockAnchor
+    FeatureSpace:
+      properties:
+        contract_version:
+          type: string
+          const: '3.1'
+          title: Contract Version
+        encoder_sha:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Encoder Sha
+        preprocessing_sha:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Preprocessing Sha
+        sampling_sha:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Sampling Sha
+        roi_policy_hash:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Roi Policy Hash
+        pooling:
+          type: string
+          minLength: 1
+          title: Pooling
+        dimension:
+          type: integer
+          minimum: 1.0
+          title: Dimension
+      additionalProperties: false
+      type: object
+      required:
+      - contract_version
+      - encoder_sha
+      - preprocessing_sha
+      - sampling_sha
+      - roi_policy_hash
+      - pooling
+      - dimension
+      title: FeatureSpace
     HTTPValidationError:
       properties:
         detail:
@@ -315,6 +574,133 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ImportEpisode:
+      properties:
+        episode_id:
+          type: string
+          pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          title: Episode Id
+        domain_index:
+          type: integer
+          minimum: 0.0
+          title: Domain Index
+        start_ms:
+          type: integer
+          minimum: 0.0
+          title: Start Ms
+        end_ms:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: End Ms
+      additionalProperties: false
+      type: object
+      required:
+      - episode_id
+      - domain_index
+      - start_ms
+      - end_ms
+      title: ImportEpisode
+    ImportRequest:
+      properties:
+        upload_id:
+          type: string
+          pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          title: Upload Id
+        format:
+          type: string
+          enum:
+          - mp4
+          - npz
+          title: Format
+        source_id:
+          type: string
+          pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          title: Source Id
+        data_origin:
+          type: string
+          enum:
+          - real_video
+          - synthetic_features
+          title: Data Origin
+        source_upload_id:
+          anyOf:
+          - type: string
+            pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          - type: 'null'
+          title: Source Upload Id
+        source_domain_map:
+          anyOf:
+          - items:
+              type: integer
+              minimum: 0.0
+            type: array
+            maxItems: 10000
+          - type: 'null'
+          title: Source Domain Map
+        encoder_artifact_id:
+          anyOf:
+          - type: string
+            pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          - type: 'null'
+          title: Encoder Artifact Id
+        declared_source_hash:
+          anyOf:
+          - type: string
+            pattern: ^[a-f0-9]{64}$
+          - type: 'null'
+          title: Declared Source Hash
+        feature_space:
+          anyOf:
+          - $ref: '#/components/schemas/FeatureSpace'
+          - type: 'null'
+        requested_split:
+          type: string
+          enum:
+          - unassigned
+          - train
+          - calibration
+          - test
+          title: Requested Split
+          default: unassigned
+        context:
+          patternProperties:
+            ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$:
+              anyOf:
+              - type: string
+              - type: integer
+              - type: number
+              - type: boolean
+              - type: 'null'
+          type: object
+          title: Context
+        episodes:
+          items:
+            $ref: '#/components/schemas/ImportEpisode'
+          type: array
+          maxItems: 10000
+          title: Episodes
+        episode_origin:
+          anyOf:
+          - type: string
+            enum:
+            - manual
+            - external
+          - type: 'null'
+          title: Episode Origin
+        clock_anchors:
+          items:
+            $ref: '#/components/schemas/ClockAnchor'
+          type: array
+          maxItems: 10000
+          title: Clock Anchors
+      additionalProperties: false
+      type: object
+      required:
+      - upload_id
+      - format
+      - source_id
+      - data_origin
+      title: ImportRequest
     PreviewRequest:
       properties:
         yaml:

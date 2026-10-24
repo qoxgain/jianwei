@@ -1,0 +1,89 @@
+{
+  "artifact_hash": "c888e185ef99a4e30622ab35d6a48e3b263fb242a9acbccb7286093abd95f711",
+  "blocker": {
+    "code": "ENCODER_ADAPTER_UNAVAILABLE",
+    "errors": [],
+    "message": "已完成视频解码；请配置受支持的冻结 ONNX 编码器，或导入已有 NPZ 特征"
+  },
+  "config_hash": "e4f08bcb535e5cadf1e3de15ab45efed6d4e2eff0ffbb031822a865537966e3c",
+  "context": {},
+  "data_origin": "real_video",
+  "domains": [
+    {
+      "capture_start_utc": null,
+      "clock_status": "unknown",
+      "domain_index": 0,
+      "end_ms": 4000,
+      "first_row": 0,
+      "last_row": 31,
+      "start_ms": 0,
+      "time_domain_id": "d0"
+    }
+  ],
+  "eligible_rows": 0,
+  "encoder_evidence": {
+    "execution": "not_executed",
+    "vector_production": "not_available"
+  },
+  "episodes": [
+    {
+      "complete": true,
+      "domain_index": 0,
+      "end_ms": 4000,
+      "episode_id": "browser_cycle",
+      "origin": "manual",
+      "start_ms": 0,
+      "time_domain_id": "d0"
+    }
+  ],
+  "feature_batches": [],
+  "feature_cache": null,
+  "feature_space": null,
+  "feature_space_id": null,
+  "gaps": [],
+  "import_id": "a379a89b-4c64-47bf-96f3-b4faee681333",
+  "input_format": "mp4",
+  "knowledge_hash": "aea39d7f966b366613c885ffa2792b6c0e6b7a01b0e15d0cbeb4e846db7594d6",
+  "manifest_version": "3.1",
+  "quality": {
+    "bright_frames": 0,
+    "dark_frames": 0,
+    "decoded_frames": 32,
+    "low_contrast_frames": 0,
+    "method": "decoded_luma_and_contrast_v1",
+    "score": 1,
+    "semantic_accuracy": null
+  },
+  "rejected_rows": [],
+  "roi_xyxy": [
+    0,
+    0,
+    1,
+    1
+  ],
+  "rows": [],
+  "scene_id": "anonymous_observation",
+  "semantic_accuracy": null,
+  "source_group_id": "a87f697417cb750126bbbd138fd34736c65f36900f62a391cd642f1089fbfd0a",
+  "source_hash": "c888e185ef99a4e30622ab35d6a48e3b263fb242a9acbccb7286093abd95f711",
+  "source_id": "file_01",
+  "source_ref": "upload:b29553a8-a198-4648-9609-a993f4bd47b5",
+  "source_verification": "verified",
+  "source_verified": true,
+  "source_video_id": "source_c888e185ef99a4e30622ab35d6a48e3b263fb242a9acbccb7286093abd95f711",
+  "split": "unassigned",
+  "stage": "P0.2",
+  "status": "blocked",
+  "tenant_id": "tenant_demo",
+  "total_rows": 0,
+  "training_executed": false,
+  "vector_uri": null,
+  "video": {
+    "container_duration_ms": 4000,
+    "decoded_height": 120,
+    "decoded_width": 160,
+    "height": 120,
+    "width": 160
+  },
+  "view_id": "c63b794c56cc057af7019e7838203fe0351638471ec6d9d72bdd3da0b5ecd677"
+}

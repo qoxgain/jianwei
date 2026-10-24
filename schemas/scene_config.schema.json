@@ -76,65 +76,6 @@
       "title": "Demo",
       "type": "object"
     },
-    "Encoder": {
-      "additionalProperties": false,
-      "properties": {
-        "adapter": {
-          "enum": [
-            "existing_features",
-            "videomae",
-            "vjepa2"
-          ],
-          "title": "Adapter",
-          "type": "string"
-        },
-        "frozen": {
-          "const": true,
-          "title": "Frozen",
-          "type": "boolean"
-        },
-        "feature_dim": {
-          "minimum": 1,
-          "title": "Feature Dim",
-          "type": "integer"
-        },
-        "weights_sha256": {
-          "anyOf": [
-            {
-              "pattern": "^[a-f0-9]{64}$",
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "title": "Weights Sha256"
-        },
-        "preprocessing_version": {
-          "title": "Preprocessing Version",
-          "type": "string"
-        },
-        "pooling": {
-          "title": "Pooling",
-          "type": "string"
-        },
-        "checkpoint_revision": {
-          "title": "Checkpoint Revision",
-          "type": "string"
-        }
-      },
-      "required": [
-        "adapter",
-        "frozen",
-        "feature_dim",
-        "weights_sha256",
-        "preprocessing_version",
-        "pooling",
-        "checkpoint_revision"
-      ],
-      "title": "Encoder",
-      "type": "object"
-    },
     "EpisodePolicy": {
       "additionalProperties": false,
       "properties": {
@@ -290,6 +231,118 @@
         "separate_rework"
       ],
       "title": "GarmentExtension",
+      "type": "object"
+    },
+    "IngestionSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "max_upload_bytes": {
+          "default": 67108864,
+          "maximum": 2147483648,
+          "minimum": 1024,
+          "title": "Max Upload Bytes",
+          "type": "integer"
+        },
+        "max_expanded_bytes": {
+          "default": 134217728,
+          "maximum": 2147483648,
+          "minimum": 1024,
+          "title": "Max Expanded Bytes",
+          "type": "integer"
+        },
+        "max_rows": {
+          "default": 100000,
+          "maximum": 1000000,
+          "minimum": 1,
+          "title": "Max Rows",
+          "type": "integer"
+        },
+        "max_duration_seconds": {
+          "default": 600,
+          "maximum": 86400,
+          "minimum": 1,
+          "title": "Max Duration Seconds",
+          "type": "integer"
+        },
+        "max_frames": {
+          "default": 18000,
+          "maximum": 1000000,
+          "minimum": 2,
+          "title": "Max Frames",
+          "type": "integer"
+        },
+        "max_pixels": {
+          "default": 8294400,
+          "maximum": 67108864,
+          "minimum": 64,
+          "title": "Max Pixels",
+          "type": "integer"
+        },
+        "probe_timeout_seconds": {
+          "default": 60,
+          "maximum": 3600,
+          "minimum": 1,
+          "title": "Probe Timeout Seconds",
+          "type": "integer"
+        },
+        "decode_width": {
+          "default": 160,
+          "maximum": 1024,
+          "minimum": 16,
+          "title": "Decode Width",
+          "type": "integer"
+        },
+        "max_gap_ms": {
+          "default": 2000,
+          "maximum": 600000,
+          "minimum": 1,
+          "title": "Max Gap Ms",
+          "type": "integer"
+        },
+        "encoder_input_size": {
+          "default": 224,
+          "maximum": 1024,
+          "minimum": 16,
+          "title": "Encoder Input Size",
+          "type": "integer"
+        },
+        "encoder_threads": {
+          "default": 1,
+          "maximum": 32,
+          "minimum": 1,
+          "title": "Encoder Threads",
+          "type": "integer"
+        },
+        "worker_poll_seconds": {
+          "default": 0.25,
+          "exclusiveMinimum": 0,
+          "maximum": 60,
+          "title": "Worker Poll Seconds",
+          "type": "number"
+        },
+        "quality_luma_min": {
+          "default": 4.0,
+          "maximum": 255,
+          "minimum": 0,
+          "title": "Quality Luma Min",
+          "type": "number"
+        },
+        "quality_luma_max": {
+          "default": 251.0,
+          "maximum": 255,
+          "minimum": 0,
+          "title": "Quality Luma Max",
+          "type": "number"
+        },
+        "quality_std_min": {
+          "default": 2.0,
+          "maximum": 128,
+          "minimum": 0,
+          "title": "Quality Std Min",
+          "type": "number"
+        }
+      },
+      "title": "IngestionSettings",
       "type": "object"
     },
     "Learning": {
@@ -758,6 +811,66 @@
         "audit_days"
       ],
       "title": "Retention",
+      "type": "object"
+    },
+    "SceneEncoder": {
+      "additionalProperties": false,
+      "properties": {
+        "adapter": {
+          "enum": [
+            "existing_features",
+            "videomae",
+            "vjepa2",
+            "onnx"
+          ],
+          "title": "Adapter",
+          "type": "string"
+        },
+        "frozen": {
+          "const": true,
+          "title": "Frozen",
+          "type": "boolean"
+        },
+        "feature_dim": {
+          "minimum": 1,
+          "title": "Feature Dim",
+          "type": "integer"
+        },
+        "weights_sha256": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Weights Sha256"
+        },
+        "preprocessing_version": {
+          "title": "Preprocessing Version",
+          "type": "string"
+        },
+        "pooling": {
+          "title": "Pooling",
+          "type": "string"
+        },
+        "checkpoint_revision": {
+          "title": "Checkpoint Revision",
+          "type": "string"
+        }
+      },
+      "required": [
+        "adapter",
+        "frozen",
+        "feature_dim",
+        "weights_sha256",
+        "preprocessing_version",
+        "pooling",
+        "checkpoint_revision"
+      ],
+      "title": "SceneEncoder",
       "type": "object"
     },
     "SceneProfile": {
@@ -1254,7 +1367,7 @@
       "$ref": "#/$defs/Video"
     },
     "encoder": {
-      "$ref": "#/$defs/Encoder"
+      "$ref": "#/$defs/SceneEncoder"
     },
     "teacher": {
       "$ref": "#/$defs/Teacher"
@@ -1294,6 +1407,17 @@
     },
     "demo": {
       "$ref": "#/$defs/Demo"
+    },
+    "ingestion": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/IngestionSettings"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "scenes": {
       "minProperties": 1,

@@ -34,6 +34,15 @@ profiles:
       - 0.02
       - 0.98
       - 0.98
+    - id: file_01
+      type: file
+      uri: ./data_demo/inbox/manual.mp4
+      scene_ids:
+      - garment_sop
+      - electronics_assembly
+      - workshop_safety
+      - anonymous_observation
+      roi_xyxy: [0.0, 0.0, 1.0, 1.0]
   lab:
     mode: replay
     tenant_id: tenant_lab
@@ -349,3 +358,21 @@ scenes:
       max_session_minutes: 20
     context_schema: {}
     business_extension: null
+
+# P0.2 有界导入；上传只接受文件字节，原始路径不发送到浏览器。
+ingestion:
+  max_upload_bytes: 67108864
+  max_expanded_bytes: 134217728
+  max_rows: 100000
+  max_duration_seconds: 600
+  max_frames: 18000
+  max_pixels: 8294400
+  probe_timeout_seconds: 60
+  decode_width: 160
+  max_gap_ms: 2000
+  encoder_input_size: 224
+  encoder_threads: 1
+  worker_poll_seconds: 0.25
+  quality_luma_min: 4.0
+  quality_luma_max: 251.0
+  quality_std_min: 2.0

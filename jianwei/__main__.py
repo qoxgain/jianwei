@@ -10,7 +10,7 @@ from packages.knowledge.service import content_hash
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(prog="python -m jianwei", description="见微 P0.1.1 通用场景知识工作台")
+    parser = argparse.ArgumentParser(prog="python -m jianwei", description="见微 P0.2 数据接入与知识工作台")
     commands = parser.add_subparsers(dest="command", required=True)
     for command in ("serve", "doctor"):
         child = commands.add_parser(command)
@@ -22,7 +22,7 @@ def main() -> int:
     try:
         bundle = load_bundle(args.config, args.profile)
         if args.command == "doctor":
-            result = {"check": "preflight" if args.preflight else "static", "stage": "P0.1.1",
+            result = {"check": "preflight" if args.preflight else "static", "stage": "P0.2",
                       "profile": bundle.config.active_profile, "config_hash": bundle.config_hash,
                       "knowledge_hash": content_hash(bundle.knowledge.model_dump()), "status": "PASS"}
             if args.preflight:

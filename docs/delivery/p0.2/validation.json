@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-23",
+  "stage": "P0.2",
+  "baseline_commit": "29690eb0807095dda071bc5f0ab936502f5f8cf4",
+  "checks": {
+    "python": {
+      "passed": 222,
+      "failed": 0,
+      "skipped": 0
+    },
+    "frontend": {
+      "passed": 54,
+      "failed": 0
+    },
+    "reference_synthetic": {
+      "passed": 29
+    },
+    "browser": "passed: API and standalone, four scenes, desktop and mobile",
+    "install": "passed: bash scripts/install.sh --with-encoder",
+    "startup_health": {
+      "status": "ok",
+      "stage": "P0.2",
+      "database": "ok",
+      "schema_version": "0003_ingestion",
+      "active_profile": "demo"
+    },
+    "demo_zip_integrity": "passed"
+  },
+  "artifacts_sha256": {
+    "apps/web/dist/index.html": "a19ae2499080bc374cf6ccb351b95f993cf7f156fbad665ea360cbc8e6442250",
+    "apps/web/dist-demo/index.html": "c624f9fc396f44089898a2a055d9f461f62549e9b0ec0ce62354383eb447c38e",
+    "demo/jianwei-p0.2-demo.zip": "ba924e90b880c1bf7a7c69cb0924bfc149a79ad80c390517f47201a35dece1ee"
+  },
+  "data": "Synthetic NPZ, FFmpeg test pattern and analytical ONNX test graphs only; field effectiveness not evaluated.",
+  "github_actions": "not_observed",
+  "cloud_draft": "Published by user; connected runtime, terminal and native GitHub read/fetch verified on 2026-10-24",
+  "post_publish_recheck": {
+    "date": "2026-10-24",
+    "connectivity": "connected",
+    "network_policy_state": "enforced",
+    "github_read_fetch": "passed",
+    "python_passed": 222,
+    "frontend_passed": 54,
+    "artifact_hashes": "all_match_original_acceptance"
+  }
+}

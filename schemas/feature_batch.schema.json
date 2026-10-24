@@ -74,6 +74,12 @@
       "title": "Episode Id",
       "type": "string"
     },
+    "time_domain_id": {
+      "default": "legacy",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Time Domain Id",
+      "type": "string"
+    },
     "source_id": {
       "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
       "title": "Source Id",

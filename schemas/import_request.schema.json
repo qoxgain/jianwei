@@ -1,0 +1,287 @@
+{
+  "$defs": {
+    "ClockAnchor": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_index": {
+          "minimum": 0,
+          "title": "Domain Index",
+          "type": "integer"
+        },
+        "pts_ms": {
+          "minimum": 0,
+          "title": "Pts Ms",
+          "type": "integer"
+        },
+        "capture_utc": {
+          "title": "Capture Utc",
+          "type": "string"
+        }
+      },
+      "required": [
+        "domain_index",
+        "pts_ms",
+        "capture_utc"
+      ],
+      "title": "ClockAnchor",
+      "type": "object"
+    },
+    "FeatureSpace": {
+      "additionalProperties": false,
+      "properties": {
+        "contract_version": {
+          "const": "3.1",
+          "title": "Contract Version",
+          "type": "string"
+        },
+        "encoder_sha": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Encoder Sha",
+          "type": "string"
+        },
+        "preprocessing_sha": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Preprocessing Sha",
+          "type": "string"
+        },
+        "sampling_sha": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sampling Sha",
+          "type": "string"
+        },
+        "roi_policy_hash": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Roi Policy Hash",
+          "type": "string"
+        },
+        "pooling": {
+          "minLength": 1,
+          "title": "Pooling",
+          "type": "string"
+        },
+        "dimension": {
+          "minimum": 1,
+          "title": "Dimension",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "contract_version",
+        "encoder_sha",
+        "preprocessing_sha",
+        "sampling_sha",
+        "roi_policy_hash",
+        "pooling",
+        "dimension"
+      ],
+      "title": "FeatureSpace",
+      "type": "object"
+    },
+    "ImportEpisode": {
+      "additionalProperties": false,
+      "properties": {
+        "episode_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "Episode Id",
+          "type": "string"
+        },
+        "domain_index": {
+          "minimum": 0,
+          "title": "Domain Index",
+          "type": "integer"
+        },
+        "start_ms": {
+          "minimum": 0,
+          "title": "Start Ms",
+          "type": "integer"
+        },
+        "end_ms": {
+          "exclusiveMinimum": 0,
+          "title": "End Ms",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "episode_id",
+        "domain_index",
+        "start_ms",
+        "end_ms"
+      ],
+      "title": "ImportEpisode",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "upload_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Upload Id",
+      "type": "string"
+    },
+    "format": {
+      "enum": [
+        "mp4",
+        "npz"
+      ],
+      "title": "Format",
+      "type": "string"
+    },
+    "source_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Source Id",
+      "type": "string"
+    },
+    "data_origin": {
+      "enum": [
+        "real_video",
+        "synthetic_features"
+      ],
+      "title": "Data Origin",
+      "type": "string"
+    },
+    "source_upload_id": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Upload Id"
+    },
+    "source_domain_map": {
+      "anyOf": [
+        {
+          "items": {
+            "minimum": 0,
+            "type": "integer"
+          },
+          "maxItems": 10000,
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Domain Map"
+    },
+    "encoder_artifact_id": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Encoder Artifact Id"
+    },
+    "declared_source_hash": {
+      "anyOf": [
+        {
+          "pattern": "^[a-f0-9]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Declared Source Hash"
+    },
+    "feature_space": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FeatureSpace"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "requested_split": {
+      "default": "unassigned",
+      "enum": [
+        "unassigned",
+        "train",
+        "calibration",
+        "test"
+      ],
+      "title": "Requested Split",
+      "type": "string"
+    },
+    "context": {
+      "patternProperties": {
+        "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "title": "Context",
+      "type": "object"
+    },
+    "episodes": {
+      "items": {
+        "$ref": "#/$defs/ImportEpisode"
+      },
+      "maxItems": 10000,
+      "title": "Episodes",
+      "type": "array"
+    },
+    "episode_origin": {
+      "anyOf": [
+        {
+          "enum": [
+            "manual",
+            "external"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Episode Origin"
+    },
+    "clock_anchors": {
+      "items": {
+        "$ref": "#/$defs/ClockAnchor"
+      },
+      "maxItems": 10000,
+      "title": "Clock Anchors",
+      "type": "array"
+    }
+  },
+  "required": [
+    "upload_id",
+    "format",
+    "source_id",
+    "data_origin"
+  ],
+  "title": "ImportRequest",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

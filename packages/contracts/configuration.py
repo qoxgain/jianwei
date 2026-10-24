@@ -1,8 +1,9 @@
 """v3.1 configuration; v3.0 remains a strict, explicit compatibility format."""
 from typing import Literal
 from pydantic import Field, model_validator
-from .models import Strict, SystemConfig, Profile
+from .models import Strict, SystemConfig, Profile, Encoder
 from .scenes import Identifier, SceneSpec
+from .ingestion import IngestionSettings
 
 class SourceBinding(Strict):
     id: Identifier
@@ -14,8 +15,13 @@ class SourceBinding(Strict):
 class SceneProfile(Profile):
     sources: list[SourceBinding]  # An unlabeled scene may start before any source is registered.
 
+class SceneEncoder(Encoder):
+    adapter: Literal['existing_features', 'videomae', 'vjepa2', 'onnx']
+
 class SceneConfig(SystemConfig):
     config_version: Literal['3.1']
+    ingestion: IngestionSettings | None = None
+    encoder: SceneEncoder
     knowledge_file: None = None
     session: None = None
     profiles: dict[str, SceneProfile]

@@ -208,13 +208,13 @@ def database_url(bundle: Bundle) -> str:
 
 def assert_demo_service(bundle: Bundle) -> None:
     if bundle.profile.mode != "demo" or bundle.config.active_profile != "demo":
-        raise ContractError("PROFILE_SERVICE_UNAVAILABLE", "P0.1.1 服务仅支持 demo；真实视频、鉴权和现场服务尚未实现")
+        raise ContractError("PROFILE_SERVICE_UNAVAILABLE", "P0.2 服务仅支持单用户 demo；lab/site 鉴权和现场服务尚未实现")
     if bundle.profile.auth_enabled:
         raise ContractError("AUTH_NOT_IMPLEMENTED", "鉴权尚未实现，不能把 auth_enabled 视为安全能力")
     if not is_loopback(bundle.profile.api_host):
-        raise ContractError("LOOPBACK_REQUIRED", "P0.1.1 API 必须绑定回环地址；通过受控预览访问单用户 demo")
+        raise ContractError("LOOPBACK_REQUIRED", "P0.2 API 必须绑定回环地址，当前仅支持本机单用户服务")
     if not bundle.profile.database_url.startswith("sqlite:///"):
-        raise ContractError("DATABASE_UNSUPPORTED", "P0.1.1 服务仅接通 SQLite，其他数据库尚未验证")
+        raise ContractError("DATABASE_UNSUPPORTED", "P0.2 服务仅接通 SQLite，其他数据库尚未验证")
 
 
 def profile_status(bundle: Bundle, profile_name: str) -> dict:
@@ -257,14 +257,14 @@ def profile_status(bundle: Bundle, profile_name: str) -> dict:
                 blocked("INPUT_FILE_MISSING", f"缺少真实视频文件（{source.id}）")
         if profile.auth_enabled:
             blocked("AUTH_NOT_IMPLEMENTED", "鉴权服务尚未实现，不能提供 lab/site 服务")
-        blocked("PIPELINE_NOT_IMPLEMENTED", "真实视频管线和模型运行待后续阶段实现")
+        blocked("PIPELINE_NOT_IMPLEMENTED", "现场在线管线、相机连接和生产部署尚未实现；本地文件导入请使用单用户 demo")
         checks.append({"code": "RUNTIME_NOT_CHECKED", "status": "not_run", "message": "未连接数据库、Redis、教师或相机，未加载模型，未验证 GPU/FFmpeg"})
     else:
         if not is_loopback(profile.api_host):
             blocked("LOOPBACK_REQUIRED", "无鉴权 demo 的 API 必须绑定回环地址")
         if profile.auth_enabled:
             blocked("AUTH_NOT_IMPLEMENTED", "鉴权服务尚未实现")
-        checks.append({"code": "DEMO_SCOPE", "status": "passed", "message": "仅配置与知识管理基础演示，不代表视觉识别或学习效果"})
+        checks.append({"code": "DEMO_SCOPE", "status": "passed", "message": "单用户知识管理与本地文件导入；不代表视觉识别或学习效果"})
     return {"id": profile_name, "name": {"demo": "演示环境", "lab": "研发环境", "site": "现场环境"}.get(profile_name, profile_name),
             "mode": profile.mode, "static_valid": True, "runtime_ready": not blockers,
             "checks": checks, "blockers": blockers}

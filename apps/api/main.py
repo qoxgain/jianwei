@@ -1,4 +1,4 @@
-"""P0.1.1 single-user scene API. No camera, inference, training or auth claims."""
+"""P0.2 local data ingestion and scene knowledge API; no production auth."""
 from __future__ import annotations
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
@@ -6,6 +6,8 @@ import json
 import yaml
 from pathlib import Path
 from threading import Lock
+from tempfile import TemporaryDirectory
+from typing import Literal
 from fastapi import FastAPI, Request, Response
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
@@ -20,6 +22,9 @@ from infra.models import AuditEvent, ConfigVersion, KnowledgeVersion, LegacyKnow
 from packages.config.errors import ContractError
 from packages.config.loader import PROJECT_ROOT, assert_demo_service, database_url, load_bundle, profile_status
 from packages.contracts.models import Strict, Knowledge
+from packages.contracts.ingestion import ImportRequest
+from packages.ingest_jobs.service import ImportService
+from packages.ingestion_examples import build_example
 from packages.migrations.legacy_v3 import adapt_knowledge
 from packages.knowledge.service import content_hash, knowledge_diff, preview
 
@@ -44,6 +49,9 @@ class BodyLimit:
 
     async def __call__(self, scope, receive, send):
         if scope["type"] != "http" or scope.get("method") not in {"POST", "PUT", "PATCH"}:
+            return await self.app(scope, receive, send)
+        # Uploads enforce their own streaming limit without buffering the entire file.
+        if scope.get("method") == "POST" and scope.get("path") == "/api/uploads":
             return await self.app(scope, receive, send)
         body = bytearray()
         while True:
@@ -88,6 +96,8 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
         database = Database(database_url(bundle))
         database.migrate(bundle.profile.tenant_id, bundle.config.active_scene)
         application.state.bundle, application.state.database = bundle, database
+        imports = ImportService(bundle, database)
+        application.state.imports = imports
         try:
             for scene_id in bundle.scenes:
                 with database.session() as session:
@@ -98,11 +108,13 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
                     if result.rowcount:
                         audit(session, 'config.snapshot.created', identifier, {'config_hash':bundle.config_hash}, scene_id)
                 baseline(scene_id)
+            imports.start()
             yield
         finally:
+            imports.close()
             database.close()
 
-    application = FastAPI(title="见微 P0.1.1 通用场景知识服务", version="0.1.1", lifespan=lifespan)
+    application = FastAPI(title="见微 P0.2 数据接入与知识服务", version="0.2.0", lifespan=lifespan)
     application.add_middleware(BodyLimit)
 
     def scope(scene_id=None):
@@ -126,7 +138,9 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
 
     @application.exception_handler(ContractError)
     async def contract_error(_request, error):
-        status = 404 if error.code in {'PROFILE_NOT_FOUND','VERSION_NOT_FOUND','SCENE_NOT_FOUND'} else 409 if error.code == 'BASE_HASH_CONFLICT' else 422
+        status = (404 if error.code in {'PROFILE_NOT_FOUND','VERSION_NOT_FOUND','SCENE_NOT_FOUND','UPLOAD_NOT_FOUND','IMPORT_NOT_FOUND'}
+                  else 409 if error.code in {'BASE_HASH_CONFLICT','SOURCE_SPLIT_CONFLICT','IMPORT_CONFIG_CHANGED','IMPORT_MANIFEST_UNAVAILABLE'}
+                  else 413 if error.code == 'UPLOAD_TOO_LARGE' else 422)
         return JSONResponse({'detail':error.detail()}, status_code=status)
 
     @application.exception_handler(RequestValidationError)
@@ -178,7 +192,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
         with application.state.database.session() as session:
             session.execute(text('SELECT 1'))
             revision = session.execute(text('SELECT version_num FROM alembic_version')).scalar_one()
-        return {'status':'ok','stage':'P0.1.1','database':'ok','schema_version':revision,
+        return {'status':'ok','stage':'P0.2','database':'ok','schema_version':revision,
                 'active_profile':application.state.bundle.config.active_profile}
 
     @application.get('/api/scenes')
@@ -194,7 +208,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
         scope(scene_id)
         bundle = application.state.bundle
         knowledge, yaml_text, digest = baseline(scene_id, normalized)
-        return {'project':{'name':'见微','version':'3.0','stage':'P0.1.1','title':bundle.config.ui.title},
+        return {'project':{'name':'见微','version':'3.0','stage':'P0.2','title':bundle.config.ui.title},
             'active_profile':bundle.config.active_profile, 'active_scene':scene_id, 'tenant_id':bundle.profile.tenant_id,
             'config_hash':bundle.config_hash, 'scene':scene_info(scene_id, normalized),
             'scenes':[scene_info(id, normalized) for id in bundle.scenes],
@@ -202,13 +216,57 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
             'knowledge':{'yaml':yaml_text,'hash':digest,'version':knowledge.knowledge_version,'data':knowledge.model_dump()},
             'versions':versions(scene_id),
             'capabilities':{'configuration':True,'knowledge_preview':True,'knowledge_versioning':True,
-                            'video_ingest':False,'training':False,'live_inference':False,'authentication':False},
-            'blockers':[{'code':'DEMO_ONLY','message':'仅通用场景配置与知识版本管理；视频、学习、预测、正式鉴权未实现'}]}
+                            'video_ingest':application.state.imports.settings is not None,'training':False,'live_inference':False,'authentication':False},
+            'blockers':[{'code':'DEMO_ONLY','message':'单用户本地导入与知识工作台；学习、预测、在线识别和生产鉴权尚未实现'}]}
 
     @application.get('/api/bootstrap', deprecated=True)
     def bootstrap():
         """Compatibility alias, always resolves to the configured default scene."""
         return bootstrap_payload(application.state.bundle.config.active_scene, False)
+
+    @application.get('/api/ingestion/capabilities')
+    def ingestion_capabilities():
+        return application.state.imports.capabilities()
+
+    @application.post('/api/uploads', status_code=201)
+    async def upload_artifact(request: Request, kind: Literal['mp4', 'npz', 'encoder']):
+        return await application.state.imports.upload(request, kind)
+
+    @application.post('/api/scenes/{scene_id}/imports', status_code=202)
+    def enqueue_import(scene_id: str, body: ImportRequest):
+        return application.state.imports.enqueue(scene_id, body)
+
+    @application.get('/api/scenes/{scene_id}/imports')
+    def list_imports(scene_id: str):
+        return application.state.imports.list(scene_id)
+
+    @application.post('/api/scenes/{scene_id}/imports/example', status_code=202)
+    def example_import(scene_id: str):
+        service = application.state.imports
+        service.check_scene(scene_id)
+        with TemporaryDirectory(prefix='jianwei-example-') as directory:
+            example = build_example(application.state.bundle, scene_id, Path(directory))
+            source = service.register_file(example['input_path'], 'npz')
+            encoder = service.register_file(example['encoder_path'], 'encoder')
+            body = ImportRequest.model_validate(example['request_fields'] | {
+                'upload_id': source['id'], 'encoder_artifact_id': encoder['id']})
+            return service.enqueue(scene_id, body)
+
+    @application.get('/api/scenes/{scene_id}/imports/{import_id}')
+    def get_import(scene_id: str, import_id: str):
+        return application.state.imports.get(scene_id, import_id)
+
+    @application.post('/api/scenes/{scene_id}/imports/{import_id}/retry', status_code=202)
+    def retry_import(scene_id: str, import_id: str):
+        return application.state.imports.retry(scene_id, import_id)
+
+    @application.get('/api/scenes/{scene_id}/imports/{import_id}/manifest')
+    def download_manifest(scene_id: str, import_id: str):
+        job = application.state.imports.get(scene_id, import_id)
+        if job['manifest'] is None:
+            raise ContractError('IMPORT_MANIFEST_UNAVAILABLE', '任务尚未产生数据清单')
+        return JSONResponse(job['manifest'], headers={
+            'Content-Disposition': f'attachment; filename="import-{job["id"]}.json"'})
 
     @application.post('/api/config/validate')
     def validate_configuration(body: ProfileRequest):

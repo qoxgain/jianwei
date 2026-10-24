@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "browser": "Chromium 154.0.8037.57 built on Debian GNU/Linux 13 (trixie)",
+  "build_sha256": {
+    "apps/web/dist/index.html": "a19ae2499080bc374cf6ccb351b95f993cf7f156fbad665ea360cbc8e6442250",
+    "apps/web/dist-demo/index.html": "c624f9fc396f44089898a2a055d9f461f62549e9b0ec0ce62354383eb447c38e"
+  },
+  "results": [
+    {
+      "mode": "api",
+      "scenes": [
+        {
+          "scene": "garment_sop",
+          "example": "passed",
+          "same_job_on_repeat": true,
+          "reload_and_manifest_export": true,
+          "desktop_and_mobile": true
+        },
+        {
+          "scene": "electronics_assembly",
+          "example": "passed",
+          "same_job_on_repeat": true,
+          "reload_and_manifest_export": true,
+          "desktop_and_mobile": true
+        },
+        {
+          "scene": "workshop_safety",
+          "example": "passed",
+          "same_job_on_repeat": true,
+          "reload_and_manifest_export": true,
+          "desktop_and_mobile": true
+        },
+        {
+          "scene": "anonymous_observation",
+          "example": "passed",
+          "same_job_on_repeat": true,
+          "reload_and_manifest_export": true,
+          "desktop_and_mobile": true
+        }
+      ],
+      "video": {
+        "decoded_test_pattern_frames": 32,
+        "missing_weights": "explicitly_blocked",
+        "invalid_video": "failed_with_safe_reason",
+        "field_data": false
+      },
+      "page_errors": [],
+      "console_errors": [],
+      "offline_document_only": false
+    },
+    {
+      "mode": "offline",
+      "scenes": [
+        {
+          "scene": "garment_sop",
+          "example": "passed",
+          "same_job_on_repeat": true,
+          "reload_and_manifest_export": true,
+          "desktop_and_mobile": true
+        },
+        {
+          "scene": "electronics_assembly",
+          "example": "passed",
+          "same_job_on_repeat": true,
+          "reload_and_manifest_export": true,
+          "desktop_and_mobile": true
+        },
+        {
+          "scene": "workshop_safety",
+          "example": "passed",
+          "same_job_on_repeat": true,
+          "reload_and_manifest_export": true,
+          "desktop_and_mobile": true
+        },
+        {
+          "scene": "anonymous_observation",
+          "example": "passed",
+          "same_job_on_repeat": true,
+          "reload_and_manifest_export": true,
+          "desktop_and_mobile": true
+        }
+      ],
+      "video": null,
+      "page_errors": [],
+      "console_errors": [],
+      "offline_document_only": true
+    }
+  ]
+}

@@ -96,3 +96,49 @@ class LegacyKnowledgeMapping(Base):
     normalized_json: Mapped[str] = mapped_column(Text, nullable=False)
     normalized_yaml: Mapped[str] = mapped_column(Text, nullable=False)
     node_map_json: Mapped[str] = mapped_column(Text, nullable=False)
+
+
+class UploadedArtifact(Base):
+    __tablename__ = 'uploaded_artifacts'
+    __table_args__ = (UniqueConstraint('tenant_id', 'sha256', 'kind', name='uq_upload_content_kind'),)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    tenant_id: Mapped[str] = mapped_column(String(128), nullable=False)
+    sha256: Mapped[str] = mapped_column(String(64), nullable=False)
+    kind: Mapped[str] = mapped_column(String(16), nullable=False)
+    size_bytes: Mapped[int] = mapped_column(nullable=False)
+    created_at: Mapped[datetime] = mapped_column(UTCDateTime(), default=utc_now, nullable=False)
+
+
+class ImportJob(Base):
+    __tablename__ = 'import_jobs'
+    __table_args__ = (
+        UniqueConstraint('tenant_id', 'scene_id', 'idempotency_key', name='uq_import_idempotency'),
+        CheckConstraint("status IN ('queued','running','succeeded','blocked','failed')", name='ck_import_status'),
+        Index('ix_import_scope_created', 'tenant_id', 'scene_id', 'created_at'),
+    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    tenant_id: Mapped[str] = mapped_column(String(128), nullable=False)
+    scene_id: Mapped[str] = mapped_column(String(128), nullable=False)
+    idempotency_key: Mapped[str] = mapped_column(String(64), nullable=False)
+    config_hash: Mapped[str] = mapped_column(String(64), nullable=False)
+    knowledge_hash: Mapped[str] = mapped_column(String(64), nullable=False)
+    request_json: Mapped[str] = mapped_column(Text, nullable=False)
+    config_snapshot_json: Mapped[str] = mapped_column(Text, nullable=False)
+    status: Mapped[str] = mapped_column(String(16), nullable=False, default='queued')
+    error_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    manifest_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(UTCDateTime(), default=utc_now, nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(UTCDateTime(), default=utc_now, nullable=False)
+
+
+class SourceSplit(Base):
+    __tablename__ = 'source_splits'
+    __table_args__ = (
+        UniqueConstraint('tenant_id', 'source_hash', name='uq_source_split'),
+        CheckConstraint("split IN ('unassigned','train','calibration','test')", name='ck_source_split'),
+    )
+    id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    tenant_id: Mapped[str] = mapped_column(String(128), nullable=False)
+    source_hash: Mapped[str] = mapped_column(String(64), nullable=False)
+    split: Mapped[str] = mapped_column(String(16), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(UTCDateTime(), default=utc_now, nullable=False)
