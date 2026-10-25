@@ -1,4 +1,6 @@
-# P0.2 冻结 ONNX CPU 编码器
+# 冻结 ONNX CPU 编码器
+
+P0.3.1 已集成官方 R3D-18，来源、下载导出和实际数值验收见 [正式冻结编码器](PRETRAINED-ENCODER.md)。下文是通用 ONNX 接口。
 
 `packages.encoders.load_encoder` 执行服务器配置指定的自包含 ONNX 推理图。NPZ 导入不需要 ONNX 或 GPU；为 NPZ 上传的编码器指纹文件仅用于计算实际 SHA256，不会执行，也不能证明该权重确实生成了外部向量。
 

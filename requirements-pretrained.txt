@@ -1,0 +1,11 @@
+# Optional export toolchain only; ordinary ONNX inference uses requirements-encoder.txt.
+# Install CPU wheels from https://download.pytorch.org/whl/cpu (see docs/PRETRAINED-ENCODER.md).
+-r requirements-encoder.txt
+torch==2.7.1+cpu
+torchvision==0.22.1+cpu
+filelock==3.32.3
+fsspec==2026.7.0
+Jinja2==3.1.6
+networkx==3.6.1
+pillow==12.3.0
+setuptools==78.1.0

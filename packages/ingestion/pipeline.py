@@ -5,6 +5,7 @@ only reads registered input paths, writes an atomic feature cache, and returns a
 auditable manifest. External NPZ vectors never imply an executed visual encoder.
 """
 from __future__ import annotations
+from contextlib import ExitStack
 from datetime import datetime, timedelta, timezone
 import hashlib
 import os
@@ -19,7 +20,7 @@ from packages.contracts.learning import FeatureBatch, FeatureSpace
 from packages.knowledge.service import content_hash
 from .npz import read_npz
 from .time import time_domains, build_episodes
-from .video import decode_video, clip_tensor
+from .video import decode_video, clip_tensor, close_frames
 
 
 def file_hash(path):
@@ -171,10 +172,10 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
             if request.declared_source_hash and request.declared_source_hash != source_hash:
                 raise ContractError('SOURCE_HASH_MISMATCH', '原视频实际 SHA 与来源声明不一致')
             # Verify this really is a decodable video, and intervals fit its time domains.
-            with tempfile.TemporaryDirectory(prefix='source-', dir=output_dir) as work:
+            with tempfile.TemporaryDirectory(prefix='source-', dir=output_dir) as work, ExitStack() as frames_cleanup:
                 pixels, source_pts, source_durations, _, _, _ = decode_video(source_path, Path(work), settings)
+                frames_cleanup.callback(close_frames, pixels)
                 source_domains, _, _ = time_domains(source_pts, source_durations, settings, [])
-                del pixels
             if request.source_domain_map is not None and len(request.source_domain_map) != len(domains):
                 raise ContractError('SOURCE_DOMAIN_MAP', '原视频时间域映射必须与特征时间域逐项对应')
             previous = 0
@@ -226,8 +227,9 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
     verification = 'synthetic' if request.data_origin == 'synthetic_features' else 'verified'
     manifest = _base(bundle, scene_id, request, source, artifact_hash, source_hash, verification)
     manifest['input_format'] = 'mp4'
-    with tempfile.TemporaryDirectory(prefix='decode-', dir=output_dir) as work:
+    with tempfile.TemporaryDirectory(prefix='decode-', dir=output_dir) as work, ExitStack() as frames_cleanup:
         pixels, frame_pts, frame_durations, frame_scores, quality, video_info = decode_video(input_path, Path(work), settings)
+        frames_cleanup.callback(close_frames, pixels)
         domains, gaps, frame_domains = time_domains(frame_pts, frame_durations, settings, request.clock_anchors)
         episodes = build_episodes(spec, request, domains)
         manifest.update(domains=domains, gaps=gaps, episodes=episodes, quality=quality, video=video_info,
@@ -238,12 +240,20 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
             if not bundle.config.encoder.weights_sha256:
                 raise ContractError('ENCODER_SHA_NOT_PINNED', '冻结编码器须在配置中锁定实际文件 SHA256 后才能提取特征')
             from packages.encoders import load_encoder
+            from packages.encoders import pretrained
+            tensor_builder = clip_tensor
+            official_recipe = bundle.config.encoder.preprocessing_version == pretrained.PREPROCESSING_VERSION
+            if official_recipe:
+                if (settings.encoder_input_size != pretrained.INPUT_SIZE or
+                        bundle.config.video.frames_per_clip != pretrained.FRAMES_PER_CLIP or
+                        bundle.config.encoder.feature_dim != pretrained.FEATURE_DIM):
+                    raise ContractError('ENCODER_PREPROCESSING_INVALID', '正式 R3D-18 输入须为 16 帧、112×112，输出 512 维；请检查 system.yaml')
+                tensor_builder = pretrained.clip_tensor
             encoder = load_encoder(resolve_path(bundle.root, bundle.profile.encoder_weights),
                 bundle.config.encoder.weights_sha256, bundle.config.encoder.feature_dim,
                 settings.encoder_input_size, settings.encoder_threads)
         except ContractError as error:
             manifest.update(status='blocked', blocker=error.detail())
-            del pixels
             return manifest
         clip_ms = int(round(bundle.config.video.clip_seconds * 1000))
         stride_ms = int(round(bundle.config.video.stride_seconds * 1000))
@@ -255,7 +265,7 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
             raise ContractError('CLIP_COUNT_LIMIT', '候选片段数量超过配置限制，请增加步长或缩短视频')
         vectors, starts, durations, clip_domains, scores = [], [], [], [], []
         discarded = []
-        for episode in episodes:
+        for episode in sorted(episodes, key=lambda e: (e['domain_index'], e['start_ms'])):
             if not episode['complete']:
                 continue
             domain_index = episode['domain_index']
@@ -277,12 +287,11 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
                     discarded.append({'start_ms': start, 'end_ms': end, 'time_domain_id': domain['time_domain_id'],
                                       'reason': 'quality_or_missing_frames', 'quality': score, 'missing_fraction': missing})
                     continue
-                vector = encoder.encode(clip_tensor(pixels, selected, source.roi_xyxy, settings.encoder_input_size))[0]
+                vector = encoder.encode(tensor_builder(pixels, selected, source.roi_xyxy, settings.encoder_input_size))[0]
                 vectors.append(vector)
                 starts.append(start); durations.append(clip_ms); clip_domains.append(domain_index); scores.append(score)
                 if len(vectors) > settings.max_rows or len(vectors)*bundle.config.encoder.feature_dim*4 > settings.max_expanded_bytes:
                     raise ContractError('FEATURE_SIZE_LIMIT', '提取特征超过配置上限，请缩短视频或减少采样')
-        del pixels
     manifest['discarded_clips'] = discarded
     if not vectors:
         manifest.update(status='blocked', blocker={'code': 'NO_USABLE_CLIPS', 'message': '没有满足完整周期、片段长度与质量门槛的片段'})
@@ -291,6 +300,12 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
                      'version': bundle.config.encoder.preprocessing_version, 'input_size': settings.encoder_input_size,
                      'decode_width': settings.decode_width, 'color': 'RGB_float32_0_1',
                      'resize': 'bounded_bilinear_decode_then_roi_nearest'}
+    if official_recipe:
+        preprocessing.update(
+            recipe_implementation_sha=file_hash(Path(pretrained.__file__)),
+            resize='bounded_bilinear_decode_then_roi_float_bilinear_128x171_center112',
+            normalization='official_mean_std_embedded_in_onnx')
+    manifest['preprocessing'] = preprocessing
     space = FeatureSpace(contract_version='3.1', encoder_sha=encoder.weights_sha,
         preprocessing_sha=content_hash(preprocessing), sampling_sha=content_hash({
             'clip_ms': clip_ms, 'stride_ms': stride_ms, 'frames_per_clip': bundle.config.video.frames_per_clip,

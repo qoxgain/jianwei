@@ -1,7 +1,7 @@
 """Reproducible full-source MP4 smoke test with explicit diagnostic provenance.
 
 The optional --config uses a supplied, pinned ONNX encoder. By default we first
-record unchanged configuration failures, then execute an analytical RGB-mean
+record the unchanged configuration's missing-encoder blocker, then execute an analytical RGB-mean
 graph to test tensor plumbing only. This is not a trained vision model and never
 produces action labels or research accuracy. The whole source stays unassigned.
 """
@@ -92,11 +92,7 @@ def capture(video, output, supplied_config=None):
             config = yaml.safe_load((PROJECT_ROOT / 'config/system.yaml').read_text())
             path = root / 'config/system.yaml'
             path.write_text(yaml.safe_dump(config, allow_unicode=True, sort_keys=False))
-            report['tests']['default_config'] = execute(path, video, 'failed', output, 'default')
-            # Explicit isolated budget, not an unnoticed global limit change.
-            config['ingestion']['max_expanded_bytes'] = 536870912
-            path.write_text(yaml.safe_dump(config, allow_unicode=True, sort_keys=False))
-            report['tests']['bounded_512m_without_encoder'] = execute(path, video, 'blocked', output, 'no-encoder')
+            report['tests']['default_config'] = execute(path, video, 'blocked', output, 'default')
             model_path = root / 'models/diagnostic.onnx'
             analytical_model(model_path, config['ingestion']['encoder_input_size'])
             config['profiles']['demo']['encoder_weights'] = './models/diagnostic.onnx'
@@ -106,7 +102,7 @@ def capture(video, output, supplied_config=None):
             path.write_text(yaml.safe_dump(config, allow_unicode=True, sort_keys=False))
             report['tests']['diagnostic_encoder'] = execute(path, video, 'succeeded', output, 'diagnostic')
             report['tests']['diagnostic_encoder']['encoder_purpose'] = 'Analytical RGB mean; plumbing only, not learned visual perception.'
-            report['diagnostic_overrides'] = {'max_expanded_bytes': 536870912, 'feature_dim': 3,
+            report['diagnostic_overrides'] = {'max_expanded_bytes': config['ingestion']['max_expanded_bytes'], 'feature_dim': 3,
                                              'adapter': 'onnx', 'pretrained': False}
     write_json(output / 'real-video.json', report)
     for name, result in report['tests'].items():
@@ -116,7 +112,7 @@ def capture(video, output, supplied_config=None):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--video', type=Path, default=PROJECT_ROOT / 'examples/test.mp4')
-    parser.add_argument('--output-dir', type=Path, default=Path('docs/delivery/p0.3/video'))
+    parser.add_argument('--output-dir', type=Path, default=Path('artifacts/video-review'))
     parser.add_argument('--config', type=Path, help='Optional actual pinned encoder configuration; no diagnostic override')
     args = parser.parse_args()
     capture(args.video, args.output_dir, args.config)
