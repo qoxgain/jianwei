@@ -158,7 +158,9 @@ def load_bundle(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", p
             raise ContractError("KNOWLEDGE_FILE_MISSING", f"无法读取场景知识包：{scene_id}") from None
         loaded[scene_id] = (parse_knowledge(text, scene_id, spec.task_modes if isinstance(config, SceneConfig) else None), text)
     knowledge, knowledge_yaml = loaded[config.active_scene]
-    snapshot = _redact(config.model_dump(exclude={'knowledge_file', 'session'} if isinstance(config, SceneConfig) else None))
+    excluded = {'knowledge_file', 'session'} if isinstance(config, SceneConfig) else set()
+    if isinstance(config, SceneConfig) and config.temporal is None: excluded.add('temporal')
+    snapshot = _redact(config.model_dump(exclude=excluded))
     return Bundle(config=config, profile=selected, root=root, path=path, config_hash=content_hash(snapshot),
                   snapshot=snapshot, knowledge=knowledge, knowledge_yaml=knowledge_yaml, paths=paths, scenes=scenes)
 

@@ -1,4 +1,4 @@
-name: P0.2 checks
+name: P0.3 checks
 on:
   push:
   pull_request:

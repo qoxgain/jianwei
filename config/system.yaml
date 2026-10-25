@@ -159,8 +159,8 @@ region:
   min_original_short_side_px: 12
 learning:
   enabled: true
-  auto_train: true
-  auto_evaluate: true
+  auto_train: false
+  auto_evaluate: false
   freeze_foundation_models: true
   min_new_episodes: 50
   cooldown_hours: 24.0
@@ -170,8 +170,8 @@ learning:
   - 2.0
   - 5.0
   temporal_adapter: causal_tcn
-  hidden_dim: 128
-  epochs: 30
+  hidden_dim: 32
+  epochs: 20
   batch_size: 64
   learning_rate: 0.001
   ridge_l2: 1.0
@@ -376,3 +376,26 @@ ingestion:
   quality_luma_min: 4.0
   quality_luma_max: 251.0
   quality_std_min: 2.0
+
+# P0.3 explicit research jobs; no automatic test use or model activation.
+temporal:
+  protocol_version: p03-causal-v1
+  seed: 23
+  projection_dim: 16
+  cluster_count: 4
+  cluster_iterations: 20
+  min_segment_windows: 3
+  change_quantile: 0.8
+  target_tolerance_ms: 1000
+  max_gap_ms: 2000
+  max_rows: 12000
+  max_dimension: 1024
+  max_feature_values: 8000000
+  max_pairs_per_split: 512
+  min_pairs_per_split: 8
+  min_train_sources: 2
+  min_calibration_sources: 1
+  min_test_sources: 1
+  max_abs_feature: 1000000
+  gradient_clip_norm: 5.0
+  worker_poll_seconds: 0.25

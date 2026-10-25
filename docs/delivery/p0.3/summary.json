@@ -1,0 +1,78 @@
+{
+  "scope": "Eight synthetic sources reused across four scenes; not field evidence.",
+  "independent_source_seeds": [
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008
+  ],
+  "scenes": {
+    "garment_sop": {
+      "train_sources": 4,
+      "calibration_sources": 2,
+      "test_sources": 2,
+      "selected_model": "ridge",
+      "test_source_macro_mse": {
+        "causal_tcn": 0.7980256439982709,
+        "empirical": 0.9054701206597517,
+        "persistence": 0.66390419146152,
+        "ridge": 0.0036516460938087183,
+        "shuffled_ridge": 2.4194528063755874
+      },
+      "weights_sha256": "90eddc30685834b43a92ef7a01565a411868597dee254ec57883ea12723fbb9c",
+      "repeat_same_id": true
+    },
+    "electronics_assembly": {
+      "train_sources": 4,
+      "calibration_sources": 2,
+      "test_sources": 2,
+      "selected_model": "ridge",
+      "test_source_macro_mse": {
+        "causal_tcn": 0.7980256439982709,
+        "empirical": 0.9054701206597517,
+        "persistence": 0.66390419146152,
+        "ridge": 0.0036516460938087183,
+        "shuffled_ridge": 2.4194528063755874
+      },
+      "weights_sha256": "90eddc30685834b43a92ef7a01565a411868597dee254ec57883ea12723fbb9c",
+      "repeat_same_id": true
+    },
+    "workshop_safety": {
+      "train_sources": 4,
+      "calibration_sources": 2,
+      "test_sources": 2,
+      "selected_model": "ridge",
+      "test_source_macro_mse": {
+        "causal_tcn": 0.7980256439982709,
+        "empirical": 0.9054701206597517,
+        "persistence": 0.66390419146152,
+        "ridge": 0.0036516460938087183,
+        "shuffled_ridge": 2.4194528063755874
+      },
+      "weights_sha256": "90eddc30685834b43a92ef7a01565a411868597dee254ec57883ea12723fbb9c",
+      "repeat_same_id": true
+    },
+    "anonymous_observation": {
+      "train_sources": 4,
+      "calibration_sources": 2,
+      "test_sources": 2,
+      "selected_model": "ridge",
+      "test_source_macro_mse": {
+        "causal_tcn": 0.7980256439982709,
+        "empirical": 0.9054701206597517,
+        "persistence": 0.66390419146152,
+        "ridge": 0.0036516460938087183,
+        "shuffled_ridge": 2.4194528063755874
+      },
+      "weights_sha256": "90eddc30685834b43a92ef7a01565a411868597dee254ec57883ea12723fbb9c",
+      "repeat_same_id": true
+    }
+  },
+  "semantic_accuracy": null,
+  "visual_encoder_trained": false,
+  "auto_activated": false
+}

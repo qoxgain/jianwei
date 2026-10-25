@@ -142,3 +142,28 @@ class SourceSplit(Base):
     source_hash: Mapped[str] = mapped_column(String(64), nullable=False)
     split: Mapped[str] = mapped_column(String(16), nullable=False)
     created_at: Mapped[datetime] = mapped_column(UTCDateTime(), default=utc_now, nullable=False)
+
+
+class TemporalRun(Base):
+    __tablename__ = 'temporal_runs'
+    __table_args__ = (
+        UniqueConstraint('tenant_id','scene_id','idempotency_key',name='uq_temporal_idempotency'),
+        CheckConstraint("status IN ('queued','running','succeeded','blocked','failed')",name='ck_temporal_status'),
+        CheckConstraint("kind IN ('train','evaluate')",name='ck_temporal_kind'),
+    )
+    id: Mapped[str] = mapped_column(String(36),primary_key=True,default=new_id)
+    tenant_id: Mapped[str] = mapped_column(String(128),nullable=False)
+    scene_id: Mapped[str] = mapped_column(String(128),nullable=False)
+    kind: Mapped[str] = mapped_column(String(16),nullable=False)
+    idempotency_key: Mapped[str] = mapped_column(String(64),nullable=False)
+    config_hash: Mapped[str] = mapped_column(String(64),nullable=False)
+    knowledge_hash: Mapped[str] = mapped_column(String(64),nullable=False)
+    engine_hash: Mapped[str] = mapped_column(String(64),nullable=False)
+    request_json: Mapped[str] = mapped_column(Text,nullable=False)
+    snapshot_json: Mapped[str] = mapped_column(Text,nullable=False)
+    status: Mapped[str] = mapped_column(String(16),nullable=False,default='queued')
+    artifact_key: Mapped[str | None] = mapped_column(String(36),nullable=True)
+    report_json: Mapped[str | None] = mapped_column(Text,nullable=True)
+    error_json: Mapped[str | None] = mapped_column(Text,nullable=True)
+    created_at: Mapped[datetime] = mapped_column(UTCDateTime(),default=utc_now,nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(UTCDateTime(),default=utc_now,nullable=False)

@@ -1214,6 +1214,152 @@
       "title": "Teacher",
       "type": "object"
     },
+    "TemporalSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "protocol_version": {
+          "const": "p03-causal-v1",
+          "default": "p03-causal-v1",
+          "title": "Protocol Version",
+          "type": "string"
+        },
+        "seed": {
+          "default": 23,
+          "maximum": 4294967295,
+          "minimum": 0,
+          "title": "Seed",
+          "type": "integer"
+        },
+        "projection_dim": {
+          "default": 16,
+          "maximum": 64,
+          "minimum": 2,
+          "title": "Projection Dim",
+          "type": "integer"
+        },
+        "cluster_count": {
+          "default": 4,
+          "maximum": 32,
+          "minimum": 2,
+          "title": "Cluster Count",
+          "type": "integer"
+        },
+        "cluster_iterations": {
+          "default": 20,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Cluster Iterations",
+          "type": "integer"
+        },
+        "min_segment_windows": {
+          "default": 3,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Min Segment Windows",
+          "type": "integer"
+        },
+        "change_quantile": {
+          "default": 0.8,
+          "exclusiveMaximum": 1,
+          "exclusiveMinimum": 0,
+          "title": "Change Quantile",
+          "type": "number"
+        },
+        "target_tolerance_ms": {
+          "default": 1000,
+          "maximum": 10000,
+          "minimum": 0,
+          "title": "Target Tolerance Ms",
+          "type": "integer"
+        },
+        "max_gap_ms": {
+          "default": 2000,
+          "maximum": 10000,
+          "minimum": 0,
+          "title": "Max Gap Ms",
+          "type": "integer"
+        },
+        "max_rows": {
+          "default": 12000,
+          "maximum": 100000,
+          "minimum": 32,
+          "title": "Max Rows",
+          "type": "integer"
+        },
+        "max_dimension": {
+          "default": 1024,
+          "maximum": 4096,
+          "minimum": 2,
+          "title": "Max Dimension",
+          "type": "integer"
+        },
+        "max_feature_values": {
+          "default": 8000000,
+          "maximum": 32000000,
+          "minimum": 100,
+          "title": "Max Feature Values",
+          "type": "integer"
+        },
+        "max_pairs_per_split": {
+          "default": 512,
+          "maximum": 4096,
+          "minimum": 8,
+          "title": "Max Pairs Per Split",
+          "type": "integer"
+        },
+        "min_pairs_per_split": {
+          "default": 8,
+          "maximum": 10000,
+          "minimum": 2,
+          "title": "Min Pairs Per Split",
+          "type": "integer"
+        },
+        "min_train_sources": {
+          "default": 2,
+          "maximum": 100,
+          "minimum": 2,
+          "title": "Min Train Sources",
+          "type": "integer"
+        },
+        "min_calibration_sources": {
+          "default": 1,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Min Calibration Sources",
+          "type": "integer"
+        },
+        "min_test_sources": {
+          "default": 1,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Min Test Sources",
+          "type": "integer"
+        },
+        "max_abs_feature": {
+          "default": 1000000,
+          "exclusiveMinimum": 0,
+          "maximum": 1000000000000.0,
+          "title": "Max Abs Feature",
+          "type": "number"
+        },
+        "gradient_clip_norm": {
+          "default": 5.0,
+          "exclusiveMinimum": 0,
+          "maximum": 100,
+          "title": "Gradient Clip Norm",
+          "type": "number"
+        },
+        "worker_poll_seconds": {
+          "default": 0.25,
+          "exclusiveMinimum": 0,
+          "maximum": 60,
+          "title": "Worker Poll Seconds",
+          "type": "number"
+        }
+      },
+      "title": "TemporalSettings",
+      "type": "object"
+    },
     "UI": {
       "additionalProperties": false,
       "properties": {
@@ -1412,6 +1558,17 @@
       "anyOf": [
         {
           "$ref": "#/$defs/IngestionSettings"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "temporal": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TemporalSettings"
         },
         {
           "type": "null"

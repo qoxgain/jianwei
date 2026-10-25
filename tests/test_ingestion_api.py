@@ -92,10 +92,10 @@ def test_real_worker_imports_examples_in_each_scene_without_labels(import_api, s
     assert response.status_code == 200
     assert response.json() == manifest
     assert 'attachment' in response.headers['content-disposition']
-    assert client.get('/api/health').json()['schema_version'] == '0003_ingestion'
+    assert client.get('/api/health').json()['schema_version'] == '0004_temporal'
     capabilities = client.get(f'/api/scenes/{scene}').json()['capabilities']
     assert capabilities['video_ingest'] is True
-    assert capabilities['training'] is False
+    assert capabilities['training'] is True  # P0.3 is explicitly enabled in this fixture
     assert capabilities['authentication'] is False
 
 

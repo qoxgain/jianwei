@@ -18,7 +18,7 @@ def test_migrations_are_idempotent_and_persist_across_restart(tmp_path):
     database.migrate()
     assert set(inspect(database.engine).get_table_names()) == {
         "alembic_version", "config_versions", "knowledge_versions", "audit_events", "legacy_knowledge_mappings",
-        "uploaded_artifacts", "import_jobs", "source_splits"
+        "uploaded_artifacts", "import_jobs", "source_splits", "temporal_runs"
     }
     with database.session() as session:
         version = ConfigVersion(config_hash="a" * 64, profile="cpu", snapshot_json="{}")
@@ -34,7 +34,7 @@ def test_migrations_are_idempotent_and_persist_across_restart(tmp_path):
         saved = session.get(ConfigVersion, version_id)
         assert saved.profile == "cpu"
         assert saved.created_at.tzinfo == timezone.utc
-        assert session.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "0003_ingestion"
+        assert session.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "0004_temporal"
     reopened.close()
 
 

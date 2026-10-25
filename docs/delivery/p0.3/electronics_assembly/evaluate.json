@@ -1,0 +1,1836 @@
+{
+  "id": "415cfff2-d126-4df8-8c79-346d2984dd36",
+  "scene_id": "electronics_assembly",
+  "kind": "evaluate",
+  "status": "succeeded",
+  "created_at": "2026-10-25T02:21:06.037776+00:00",
+  "updated_at": "2026-10-25T02:21:08.960277+00:00",
+  "config_hash": "aa7e99151c5f3d313141da10f8df2ba8f79aff9761543e06d98ad73859b16360",
+  "engine_hash": "8328ecd5c0e130bede376723e6e9280f83af1e069eb54f4ac7c43830ca54ba5d",
+  "error": null,
+  "report": {
+    "anonymous_discovery": {
+      "boundary_accuracy": null,
+      "method": "train-threshold change points + minimum windows + train k-means",
+      "note": "No boundary truth supplied; these are anonymous candidates, not named actions.",
+      "segments": [
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 3000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 0,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 6000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 3000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 9000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 6000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 12000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 9000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 15000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 12000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 18000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 15000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 21000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 18000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 24000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 21000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 27000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 24000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 30000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 27000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 33000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 30000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 36000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 33000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 39000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 36000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 42000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 39000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 45000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 42000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 48000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 45000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 51000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 48000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 54000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 51000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 57000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 54000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "episode_end",
+          "end_ms": 60000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 57000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 63000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 60000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 66000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 63000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 70000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 66000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 73000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 70000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 76000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 73000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 79000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 76000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 82000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 79000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 85000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 82000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 88000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 85000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 91000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 88000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 94000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 91000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 97000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 94000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 100000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 97000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 103000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 100000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 106000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 103000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 109000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 106000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 112000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 109000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 115000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 112000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 118000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 115000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "episode_end",
+          "end_ms": 120000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 118000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 3000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 0,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 6000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 3000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 9000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 6000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 12000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 9000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 15000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 12000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 18000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 15000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 21000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 18000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 24000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 21000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 27000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 24000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 30000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 27000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 33000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 30000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 36000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 33000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 39000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 36000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 42000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 39000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 45000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 42000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 48000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 45000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 51000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 48000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 54000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 51000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "episode_end",
+          "end_ms": 60000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 54000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 63000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 60000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 66000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 63000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 69000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 66000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 76000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 69000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 79000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 76000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "boundary_reason": "change",
+          "end_ms": 82000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 79000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 85000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 82000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 91000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 85000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 94000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 91000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 97000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 94000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "change",
+          "end_ms": 100000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 97000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 103000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 100000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 106000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 103000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 109000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 106000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "boundary_reason": "change",
+          "end_ms": 112000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 109000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 115000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 112000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "boundary_reason": "change",
+          "end_ms": 118000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 115000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "boundary_reason": "episode_end",
+          "end_ms": 120000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 118000,
+          "status": "candidate",
+          "time_domain_id": "d0"
+        }
+      ],
+      "uniform_segments": [
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 3000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 0
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 6000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 3000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 9000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 6000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 12000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 9000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 15000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 12000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 18000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 15000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 21000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 18000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 24000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 21000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 27000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 24000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 30000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 27000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 33000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 30000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 36000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 33000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 39000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 36000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 42000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 39000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 45000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 42000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 48000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 45000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 51000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 48000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 54000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 51000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 57000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 54000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 60000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 57000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 63000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 60000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 66000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 63000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 69000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 66000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 72000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 69000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 75000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 72000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 78000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 75000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 81000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 78000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 84000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 81000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 87000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 84000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 90000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 87000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 93000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 90000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 96000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 93000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 99000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 96000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 102000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 99000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 105000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 102000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 108000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 105000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 111000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 108000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 114000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 111000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 117000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 114000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 120000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "start_ms": 117000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 3000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 0
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 6000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 3000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 9000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 6000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 12000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 9000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 15000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 12000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 18000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 15000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 21000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 18000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 24000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 21000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 27000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 24000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 30000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 27000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 33000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 30000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 36000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 33000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 39000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 36000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 42000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 39000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 45000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 42000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 48000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 45000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 51000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 48000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 54000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 51000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 57000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 54000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 60000,
+          "episode_id": "example_cycle_1",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 57000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 63000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 60000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 66000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 63000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 69000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 66000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 72000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 69000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 75000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 72000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 78000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 75000
+        },
+        {
+          "anonymous_cluster_id": "cluster_0",
+          "end_ms": 81000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 78000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 84000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 81000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 87000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 84000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 90000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 87000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 93000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 90000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 96000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 93000
+        },
+        {
+          "anonymous_cluster_id": "cluster_1",
+          "end_ms": 99000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 96000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 102000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 99000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 105000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 102000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 108000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 105000
+        },
+        {
+          "anonymous_cluster_id": "cluster_2",
+          "end_ms": 111000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 108000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 114000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 111000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 117000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 114000
+        },
+        {
+          "anonymous_cluster_id": "cluster_3",
+          "end_ms": 120000,
+          "episode_id": "example_cycle_2",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "start_ms": 117000
+        }
+      ]
+    },
+    "auto_activated": false,
+    "data_origin": "synthetic_features",
+    "kind": "evaluate",
+    "model_hash": "90eddc30685834b43a92ef7a01565a411868597dee254ec57883ea12723fbb9c",
+    "next_anonymous_state": {
+      "censored_windows": 3,
+      "independent_sources": 2,
+      "log_sha256": "5733b99dc4c01f60c945ef31fda44486a83fca31466315a2a7c3590df984846b",
+      "nll": 0.8574622611549598,
+      "observed_transitions": 77,
+      "scope": "next different anonymous cluster, not semantic event detection",
+      "top1": 0.45454545454545453
+    },
+    "real_world_evidence": false,
+    "refit_on_test": false,
+    "rejected_windows": {
+      "future_not_available": 24,
+      "resource_subsampled": 0
+    },
+    "selected_model": "ridge",
+    "selection_split": "calibration",
+    "semantic_accuracy": null,
+    "snapshot": {
+      "data_origin": "synthetic_features",
+      "entries": [
+        {
+          "cache_hash": "3189e9e00ddfa567a2c4931c41d1cf8827d40cf58f2f0b15d10c2bea4694f9ab",
+          "eligible_rows": 120,
+          "encoder_evidence": {
+            "artifact_sha_verified": true,
+            "execution": "not_executed",
+            "note": "文件指纹一致不能证明该编码器实际生成了这些外部向量",
+            "vector_production": "externally_declared"
+          },
+          "episode_count": 2,
+          "import_config_hash": "aa7e99151c5f3d313141da10f8df2ba8f79aff9761543e06d98ad73859b16360",
+          "import_id": "15c6a3a7-1d92-44a0-9b5a-32866165bbb8",
+          "manifest_hash": "75ff5220d3fd1d53ddbacdebb181dadf9a5a18b09fd1e4fd1f8e2c0e94297f7e",
+          "rows": 120,
+          "source_group_id": "09b2f8b468050a7163cb4efa41b0f2bc5392e6673c4330c35be9a0e1267f10c7",
+          "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+          "split": "test"
+        },
+        {
+          "cache_hash": "b85e1a173f48e79e72b5bba311a3a83a8d4bacb1377750ed8461f328a2822cfa",
+          "eligible_rows": 120,
+          "encoder_evidence": {
+            "artifact_sha_verified": true,
+            "execution": "not_executed",
+            "note": "文件指纹一致不能证明该编码器实际生成了这些外部向量",
+            "vector_production": "externally_declared"
+          },
+          "episode_count": 2,
+          "import_config_hash": "aa7e99151c5f3d313141da10f8df2ba8f79aff9761543e06d98ad73859b16360",
+          "import_id": "fcab6970-5794-481c-976c-286511a4c419",
+          "manifest_hash": "0ec342c03ad352f6b4fe9b3ccaaf8cdae5b511ff932347bdad651108fffc18bf",
+          "rows": 120,
+          "source_group_id": "7c265c55b25d68b3956ab0cf0a98cde404e10f6e36a16d3e240ce6319b68d4ab",
+          "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+          "split": "test"
+        }
+      ],
+      "feature_space_id": "e4c4d784815c11cc4b4c342a5409f9381a04c5ef5d6932f90af6ebc3a9e55306",
+      "hash": "3c93a948b61650968fa99092fe6fbed6ddcf346760935d4aa69a227e185dc95c",
+      "protocol_version": "p03-causal-v1",
+      "scene_id": "electronics_assembly",
+      "source_counts": {
+        "test": 2
+      },
+      "tenant_id": "tenant_demo",
+      "view_id": "39ca36a4b4907e1713ad91e1eaa1b94bb39085ea46cdce58429ce84c8c912365"
+    },
+    "stage": "P0.3",
+    "test": {
+      "causal_mode": "offline replay; each prediction flushed before reading its future target",
+      "independent_sources": 2,
+      "metric_scope": "unlabeled feature forecasting / anonymous cluster proxy; not business action accuracy; distance-softmax probabilities are uncalibrated",
+      "metrics": {
+        "causal_tcn": {
+          "anonymous_state_brier": [
+            0.4629124578238147,
+            0.500049667145756,
+            0.6938571315499691
+          ],
+          "anonymous_state_nll": [
+            0.8419598162438553,
+            1.1840362541240252,
+            1.7838553970290392
+          ],
+          "normalized_feature_mse": [
+            0.7729692664501773,
+            0.7796277075102329,
+            0.8414799580344031
+          ],
+          "original_feature_cosine": [
+            0.8042772992176134,
+            0.7569780362772416,
+            0.7132622381557688
+          ]
+        },
+        "empirical": {
+          "anonymous_state_brier": [
+            0.385824222700622,
+            0.5078380502590697,
+            0.649455322307202
+          ],
+          "anonymous_state_nll": [
+            0.7582510916163122,
+            0.9197336434294163,
+            1.163064954199494
+          ],
+          "normalized_feature_mse": [
+            0.8587834136275159,
+            0.8912778152496122,
+            0.9663491331021276
+          ],
+          "original_feature_cosine": [
+            0.483990290063202,
+            0.4557357154769353,
+            0.38521189358017394
+          ]
+        },
+        "persistence": {
+          "anonymous_state_brier": [
+            0.4284774136455196,
+            0.6460481850189534,
+            1.2958118502981801
+          ],
+          "anonymous_state_nll": [
+            1.8077575036849423,
+            4.019086095835656,
+            12.721927714480657
+          ],
+          "normalized_feature_mse": [
+            0.1787554410850379,
+            0.39316322553867517,
+            1.419793907760847
+          ],
+          "original_feature_cosine": [
+            0.9176797927863498,
+            0.8188071364511779,
+            0.34669782894521295
+          ]
+        },
+        "ridge": {
+          "anonymous_state_brier": [
+            0.012160545098458707,
+            0.01332678744454747,
+            0.031209762334301075
+          ],
+          "anonymous_state_nll": [
+            0.02813060871244981,
+            0.030941934596720816,
+            0.05226632651348833
+          ],
+          "normalized_feature_mse": [
+            0.0014220715480806928,
+            0.0020910663356224716,
+            0.0074418003977229875
+          ],
+          "original_feature_cosine": [
+            0.9995617030857503,
+            0.9993339270994053,
+            0.997542538620706
+          ]
+        },
+        "shuffled_ridge": {
+          "anonymous_state_brier": [
+            1.7050576245048723,
+            1.7860981393670223,
+            1.65120429125523
+          ],
+          "anonymous_state_nll": [
+            20.849277232137908,
+            21.385143872382127,
+            20.026607340954538
+          ],
+          "normalized_feature_mse": [
+            2.3909632421736835,
+            2.408597296386636,
+            2.4587978805664434
+          ],
+          "original_feature_cosine": [
+            -0.13565309467120498,
+            -0.14620493937078005,
+            -0.1639286735421482
+          ]
+        }
+      },
+      "per_source": {
+        "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba": {
+          "causal_tcn": {
+            "anonymous_state_brier": [
+              0.34121889521610355,
+              0.35321483054915914,
+              0.5925142535369551
+            ],
+            "anonymous_state_nll": [
+              0.5629702801747606,
+              0.7910454140700705,
+              1.5470625381006913
+            ],
+            "normalized_feature_mse": [
+              0.7407790658776765,
+              0.7194632529237416,
+              0.8142929007372167
+            ],
+            "original_feature_cosine": [
+              0.7877510607984466,
+              0.7913531025936,
+              0.6973132049528049
+            ]
+          },
+          "empirical": {
+            "anonymous_state_brier": [
+              0.3734401190446061,
+              0.4947238789519607,
+              0.6122250859749346
+            ],
+            "anonymous_state_nll": [
+              0.7072886862198059,
+              0.8593528447582072,
+              1.0317656838639166
+            ],
+            "normalized_feature_mse": [
+              0.7207468621077707,
+              0.7638056896552239,
+              0.8445278991084196
+            ],
+            "original_feature_cosine": [
+              0.6001034176238436,
+              0.5734452086275539,
+              0.5295087945851483
+            ]
+          },
+          "persistence": {
+            "anonymous_state_brier": [
+              0.4299085798117019,
+              0.643247741129162,
+              1.324290327046818
+            ],
+            "anonymous_state_nll": [
+              2.0728337583438545,
+              4.7003093894254,
+              14.563840857498263
+            ],
+            "normalized_feature_mse": [
+              0.17909322753231596,
+              0.39380603264204656,
+              1.4179533258539019
+            ],
+            "original_feature_cosine": [
+              0.9134812707332771,
+              0.8096184821278275,
+              0.3161558833960179
+            ]
+          },
+          "ridge": {
+            "anonymous_state_brier": [
+              0.010861667912204189,
+              0.012614704990850163,
+              0.02124112715443821
+            ],
+            "anonymous_state_nll": [
+              0.022627472649403162,
+              0.02659759763586666,
+              0.037253161871413136
+            ],
+            "normalized_feature_mse": [
+              0.0014182317009873678,
+              0.0020997392634607374,
+              0.007525103734547145
+            ],
+            "original_feature_cosine": [
+              0.9995771765275607,
+              0.9993617886100233,
+              0.9976802183203753
+            ]
+          },
+          "shuffled_ridge": {
+            "anonymous_state_brier": [
+              1.6509367113140596,
+              1.772514573206444,
+              1.6141227546233692
+            ],
+            "anonymous_state_nll": [
+              20.455405532908458,
+              21.038851268731527,
+              20.01709561678884
+            ],
+            "normalized_feature_mse": [
+              2.298788218530395,
+              2.3246421950059544,
+              2.4053577405835997
+            ],
+            "original_feature_cosine": [
+              -0.11731729778459211,
+              -0.1307912039827632,
+              -0.15850642439867427
+            ]
+          }
+        },
+        "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262": {
+          "causal_tcn": {
+            "anonymous_state_brier": [
+              0.5846060204315263,
+              0.6468845037423534,
+              0.7952000095629826
+            ],
+            "anonymous_state_nll": [
+              1.1209493523129488,
+              1.5770270941779791,
+              2.020648255957388
+            ],
+            "normalized_feature_mse": [
+              0.8051594670226772,
+              0.8397921620967244,
+              0.8686670153315886
+            ],
+            "original_feature_cosine": [
+              0.8208035376367797,
+              0.7226029699608831,
+              0.7292112713587328
+            ]
+          },
+          "empirical": {
+            "anonymous_state_brier": [
+              0.3982083263566373,
+              0.5209522215661796,
+              0.6866855586394703
+            ],
+            "anonymous_state_nll": [
+              0.8092134970128162,
+              0.9801144421006243,
+              1.294364224535077
+            ],
+            "normalized_feature_mse": [
+              0.9968199651472608,
+              1.0187499408440002,
+              1.0881703670958356
+            ],
+            "original_feature_cosine": [
+              0.3678771625025598,
+              0.33802622232631657,
+              0.2409149925751996
+            ]
+          },
+          "persistence": {
+            "anonymous_state_brier": [
+              0.42704624747933734,
+              0.6488486289087451,
+              1.2673333735495427
+            ],
+            "anonymous_state_nll": [
+              1.5426812490260293,
+              3.337862802245911,
+              10.880014571463057
+            ],
+            "normalized_feature_mse": [
+              0.17841765463775974,
+              0.3925204184353035,
+              1.421634489667792
+            ],
+            "original_feature_cosine": [
+              0.921878314839424,
+              0.8279957907745278,
+              0.37723977449440776
+            ]
+          },
+          "ridge": {
+            "anonymous_state_brier": [
+              0.013459422284713243,
+              0.014038869898244783,
+              0.04117839751416393
+            ],
+            "anonymous_state_nll": [
+              0.03363374477549643,
+              0.03528627155757494,
+              0.06727949115556359
+            ],
+            "normalized_feature_mse": [
+              0.001425911395174018,
+              0.002082393407784208,
+              0.0073584970608988306
+            ],
+            "original_feature_cosine": [
+              0.999546229643939,
+              0.9993060655887878,
+              0.9974048589210378
+            ]
+          },
+          "shuffled_ridge": {
+            "anonymous_state_brier": [
+              1.759178537695687,
+              1.7996817055276013,
+              1.6882858278870905
+            ],
+            "anonymous_state_nll": [
+              21.24314893136739,
+              21.73143647603276,
+              20.036119065120253
+            ],
+            "normalized_feature_mse": [
+              2.48313826581697,
+              2.492552397767317,
+              2.512238020549288
+            ],
+            "original_feature_cosine": [
+              -0.1539888915578178,
+              -0.16161867475879702,
+              -0.16935092268562235
+            ]
+          }
+        }
+      },
+      "prediction_log_sha256": "aed38f247465ec3c9837936aead34a605bd9302ae12fd084e519a2520dbdd1a8",
+      "source_macro_mse": {
+        "causal_tcn": 0.7980256439982709,
+        "empirical": 0.9054701206597517,
+        "persistence": 0.66390419146152,
+        "ridge": 0.0036516460938087183,
+        "shuffled_ridge": 2.4194528063755874
+      },
+      "split": "test",
+      "windows": 188
+    }
+  },
+  "request": {
+    "import_ids": [
+      "15c6a3a7-1d92-44a0-9b5a-32866165bbb8",
+      "fcab6970-5794-481c-976c-286511a4c419"
+    ],
+    "model_run_id": "af8bfbd4-6535-4982-a4c1-89b6c623d2cd",
+    "sealed_test": true
+  },
+  "snapshot": {
+    "data_origin": "synthetic_features",
+    "entries": [
+      {
+        "cache_hash": "3189e9e00ddfa567a2c4931c41d1cf8827d40cf58f2f0b15d10c2bea4694f9ab",
+        "eligible_rows": 120,
+        "encoder_evidence": {
+          "artifact_sha_verified": true,
+          "execution": "not_executed",
+          "note": "文件指纹一致不能证明该编码器实际生成了这些外部向量",
+          "vector_production": "externally_declared"
+        },
+        "episode_count": 2,
+        "import_config_hash": "aa7e99151c5f3d313141da10f8df2ba8f79aff9761543e06d98ad73859b16360",
+        "import_id": "15c6a3a7-1d92-44a0-9b5a-32866165bbb8",
+        "manifest_hash": "75ff5220d3fd1d53ddbacdebb181dadf9a5a18b09fd1e4fd1f8e2c0e94297f7e",
+        "rows": 120,
+        "source_group_id": "09b2f8b468050a7163cb4efa41b0f2bc5392e6673c4330c35be9a0e1267f10c7",
+        "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+        "split": "test"
+      },
+      {
+        "cache_hash": "b85e1a173f48e79e72b5bba311a3a83a8d4bacb1377750ed8461f328a2822cfa",
+        "eligible_rows": 120,
+        "encoder_evidence": {
+          "artifact_sha_verified": true,
+          "execution": "not_executed",
+          "note": "文件指纹一致不能证明该编码器实际生成了这些外部向量",
+          "vector_production": "externally_declared"
+        },
+        "episode_count": 2,
+        "import_config_hash": "aa7e99151c5f3d313141da10f8df2ba8f79aff9761543e06d98ad73859b16360",
+        "import_id": "fcab6970-5794-481c-976c-286511a4c419",
+        "manifest_hash": "0ec342c03ad352f6b4fe9b3ccaaf8cdae5b511ff932347bdad651108fffc18bf",
+        "rows": 120,
+        "source_group_id": "7c265c55b25d68b3956ab0cf0a98cde404e10f6e36a16d3e240ce6319b68d4ab",
+        "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+        "split": "test"
+      }
+    ],
+    "feature_space_id": "e4c4d784815c11cc4b4c342a5409f9381a04c5ef5d6932f90af6ebc3a9e55306",
+    "hash": "3c93a948b61650968fa99092fe6fbed6ddcf346760935d4aa69a227e185dc95c",
+    "protocol_version": "p03-causal-v1",
+    "scene_id": "electronics_assembly",
+    "source_counts": {
+      "test": 2
+    },
+    "tenant_id": "tenant_demo",
+    "view_id": "39ca36a4b4907e1713ad91e1eaa1b94bb39085ea46cdce58429ce84c8c912365"
+  }
+}

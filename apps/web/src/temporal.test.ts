@@ -1,0 +1,15 @@
+import {beforeEach,describe,expect,it,vi} from 'vitest';
+import {inputEligible,partitionSelection} from './temporalTypes';
+import type {TemporalInput} from './temporalTypes';
+const input=(id:string,split:TemporalInput['split']):TemporalInput=>({id,split,source_hash:id,feature_space_id:'space',view_id:'view',data_origin:'synthetic_features',source_verification:'synthetic',eligible_rows:120});
+describe('research admission controls',()=>{
+ it('separates train/calibration and sealed test',()=>{const rows=[input('a','train'),input('b','calibration'),input('c','test')];expect(partitionSelection(rows,['a','b'],'train')).toEqual(['a','b']);expect(partitionSelection(rows,['c'],'evaluate')).toEqual(['c']);expect(()=>partitionSelection(rows,['a','b','c'],'train')).toThrow('不能包含test');expect(()=>partitionSelection(rows,['a','c'],'evaluate')).toThrow('只接受test');});
+ it('rejects unknown, unassigned, unverified and empty features',()=>{expect(inputEligible(input('a','unassigned'))).toBe(false);for(const patch of [{source_verification:'declared'},{eligible_rows:0}])expect(inputEligible({...input('a','train'),...patch})).toBe(false);expect(()=>partitionSelection([],['missing'],'train')).toThrow('有效导入');});
+ it('rejects duplicate sources and mixed feature space or views',()=>{const train=input('a','train'),cal=input('b','calibration');for(const patch of [{source_hash:'a'},{feature_space_id:'other'},{view_id:'other'},{data_origin:'real_video'}])expect(()=>partitionSelection([train,{...cal,...patch}],['a','b'],'train')).toThrow();});
+});
+beforeEach(()=>{vi.resetModules();vi.stubGlobal('location',{protocol:'http:',search:''});});
+describe('research transport',()=>{
+ it('sends source IDs only to scoped training and explicitly sealed evaluation',async()=>{const fetch=vi.fn().mockResolvedValue({ok:true,json:async()=>({id:'run'})});vi.stubGlobal('fetch',fetch);const service=await import('./temporalService');await service.trainTemporal('anonymous_observation',['a','b','c']);await service.evaluateTemporal('anonymous_observation','model',['test']);expect(fetch.mock.calls[0][0]).toBe('/api/scenes/anonymous_observation/temporal/train');expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({import_ids:['a','b','c']});expect(JSON.parse(fetch.mock.calls[1][1].body)).toEqual({model_run_id:'model',import_ids:['test'],sealed_test:true});});
+ it('surfaces blocked explanations',async()=>{vi.stubGlobal('fetch',vi.fn().mockResolvedValue({ok:false,status:422,json:async()=>({detail:{message:'封存test来源重叠'}})}));const service=await import('./temporalService');await expect(service.evaluateTemporal('scene','model',['test'])).rejects.toThrow('封存test');});
+ it('never performs real training or reads an API from the offline demo',async()=>{vi.stubGlobal('location',{protocol:'file:',search:''});const fetch=vi.fn();vi.stubGlobal('fetch',fetch);const service=await import('./temporalService');await expect(service.trainTemporal('scene',['a','b','c'])).rejects.toThrow('离线页面');await expect(service.evaluateTemporal('scene','model',['test'])).rejects.toThrow('离线页面');await service.temporalRuns('anonymous_observation');expect(fetch).not.toHaveBeenCalled();});
+});

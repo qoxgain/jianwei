@@ -4,6 +4,7 @@ from pydantic import Field, model_validator
 from .models import Strict, SystemConfig, Profile, Encoder
 from .scenes import Identifier, SceneSpec
 from .ingestion import IngestionSettings
+from .temporal import TemporalSettings
 
 class SourceBinding(Strict):
     id: Identifier
@@ -21,6 +22,7 @@ class SceneEncoder(Encoder):
 class SceneConfig(SystemConfig):
     config_version: Literal['3.1']
     ingestion: IngestionSettings | None = None
+    temporal: TemporalSettings | None = None
     encoder: SceneEncoder
     knowledge_file: None = None
     session: None = None
@@ -29,6 +31,12 @@ class SceneConfig(SystemConfig):
 
     @model_validator(mode='after')
     def consistency(self):
+        if self.temporal is not None:
+            if self.ingestion is None: raise ValueError('temporal需要ingestion')
+            if len(set(self.learning.forecast_horizons_seconds)) != len(self.learning.forecast_horizons_seconds): raise ValueError('重复预测窗口')
+            if any(h < 0.001 or h > 3600 for h in self.learning.forecast_horizons_seconds): raise ValueError('预测窗口超出毫秒至一小时范围')
+            if len(self.learning.forecast_horizons_seconds) > 8 or self.learning.history_windows > 32: raise ValueError('时序窗口超过有界CPU预算')
+            if self.learning.hidden_dim > 128 or self.learning.epochs > 100 or self.learning.batch_size > 256: raise ValueError('时序训练超过有界CPU预算')
         if self.active_profile not in self.profiles: raise ValueError('active_profile不存在')
         if self.active_scene not in self.scenes: raise ValueError('active_scene不存在')
         if set(self.profiles) != set(self.media): raise ValueError('每个profile必须有对应media配置')

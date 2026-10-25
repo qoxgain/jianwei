@@ -15,7 +15,7 @@ export type ImportManifest={
 export type ImportJob={id:string;status:ImportStatus;format:ImportFormat;source_id:string;created_at:string;updated_at:string;error:{code:string;message:string}|null;manifest:ImportManifest|null;has_manifest?:boolean;demo_reference?:boolean;created?:boolean};
 export type Upload={id:string;sha256:string;size_bytes:number;kind:'mp4'|'npz'|'encoder'};
 export type IngestionCapabilities={enabled:boolean;max_upload_bytes:number;formats:ImportFormat[];encoder_adapter:string;encoder_weights_available:boolean;example_available:boolean};
-export type ImportForm={sourceId:string;format:ImportFormat;contextFields:Record<string,string>;episodesText:string;episodeOrigin:'manual'|'external'|null;anchorsText:string;featureSpaceText:string;sourceHash:string};
+export type ImportForm={requestedSplit?:ImportRequest['requested_split'];sourceId:string;format:ImportFormat;contextFields:Record<string,string>;episodesText:string;episodeOrigin:'manual'|'external'|null;anchorsText:string;featureSpaceText:string;sourceHash:string};
 export function contextValues(scene:Scene,fields:Record<string,string>):ImportRequest['context']{
  const result:ImportRequest['context']={};
  for(const [key,spec] of Object.entries(scene.context_schema)){
@@ -43,7 +43,7 @@ export function importMetadata(scene:Scene,form:ImportForm):Omit<ImportRequest,'
  for(const a of anchors){if(!a||Object.keys(a).some(key=>!['domain_index','pts_ms','capture_utc'].includes(key))||!Number.isSafeInteger(a.domain_index)||a.domain_index<0||!Number.isSafeInteger(a.pts_ms)||a.pts_ms<0||typeof a.capture_utc!=='string'||!/(?:Z|[+-]\d{2}:\d{2})$/.test(a.capture_utc)||!Number.isFinite(Date.parse(a.capture_utc)))throw new Error('采集锚点需要时间域、PTS 毫秒和含时区的 ISO8601 时间');}
  if(new Set(anchors.map(a=>a.domain_index)).size!==anchors.length)throw new Error('同一时间域只能提供一个采集锚点');
  const sourceHash=form.sourceHash.trim();if(sourceHash&&!/^[a-f0-9]{64}$/.test(sourceHash))throw new Error('来源 SHA256 需要 64 位小写十六进制字符');
- return {format:form.format,source_id:form.sourceId,data_origin:'real_video',requested_split:'unassigned',context:contextValues(scene,form.contextFields),episodes,episode_origin:episodes.length?form.episodeOrigin:null,clock_anchors:anchors,...(form.format==='npz'&&sourceHash?{declared_source_hash:sourceHash}:{})};
+ return {format:form.format,source_id:form.sourceId,data_origin:'real_video',requested_split:form.requestedSplit??'unassigned',context:contextValues(scene,form.contextFields),episodes,episode_origin:episodes.length?form.episodeOrigin:null,clock_anchors:anchors,...(form.format==='npz'&&sourceHash?{declared_source_hash:sourceHash}:{})};
 }
 export function parseFeatureSpace(text:string,encoderSha:string):FeatureSpace{
  let value:FeatureSpace;try{value=JSON.parse(text);}catch{throw new Error('特征空间不是有效 JSON');}

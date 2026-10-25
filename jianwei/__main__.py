@@ -10,19 +10,26 @@ from packages.knowledge.service import content_hash
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(prog="python -m jianwei", description="见微 P0.2 数据接入与知识工作台")
+    parser = argparse.ArgumentParser(prog="python -m jianwei", description="见微 P0.3 数据接入与知识工作台")
     commands = parser.add_subparsers(dest="command", required=True)
-    for command in ("serve", "doctor"):
+    for command in ("serve", "doctor", "research"):
         child = commands.add_parser(command)
         child.add_argument("--config", default=str(PROJECT_ROOT / "config/system.yaml"))
         child.add_argument("--profile", default=None)
+        if command == "research":
+            child.add_argument("--kind", choices=["train", "evaluate"], required=True)
+            child.add_argument("--scene", required=True)
+            child.add_argument("--request", required=True)
         if command == "doctor":
             child.add_argument("--preflight", action="store_true", help="检查本地前置条件；不代表远端服务可用")
     args = parser.parse_args()
     try:
         bundle = load_bundle(args.config, args.profile)
+        if args.command == "research":
+            from packages.temporal_jobs.cli import run
+            return run(bundle, args)
         if args.command == "doctor":
-            result = {"check": "preflight" if args.preflight else "static", "stage": "P0.2",
+            result = {"check": "preflight" if args.preflight else "static", "stage": "P0.3",
                       "profile": bundle.config.active_profile, "config_hash": bundle.config_hash,
                       "knowledge_hash": content_hash(bundle.knowledge.model_dump()), "status": "PASS"}
             if args.preflight:

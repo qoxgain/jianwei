@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-25",
+  "code_baseline": "db058ca81dfb44937cc93ea92e1fa59894acd903",
+  "uploaded_video_parent": "0e56f7fc43c2b0b89ea938ad9413e728ca802af5",
+  "backend": {
+    "passed": 239,
+    "failed": 0,
+    "skipped": 0,
+    "command": ".venv/bin/python -m pytest tests -q"
+  },
+  "frontend": {
+    "numTotalTests": 60,
+    "numPassedTests": 60,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "success": true
+  },
+  "reference": {
+    "passed": 29,
+    "failed": 0,
+    "command": ".venv/bin/python -m unittest discover -s reference/tests -v"
+  },
+  "schema_count": 19,
+  "four_scene_experiment": "summary.json",
+  "real_video": "video/real-video.json",
+  "migration": "migration.json",
+  "browser_p03": {
+    "executed": false,
+    "screenshots": false,
+    "note": "New P0.3 browser acceptance still required; old P0.2 screenshots are historical evidence only."
+  },
+  "real_learning_effect_verified": false,
+  "production_ready": false,
+  "limitations": [
+    "No pretrained visual encoder supplied",
+    "Only one real source video",
+    "Synthetic research is not field accuracy",
+    "TCN did not beat persistence or ridge in the fixed synthetic experiment"
+  ],
+  "build": {
+    "api": "passed",
+    "standalone": "passed",
+    "zip_integrity": "passed"
+  }
+}

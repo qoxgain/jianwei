@@ -1,0 +1,21 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "import_ids": {
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 3,
+      "title": "Import Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "import_ids"
+  ],
+  "title": "TrainRequest",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

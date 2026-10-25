@@ -1,4 +1,4 @@
-"""P0.2 local data ingestion and scene knowledge API; no production auth."""
+"""P0.3 local data ingestion and scene knowledge API; no production auth."""
 from __future__ import annotations
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
@@ -10,7 +10,7 @@ from tempfile import TemporaryDirectory
 from typing import Literal
 from fastapi import FastAPI, Request, Response
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import Field
 from sqlalchemy import select, text
@@ -25,6 +25,9 @@ from packages.contracts.models import Strict, Knowledge
 from packages.contracts.ingestion import ImportRequest
 from packages.ingest_jobs.service import ImportService
 from packages.ingestion_examples import build_example
+from packages.temporal_jobs.service import TemporalService
+from packages.temporal_examples import enqueue_examples
+from packages.contracts.temporal import TrainRequest, EvaluationRequest
 from packages.migrations.legacy_v3 import adapt_knowledge
 from packages.knowledge.service import content_hash, knowledge_diff, preview
 
@@ -98,6 +101,8 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
         application.state.bundle, application.state.database = bundle, database
         imports = ImportService(bundle, database)
         application.state.imports = imports
+        temporal = TemporalService(bundle, database, imports)
+        application.state.temporal = temporal
         try:
             for scene_id in bundle.scenes:
                 with database.session() as session:
@@ -109,12 +114,14 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
                         audit(session, 'config.snapshot.created', identifier, {'config_hash':bundle.config_hash}, scene_id)
                 baseline(scene_id)
             imports.start()
+            temporal.start()
             yield
         finally:
+            temporal.close()
             imports.close()
             database.close()
 
-    application = FastAPI(title="见微 P0.2 数据接入与知识服务", version="0.2.0", lifespan=lifespan)
+    application = FastAPI(title="见微 P0.3 时序研究与数据知识服务", version="0.3.0", lifespan=lifespan)
     application.add_middleware(BodyLimit)
 
     def scope(scene_id=None):
@@ -138,7 +145,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
 
     @application.exception_handler(ContractError)
     async def contract_error(_request, error):
-        status = (404 if error.code in {'PROFILE_NOT_FOUND','VERSION_NOT_FOUND','SCENE_NOT_FOUND','UPLOAD_NOT_FOUND','IMPORT_NOT_FOUND'}
+        status = (404 if error.code in {'PROFILE_NOT_FOUND','VERSION_NOT_FOUND','SCENE_NOT_FOUND','UPLOAD_NOT_FOUND','IMPORT_NOT_FOUND','TEMPORAL_RUN_NOT_FOUND','TEMPORAL_ARTIFACT_NOT_FOUND'}
                   else 409 if error.code in {'BASE_HASH_CONFLICT','SOURCE_SPLIT_CONFLICT','IMPORT_CONFIG_CHANGED','IMPORT_MANIFEST_UNAVAILABLE'}
                   else 413 if error.code == 'UPLOAD_TOO_LARGE' else 422)
         return JSONResponse({'detail':error.detail()}, status_code=status)
@@ -192,7 +199,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
         with application.state.database.session() as session:
             session.execute(text('SELECT 1'))
             revision = session.execute(text('SELECT version_num FROM alembic_version')).scalar_one()
-        return {'status':'ok','stage':'P0.2','database':'ok','schema_version':revision,
+        return {'status':'ok','stage':'P0.3','database':'ok','schema_version':revision,
                 'active_profile':application.state.bundle.config.active_profile}
 
     @application.get('/api/scenes')
@@ -208,7 +215,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
         scope(scene_id)
         bundle = application.state.bundle
         knowledge, yaml_text, digest = baseline(scene_id, normalized)
-        return {'project':{'name':'见微','version':'3.0','stage':'P0.2','title':bundle.config.ui.title},
+        return {'project':{'name':'见微','version':'3.0','stage':'P0.3','title':bundle.config.ui.title},
             'active_profile':bundle.config.active_profile, 'active_scene':scene_id, 'tenant_id':bundle.profile.tenant_id,
             'config_hash':bundle.config_hash, 'scene':scene_info(scene_id, normalized),
             'scenes':[scene_info(id, normalized) for id in bundle.scenes],
@@ -216,8 +223,8 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
             'knowledge':{'yaml':yaml_text,'hash':digest,'version':knowledge.knowledge_version,'data':knowledge.model_dump()},
             'versions':versions(scene_id),
             'capabilities':{'configuration':True,'knowledge_preview':True,'knowledge_versioning':True,
-                            'video_ingest':application.state.imports.settings is not None,'training':False,'live_inference':False,'authentication':False},
-            'blockers':[{'code':'DEMO_ONLY','message':'单用户本地导入与知识工作台；学习、预测、在线识别和生产鉴权尚未实现'}]}
+                            'video_ingest':application.state.imports.settings is not None,'training':application.state.temporal.capabilities()['enabled'],'live_inference':False,'authentication':False},
+            'blockers':[{'code':'DEMO_ONLY','message':'单用户本地导入与知识工作台；支持离线时序研究；在线识别、语义动作和生产鉴权尚未实现'}]}
 
     @application.get('/api/bootstrap', deprecated=True)
     def bootstrap():
@@ -267,6 +274,44 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
             raise ContractError('IMPORT_MANIFEST_UNAVAILABLE', '任务尚未产生数据清单')
         return JSONResponse(job['manifest'], headers={
             'Content-Disposition': f'attachment; filename="import-{job["id"]}.json"'})
+
+    @application.get('/api/temporal/capabilities')
+    def temporal_capabilities():
+        return application.state.temporal.capabilities()
+
+    @application.post('/api/scenes/{scene_id}/temporal/train', status_code=202)
+    def temporal_train(scene_id: str, body: TrainRequest):
+        return application.state.temporal.enqueue(scene_id, body)
+
+    @application.get('/api/scenes/{scene_id}/temporal/inputs')
+    def temporal_inputs(scene_id: str):
+        return application.state.temporal.inputs(scene_id)
+
+    @application.post('/api/scenes/{scene_id}/temporal/evaluate', status_code=202)
+    def temporal_evaluate(scene_id: str, body: EvaluationRequest):
+        return application.state.temporal.enqueue(scene_id, body, 'evaluate')
+
+    @application.post('/api/scenes/{scene_id}/temporal/example', status_code=202)
+    def temporal_example(scene_id: str):
+        application.state.temporal.check_scene(scene_id)
+        with TemporaryDirectory(prefix='jianwei-temporal-example-') as directory:
+            return enqueue_examples(application.state.bundle, application.state.imports, scene_id, Path(directory))
+
+    @application.get('/api/scenes/{scene_id}/temporal/runs')
+    def temporal_runs(scene_id: str):
+        return application.state.temporal.list(scene_id)
+
+    @application.get('/api/scenes/{scene_id}/temporal/runs/{run_id}')
+    def temporal_run(scene_id: str, run_id: str):
+        return application.state.temporal.get(scene_id, run_id)
+
+    @application.post('/api/scenes/{scene_id}/temporal/runs/{run_id}/retry', status_code=202)
+    def temporal_retry(scene_id: str, run_id: str):
+        return application.state.temporal.retry(scene_id, run_id)
+
+    @application.get('/api/scenes/{scene_id}/temporal/runs/{run_id}/artifacts/{name}')
+    def temporal_artifact(scene_id: str, run_id: str, name: str):
+        return FileResponse(application.state.temporal.artifact(scene_id, run_id, name), filename=name)
 
     @application.post('/api/config/validate')
     def validate_configuration(body: ProfileRequest):

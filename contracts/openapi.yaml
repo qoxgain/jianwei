@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
-  title: 见微 P0.2 数据接入与知识服务
-  version: 0.2.0
+  title: 见微 P0.3 时序研究与数据知识服务
+  version: 0.3.0
 paths:
   /api/health:
     get:
@@ -245,6 +245,236 @@ paths:
         schema:
           type: string
           title: Import Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/temporal/capabilities:
+    get:
+      summary: Temporal Capabilities
+      operationId: temporal_capabilities_api_temporal_capabilities_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /api/scenes/{scene_id}/temporal/train:
+    post:
+      summary: Temporal Train
+      operationId: temporal_train_api_scenes__scene_id__temporal_train_post
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainRequest'
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/temporal/inputs:
+    get:
+      summary: Temporal Inputs
+      operationId: temporal_inputs_api_scenes__scene_id__temporal_inputs_get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/temporal/evaluate:
+    post:
+      summary: Temporal Evaluate
+      operationId: temporal_evaluate_api_scenes__scene_id__temporal_evaluate_post
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluationRequest'
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/temporal/example:
+    post:
+      summary: Temporal Example
+      operationId: temporal_example_api_scenes__scene_id__temporal_example_post
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/temporal/runs:
+    get:
+      summary: Temporal Runs
+      operationId: temporal_runs_api_scenes__scene_id__temporal_runs_get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/temporal/runs/{run_id}:
+    get:
+      summary: Temporal Run
+      operationId: temporal_run_api_scenes__scene_id__temporal_runs__run_id__get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/temporal/runs/{run_id}/retry:
+    post:
+      summary: Temporal Retry
+      operationId: temporal_retry_api_scenes__scene_id__temporal_runs__run_id__retry_post
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/temporal/runs/{run_id}/artifacts/{name}:
+    get:
+      summary: Temporal Artifact
+      operationId: temporal_artifact_api_scenes__scene_id__temporal_runs__run_id__artifacts__name__get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Run Id
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Name
       responses:
         '200':
           description: Successful Response
@@ -524,6 +754,31 @@ components:
       - pts_ms
       - capture_utc
       title: ClockAnchor
+    EvaluationRequest:
+      properties:
+        model_run_id:
+          type: string
+          pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          title: Model Run Id
+        import_ids:
+          items:
+            type: string
+            pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          type: array
+          maxItems: 100
+          minItems: 1
+          title: Import Ids
+        sealed_test:
+          type: boolean
+          const: true
+          title: Sealed Test
+      additionalProperties: false
+      type: object
+      required:
+      - model_run_id
+      - import_ids
+      - sealed_test
+      title: EvaluationRequest
     FeatureSpace:
       properties:
         contract_version:
@@ -725,6 +980,21 @@ components:
       required:
       - profile
       title: ProfileRequest
+    TrainRequest:
+      properties:
+        import_ids:
+          items:
+            type: string
+            pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          type: array
+          maxItems: 100
+          minItems: 3
+          title: Import Ids
+      additionalProperties: false
+      type: object
+      required:
+      - import_ids
+      title: TrainRequest
     ValidationError:
       properties:
         loc:

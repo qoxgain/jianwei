@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "model_run_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Model Run Id",
+      "type": "string"
+    },
+    "import_ids": {
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Import Ids",
+      "type": "array"
+    },
+    "sealed_test": {
+      "const": true,
+      "title": "Sealed Test",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "model_run_id",
+    "import_ids",
+    "sealed_test"
+  ],
+  "title": "EvaluationRequest",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}
