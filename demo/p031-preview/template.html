@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>见微 · 真实视频匿名探索</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:#163246;background:#eef3f6;font-synthesis:none}*{box-sizing:border-box}body{margin:0}header{background:#123249;color:#fff;padding:32px max(20px,calc((100vw - 1200px)/2))}header p{color:#bdd4e2;max-width:780px;line-height:1.7}h1{font-size:clamp(23px,4vw,34px);margin:8px 0}h2{font-size:20px;margin:0 0 18px}main{max-width:1240px;margin:auto;padding:24px 20px 60px}.tag{color:#9fe0d7;font-size:13px;letter-spacing:.12em}.notice{border-left:4px solid #c68127;background:#fff8e9;padding:16px 20px;line-height:1.7;margin-bottom:24px}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}.metric,.panel{background:white;border:1px solid #d7e2e9;border-radius:12px}.metric{padding:18px}.metric strong{font-size:25px;display:block}.metric span,.muted{font-size:14px;color:#526e80}.grid{display:grid;grid-template-columns:1.15fr 1fr;gap:20px;align-items:start}.panel{padding:22px;min-width:0;margin-bottom:20px}video{display:block;width:100%;aspect-ratio:4/3;background:#0a1e2c;border-radius:7px}.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0}button,.file-label{font:inherit;cursor:pointer;background:#087a76;color:white;border:0;border-radius:7px;padding:10px 14px}button:focus-visible,.file-label:focus-within{outline:3px solid #c68127;outline-offset:3px}button.secondary{background:#e6f2f0;color:#065f5c}button:disabled{opacity:.5;cursor:default}.file-label input{max-width:100%;font-size:12px;display:block;margin-top:8px}p{line-height:1.65;overflow-wrap:anywhere}.status{font-size:13px;min-height:22px;overflow-wrap:anywhere}.timeline{position:relative;background:repeating-linear-gradient(135deg,#edf0f3,#edf0f3 5px,#e2e8ed 5px,#e2e8ed 10px);height:42px;margin:14px 0 7px;border-radius:5px;overflow:hidden}.timeline button{position:absolute;height:100%;top:0;border:1px solid #ffffff88;border-radius:0;padding:0;min-width:2px;color:#fff;font-size:11px}.scale{display:flex;justify-content:space-between;color:#526e80;font-size:12px}.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;margin-top:14px}.swatch{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:middle}.segments{max-height:470px;overflow:auto}.segment{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;border-bottom:1px solid #e6edf1;padding:12px 0}.segment p{margin:0;font-size:13px}.segment small{overflow-wrap:anywhere;display:block;color:#526e80;font-size:12px}.segment button{font-size:12px;padding:8px 10px}.badge{font-size:12px;padding:7px;color:#fff;border-radius:5px}.facts{margin:0}.facts div{margin-bottom:13px}.facts dt{font-size:12px;color:#526e80}.facts dd{margin:4px 0 0;overflow-wrap:anywhere;font:12px ui-monospace,monospace;line-height:1.6}.list{padding-left:20px;line-height:1.8;font-size:14px}.tail{font-size:13px;background:#f4f7fa;border-radius:7px;padding:12px;margin-top:14px}footer{font-size:12px;color:#526e80;margin-top:20px}#file-check{overflow-wrap:anywhere}@media(max-width:800px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}main{padding:18px 14px}.panel{padding:17px}header{padding:24px 18px}.segment{gap:7px}.badge{font-size:11px}.segment button{padding:8px}.metric{padding:15px}.metric strong{font-size:23px}}
+</style>
+</head>
+<body>
+<header><div class="tag">JIANWEI / P0.3.1</div><h1>真实视频 · 匿名探索</h1><p>查看冻结编码器产生的片段特征、匿名候选分段与原视频。这里记录单个来源的描述性结果，为后续独立研究准备可回查的证据。</p></header>
+<main>
+<div class="notice"><strong>探索报告 · 尚未验证学习效果</strong><br>匿名簇不是动作类别。整个视频保持未分区，没有训练／校准／封存测试，也没有业务准确率。统计量使用本视频全部有效片段，属于回顾性探索。</div>
+<div class="metrics" id="metrics"></div>
+<div class="grid">
+<div>
+<section class="panel"><h2>回查原始片段</h2><video id="source-video" controls preload="metadata" src="__VIDEO_URL__"></video><p class="status" id="playback-status" role="status">选择右侧候选的代表片段，查看相应原始画面。</p><div class="controls"><label class="file-label">视频未在同一目录时，选择本地原文件<input id="video-file" type="file" accept="video/mp4"></label></div><p class="status muted" id="file-check">原视频不会上传到服务器。</p></section>
+<section class="panel"><h2>覆盖范围</h2><p class="muted">彩色区域是有效片段；斜线区域未纳入探索。重叠片段按时间区间合并计算覆盖率。</p><div id="coverage"></div><div class="legend" id="legend"></div><div id="excluded"></div></section>
+<section class="panel"><h2>结果边界</h2><ul class="list" id="limitations"></ul><button class="secondary" id="download-report">下载完整 JSON 报告</button></section>
+</div>
+<div>
+<section class="panel"><h2>匿名候选时间线</h2><p class="muted">候选分段来自本视频的特征变化。代表片段是该分段内最接近均值的真实片段；窗口间可能重叠。</p><div class="segments" id="segments"></div></section>
+<section class="panel"><h2>来源与版本</h2><dl class="facts" id="facts"></dl></section>
+</div>
+</div>
+<footer>冻结视觉编码器；候选不自动激活。后续采集需保留原始会话、日期和机位，并隔离独立训练、校准和测试来源。</footer>
+</main>
+<script type="application/json" id="report-data">__REPORT_JSON__</script>
+<script>
+'use strict';
+const report=JSON.parse(document.getElementById('report-data').textContent);
+const video=document.getElementById('source-video');
+const colors=['#087a76','#3d6ea8','#8a5a9e','#b76b30','#607e36','#a15067'];
+const color=id=>colors[Number(id.split('_').pop())%colors.length];
+const time=ms=>(ms/1000).toFixed(1)+' 秒';
+function node(tag,text,cls){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;}
+const metricData=[[report.independent_original_sources,'独立原始来源'],[report.eligible_rows,'有效片段'],[(report.coverage.fraction*100).toFixed(1)+'%','原视频时间覆盖'],[report.segments.length,'匿名候选分段']];
+for(const [value,label] of metricData){const n=node('div',undefined,'metric');n.append(node('strong',String(value)),node('span',label));document.getElementById('metrics').append(n);}
+let stopAt=null,objectUrl=null;
+function seek(segment){if(!report.direct_video_seek_supported)return;const r=segment.representative;video.currentTime=r.start_ms/1000;stopAt=r.end_ms/1000;document.getElementById('playback-status').textContent=segment.anonymous_cluster_id+' · 原始 PTS '+time(r.start_ms)+' — '+time(r.end_ms)+' · 特征行 '+r.row;video.play().catch(()=>{document.getElementById('playback-status').textContent+='；请点击视频播放按钮或选择本地原文件。';});}
+video.addEventListener('timeupdate',()=>{if(stopAt!==null&&video.currentTime>=stopAt){video.pause();stopAt=null;}});
+video.addEventListener('error',()=>{document.getElementById('playback-status').textContent='未找到可播放的原视频。可在下方选择本地原文件；时间线和报告仍可查看。';});
+for(const segment of report.segments){const n=node('div',undefined,'segment'),badge=node('span',segment.anonymous_cluster_id.replace('cluster_','簇 '),'badge');badge.style.background=color(segment.anonymous_cluster_id);const description=node('div');description.append(node('p',time(segment.start_ms)+' — '+time(segment.end_ms)),node('small',segment.episode_id+' · '+segment.rows.length+' 个片段'));const play=node('button','查看片段');play.disabled=!report.direct_video_seek_supported;play.addEventListener('click',()=>seek(segment));n.append(badge,description,play);document.getElementById('segments').append(n);}
+for(const domain of report.coverage.domains){const block=node('div');block.append(node('p',domain.time_domain_id+' · 覆盖 '+time(domain.covered_ms),'muted'));const timeline=node('div',undefined,'timeline');for(const segment of report.segments.filter(s=>s.time_domain_id===domain.time_domain_id)){const b=node('button');b.setAttribute('aria-label',segment.anonymous_cluster_id+' '+time(segment.start_ms)+'至'+time(segment.end_ms));b.style.left=((segment.start_ms-domain.start_ms)/(domain.end_ms-domain.start_ms)*100)+'%';b.style.width=((segment.end_ms-segment.start_ms)/(domain.end_ms-domain.start_ms)*100)+'%';b.style.background=color(segment.anonymous_cluster_id);b.disabled=!report.direct_video_seek_supported;b.addEventListener('click',()=>seek(segment));timeline.append(b);}const scale=node('div',undefined,'scale');scale.append(node('span',time(domain.start_ms)),node('span',time(domain.end_ms)));block.append(timeline,scale);document.getElementById('coverage').append(block);}
+for(const id of [...new Set(report.clips.map(c=>c.anonymous_cluster_id))].sort()){const n=node('span'),swatch=node('i',undefined,'swatch');swatch.style.background=color(id);n.append(swatch,document.createTextNode(id.replace('cluster_','匿名簇 ')));document.getElementById('legend').append(n);}
+for(const episode of report.incomplete_episodes)document.getElementById('excluded').append(node('div',time(episode.start_ms)+' — '+time(episode.end_ms)+' 未纳入：尾部窗口不完整（'+episode.episode_id+'）。','tail'));
+if(report.discarded_clips.length||report.rejected_rows.length)document.getElementById('excluded').append(node('p','另有 '+report.discarded_clips.length+' 个丢弃片段、'+report.rejected_rows.length+' 个不合格特征行，原因见完整报告。','muted'));
+for(const limitation of report.limitations)document.getElementById('limitations').append(node('li',limitation));
+const facts=[['源视频',report.source_file],['来源分区','unassigned · 未分配'],['源视频 SHA256',report.source_hash],['冻结 ONNX SHA256',report.feature_space.encoder_sha],['特征缓存 SHA256',report.feature_cache.sha256],['特征空间',report.feature_space_id],['配置 SHA256',report.config_hash],['匿名簇版本',report.cluster_version],['PCA 描述维度',String(report.projection.dimension)],['业务准确率','未提供动作真值，未计算']];
+for(const [key,value] of facts){const n=node('div');n.append(node('dt',key),node('dd',value));document.getElementById('facts').append(n);}
+document.getElementById('download-report').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));const a=node('a');a.href=url;a.download='jianwei-p031-exploration.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+document.getElementById('video-file').addEventListener('change',async event=>{const file=event.target.files[0];if(!file)return;const status=document.getElementById('file-check');if(!crypto.subtle){status.textContent='当前浏览器无法核验文件 SHA256；请用本地 HTTP 服务打开此页面。';return;}status.textContent='正在核验原视频 SHA256…';const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await file.arrayBuffer())),b=>b.toString(16).padStart(2,'0')).join('');if(hash!==report.source_hash){status.textContent='文件 SHA256 不匹配，未切换视频。请提供导入时的原文件。';return;}if(objectUrl)URL.revokeObjectURL(objectUrl);objectUrl=URL.createObjectURL(file);video.src=objectUrl;stopAt=null;status.textContent='SHA256 核验通过；视频只在本地播放。';document.getElementById('playback-status').textContent='原视频已就绪，可以选择代表片段。';});
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Template only: copy under temporal.dataset_manifest in config/system.yaml.
+# Unknown acquisition metadata and reviews intentionally remain pending.
+manifest_version: p031-sources-v1
+dataset_id: test_video_pending
+tenant_id: tenant_demo
+sources:
+  - source_sha256: a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16
+    root_source_sha256: a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16
+    parent_source_sha256: null
+    relation: original
+    capture_session_id: null
+    camera_id: null
+    view_id: null
+    captured_at: null
+    split: unassigned
+    provenance_review:
+      status: pending
+    near_duplicate_review:
+      status: pending
+duplicate_reviews: []

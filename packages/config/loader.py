@@ -161,6 +161,12 @@ def load_bundle(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", p
     excluded = {'knowledge_file', 'session'} if isinstance(config, SceneConfig) else set()
     if isinstance(config, SceneConfig) and config.temporal is None: excluded.add('temporal')
     snapshot = _redact(config.model_dump(exclude=excluded))
+    # An optional real-source registry must not change historical configuration
+    # hashes when absent. A populated manifest is included in full.
+    if snapshot.get('temporal', {}).get('dataset_manifest') is None:
+        snapshot.get('temporal', {}).pop('dataset_manifest', None)
+    else:
+        snapshot['temporal']['dataset_manifest'] = config.temporal.dataset_manifest.model_dump(mode='json')
     return Bundle(config=config, profile=selected, root=root, path=path, config_hash=content_hash(snapshot),
                   snapshot=snapshot, knowledge=knowledge, knowledge_yaml=knowledge_yaml, paths=paths, scenes=scenes)
 

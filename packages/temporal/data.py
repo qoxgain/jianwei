@@ -10,6 +10,7 @@ from packages.config.errors import ContractError
 from packages.contracts.learning import FeatureBatch, FeatureSpace
 from packages.ingestion.pipeline import file_hash
 from packages.knowledge.service import content_hash
+from .provenance import source_provenance
 
 
 def fail(code, message):
@@ -18,7 +19,7 @@ def fail(code, message):
 
 def snapshot_imports(bundle, database, scene_id, identifiers, allowed_splits):
     settings = bundle.config.temporal
-    entries, seen, keys, counts = [], set(), set(), Counter()
+    entries, seen, groups, keys, counts = [], set(), set(), set(), Counter()
     total_rows = total_values = 0
     with database.session() as session:
         for identifier in sorted(identifiers):
@@ -38,6 +39,11 @@ def snapshot_imports(bundle, database, scene_id, identifiers, allowed_splits):
             split = session.scalar(select(SourceSplit).where(SourceSplit.tenant_id == bundle.profile.tenant_id,
                                                            SourceSplit.source_hash == m['source_hash']))
             if split is None or split.split != m['split']: fail('TEMPORAL_SPLIT_CHANGED', '来源分区与导入快照不一致，请重新导入')
+            provenance = source_provenance(bundle, m)
+            group = provenance['capture_session_id'] if provenance else m['source_hash']
+            if group in groups:
+                fail('TEMPORAL_DUPLICATE_SESSION', '同一采集会话只可选择一个完整导入；截片或转码不能增加独立来源数')
+            groups.add(group)
             space = FeatureSpace.model_validate(m['feature_space'])
             if space.identifier() != m['feature_space_id']: fail('TEMPORAL_SPACE_INVALID', '特征空间摘要错误')
             keys.add((m['tenant_id'], m['scene_id'], m['view_id'], m['feature_space_id'], m['data_origin']))
@@ -49,12 +55,14 @@ def snapshot_imports(bundle, database, scene_id, identifiers, allowed_splits):
                 'rows': m['total_rows'], 'eligible_rows': m['eligible_rows'],
                 'episode_count': sum(e['complete'] for e in m['episodes']),
                 'encoder_evidence': m['encoder_evidence'], 'import_config_hash': job.config_hash})
+            if provenance is not None:
+                entries[-1]['provenance'] = provenance
             counts[m['split']] += 1
     if len(keys) != 1: fail('TEMPORAL_SCOPE_MISMATCH', '禁止混合租户、场景、视角、特征空间或真实/合成来源')
     requirements = {'train':settings.min_train_sources, 'calibration':settings.min_calibration_sources,
                     'test':settings.min_test_sources}
     for split in allowed_splits:
-        if counts[split] < requirements[split]: fail('TEMPORAL_INSUFFICIENT_SOURCES', f'{split}独立源不足，需要至少{requirements[split]}个')
+        if counts[split] < requirements[split]: fail('TEMPORAL_INSUFFICIENT_SOURCES', f'{split}独立采集来源不足，需要至少{requirements[split]}个')
     tenant, scene, view, feature, origin = keys.pop()
     # Import IDs are random database identifiers. Numerical fitting order must
     # follow immutable source content so a fresh database reproduces weights.

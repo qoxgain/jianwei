@@ -8,6 +8,7 @@ import numpy as np
 from packages.knowledge.service import content_hash
 from packages.ingestion.pipeline import file_hash
 from .data import fail, values, window_refs, has_barrier
+from .provenance import assert_evaluation_independent
 from .models import (fit_projection, project, reconstruct, kmeans, assign, ridge_fit,
                      ridge_predict, tcn_fit, tcn_forward)
 
@@ -263,8 +264,7 @@ def evaluate(sequences,snapshot,model_directory,expected_model,directory):
     if model['engine_sha256']!=code_hash():fail('TEMPORAL_ENGINE_CHANGED','算法实现已变化，请使用原代码版本评估此候选')
     if any(snapshot[k]!=model['snapshot'][k] for k in ('tenant_id','scene_id','view_id','feature_space_id','data_origin')):
         fail('TEMPORAL_SCOPE_MISMATCH','评估输入与模型作用域不一致')
-    if {e['source_hash'] for e in snapshot['entries']}&{e['source_hash'] for e in model['snapshot']['entries']}:
-        fail('TEMPORAL_TEST_LEAKAGE','test原始来源与训练/校准来源重叠')
+    assert_evaluation_independent(snapshot, model['snapshot'])
     learning=Learning.model_validate(model['learning']);settings=TemporalSettings.model_validate(model['settings'])
     windows,rejected=window_refs(sequences,learning,settings);validate_windows(sequences,windows,settings,{'test'})
     if any(w.split!='test' for w in windows):fail('TEMPORAL_SPLIT_FORBIDDEN','独立评估只能读取test')

@@ -10,6 +10,7 @@ from packages.knowledge.service import content_hash
 from packages.ingest_jobs.service import encode
 from packages.temporal import engine
 from packages.temporal.data import snapshot_imports, load_sequences, fail
+from packages.temporal.provenance import assert_evaluation_independent
 
 logger=logging.getLogger(__name__)
 
@@ -61,8 +62,7 @@ class TemporalService:
                 expected=json.loads(model.report_json)['model'];model_snapshot=expected['snapshot']
                 if any(model_snapshot[k]!=snapshot[k] for k in ('tenant_id','scene_id','feature_space_id','view_id','data_origin')):
                     fail('TEMPORAL_SCOPE_MISMATCH','test与候选模型作用域不一致')
-                if {e['source_hash'] for e in snapshot['entries']}&{e['source_hash'] for e in model_snapshot['entries']}:
-                    fail('TEMPORAL_TEST_LEAKAGE','封存test来源与训练/校准重叠')
+                assert_evaluation_independent(snapshot, model_snapshot)
         body=request.model_dump();body['import_ids']=sorted(body['import_ids'])
         knowledge=self._knowledge_hash(scene);code=engine.code_hash()
         key=content_hash({'kind':kind,'request':body,'snapshot':snapshot['hash'],
