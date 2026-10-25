@@ -1,0 +1,277 @@
+{
+  "passed": true,
+  "scope": "Eight independent synthetic sources reused across scenes; no field accuracy claim.",
+  "browser": "Chromium 154.0.8037.57 built on Debian GNU/Linux 13 (trixie)",
+  "build_sha256": {
+    "apps/web/dist/index.html": "3fc9417fb5bc70ec7698998fddde902564967e3a6fc65f7b62d46209541055c8",
+    "apps/web/dist-demo/index.html": "ee9106f56ba5833e1cb721af6a9161e1948af838b96e29fceae1d7e95ca345fe"
+  },
+  "downloads": {
+    "api-anonymous_observation-calibration.jsonl": {
+      "sha256": "04057d6c5c8c8b34aab8187bb35dad760e91dbe1e0dade444834585abb036f1c",
+      "bytes": 29575182
+    },
+    "api-anonymous_observation-full-train.json": {
+      "sha256": "1773cdc860bb16ab83788ae70b87f10d4c3168d3e7da534a39f4cfd6b75b38b6",
+      "bytes": 47884
+    },
+    "api-anonymous_observation-reloaded.json": {
+      "sha256": "f94f3e13841a59343e17fc631221ae807863e4a5642610ac641c5cfedf062fc8",
+      "bytes": 58921
+    },
+    "api-anonymous_observation-test.json": {
+      "sha256": "f94f3e13841a59343e17fc631221ae807863e4a5642610ac641c5cfedf062fc8",
+      "bytes": 58921
+    },
+    "api-anonymous_observation-test.jsonl": {
+      "sha256": "02f8fbc6bf37e06f57effe0c7abc16bfdfb3b594024f676e3252ed8d6b8ac747",
+      "bytes": 29554505
+    },
+    "api-anonymous_observation-train.json": {
+      "sha256": "61685f70b9184c05c526a39768edd5778ba0f847f0d82db55cf25f86a08d366a",
+      "bytes": 65928
+    },
+    "api-anonymous_observation-weights.npz": {
+      "sha256": "1fcb20368764e93ac086b50e7d86e0a433caeeb7f747a9b3874d7931d150ca84",
+      "bytes": 232155
+    },
+    "api-electronics_assembly-calibration.jsonl": {
+      "sha256": "3ec6763e029365a63479a1126fc74753d3938609363b6dfdde290f5760e459f7",
+      "bytes": 29575934
+    },
+    "api-electronics_assembly-full-train.json": {
+      "sha256": "0d92054f090038dc81a3ec0541ee2a2b6e91f8d4eaaad7a8fb9d233c5898d31a",
+      "bytes": 48434
+    },
+    "api-electronics_assembly-reloaded.json": {
+      "sha256": "516537cc1d0253e8c4bae861dedadc1ba2d7a7d4ed797c9fb342f9a57d45c44a",
+      "bytes": 59548
+    },
+    "api-electronics_assembly-test.json": {
+      "sha256": "516537cc1d0253e8c4bae861dedadc1ba2d7a7d4ed797c9fb342f9a57d45c44a",
+      "bytes": 59548
+    },
+    "api-electronics_assembly-test.jsonl": {
+      "sha256": "9e8894f3d770fe3fdef6e1321d3c4db42148727ab9a6d9ea1dc24025e41ef768",
+      "bytes": 29555257
+    },
+    "api-electronics_assembly-train.json": {
+      "sha256": "3e504178f91a60c50578b165ae6a341ce3f6099ea2220dfcf3b1d291e9e30fad",
+      "bytes": 66478
+    },
+    "api-electronics_assembly-weights.npz": {
+      "sha256": "1fcb20368764e93ac086b50e7d86e0a433caeeb7f747a9b3874d7931d150ca84",
+      "bytes": 232155
+    },
+    "api-garment_sop-calibration.jsonl": {
+      "sha256": "3ec6763e029365a63479a1126fc74753d3938609363b6dfdde290f5760e459f7",
+      "bytes": 29575934
+    },
+    "api-garment_sop-full-train.json": {
+      "sha256": "f9c31227c2724687f2446711bc950248e3481a63b07db80e731f14d8ccf6baff",
+      "bytes": 48416
+    },
+    "api-garment_sop-reloaded.json": {
+      "sha256": "26ed9a814c7a23c0c72b7e82f4d916e406e0b2a3250693e6a1ba3c6f976c6169",
+      "bytes": 59539
+    },
+    "api-garment_sop-test.json": {
+      "sha256": "26ed9a814c7a23c0c72b7e82f4d916e406e0b2a3250693e6a1ba3c6f976c6169",
+      "bytes": 59539
+    },
+    "api-garment_sop-test.jsonl": {
+      "sha256": "9e8894f3d770fe3fdef6e1321d3c4db42148727ab9a6d9ea1dc24025e41ef768",
+      "bytes": 29555257
+    },
+    "api-garment_sop-train.json": {
+      "sha256": "c6a8602b2cab8fd31547d1a3140c5a86544c6b9fd8f5b90c7c6ec8c0c582675b",
+      "bytes": 66460
+    },
+    "api-garment_sop-weights.npz": {
+      "sha256": "1fcb20368764e93ac086b50e7d86e0a433caeeb7f747a9b3874d7931d150ca84",
+      "bytes": 232155
+    },
+    "api-workshop_safety-calibration.jsonl": {
+      "sha256": "04057d6c5c8c8b34aab8187bb35dad760e91dbe1e0dade444834585abb036f1c",
+      "bytes": 29575182
+    },
+    "api-workshop_safety-full-train.json": {
+      "sha256": "1c27c84b4758243f2dbeb01adcdb8886f94f1c22ecc51c7835119826bdeea39f",
+      "bytes": 47872
+    },
+    "api-workshop_safety-reloaded.json": {
+      "sha256": "39b8bca5dd89eccdb72e2ee54ddc941324d00aa17fb034f78bdd5ed1c2b6c180",
+      "bytes": 58915
+    },
+    "api-workshop_safety-test.json": {
+      "sha256": "39b8bca5dd89eccdb72e2ee54ddc941324d00aa17fb034f78bdd5ed1c2b6c180",
+      "bytes": 58915
+    },
+    "api-workshop_safety-test.jsonl": {
+      "sha256": "02f8fbc6bf37e06f57effe0c7abc16bfdfb3b594024f676e3252ed8d6b8ac747",
+      "bytes": 29554505
+    },
+    "api-workshop_safety-train.json": {
+      "sha256": "d1c9347d90e4b3928dddd230277860bbccfce62220d43a4bff62fba2876a8f9d",
+      "bytes": 65916
+    },
+    "api-workshop_safety-weights.npz": {
+      "sha256": "1fcb20368764e93ac086b50e7d86e0a433caeeb7f747a9b3874d7931d150ca84",
+      "bytes": 232155
+    },
+    "offline-anonymous_observation-reloaded.json": {
+      "sha256": "2b3f51c50deaacd70929dc3907437ab41635d66be9056244e2289f62cab47a11",
+      "bytes": 58918
+    },
+    "offline-anonymous_observation-test.json": {
+      "sha256": "2b3f51c50deaacd70929dc3907437ab41635d66be9056244e2289f62cab47a11",
+      "bytes": 58918
+    },
+    "offline-electronics_assembly-reloaded.json": {
+      "sha256": "ad744447357e71e3e7b704408556cb5f793ab58d45e835c5a4567a25463a0f2a",
+      "bytes": 59545
+    },
+    "offline-electronics_assembly-test.json": {
+      "sha256": "ad744447357e71e3e7b704408556cb5f793ab58d45e835c5a4567a25463a0f2a",
+      "bytes": 59545
+    },
+    "offline-garment_sop-reloaded.json": {
+      "sha256": "de7307fcfcc3978a7be910ef0c58d4333946f2cf8fab0aa67b0d97958baf45cd",
+      "bytes": 59536
+    },
+    "offline-garment_sop-test.json": {
+      "sha256": "de7307fcfcc3978a7be910ef0c58d4333946f2cf8fab0aa67b0d97958baf45cd",
+      "bytes": 59536
+    },
+    "offline-workshop_safety-reloaded.json": {
+      "sha256": "b43e874e7023d834d5c062202ea5c1046bf225eb41faf8366c12b4efc64cf3fe",
+      "bytes": 58912
+    },
+    "offline-workshop_safety-test.json": {
+      "sha256": "b43e874e7023d834d5c062202ea5c1046bf225eb41faf8366c12b4efc64cf3fe",
+      "bytes": 58912
+    }
+  },
+  "results": [
+    {
+      "mode": "api",
+      "cases": [
+        {
+          "scene": "garment_sop",
+          "independent_train_sources": 4,
+          "calibration_sources": 2,
+          "test_sources": 2,
+          "candidate": "ridge",
+          "retry": {
+            "failure": "TEMPORAL_CACHE_CORRUPTED",
+            "restored_original_cache": true,
+            "retry": "passed"
+          },
+          "report_export_and_reload": true,
+          "desktop_and_mobile": true,
+          "numeric_weights_and_prediction_downloads": true
+        },
+        {
+          "scene": "electronics_assembly",
+          "independent_train_sources": 4,
+          "calibration_sources": 2,
+          "test_sources": 2,
+          "candidate": "ridge",
+          "retry": {
+            "failure": "TEMPORAL_CACHE_CORRUPTED",
+            "restored_original_cache": true,
+            "retry": "passed"
+          },
+          "report_export_and_reload": true,
+          "desktop_and_mobile": true,
+          "numeric_weights_and_prediction_downloads": true
+        },
+        {
+          "scene": "workshop_safety",
+          "independent_train_sources": 4,
+          "calibration_sources": 2,
+          "test_sources": 2,
+          "candidate": "ridge",
+          "retry": {
+            "failure": "TEMPORAL_CACHE_CORRUPTED",
+            "restored_original_cache": true,
+            "retry": "passed"
+          },
+          "report_export_and_reload": true,
+          "desktop_and_mobile": true,
+          "numeric_weights_and_prediction_downloads": true
+        },
+        {
+          "scene": "anonymous_observation",
+          "independent_train_sources": 4,
+          "calibration_sources": 2,
+          "test_sources": 2,
+          "candidate": "ridge",
+          "retry": {
+            "failure": "TEMPORAL_CACHE_CORRUPTED",
+            "restored_original_cache": true,
+            "retry": "passed"
+          },
+          "report_export_and_reload": true,
+          "desktop_and_mobile": true,
+          "numeric_weights_and_prediction_downloads": true
+        }
+      ],
+      "page_errors": [],
+      "console_errors": [],
+      "offline_document_only": false
+    },
+    {
+      "mode": "offline",
+      "cases": [
+        {
+          "scene": "garment_sop",
+          "independent_train_sources": 4,
+          "calibration_sources": 2,
+          "test_sources": 2,
+          "candidate": "ridge",
+          "retry": null,
+          "report_export_and_reload": true,
+          "desktop_and_mobile": true,
+          "numeric_weights_and_prediction_downloads": false
+        },
+        {
+          "scene": "electronics_assembly",
+          "independent_train_sources": 4,
+          "calibration_sources": 2,
+          "test_sources": 2,
+          "candidate": "ridge",
+          "retry": null,
+          "report_export_and_reload": true,
+          "desktop_and_mobile": true,
+          "numeric_weights_and_prediction_downloads": false
+        },
+        {
+          "scene": "workshop_safety",
+          "independent_train_sources": 4,
+          "calibration_sources": 2,
+          "test_sources": 2,
+          "candidate": "ridge",
+          "retry": null,
+          "report_export_and_reload": true,
+          "desktop_and_mobile": true,
+          "numeric_weights_and_prediction_downloads": false
+        },
+        {
+          "scene": "anonymous_observation",
+          "independent_train_sources": 4,
+          "calibration_sources": 2,
+          "test_sources": 2,
+          "candidate": "ridge",
+          "retry": null,
+          "report_export_and_reload": true,
+          "desktop_and_mobile": true,
+          "numeric_weights_and_prediction_downloads": false
+        }
+      ],
+      "page_errors": [],
+      "console_errors": [],
+      "offline_document_only": true
+    }
+  ]
+}

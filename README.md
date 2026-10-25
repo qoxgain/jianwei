@@ -1,9 +1,9 @@
 # 见微 · 多模态自学习感知平台
 
-当前实现 **P0.3 无标注时序研究工作台**。服装SOP、电子装配、无SOP安全事件、无标签观察使用同一套场景API和页面；动作、状态、事件、流程节点分别定义。产品版本为V3.0，配置与知识契约为3.1。
+当前实现 **P0.3.1 真实视频与冻结编码器工程验收**，延续 P0.3 无标注时序研究工作台。服装SOP、电子装配、无SOP安全事件、无标签观察使用同一套场景API和页面；动作、状态、事件、流程节点分别定义。产品版本为V3.0，配置与知识契约为3.1。
 
-- [本步任务](docs/plans/P0.3.md) · [P0.1.1最终任务书](docs/plans/P0.1.1-final.md)
-- [本次交付、测试与边界](docs/delivery/P0.3.md)
+- [本步任务](docs/plans/P0.3.1-real-video.md) · [P0.1.1最终任务书](docs/plans/P0.1.1-final.md)
+- [本次交付、测试与边界](docs/delivery/P0.3.1.md)
 - [研究路线与阶段依赖](docs/ROADMAP.md) · [P0.2衔接契约](docs/P0.2-CONTRACTS.md)
 - [四场景离线演示使用说明](demo/README.md)
 
@@ -27,7 +27,7 @@ bash scripts/start.sh
 
 独立审阅包：[P0.3 Demo](demo/jianwei-p0.3-demo.zip)。HTML 回放实际服务端生成的合成导入、训练和独立评估记录；实际任务需要本机 API。研究使用步骤见 [时序研究说明](docs/TEMPORAL.md)。
 
-用户上传的 `examples/test.mp4` 已完成真实解码与诊断编码器接入核查。单视频不能证明泛化，正式视觉编码器尚待接入。下一步按 [P0.3.1真实视频任务书](docs/plans/P0.3.1-real-video.md) 开发。
+用户上传的 `examples/test.mp4` 已用官方 Kinetics-400 预训练 R3D-18 冻结模型处理：完整核验 2,844 帧，获得 117 个 512 维有效片段。查看 [单视频 Demo 下载](demo/jianwei-p0.3.1-video-demo.zip)、[实际截图](docs/delivery/p0.3.1/preview/desktop.png)和[完整报告](docs/delivery/p0.3.1/preview/report.json)。解压后打开 `index.html`，点击代表片段回查原视频。单源回顾性匿名探索不代表动作识别或独立学习效果。安装与复现见 [冻结编码器说明](docs/PRETRAINED-ENCODER.md)；真实研究须先完成 [采集来源审查](docs/DATASET-PROVENANCE.md)。
 
 ## 配置与知识
 
@@ -69,7 +69,7 @@ npm --prefix apps/web run build:demo
 .venv/bin/python -m jianwei doctor --profile site --preflight
 ```
 
-site预检缺少现场资源时返回2是预期阻塞，不是假就绪。浏览器验收安装 `requirements-browser.txt`，启动API和静态服务后运行 `tests/browser_smoke.py` 与 `tests/browser_scenes.py`；P0.1.1 浏览器门槛已补齐；P0.2 的实际浏览器结果见历史交付记录；P0.3 新页面浏览器验收和截图仍待补齐，构建不能替代浏览器验收。
+site预检缺少现场资源时返回2是预期阻塞，不是假就绪。浏览器验收安装 `requirements-browser.txt`，启动API和静态服务后运行 `tests/browser_smoke.py` 与 `tests/browser_scenes.py`；P0.1.1 浏览器门槛已补齐；P0.2 的实际浏览器结果见历史交付记录；P0.3 四场景研究页面的 API/离线、桌面/手机、重试及下载已实际通过，[截图与结果](docs/delivery/p0.3.1-browser/results.json)已补齐。可运行 `python tests/browser_temporal.py --serve-isolated` 复现；单视频播放器用 `python tests/browser_video_exploration.py` 验收。
 
 ## 开发目录
 
@@ -87,4 +87,4 @@ site预检缺少现场资源时返回2是预期阻塞，不是假就绪。浏览
 | `contracts/future-openapi.yaml` | 尚未实现的后续API草案 |
 | `reference` | 原始合成机制参考，不代表真实模型效果 |
 
-主线A的顺序为：公共底座 → 视频/特征 → 自监督时序 → 语义与状态记忆 → 少样本抗遗忘 → 主动局部感知。当前完成 P0.3 工程与合成机制验证，接下来按 P0.3.1 补真实编码器、独立录像和浏览器验收，再推进 P0.4。
+主线A的顺序为：公共底座 → 视频/特征 → 自监督时序 → 语义与状态记忆 → 少样本抗遗忘 → 主动局部感知。P0.3.1 已补正式编码器、单视频探索与浏览器证据；独立录像与真实训练/校准/测试仍待验收，尚不进入 P0.4。

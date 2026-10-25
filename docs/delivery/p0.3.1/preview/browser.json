@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "browser": "154.0.8037.57",
+  "desktop": [
+    1440,
+    1000
+  ],
+  "mobile": [
+    390,
+    844
+  ],
+  "page_and_console_errors": [],
+  "horizontal_overflow": false,
+  "reload_preserves_report": true,
+  "source_duration_seconds": 118.5,
+  "local_wrong_sha_rejected": true,
+  "local_correct_sha_accepted": true,
+  "representative_seek": {
+    "row": 112,
+    "start_ms": 56000,
+    "actual_seconds": 56.135709
+  },
+  "video_playback_advanced": true,
+  "download_matches_report": true,
+  "download_sha256": "2e1fd02a58760dc2110c7b171fd30cc34ee08f161d6355e61fab8d5ac18ba61b"
+}

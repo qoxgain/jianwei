@@ -1,4 +1,4 @@
-name: P0.3 checks
+name: P0.3.1 checks
 on:
   push:
   pull_request:
@@ -29,3 +29,18 @@ jobs:
         working-directory: apps/web
       - run: npm run build:demo
         working-directory: apps/web
+  pretrained-encoder:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: python -m pip install -r requirements-pretrained.txt --extra-index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pytest tests/test_pretrained_encoder.py -q
+      - run: python scripts/export_pretrained_encoder.py --download --report artifacts/encoder-export.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: official-encoder-verification
+          path: artifacts/encoder-export.json

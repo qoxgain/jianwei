@@ -1,0 +1,17 @@
+{
+  "all_equivalent": true,
+  "runs": {
+    "baseline": {
+      "eligible_clips": 117,
+      "elapsed_seconds": 29.072878763006884,
+      "rgb_temporary_disk_bytes": 321076224,
+      "sampled_tree_rss_peak_bytes": 411578368
+    },
+    "bounded": {
+      "eligible_clips": 117,
+      "elapsed_seconds": 52.57685335399583,
+      "rgb_temporary_disk_bytes": 0,
+      "sampled_tree_rss_peak_bytes": 143273984
+    }
+  }
+}

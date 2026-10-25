@@ -1,0 +1,107 @@
+{
+  "artifact_hash": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+  "blocker": {
+    "code": "ENCODER_ADAPTER_UNAVAILABLE",
+    "errors": [],
+    "message": "已完成视频解码；请配置受支持的冻结 ONNX 编码器，或导入已有 NPZ 特征"
+  },
+  "config_hash": "aa7e99151c5f3d313141da10f8df2ba8f79aff9761543e06d98ad73859b16360",
+  "context": {},
+  "data_origin": "real_video",
+  "domains": [
+    {
+      "capture_start_utc": null,
+      "clock_status": "unknown",
+      "domain_index": 0,
+      "end_ms": 118500,
+      "first_row": 0,
+      "last_row": 2843,
+      "start_ms": 0,
+      "time_domain_id": "d0"
+    }
+  ],
+  "eligible_rows": 0,
+  "encoder_evidence": {
+    "execution": "not_executed",
+    "vector_production": "not_available"
+  },
+  "episodes": [
+    {
+      "complete": true,
+      "domain_index": 0,
+      "end_ms": 60000,
+      "episode_id": "d0_window_0",
+      "origin": "fixed_window",
+      "start_ms": 0,
+      "time_domain_id": "d0"
+    },
+    {
+      "complete": false,
+      "domain_index": 0,
+      "end_ms": 118500,
+      "episode_id": "d0_window_1",
+      "origin": "fixed_window",
+      "start_ms": 60000,
+      "time_domain_id": "d0"
+    }
+  ],
+  "feature_batches": [],
+  "feature_cache": null,
+  "feature_space": null,
+  "feature_space_id": null,
+  "gaps": [],
+  "import_id": "06b63422-9332-4f5a-b04b-d7a893d8b36d",
+  "input_format": "mp4",
+  "knowledge_hash": "aea39d7f966b366613c885ffa2792b6c0e6b7a01b0e15d0cbeb4e846db7594d6",
+  "manifest_version": "3.1",
+  "quality": {
+    "bright_frames": 0,
+    "dark_frames": 0,
+    "decoded_frames": 2844,
+    "low_contrast_frames": 0,
+    "method": "decoded_luma_and_contrast_v1",
+    "score": 1.0,
+    "semantic_accuracy": null
+  },
+  "rejected_rows": [],
+  "roi_xyxy": [
+    0.0,
+    0.0,
+    1.0,
+    1.0
+  ],
+  "rows": [],
+  "scene_id": "anonymous_observation",
+  "semantic_accuracy": null,
+  "source_group_id": "2e8da05afe481fc54ccd6759210abd82e562daf39349b99ec9466d649416ea8b",
+  "source_hash": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+  "source_id": "file_01",
+  "source_ref": "upload:e24fda38-7834-479d-b817-ae1f87c24bef",
+  "source_verification": "verified",
+  "source_verified": true,
+  "source_video_id": "source_a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+  "split": "unassigned",
+  "stage": "P0.2",
+  "status": "blocked",
+  "tenant_id": "tenant_demo",
+  "total_rows": 0,
+  "training_executed": false,
+  "vector_uri": null,
+  "video": {
+    "container_duration_ms": 118500,
+    "decode_resources": {
+      "buffer_peak_bytes": 940800,
+      "buffer_peak_bytes_kind": "conservative_allocation_bound_not_rss",
+      "quality_pass_frames": 2844,
+      "rgb_temporary_disk_bytes": 0,
+      "sampling_pass_frames": 0,
+      "sampling_restarts": 0,
+      "strategy": "two_pass_bounded_rgb_v1"
+    },
+    "decoded_height": 168,
+    "decoded_width": 224,
+    "height": 480,
+    "width": 640
+  },
+  "view_id": "c63b794c56cc057af7019e7838203fe0351638471ec6d9d72bdd3da0b5ecd677"
+}

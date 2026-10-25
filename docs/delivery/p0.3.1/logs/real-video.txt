@@ -1,0 +1,1 @@
+{"decoded_frames": 2844, "eligible_rows": 117, "feature_dimension": 512, "finite_nonconstant_features": true, "elapsed_seconds": 352.241}

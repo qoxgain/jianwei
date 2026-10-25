@@ -1,0 +1,16 @@
+
+> @jianwei/web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 2107 modules transformed.
+rendering chunks...
+[plugin vite:singlefile] 
+
+[plugin vite:singlefile] Inlining: index-C5Okd13H.js
+[plugin vite:singlefile] Inlining: style-CtQfarY4.css
+computing gzip size...
+dist/index.html  1,709.40 kB │ gzip: 273.86 kB
+
+✓ built in 1.17s

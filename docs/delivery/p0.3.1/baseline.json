@@ -1,0 +1,22 @@
+{
+  "baseline_commit": "6f33b2b66486e9e852c5fda55ff414d6715318fa",
+  "branch": "codex/p0-1-foundation",
+  "remote_verified_equal_at_start": true,
+  "source_files": {
+    "config/system.yaml": "afdd85df7ff63db47f3c44eba94b91f4b43a8fc66f07af5f352ff67179083071",
+    "requirements.lock": "f56da4c1a4f857f2ed47c667f019c8f1aa49d438e989bb03087fc377e87f3d11",
+    "requirements-encoder.txt": "3f4294de0bfeafcf70a15e4da12fa092a0057166b2d09da9a93bd722c3515129",
+    "apps/web/package-lock.json": "f1feb54e8c93a3c37b23324f601be6de2efa4f39d25d9cf0904416b8101e6178",
+    "examples/test.mp4": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16"
+  },
+  "config_canonical_sha256": "aa7e99151c5f3d313141da10f8df2ba8f79aff9761543e06d98ad73859b16360",
+  "backend_tests": {
+    "passed": 239,
+    "note": "237 passed in isolated baseline checkout; 2 cross-parser tests skipped there until existing frontend dependencies were linked, then both passed."
+  },
+  "frontend_tests_passed": 60,
+  "reference_tests_passed": 29,
+  "source_partition": "unassigned",
+  "independent_original_sources": 1,
+  "source_preserved": true
+}
