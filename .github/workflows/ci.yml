@@ -1,10 +1,40 @@
-name: P0.3.1 checks
+name: P0.3.2 checks
 on:
   push:
   pull_request:
 permissions:
   contents: read
 jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: python -m venv .venv
+      - run: .venv/bin/python -m pip install -r requirements-encoder.txt -r requirements-browser.txt
+      - run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
+      - run: npm ci && npm run build && npm run build:demo
+        working-directory: apps/web
+      - name: Four scenes, metadata checks, training, sealed evaluation and downloads
+        run: .venv/bin/python tests/browser_temporal.py --serve-isolated --chromium "$(command -v google-chrome)" --output artifacts/p032-browser/research
+      - name: Original real-video playback
+        run: .venv/bin/python tests/browser_video_exploration.py --chromium "$(command -v google-chrome)" --output-dir artifacts/p032-browser/video
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-verification
+          path: |
+            artifacts/p032-browser
+            artifacts/p031-browser-work/**/api.log
+            artifacts/p031-browser-work/**/static.log
   foundation:
     runs-on: ubuntu-24.04
     steps:

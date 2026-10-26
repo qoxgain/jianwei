@@ -52,6 +52,19 @@ def verify_predictions(content):
     return len(rows) // 2
 
 
+def readiness(page, mode, scene, downloads, suffix, evaluation_ready=False):
+    page.get_by_role('button', name='检查选中来源' if mode == 'api' else '查看预检示例', exact=True).click()
+    expect(page.locator('.readiness-result')).to_be_visible()
+    result = json.loads(download(page, page.get_by_role('button', name='导出预检报告', exact=True),
+                                 downloads/f'{mode}-{scene}-readiness-{suffix}.json'))
+    assert result['metadata_only'] and result['can_submit_train']
+    assert result['can_submit_evaluate'] is evaluation_ready
+    assert not any(result[key] for key in ('feature_files_opened', 'test_values_read', 'training_executed', 'jobs_created'))
+    assert result['partitions']['train']['reviewed_independent_groups'] == 4
+    assert result['partitions']['test']['reviewed_independent_groups'] == 2
+    return result
+
+
 def wait_imports(page, address, scene):
     endpoint = address.rstrip('/') + f'/api/scenes/{scene}/temporal/inputs'
     deadline = time.monotonic() + 180
@@ -82,6 +95,9 @@ def exercise(page, address, mode, directory, data_root, downloads):
             page.get_by_role('button', name='准备合成研究示例', exact=True).click()
             inputs = wait_imports(page, address, scene)
             expect(page.locator('.temporal-inputs input')).to_have_count(8, timeout=30000)
+            readiness(page, mode, scene, downloads, 'before-train')
+            assert not page.request.get(address.rstrip('/')+f'/api/scenes/{scene}/temporal/runs').json()['items']
+            screenshot(page, directory/f'{prefix}-readiness.png')
             cache, original = None, None
             if data_root:
                 train_id = next(row['id'] for row in inputs if row['split'] == 'train')
@@ -113,12 +129,16 @@ def exercise(page, address, mode, directory, data_root, downloads):
             full = json.loads(download(page, page.get_by_role('link', name='完整报告', exact=True), downloads / f'{prefix}-full-train.json'))
             assert full == trained
             screenshot(page, directory / f'{prefix}-train.png')
+            readiness(page, mode, scene, downloads, 'before-test', evaluation_ready=True)
+            assert len(page.request.get(address.rstrip('/')+f'/api/scenes/{scene}/temporal/runs').json()['items']) == 1
             page.get_by_role('button', name='读取封存 test，运行独立评估', exact=True).click()
             expect(page.get_by_role('heading', name='独立测试报告', exact=True)).to_be_visible(timeout=30000)
             expect(page.locator('.temporal-result')).to_be_visible(timeout=180000)
         else:
             expect(page.get_by_text('浏览器不执行训练或测试。', exact=False)).to_be_visible()
             expect(page.get_by_role('button', name='准备合成研究示例', exact=True)).to_have_count(0)
+            readiness(page, mode, scene, downloads, 'offline')
+            screenshot(page, directory/f'{prefix}-readiness.png')
             page.get_by_role('button', name='独立封存评估', exact=False).click()
             expect(page.locator('.temporal-result')).to_be_visible()
         report = json.loads(download(page, page.get_by_role('button', name='导出报告', exact=True), downloads / f'{prefix}-test.json'))
@@ -147,6 +167,8 @@ def exercise(page, address, mode, directory, data_root, downloads):
         cases.append({'scene': scene, 'independent_train_sources': 4, 'calibration_sources': 2,
                       'test_sources': 2, 'candidate': report['selected_model'], 'retry': retry,
                       'report_export_and_reload': True, 'desktop_and_mobile': True,
+                      'metadata_readiness_and_report_download': True,
+                      'readiness_created_no_jobs': mode == 'api',
                       'numeric_weights_and_prediction_downloads': mode == 'api'})
         print(f'{mode}/{scene}: passed', flush=True)
     assert not errors, errors

@@ -1,5 +1,7 @@
 import {isDemo} from './sceneService';
 import evidence from './temporalExample.json';
+import readinessEvidence from './readinessExample.json';
+import type {ReadinessReport,DatasetDraft} from './readinessTypes';
 import type {TemporalExample,TemporalInput,TemporalRun} from './temporalTypes';
 const references=evidence as {scenes:Record<string,TemporalRun[]>};
 const path=(scene:string)=>`scenes/${encodeURIComponent(scene)}/temporal`;
@@ -16,3 +18,9 @@ export async function trainTemporal(scene:string,import_ids:string[]):Promise<Te
 export async function evaluateTemporal(scene:string,model_run_id:string,import_ids:string[]):Promise<TemporalRun>{requireAPI();return request(path(scene)+'/evaluate',{model_run_id,import_ids,sealed_test:true});}
 export async function retryTemporal(scene:string,id:string):Promise<TemporalRun>{requireAPI();return request(path(scene)+'/runs/'+encodeURIComponent(id)+'/retry',{});}
 export function temporalArtifact(scene:string,id:string,name:string){return '/api/'+path(scene)+'/runs/'+encodeURIComponent(id)+'/artifacts/'+encodeURIComponent(name);}
+
+export async function checkReadiness(scene:string,import_ids:string[],model_run_id?:string):Promise<ReadinessReport>{
+ if(isDemo){const reports=readinessEvidence as {scenes:Record<string,ReadinessReport>};const report=reports.scenes[scene];if(!report)throw new Error('此场景尚无随附预检记录');return structuredClone(report);}
+ return request(path(scene)+'/readiness',{import_ids,...(model_run_id?{model_run_id}:{})});
+}
+export async function datasetTemplate(scene:string,import_ids:string[]):Promise<DatasetDraft>{requireAPI();return request(path(scene)+'/dataset-template',{import_ids});}

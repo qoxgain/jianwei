@@ -2,9 +2,10 @@ import {useEffect,useRef,useState} from 'react';
 import {Activity,Download,FlaskConical,RefreshCw,TriangleAlert} from 'lucide-react';
 import {isDemo} from './sceneService';
 import {downloadText} from './service';
-import {inputEligible,partitionSelection} from './temporalTypes';
+import {partitionSelection} from './temporalTypes';
 import type {TemporalInput,TemporalReport,TemporalRun} from './temporalTypes';
 import {createTemporalExample,evaluateTemporal,retryTemporal,temporalArtifact,temporalInputs,temporalRun,temporalRuns,trainTemporal} from './temporalService';
+import ReadinessPanel from './ReadinessPanel';
 const names:Record<string,string>={persistence:'持久性',empirical:'经验转移',ridge:'Ridge',causal_tcn:'因果 TCN',shuffled_ridge:'打乱目标对照'};
 const statuses={queued:'排队中',running:'研究中',succeeded:'完成 · 未激活',blocked:'条件未满足',failed:'执行失败'};
 const average=(values:number[])=>values.reduce((a,b)=>a+b,0)/values.length;
@@ -41,10 +42,12 @@ export default function TemporalPanel({scene}:{scene:string}){
   {error&&<div className="ingest-alert" role="alert"><TriangleAlert size={18}/>{error}</div>}{notice&&<p className="ingest-feedback" role="status">{notice}</p>}
   <div className="temporal-grid">
    <section className="panel"><div className="panel-heading"><h2>{isDemo?'研究记录':'选择研究数据'}</h2><button className="icon-button" aria-label="刷新研究任务" onClick={()=>void refresh()}><RefreshCw size={17}/></button></div><div className="jw-fields">
-    {!isDemo&&<><p className="ingest-note">上传真实数据时，在“数据接入”选择整个原始视频的分区。未分配或未核验来源不能参加训练。</p><div className="temporal-inputs">{inputs.map(row=><label key={row.id} className="temporal-input"><input type="checkbox" disabled={!inputEligible(row)||!!busy} checked={(row.split==='test'?testIds:ids).includes(row.id)} onChange={()=>toggle(row.id,row.split==='test')}/><span><strong>{row.split} · {row.eligible_rows} 行</strong><small>{row.data_origin==='synthetic_features'?'合成源':'上传来源'} · {row.source_hash.slice(0,12)}</small></span></label>)}</div>{!inputs.length&&<p>尚无成功导入；可以先准备合成示例。</p>}
+    {!isDemo&&<><p className="ingest-note">上传真实数据时，在“数据接入”选择整个原始视频的分区。未分配或未核验来源不能参加训练。</p><div className="temporal-inputs">{inputs.map(row=><label key={row.id} className="temporal-input"><input type="checkbox" disabled={!!busy} checked={(row.split==='test'?testIds:ids).includes(row.id)} onChange={()=>toggle(row.id,row.split==='test')}/><span><strong>{row.split} · {row.eligible_rows} 行</strong><small>{row.data_origin==='synthetic_features'?'合成源':'上传来源'} · {row.source_hash.slice(0,12)}</small></span></label>)}</div>{!inputs.length&&<p>尚无成功导入；可以先准备合成示例。</p>}
+    <ReadinessPanel scene={scene} ids={[...ids,...testIds]} model={model}/>
     <button className="button primary" disabled={!!busy||!ids.length} onClick={train}>用训练 / 校准分区建立候选</button>
     <label className="field"><span>用于封存测试的候选</span><select value={model} onChange={e=>setModel(e.target.value)}><option value="">选择已完成训练</option>{runs.filter(r=>r.kind==='train'&&r.status==='succeeded').map(r=><option key={r.id} value={r.id}>{r.created_at?new Date(r.created_at).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'}):r.id}</option>)}</select></label>
     <button className="button secondary" disabled={!!busy||!candidateReady||!testIds.length} onClick={evaluate}>读取封存 test，运行独立评估</button><p className="ingest-note">此操作会读取选中的封存测试数据。查看结果后继续修改模型，应另设新的封存测试集，避免反复针对同一测试集调参。</p></>}
+    {isDemo&&<ReadinessPanel scene={scene} ids={[]} model=""/>}
     {!!busy&&<p role="status">{busy}…</p>}
     <div className="ingest-job-list">{runs.map(r=><button key={r.id} className={`ingest-job ${selected===r.id?'selected':''}`} onClick={()=>setSelected(r.id)}><strong>{r.kind==='train'?'时序训练与校准':'独立封存评估'}</strong><span>{r.demo_reference?'随附已执行记录':statuses[r.status]}</span><small>{r.id.slice(0,16)}</small></button>)}</div>
     {!runs.length&&<div className="jw-empty"><Activity/><p>尚无研究结果。没有结果时不显示识别率或学习提升。</p></div>}

@@ -108,24 +108,54 @@ def load_sequences(bundle, database, import_root, snapshot):
         if vectors.shape != (m['total_rows'],m['feature_space']['dimension']) or vectors.dtype.kind != 'f': fail('TEMPORAL_CACHE_INVALID', '特征形状与清单不一致')
         # Validate values when exposed to the model or observed as a future target.
         # The mmap itself and byte digest do not fit or summarize future vectors.
+        for sequence in metadata_sequences(m, bundle.config.temporal):
+            sequence.vectors = vectors
+            sequences.append(sequence)
+    return sequences
+
+
+def metadata_sequences(manifest, settings):
+    """Validate window metadata without opening any feature file, including test."""
+    from pydantic import ValidationError
+    try:
+        m = manifest
+        if len(m['rows']) != m['total_rows'] or m['total_rows'] > settings.max_rows:
+            fail('TEMPORAL_ROW_INVALID', '特征行数量与清单或资源限制不一致')
         groups = defaultdict(list)
+        episodes = {e['episode_id']: e for e in m['episodes']}
+        seen = set()
         for raw in m['feature_batches']:
             batch = FeatureBatch.model_validate(raw)
             if (batch.tenant_id,batch.scene_id,batch.feature_space_id,batch.split,batch.source_hash) != (
-                snapshot['tenant_id'],snapshot['scene_id'],snapshot['feature_space_id'],entry['split'],entry['source_hash']):
+                    m['tenant_id'],m['scene_id'],m['feature_space_id'],m['split'],m['source_hash']):
                 fail('TEMPORAL_BATCH_MISMATCH', '特征记录与来源快照不一致')
-            groups[(batch.episode_id,batch.time_domain_id,batch.entity_id)].append(batch)
-        for batches in groups.values():
-            batches.sort(key=lambda b:b.pts_start_ms)
-            rows = [int(b.vector_uri.rsplit('#row=',1)[1]) for b in batches]
-            if len(set(rows))!=len(rows) or any(i<0 or i>=len(vectors) for i in rows): fail('TEMPORAL_ROW_INVALID', '特征行引用错误')
-            for b,i in zip(batches,rows):
-                if b.vector_uri != f"features://{entry['cache_hash']}#row={i}" or not m['rows'][i]['eligible']:
-                    fail('TEMPORAL_ROW_INVALID', '特征行引用或质量屏蔽不一致')
-                if (b.pts_start_ms,b.pts_end_ms,b.episode_id,b.time_domain_id)!=(m['rows'][i]['start_ms'],m['rows'][i]['end_ms'],m['rows'][i]['episode_id'],m['rows'][i]['time_domain_id']):
-                    fail('TEMPORAL_ROW_INVALID', '特征时间/周期与源记录不一致')
-            sequences.append(Sequence(m,vectors,batches,rows,bundle.config.temporal.max_abs_feature))
-    return sequences
+            i = int(batch.vector_uri.rsplit('#row=',1)[1])
+            if i in seen or not 0 <= i < m['total_rows']:
+                fail('TEMPORAL_ROW_INVALID', '特征行引用重复或越界')
+            seen.add(i)
+            row = m['rows'][i]
+            if (batch.vector_uri != f"features://{m['feature_cache']['sha256']}#row={i}" or
+                    not row['eligible'] or row['row'] != i):
+                fail('TEMPORAL_ROW_INVALID', '特征行引用或质量屏蔽不一致')
+            if (batch.pts_start_ms,batch.pts_end_ms,batch.episode_id,batch.time_domain_id) != (
+                    row['start_ms'],row['end_ms'],row['episode_id'],row['time_domain_id']):
+                fail('TEMPORAL_ROW_INVALID', '特征时间/周期与源记录不一致')
+            episode = episodes.get(batch.episode_id)
+            if (not episode or not episode['complete'] or episode['time_domain_id'] != batch.time_domain_id
+                    or not episode['start_ms'] <= batch.pts_start_ms < batch.pts_end_ms <= episode['end_ms']):
+                fail('TEMPORAL_ROW_INVALID', '特征不在完整周期内')
+            groups[(batch.episode_id,batch.time_domain_id,batch.entity_id)].append((i,batch))
+        if seen != {r['row'] for r in m['rows'] if r['eligible']} or len(seen) != m['eligible_rows']:
+            fail('TEMPORAL_ROW_INVALID', '有效特征行不完整')
+        sequences = []
+        for group in groups.values():
+            group.sort(key=lambda item:item[1].pts_start_ms)
+            sequences.append(Sequence(m,None,[b for _,b in group],[i for i,_ in group],settings.max_abs_feature))
+        return sequences
+    except ContractError:
+        raise
+    except (KeyError,IndexError,ValueError,TypeError,ValidationError):
+        fail('TEMPORAL_MANIFEST_INVALID', '研究窗口元数据格式无效')
 
 
 def has_barrier(seq, left, right, settings):

@@ -1,0 +1,124 @@
+{
+  "stage": "P0.3.2",
+  "scene_id": "anonymous_observation",
+  "metadata_only": true,
+  "feature_files_opened": false,
+  "training_executed": false,
+  "test_values_read": false,
+  "jobs_created": false,
+  "config_hash": "0c868ae19838670ea2a240a982fdad3ceff71d7d322c3ec7794c5522818623ed",
+  "engine_hash": "acec87eeb4adcbf4a9b3c216fc52d2dfe162eedfcbabbf5359e00bb5e120776c",
+  "dataset_manifest_hash": null,
+  "records": [
+    {
+      "import_id": "ca5489a5-ced9-49bd-ae7d-320e211e38a3",
+      "source_hash": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+      "split": "unassigned",
+      "data_origin": "real_video",
+      "eligible_rows": 117,
+      "complete_episodes": 1,
+      "reviewed_group": null,
+      "missing_records": [
+        "dataset_manifest",
+        "capture_session_id",
+        "camera_id",
+        "view_id",
+        "captured_at",
+        "provenance_review",
+        "near_duplicate_review"
+      ],
+      "issues": [
+        {
+          "code": "TEMPORAL_PROVENANCE_REQUIRED",
+          "message": "真实研究需要在 system.yaml 登记采集会话与近重复审查清单"
+        }
+      ]
+    }
+  ],
+  "partitions": {
+    "train": {
+      "imports": 0,
+      "source_files": 0,
+      "reviewed_independent_groups": 0,
+      "complete_episodes": 0,
+      "eligible_rows": 0,
+      "causal_windows": 0,
+      "sources_with_causal_windows": 0,
+      "minimum_sources": 2
+    },
+    "calibration": {
+      "imports": 0,
+      "source_files": 0,
+      "reviewed_independent_groups": 0,
+      "complete_episodes": 0,
+      "eligible_rows": 0,
+      "causal_windows": 0,
+      "sources_with_causal_windows": 0,
+      "minimum_sources": 1
+    },
+    "test": {
+      "imports": 0,
+      "source_files": 0,
+      "reviewed_independent_groups": 0,
+      "complete_episodes": 0,
+      "eligible_rows": 0,
+      "causal_windows": 0,
+      "sources_with_causal_windows": 0,
+      "minimum_sources": 1
+    },
+    "unassigned": {
+      "imports": 1,
+      "source_files": 1,
+      "reviewed_independent_groups": 0,
+      "complete_episodes": 1,
+      "eligible_rows": 117,
+      "causal_windows": 0,
+      "sources_with_causal_windows": 0,
+      "minimum_sources": null
+    }
+  },
+  "train": {
+    "status": "blocked",
+    "import_ids": [],
+    "snapshot_hash": null,
+    "blockers": [
+      {
+        "code": "TEMPORAL_UNASSIGNED_SELECTION",
+        "message": "所选来源包含未分区数据，请先按采集记录固定分区或取消选择"
+      },
+      {
+        "code": "TEMPORAL_INSUFFICIENT_SOURCES",
+        "message": "请选择 train/calibration 来源"
+      },
+      {
+        "code": "TEMPORAL_INSUFFICIENT_PAIRS",
+        "message": "calibration没有足够因果窗口"
+      }
+    ],
+    "rejected_windows": {}
+  },
+  "evaluation": {
+    "status": "blocked",
+    "import_ids": [],
+    "snapshot_hash": null,
+    "blockers": [
+      {
+        "code": "TEMPORAL_INSUFFICIENT_SOURCES",
+        "message": "尚未选择独立 test 来源"
+      },
+      {
+        "code": "TEMPORAL_MODEL_REQUIRED",
+        "message": "评估预检还需选择已成功训练的候选模型"
+      },
+      {
+        "code": "TEMPORAL_INSUFFICIENT_PAIRS",
+        "message": "test没有足够因果窗口"
+      }
+    ],
+    "rejected_windows": {}
+  },
+  "can_submit_train": false,
+  "can_submit_evaluate": false,
+  "note": "仅检查来源与时间元数据；执行仍校验缓存字节、模型文件和数值。软件门槛通过不代表泛化效果通过。",
+  "report_hash": "22cf0cd25f61d859e3cdb7f2c8bd149ae2b2741036933952a473aa0d9532ac61"
+}

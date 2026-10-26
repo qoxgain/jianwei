@@ -1,0 +1,183 @@
+{
+  "stage": "P0.3.2",
+  "scene_id": "electronics_assembly",
+  "metadata_only": true,
+  "feature_files_opened": false,
+  "training_executed": false,
+  "test_values_read": false,
+  "jobs_created": false,
+  "config_hash": "aa7e99151c5f3d313141da10f8df2ba8f79aff9761543e06d98ad73859b16360",
+  "engine_hash": "acec87eeb4adcbf4a9b3c216fc52d2dfe162eedfcbabbf5359e00bb5e120776c",
+  "dataset_manifest_hash": null,
+  "records": [
+    {
+      "import_id": "5d21f93a-103c-415e-a5e4-19ec99416e8d",
+      "source_hash": "1a000a5ab84f62fe06b6cd93a233f07de550f0dbf0ce279954ace2bc8c008686",
+      "split": "train",
+      "data_origin": "synthetic_features",
+      "eligible_rows": 120,
+      "complete_episodes": 2,
+      "reviewed_group": "1a000a5ab84f62fe06b6cd93a233f07de550f0dbf0ce279954ace2bc8c008686",
+      "missing_records": [],
+      "issues": []
+    },
+    {
+      "import_id": "a50ec3f8-39ef-4926-92a1-f6e4ff8b3f6e",
+      "source_hash": "4d5c7b8d227fcdc702816cd62f2c18f278966a9d4cb027203248ae5e64da6d01",
+      "split": "train",
+      "data_origin": "synthetic_features",
+      "eligible_rows": 120,
+      "complete_episodes": 2,
+      "reviewed_group": "4d5c7b8d227fcdc702816cd62f2c18f278966a9d4cb027203248ae5e64da6d01",
+      "missing_records": [],
+      "issues": []
+    },
+    {
+      "import_id": "b5dd4143-c54d-4616-a263-d8693895a145",
+      "source_hash": "8bebefe17f138d85add8211904d8b10fceb8a34d368ef131567f131387fec781",
+      "split": "calibration",
+      "data_origin": "synthetic_features",
+      "eligible_rows": 120,
+      "complete_episodes": 2,
+      "reviewed_group": "8bebefe17f138d85add8211904d8b10fceb8a34d368ef131567f131387fec781",
+      "missing_records": [],
+      "issues": []
+    },
+    {
+      "import_id": "50b5158a-5400-470b-a22b-738600cd1e04",
+      "source_hash": "8f73a9abf040112a787e9287c81fb2767a44a69bdb6c4bf8d3773be6fe9f6c5b",
+      "split": "train",
+      "data_origin": "synthetic_features",
+      "eligible_rows": 120,
+      "complete_episodes": 2,
+      "reviewed_group": "8f73a9abf040112a787e9287c81fb2767a44a69bdb6c4bf8d3773be6fe9f6c5b",
+      "missing_records": [],
+      "issues": []
+    },
+    {
+      "import_id": "6e3cf444-0821-417c-bfda-d2a52d3574d6",
+      "source_hash": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+      "split": "test",
+      "data_origin": "synthetic_features",
+      "eligible_rows": 120,
+      "complete_episodes": 2,
+      "reviewed_group": "a82583cb294d1d5da131020d5c493ec30f800cf8f1427ae59dec19eed63af1ba",
+      "missing_records": [],
+      "issues": []
+    },
+    {
+      "import_id": "08915fbc-a68a-4092-ad2f-28998200c5f9",
+      "source_hash": "e6ce1b030dde7a969eef5ad4dd08d90dc908bb8901e33b1af140103132d71bb0",
+      "split": "calibration",
+      "data_origin": "synthetic_features",
+      "eligible_rows": 120,
+      "complete_episodes": 2,
+      "reviewed_group": "e6ce1b030dde7a969eef5ad4dd08d90dc908bb8901e33b1af140103132d71bb0",
+      "missing_records": [],
+      "issues": []
+    },
+    {
+      "import_id": "3b92859b-05a2-41d7-a477-8346fff2cc41",
+      "source_hash": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+      "split": "test",
+      "data_origin": "synthetic_features",
+      "eligible_rows": 120,
+      "complete_episodes": 2,
+      "reviewed_group": "f2ab1967e2dbc29236f2bfd02d4dd1d8c85d944a830bf743a247eab9733b3262",
+      "missing_records": [],
+      "issues": []
+    },
+    {
+      "import_id": "66d6aedf-d8f0-4a24-bcd8-4a755cf6e99c",
+      "source_hash": "fdb5fd5d22cc1716636a2680c370e93045d41aa9d3eca4a93908a7c3aa3b3438",
+      "split": "train",
+      "data_origin": "synthetic_features",
+      "eligible_rows": 120,
+      "complete_episodes": 2,
+      "reviewed_group": "fdb5fd5d22cc1716636a2680c370e93045d41aa9d3eca4a93908a7c3aa3b3438",
+      "missing_records": [],
+      "issues": []
+    }
+  ],
+  "partitions": {
+    "train": {
+      "imports": 4,
+      "source_files": 4,
+      "reviewed_independent_groups": 4,
+      "complete_episodes": 8,
+      "eligible_rows": 480,
+      "causal_windows": 376,
+      "sources_with_causal_windows": 4,
+      "minimum_sources": 2
+    },
+    "calibration": {
+      "imports": 2,
+      "source_files": 2,
+      "reviewed_independent_groups": 2,
+      "complete_episodes": 4,
+      "eligible_rows": 240,
+      "causal_windows": 188,
+      "sources_with_causal_windows": 2,
+      "minimum_sources": 1
+    },
+    "test": {
+      "imports": 2,
+      "source_files": 2,
+      "reviewed_independent_groups": 2,
+      "complete_episodes": 4,
+      "eligible_rows": 240,
+      "causal_windows": 188,
+      "sources_with_causal_windows": 2,
+      "minimum_sources": 1
+    },
+    "unassigned": {
+      "imports": 0,
+      "source_files": 0,
+      "reviewed_independent_groups": 0,
+      "complete_episodes": 0,
+      "eligible_rows": 0,
+      "causal_windows": 0,
+      "sources_with_causal_windows": 0,
+      "minimum_sources": null
+    }
+  },
+  "train": {
+    "status": "metadata_ready",
+    "import_ids": [
+      "5d21f93a-103c-415e-a5e4-19ec99416e8d",
+      "a50ec3f8-39ef-4926-92a1-f6e4ff8b3f6e",
+      "b5dd4143-c54d-4616-a263-d8693895a145",
+      "50b5158a-5400-470b-a22b-738600cd1e04",
+      "08915fbc-a68a-4092-ad2f-28998200c5f9",
+      "66d6aedf-d8f0-4a24-bcd8-4a755cf6e99c"
+    ],
+    "snapshot_hash": "03284f345735ad6051c97c7e25b0d913ed5c46f4e26d34de0af1a3d44a996b13",
+    "blockers": [],
+    "rejected_windows": {
+      "future_not_available": 72,
+      "resource_subsampled": 0
+    }
+  },
+  "evaluation": {
+    "status": "blocked",
+    "import_ids": [
+      "6e3cf444-0821-417c-bfda-d2a52d3574d6",
+      "3b92859b-05a2-41d7-a477-8346fff2cc41"
+    ],
+    "snapshot_hash": "b171b65b5723b907459dda29ba9febd99794ff910d572c977ea96d0d57ae1d51",
+    "blockers": [
+      {
+        "code": "TEMPORAL_MODEL_REQUIRED",
+        "message": "评估预检还需选择已成功训练的候选模型"
+      }
+    ],
+    "rejected_windows": {
+      "future_not_available": 24,
+      "resource_subsampled": 0
+    }
+  },
+  "can_submit_train": true,
+  "can_submit_evaluate": false,
+  "note": "仅检查来源与时间元数据；执行仍校验缓存字节、模型文件和数值。软件门槛通过不代表泛化效果通过。",
+  "report_hash": "9c0517698ac147821d1f4d6cf041320a48bc00bb293fb150673bdb7fb6b29486"
+}

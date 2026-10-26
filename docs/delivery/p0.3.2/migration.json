@@ -1,0 +1,45 @@
+{
+  "scope": "Disposable fixture; not a customer database",
+  "from_revision": "0003_ingestion",
+  "to_revision": "0004_temporal",
+  "repeated_upgrade_identical": true,
+  "new_research_rows": 0,
+  "old_tables": {
+    "audit_events": {
+      "rows": 1,
+      "before_sha256": "9374d49d0284454dd8757bb4a7793a5dcbabb24970f391231385839ea6030f48",
+      "after_sha256": "9374d49d0284454dd8757bb4a7793a5dcbabb24970f391231385839ea6030f48"
+    },
+    "config_versions": {
+      "rows": 1,
+      "before_sha256": "bd22b86f9319904a9cf8eb2a759e407ee76740f918d98e96268f43b8ffaec942",
+      "after_sha256": "bd22b86f9319904a9cf8eb2a759e407ee76740f918d98e96268f43b8ffaec942"
+    },
+    "import_jobs": {
+      "rows": 1,
+      "before_sha256": "4c5d33ab8964a7574df3c3a518378bc8a9fa10367c4cf1d735ab8a0268e31735",
+      "after_sha256": "4c5d33ab8964a7574df3c3a518378bc8a9fa10367c4cf1d735ab8a0268e31735"
+    },
+    "knowledge_versions": {
+      "rows": 1,
+      "before_sha256": "46ba8e1f602243b2647f6c74a1a1afe9484c4f4af6a6db3d4e2483d561161db8",
+      "after_sha256": "46ba8e1f602243b2647f6c74a1a1afe9484c4f4af6a6db3d4e2483d561161db8"
+    },
+    "legacy_knowledge_mappings": {
+      "rows": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "after_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "source_splits": {
+      "rows": 1,
+      "before_sha256": "7990d81af3be2dd9c5accfd4d5c96282b08d785c416982b517608b364ab22043",
+      "after_sha256": "7990d81af3be2dd9c5accfd4d5c96282b08d785c416982b517608b364ab22043"
+    },
+    "uploaded_artifacts": {
+      "rows": 1,
+      "before_sha256": "02173f47106f7032b40730b1b9e3d6d0f33ebb57a21fba57cfb3c60b9efb8523",
+      "after_sha256": "02173f47106f7032b40730b1b9e3d6d0f33ebb57a21fba57cfb3c60b9efb8523"
+    }
+  },
+  "old_ids_hashes_payloads_and_source_splits_preserved": true
+}

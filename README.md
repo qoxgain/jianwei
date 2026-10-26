@@ -1,9 +1,9 @@
 # 见微 · 多模态自学习感知平台
 
-当前实现 **P0.3.1 真实视频与冻结编码器工程验收**，延续 P0.3 无标注时序研究工作台。服装SOP、电子装配、无SOP安全事件、无标签观察使用同一套场景API和页面；动作、状态、事件、流程节点分别定义。产品版本为V3.0，配置与知识契约为3.1。
+当前实现 **P0.3.2 多来源研究准备与预检**，已复核 P0.3.1 正式冻结编码器与单视频链路。服装SOP、电子装配、无SOP安全事件、无标签观察使用同一套场景API和页面；动作、状态、事件、流程节点分别定义。产品版本为V3.0，配置与知识契约为3.1。
 
-- [本步任务](docs/plans/P0.3.1-real-video.md) · [P0.1.1最终任务书](docs/plans/P0.1.1-final.md)
-- [本次交付、测试与边界](docs/delivery/P0.3.1.md)
+- [本步任务与后续执行方案](docs/plans/P0.3.2.md) · [Codex 后续指令](docs/plans/P0.3.2-next-codex.txt) · [P0.1.1最终任务书](docs/plans/P0.1.1-final.md)
+- [本次交付、测试与边界](docs/delivery/P0.3.2.md) · [P0.3.1 历史交付](docs/delivery/P0.3.1.md)
 - [研究路线与阶段依赖](docs/ROADMAP.md) · [P0.2衔接契约](docs/P0.2-CONTRACTS.md)
 - [四场景离线演示使用说明](demo/README.md)
 
@@ -25,7 +25,7 @@ bash scripts/start.sh
 
 启动后进入“数据接入”，选择场景并点击“运行示例导入”。这是服务端真实执行的确定性合成 NPZ，不代表现场模型效果。上传自己的 MP4 使用 `file_01`，按场景填写上下文与完整周期。预计算特征协议、时钟锚点和来源核验见 [导入说明](docs/INGESTION.md)；冻结模型配置见 [编码器说明](docs/ENCODER.md)。
 
-独立审阅包：[P0.3 Demo](demo/jianwei-p0.3-demo.zip)。HTML 回放实际服务端生成的合成导入、训练和独立评估记录；实际任务需要本机 API。研究使用步骤见 [时序研究说明](docs/TEMPORAL.md)。
+独立审阅包：[P0.3.2 Demo](demo/jianwei-p0.3.2-demo.zip)。HTML 展示已执行的四场景预检与历史合成研究记录；浏览器不训练或读取封存特征。真实来源预检、草稿导出和研究任务需要本机 API。研究使用步骤见 [时序研究说明](docs/TEMPORAL.md)。
 
 用户上传的 `examples/test.mp4` 已用官方 Kinetics-400 预训练 R3D-18 冻结模型处理：完整核验 2,844 帧，获得 117 个 512 维有效片段。查看 [单视频 Demo 下载](demo/jianwei-p0.3.1-video-demo.zip)、[实际截图](docs/delivery/p0.3.1/preview/desktop.png)和[完整报告](docs/delivery/p0.3.1/preview/report.json)。解压后打开 `index.html`，点击代表片段回查原视频。单源回顾性匿名探索不代表动作识别或独立学习效果。安装与复现见 [冻结编码器说明](docs/PRETRAINED-ENCODER.md)；真实研究须先完成 [采集来源审查](docs/DATASET-PROVENANCE.md)。
 
@@ -87,4 +87,4 @@ site预检缺少现场资源时返回2是预期阻塞，不是假就绪。浏览
 | `contracts/future-openapi.yaml` | 尚未实现的后续API草案 |
 | `reference` | 原始合成机制参考，不代表真实模型效果 |
 
-主线A的顺序为：公共底座 → 视频/特征 → 自监督时序 → 语义与状态记忆 → 少样本抗遗忘 → 主动局部感知。P0.3.1 已补正式编码器、单视频探索与浏览器证据；独立录像与真实训练/校准/测试仍待验收，尚不进入 P0.4。
+主线A的顺序为：公共底座 → 视频/特征 → 自监督时序 → 语义与状态记忆 → 少样本抗遗忘 → 主动局部感知。P0.3.2 将独立来源、采集审查和有效时间窗口的缺口显示在研究页面；独立录像与真实训练/校准/测试仍待验收，尚不进入 P0.4。

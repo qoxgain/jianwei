@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
-  title: 见微 P0.3 时序研究与数据知识服务
-  version: 0.3.0
+  title: 见微 P0.3.2 时序研究与数据知识服务
+  version: 0.3.2
 paths:
   /api/health:
     get:
@@ -267,6 +267,64 @@ paths:
           content:
             application/json:
               schema: {}
+  /api/scenes/{scene_id}/temporal/readiness:
+    post:
+      summary: Temporal Readiness
+      operationId: temporal_readiness_api_scenes__scene_id__temporal_readiness_post
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadinessRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/temporal/dataset-template:
+    post:
+      summary: Temporal Dataset Template
+      operationId: temporal_dataset_template_api_scenes__scene_id__temporal_dataset_template_post
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadinessRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/scenes/{scene_id}/temporal/train:
     post:
       summary: Temporal Train
@@ -980,6 +1038,27 @@ components:
       required:
       - profile
       title: ProfileRequest
+    ReadinessRequest:
+      properties:
+        import_ids:
+          items:
+            type: string
+            pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          type: array
+          maxItems: 100
+          minItems: 1
+          title: Import Ids
+        model_run_id:
+          anyOf:
+          - type: string
+            pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          - type: 'null'
+          title: Model Run Id
+      additionalProperties: false
+      type: object
+      required:
+      - import_ids
+      title: ReadinessRequest
     TrainRequest:
       properties:
         import_ids:

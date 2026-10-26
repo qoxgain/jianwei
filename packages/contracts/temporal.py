@@ -56,3 +56,14 @@ class EvaluationRequest(Strict):
         if len(set(self.import_ids)) != len(self.import_ids):
             raise ValueError('重复导入ID')
         return self
+
+
+class ReadinessRequest(Strict):
+    import_ids: list[Identifier] = Field(min_length=1, max_length=100)
+    model_run_id: Identifier | None = None
+
+    @model_validator(mode='after')
+    def unique(self):
+        if len(set(self.import_ids)) != len(self.import_ids):
+            raise ValueError('重复导入ID')
+        return self

@@ -1,0 +1,4 @@
+garment_sop: metadata ready; evaluation requires model; no jobs
+electronics_assembly: metadata ready; evaluation requires model; no jobs
+workshop_safety: metadata ready; evaluation requires model; no jobs
+anonymous_observation: metadata ready; evaluation requires model; no jobs

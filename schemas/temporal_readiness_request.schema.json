@@ -1,0 +1,34 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "import_ids": {
+      "items": {
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+        "type": "string"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Import Ids",
+      "type": "array"
+    },
+    "model_run_id": {
+      "anyOf": [
+        {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Model Run Id"
+    }
+  },
+  "required": [
+    "import_ids"
+  ],
+  "title": "ReadinessRequest",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

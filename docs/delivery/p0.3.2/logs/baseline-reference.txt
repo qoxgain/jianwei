@@ -1,0 +1,34 @@
+test_all_profiles (test_learning_contracts.ConfigurationTests.test_all_profiles) ... ok
+test_duplicate_yaml_key (test_learning_contracts.ConfigurationTests.test_duplicate_yaml_key) ... ok
+test_forecast_cannot_see_future (test_learning_contracts.ConfigurationTests.test_forecast_cannot_see_future) ... ok
+test_foundation_model_update_rejected (test_learning_contracts.ConfigurationTests.test_foundation_model_update_rejected) ... ok
+test_live_mock_rejected (test_learning_contracts.ConfigurationTests.test_live_mock_rejected) ... ok
+test_memory_patch_schema (test_learning_contracts.ConfigurationTests.test_memory_patch_schema) ... ok
+test_missing_action_reference (test_learning_contracts.ConfigurationTests.test_missing_action_reference) ... ok
+test_teacher_cannot_confirm_without_evidence (test_learning_contracts.ConfigurationTests.test_teacher_cannot_confirm_without_evidence) ... ok
+test_undeclared_sop_cycle (test_learning_contracts.ConfigurationTests.test_undeclared_sop_cycle) ... ok
+test_unknown_parameter_rejected (test_learning_contracts.ConfigurationTests.test_unknown_parameter_rejected) ... ok
+test_incomparable_test_set_blocks_release (test_learning_contracts.EvaluationTests.test_incomparable_test_set_blocks_release) ... ok
+test_metrics_pass_does_not_deploy (test_learning_contracts.EvaluationTests.test_metrics_pass_does_not_deploy) ... ok
+test_missing_gold_blocks_release (test_learning_contracts.EvaluationTests.test_missing_gold_blocks_release) ... ok
+test_missing_metric_blocks_release (test_learning_contracts.EvaluationTests.test_missing_metric_blocks_release) ... ok
+test_nan_cannot_pass_gate (test_learning_contracts.EvaluationTests.test_nan_cannot_pass_gate) ... ok
+test_per_class_regression_blocks_better_mean (test_learning_contracts.EvaluationTests.test_per_class_regression_blocks_better_mean) ... ok
+test_small_head_trains_without_labels (test_learning_contracts.EvaluationTests.test_small_head_trains_without_labels) ... ok
+test_source_split_leakage (test_learning_contracts.EvaluationTests.test_source_split_leakage) ... ok
+test_duplicate_event_is_idempotent (test_learning_contracts.MemoryTests.test_duplicate_event_is_idempotent) ... ok
+test_episode_boundary_no_edge (test_learning_contracts.MemoryTests.test_episode_boundary_no_edge) ... ok
+test_forecast_is_not_training_truth (test_learning_contracts.MemoryTests.test_forecast_is_not_training_truth) ... ok
+test_future_observation_corrects_distribution (test_learning_contracts.MemoryTests.test_future_observation_corrects_distribution) ... ok
+test_holdout_never_enters_memory (test_learning_contracts.MemoryTests.test_holdout_never_enters_memory) ... ok
+test_memory_retrieval_is_evidence_not_probability (test_learning_contracts.MemoryTests.test_memory_retrieval_is_evidence_not_probability) ... ok
+test_missing_sequence_no_edge (test_learning_contracts.MemoryTests.test_missing_sequence_no_edge) ... ok
+test_out_of_order_requires_replay (test_learning_contracts.MemoryTests.test_out_of_order_requires_replay) ... ok
+test_same_dim_new_space_rejected (test_learning_contracts.MemoryTests.test_same_dim_new_space_rejected) ... ok
+test_teacher_only_is_quarantined (test_learning_contracts.MemoryTests.test_teacher_only_is_quarantined) ... ok
+test_uncertainty_breaks_transition_chain (test_learning_contracts.MemoryTests.test_uncertainty_breaks_transition_chain) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 0.290s
+
+OK

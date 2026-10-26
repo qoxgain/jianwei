@@ -1,0 +1,41 @@
+{
+  "draft_only": true,
+  "configuration_written": false,
+  "manifest": {
+    "manifest_version": "p031-sources-v1",
+    "dataset_id": "dataset_pending",
+    "tenant_id": "tenant_demo",
+    "sources": [
+      {
+        "source_sha256": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+        "root_source_sha256": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+        "parent_source_sha256": null,
+        "relation": "original",
+        "capture_session_id": null,
+        "camera_id": null,
+        "view_id": "c63b794c56cc057af7019e7838203fe0351638471ec6d9d72bdd3da0b5ecd677",
+        "captured_at": null,
+        "split": "unassigned",
+        "provenance_review": {
+          "status": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "method": null,
+          "notes": null
+        },
+        "near_duplicate_review": {
+          "status": "pending",
+          "reviewer": null,
+          "reviewed_at": null,
+          "method": null,
+          "notes": null
+        }
+      }
+    ],
+    "duplicate_reviews": []
+  },
+  "lineage_needs_confirmation": [
+    "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16"
+  ],
+  "notice": "新增来源暂以 original/self-root 占位，须核验原片或派生关系；未知采集时间、相机、会话和审查人保持空值，审查保持 pending。补真实记录后放入 system.yaml 的 temporal.dataset_manifest；本操作不改分区或配置。"
+}

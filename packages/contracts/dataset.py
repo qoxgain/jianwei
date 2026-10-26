@@ -26,6 +26,13 @@ class SourceReview(Strict):
 
     _reviewed = field_validator('reviewed_at', mode='before')(_timestamp)
 
+    @field_validator('method', 'notes')
+    @classmethod
+    def nonblank(cls, value):
+        if value is not None and not value.strip():
+            raise ValueError('审查方法和证据说明不能只有空白')
+        return value
+
     @model_validator(mode='after')
     def evidence(self):
         if self.status == 'confirmed' and any(value is None for value in
@@ -71,6 +78,13 @@ class DuplicateReview(Strict):
     notes: str | None = Field(default=None, min_length=5, max_length=2000)
 
     _reviewed = field_validator('reviewed_at', mode='before')(_timestamp)
+
+    @field_validator('notes')
+    @classmethod
+    def nonblank(cls, value):
+        if value is not None and not value.strip():
+            raise ValueError('近重复审查证据说明不能只有空白')
+        return value
 
     @model_validator(mode='after')
     def evidence(self):

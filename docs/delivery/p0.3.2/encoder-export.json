@@ -1,0 +1,98 @@
+{
+  "schema": "jianwei-pretrained-export-v1",
+  "passed": true,
+  "architecture": "torchvision.models.video.r3d_18; fc replaced by Identity",
+  "training_dataset": "Kinetics-400",
+  "weights_enum": "R3D_18_Weights.KINETICS400_V1",
+  "checkpoint_url": "https://download.pytorch.org/models/r3d_18-b3b3357e.pth",
+  "checkpoint_sha256": "b3b3357ead25631ec9c57362ff2128a92d0427e01e2cd184951a44380c3f2e9d",
+  "checkpoint_bytes": 133546016,
+  "onnx_sha256": "2979019509005056778db9f462e9eed212c40f02d5e5bf1d6fc9e06caf2ebab8",
+  "onnx_bytes": 132657519,
+  "onnx_opset": 17,
+  "source_revision": "torchvision v0.22.1",
+  "source_url": "https://github.com/pytorch/vision/blob/v0.22.1/torchvision/models/video/resnet.py",
+  "license": {
+    "implementation": "BSD-3-Clause",
+    "url": "https://github.com/pytorch/vision/blob/v0.22.1/LICENSE",
+    "weights_notice": "Torchvision pretrained models may have separate dataset-derived terms; BSD implementation license is not a grant of rights to all Kinetics source videos.",
+    "notice_url": "https://github.com/pytorch/vision/tree/v0.22.1#pre-trained-models"
+  },
+  "frozen": true,
+  "training": false,
+  "requires_grad_parameters": 0,
+  "input_contract": [
+    "N",
+    16,
+    3,
+    112,
+    112
+  ],
+  "input_dtype": "float32 RGB [0,1]",
+  "output_contract": [
+    "N",
+    512
+  ],
+  "output_dtype": "float32",
+  "device": "CPU",
+  "preprocessing_version": "torchvision-r3d18-kinetics400-v1",
+  "preprocessing": {
+    "float_before_resize": true,
+    "resize_hw": [
+      128,
+      171
+    ],
+    "interpolation": "bilinear",
+    "align_corners": false,
+    "antialias": false,
+    "center_crop_hw": [
+      112,
+      112
+    ],
+    "mean": [
+      0.43216,
+      0.394666,
+      0.37645
+    ],
+    "std": [
+      0.22803,
+      0.22145,
+      0.216989
+    ],
+    "normalization_in_onnx": true
+  },
+  "dependencies": {
+    "torch": "2.7.1+cpu",
+    "torchvision": "0.22.1+cpu",
+    "numpy": "2.2.5",
+    "onnx": "1.17.0",
+    "onnxruntime": "1.20.1"
+  },
+  "validation": {
+    "video_sha256": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+    "intervals_seconds": [
+      [
+        0,
+        2
+      ],
+      [
+        30,
+        32
+      ]
+    ],
+    "sampling": "FFmpeg fps=8, sixteen frames per interval; conversion diagnostics, not independent research sources",
+    "framework_vs_onnx_max_abs_error": 2.2649765014648438e-06,
+    "framework_vs_onnx_tolerance": 0.0001,
+    "official_preprocessing_max_abs_error": 7.152557373046875e-07,
+    "official_preprocessing_tolerance": 0.0001,
+    "reload_max_abs_error": 0.0,
+    "distinct_clip_l2_distance": 12.162762641906738,
+    "feature_std": 0.5461627840995789,
+    "features_finite": true,
+    "elapsed_seconds": 5.063230589
+  },
+  "limitations": [
+    "Kinetics pretrained representation is not garment action truth.",
+    "One source is insufficient for independent train/calibration/test; no accuracy or generalization claim."
+  ]
+}

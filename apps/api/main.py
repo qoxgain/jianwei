@@ -27,7 +27,7 @@ from packages.ingest_jobs.service import ImportService
 from packages.ingestion_examples import build_example
 from packages.temporal_jobs.service import TemporalService
 from packages.temporal_examples import enqueue_examples
-from packages.contracts.temporal import TrainRequest, EvaluationRequest
+from packages.contracts.temporal import TrainRequest, EvaluationRequest, ReadinessRequest
 from packages.migrations.legacy_v3 import adapt_knowledge
 from packages.knowledge.service import content_hash, knowledge_diff, preview
 
@@ -121,7 +121,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
             imports.close()
             database.close()
 
-    application = FastAPI(title="见微 P0.3 时序研究与数据知识服务", version="0.3.0", lifespan=lifespan)
+    application = FastAPI(title="见微 P0.3.2 时序研究与数据知识服务", version="0.3.2", lifespan=lifespan)
     application.add_middleware(BodyLimit)
 
     def scope(scene_id=None):
@@ -199,7 +199,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
         with application.state.database.session() as session:
             session.execute(text('SELECT 1'))
             revision = session.execute(text('SELECT version_num FROM alembic_version')).scalar_one()
-        return {'status':'ok','stage':'P0.3','database':'ok','schema_version':revision,
+        return {'status':'ok','stage':'P0.3.2','database':'ok','schema_version':revision,
                 'active_profile':application.state.bundle.config.active_profile}
 
     @application.get('/api/scenes')
@@ -215,7 +215,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
         scope(scene_id)
         bundle = application.state.bundle
         knowledge, yaml_text, digest = baseline(scene_id, normalized)
-        return {'project':{'name':'见微','version':'3.0','stage':'P0.3','title':bundle.config.ui.title},
+        return {'project':{'name':'见微','version':'3.0','stage':'P0.3.2','title':bundle.config.ui.title},
             'active_profile':bundle.config.active_profile, 'active_scene':scene_id, 'tenant_id':bundle.profile.tenant_id,
             'config_hash':bundle.config_hash, 'scene':scene_info(scene_id, normalized),
             'scenes':[scene_info(id, normalized) for id in bundle.scenes],
@@ -278,6 +278,14 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
     @application.get('/api/temporal/capabilities')
     def temporal_capabilities():
         return application.state.temporal.capabilities()
+
+    @application.post('/api/scenes/{scene_id}/temporal/readiness')
+    def temporal_readiness(scene_id: str, body: ReadinessRequest):
+        return application.state.temporal.readiness(scene_id, body)
+
+    @application.post('/api/scenes/{scene_id}/temporal/dataset-template')
+    def temporal_dataset_template(scene_id: str, body: ReadinessRequest):
+        return application.state.temporal.dataset_template(scene_id, body)
 
     @application.post('/api/scenes/{scene_id}/temporal/train', status_code=202)
     def temporal_train(scene_id: str, body: TrainRequest):

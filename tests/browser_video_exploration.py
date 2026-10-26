@@ -1,5 +1,6 @@
 """Actual local video playback and standalone exploration acceptance."""
 import hashlib
+import argparse
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
@@ -19,6 +20,11 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--chromium', default='/usr/bin/chromium')
+    parser.add_argument('--output-dir', type=Path, default=OUTPUT)
+    args = parser.parse_args()
+    args.output_dir.mkdir(parents=True, exist_ok=True)
     server = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
     thread = Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -26,7 +32,7 @@ def main():
     errors = []
     try:
         with sync_playwright() as playwright:
-            browser = playwright.chromium.launch(executable_path='/usr/bin/chromium', args=['--no-sandbox'])
+            browser = playwright.chromium.launch(executable_path=args.chromium, args=['--no-sandbox'])
             context = browser.new_context(viewport={'width':1440,'height':1000}, accept_downloads=True)
             page = context.new_page()
             page.on('pageerror', lambda error: errors.append(str(error)))
@@ -54,10 +60,10 @@ def main():
             downloaded = Path(download.value.path()).read_bytes()
             assert json.loads(downloaded) == expected
             assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
-            page.screenshot(path=str(OUTPUT/'desktop.png'), full_page=True, animations='disabled')
+            page.screenshot(path=str(args.output_dir/'desktop.png'), full_page=True, animations='disabled')
             page.set_viewport_size({'width':390,'height':844})
             assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
-            page.screenshot(path=str(OUTPUT/'mobile.png'), full_page=True, animations='disabled')
+            page.screenshot(path=str(args.output_dir/'mobile.png'), full_page=True, animations='disabled')
             page.reload()
             expect(page.locator('.segment')).to_have_count(len(expected['segments']))
             page.wait_for_function('document.querySelector("video").readyState >= 1')
@@ -68,7 +74,7 @@ def main():
                 'representative_seek':{'row':chosen['row'],'start_ms':chosen['start_ms'],'actual_seconds':position},
                 'video_playback_advanced':True,
                 'download_matches_report':True,'download_sha256':hashlib.sha256(downloaded).hexdigest()}
-            (OUTPUT/'browser.json').write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\n')
+            (args.output_dir/'browser.json').write_text(json.dumps(evidence,ensure_ascii=False,indent=2)+'\n')
             print(json.dumps(evidence,ensure_ascii=False))
             context.close();browser.close()
     finally:

@@ -80,6 +80,12 @@ class TemporalService:
     def get(self,scene,identifier):
         self.check_scene(scene)
         with self.database.session() as session:return public(self._run_row(session,scene,identifier))
+    def readiness(self,scene,request):
+        from .readiness import check
+        return check(self,scene,request)
+    def dataset_template(self,scene,request):
+        from .readiness import template
+        return template(self,scene,request)
     def inputs(self,scene):
         self.check_scene(scene)
         fields=('split','source_hash','feature_space_id','view_id','data_origin','source_verification','eligible_rows')
