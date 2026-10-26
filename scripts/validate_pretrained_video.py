@@ -98,7 +98,7 @@ def capture(config, video, output, timeout_seconds):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--config', type=Path, required=True)
-    parser.add_argument('--video', type=Path, default=PROJECT_ROOT/'examples/test.mp4')
+    parser.add_argument('--video', type=Path, default=PROJECT_ROOT/'datasets/video_samples/garment_quality/videos/test.mp4')
     parser.add_argument('--output-dir', type=Path, default=Path('artifacts/p031-video-evidence'))
     parser.add_argument('--timeout-seconds', type=float, default=1800)
     args = parser.parse_args()

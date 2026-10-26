@@ -1,0 +1,116 @@
+{
+  "sampled_frames": 54,
+  "all_sample_decodes_succeeded": true,
+  "scope": "Coarse sampled-frame review; no action boundaries or compliance inferred.",
+  "assets": [
+    {
+      "asset_id": "garment_test",
+      "source_sha256": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+      "sample_seconds": [
+        5.925,
+        23.7,
+        47.4,
+        71.1,
+        94.8,
+        112.575
+      ]
+    },
+    {
+      "asset_id": "garment_test_short",
+      "source_sha256": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+      "sample_seconds": [
+        1.022,
+        4.088,
+        8.176,
+        12.264,
+        16.352,
+        19.418
+      ]
+    },
+    {
+      "asset_id": "bull_station_01",
+      "source_sha256": "259bf1e24f86128947192825ef759bddcb1b000c9b5b5573aed274adc606f810",
+      "sample_seconds": [
+        9.821,
+        39.283,
+        78.566,
+        117.849,
+        157.132,
+        186.594
+      ]
+    },
+    {
+      "asset_id": "bull_station_02",
+      "source_sha256": "226bac7752d191d68bcd10676fd33c3f3d391f55527bf088678730adb5ad4341",
+      "sample_seconds": [
+        7.361,
+        29.443,
+        58.885,
+        88.328,
+        117.771,
+        139.853
+      ]
+    },
+    {
+      "asset_id": "bull_station_03",
+      "source_sha256": "a87aaf50cd2155e40ed5d5368d1ff6f9e5de8a9942cf434198ba6d11814e2be0",
+      "sample_seconds": [
+        10.646,
+        42.584,
+        85.168,
+        127.752,
+        170.336,
+        202.274
+      ]
+    },
+    {
+      "asset_id": "bull_station_04",
+      "source_sha256": "f59b2cd48aa3a0d79661d856ce733ee910d38e84a3cc774c36959e77b46872f8",
+      "sample_seconds": [
+        8.506,
+        34.022,
+        68.044,
+        102.066,
+        136.088,
+        161.605
+      ]
+    },
+    {
+      "asset_id": "bull_station_05",
+      "source_sha256": "13066d30bedf8aa3c8bd6d19d093c6acd55b655f9a03827f5df2397f131e70e1",
+      "sample_seconds": [
+        11.082,
+        44.329,
+        88.659,
+        132.988,
+        177.318,
+        210.565
+      ]
+    },
+    {
+      "asset_id": "bull_station_06",
+      "source_sha256": "35a7bc1b07c456169f33f09880cb949a054dd7111fd3a60301856bb780bac65d",
+      "sample_seconds": [
+        7.594,
+        30.376,
+        60.752,
+        91.127,
+        121.503,
+        144.285
+      ]
+    },
+    {
+      "asset_id": "bull_station_07",
+      "source_sha256": "8e4cfa82d5f58e8f5cfeadfdb10e0f17bcb939117122be87aa2a2e20afdf2aca",
+      "sample_seconds": [
+        7.941,
+        31.763,
+        63.526,
+        95.289,
+        127.052,
+        150.874
+      ]
+    }
+  ],
+  "image_publication": "not_included; sampled images remain local, public publication requires explicit approval"
+}

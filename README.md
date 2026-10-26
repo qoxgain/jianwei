@@ -23,13 +23,15 @@ bash scripts/start.sh
 
 ## 数据接入
 
+新增现场素材统一放在 [datasets/video_samples](datasets/video_samples/README.md)。本轮完成素材整理与评估；工业接入、旋转与工位/SOP适配按 [P0.3.3任务书](docs/plans/P0.3.3-real-data.md) 继续开发。查看 [实际评估](docs/delivery/P0.3.3-data-review.md) 和 [Codex指令](docs/plans/P0.3.3-Codex.txt)。尚未宣称真实学习效果通过。
+
 启动后进入“数据接入”，选择场景并点击“运行示例导入”。这是服务端真实执行的确定性合成 NPZ，不代表现场模型效果。上传自己的 MP4 使用 `file_01`，按场景填写上下文与完整周期。预计算特征协议、时钟锚点和来源核验见 [导入说明](docs/INGESTION.md)；冻结模型配置见 [编码器说明](docs/ENCODER.md)。
 
 独立审阅包：[P0.3.2 Demo](demo/jianwei-p0.3.2-demo.zip)。HTML 展示已执行的四场景预检与历史合成研究记录；浏览器不训练或读取封存特征。真实来源预检、草稿导出和研究任务需要本机 API。研究使用步骤见 [时序研究说明](docs/TEMPORAL.md)。
 
 P0.3.2 的四场景 API/离线浏览器验收、展开预检的手机布局和原视频回查已在 [GitHub CI](https://github.com/qoxgain/jianwei/actions/runs/40255750288) 通过；[实际截图与结果](docs/delivery/p0.3.2/browser/ci.json)保留被测代码 SHA，交付 Demo 与 CI 页面构建字节一致。
 
-用户上传的 `examples/test.mp4` 已用官方 Kinetics-400 预训练 R3D-18 冻结模型处理：完整核验 2,844 帧，获得 117 个 512 维有效片段。查看 [单视频 Demo 下载](demo/jianwei-p0.3.1-video-demo.zip)、[实际截图](docs/delivery/p0.3.1/preview/desktop.png)和[完整报告](docs/delivery/p0.3.1/preview/report.json)。解压后打开 `index.html`，点击代表片段回查原视频。单源回顾性匿名探索不代表动作识别或独立学习效果。安装与复现见 [冻结编码器说明](docs/PRETRAINED-ENCODER.md)；真实研究须先完成 [采集来源审查](docs/DATASET-PROVENANCE.md)。
+用户上传的 `datasets/video_samples/garment_quality/videos/test.mp4` 已用官方 Kinetics-400 预训练 R3D-18 冻结模型处理：完整核验 2,844 帧，获得 117 个 512 维有效片段。查看 [单视频 Demo 下载](demo/jianwei-p0.3.1-video-demo.zip)、[实际截图](docs/delivery/p0.3.1/preview/desktop.png)和[完整报告](docs/delivery/p0.3.1/preview/report.json)。解压后打开 `index.html`，点击代表片段回查原视频。单源回顾性匿名探索不代表动作识别或独立学习效果。安装与复现见 [冻结编码器说明](docs/PRETRAINED-ENCODER.md)；真实研究须先完成 [采集来源审查](docs/DATASET-PROVENANCE.md)。
 
 ## 配置与知识
 

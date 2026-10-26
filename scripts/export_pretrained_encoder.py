@@ -75,7 +75,7 @@ def main():
     parser.add_argument("--checkpoint", type=Path, default=ROOT / "artifacts/models/r3d_18-b3b3357e.pth")
     parser.add_argument("--output", type=Path, default=ROOT / "artifacts/models/r3d18-kinetics400-v1.onnx")
     parser.add_argument("--report", type=Path, default=ROOT / "docs/delivery/p0.3.1/encoder/export.json")
-    parser.add_argument("--video", type=Path, default=ROOT / "examples/test.mp4")
+    parser.add_argument("--video", type=Path, default=ROOT / "datasets/video_samples/garment_quality/videos/test.mp4")
     parser.add_argument("--download", action="store_true")
     args = parser.parse_args()
     checkpoint = official_checkpoint(args.checkpoint, args.download)

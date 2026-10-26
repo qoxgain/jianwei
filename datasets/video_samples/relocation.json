@@ -1,0 +1,87 @@
+{
+  "schema_version": "asset-relocation-v1",
+  "source_commit": "54e1068600e96c51db575f531d50fba9464181cb",
+  "raw_bytes_modified": false,
+  "assets": [
+    {
+      "old_path": "examples/test.mp4",
+      "new_path": "datasets/video_samples/garment_quality/videos/test.mp4",
+      "source_sha256": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+      "bytes": 20848517,
+      "git_blob_sha": "2e483193c503f372512c1b83dad473f20039302c",
+      "storage": "git_lfs"
+    },
+    {
+      "old_path": "examples/testShort.mp4",
+      "new_path": "datasets/video_samples/garment_quality/videos/testShort.mp4",
+      "source_sha256": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+      "bytes": 18196446,
+      "git_blob_sha": "ffafaa5ca1ff88ca7ab283025444bb0f8a21302d",
+      "storage": "git_lfs"
+    },
+    {
+      "old_path": "examples/岗1.mp4",
+      "new_path": "datasets/video_samples/bull_new_energy/videos/岗1.mp4",
+      "source_sha256": "259bf1e24f86128947192825ef759bddcb1b000c9b5b5573aed274adc606f810",
+      "bytes": 247028964,
+      "git_blob_sha": "cb43cd520f2234a2ae6dc3875437a682e457b343",
+      "storage": "git_lfs"
+    },
+    {
+      "old_path": "examples/岗2.mp4",
+      "new_path": "datasets/video_samples/bull_new_energy/videos/岗2.mp4",
+      "source_sha256": "226bac7752d191d68bcd10676fd33c3f3d391f55527bf088678730adb5ad4341",
+      "bytes": 163613047,
+      "git_blob_sha": "e173d3120eebb443661dadb6e193b93946a46fb2",
+      "storage": "git_lfs"
+    },
+    {
+      "old_path": "examples/岗3.mp4",
+      "new_path": "datasets/video_samples/bull_new_energy/videos/岗3.mp4",
+      "source_sha256": "a87aaf50cd2155e40ed5d5368d1ff6f9e5de8a9942cf434198ba6d11814e2be0",
+      "bytes": 183924034,
+      "git_blob_sha": "acd8cb422812dd8383cfbd0eaa854676ea6bf0a5",
+      "storage": "git_lfs"
+    },
+    {
+      "old_path": "examples/岗4.mp4",
+      "new_path": "datasets/video_samples/bull_new_energy/videos/岗4.mp4",
+      "source_sha256": "f59b2cd48aa3a0d79661d856ce733ee910d38e84a3cc774c36959e77b46872f8",
+      "bytes": 239003203,
+      "git_blob_sha": "ba22c75604b14a76affbee00b6c70dc4248315b0",
+      "storage": "git_lfs"
+    },
+    {
+      "old_path": "examples/岗5.mp4",
+      "new_path": "datasets/video_samples/bull_new_energy/videos/岗5.mp4",
+      "source_sha256": "13066d30bedf8aa3c8bd6d19d093c6acd55b655f9a03827f5df2397f131e70e1",
+      "bytes": 344338413,
+      "git_blob_sha": "c3bb6c077d5e7d79cd537e640b04e5a8b55d063d",
+      "storage": "git_lfs"
+    },
+    {
+      "old_path": "examples/岗6.mp4",
+      "new_path": "datasets/video_samples/bull_new_energy/videos/岗6.mp4",
+      "source_sha256": "35a7bc1b07c456169f33f09880cb949a054dd7111fd3a60301856bb780bac65d",
+      "bytes": 185241239,
+      "git_blob_sha": "46f2e0f6d1da7ed6955a354961741c5172ff0b96",
+      "storage": "git_lfs"
+    },
+    {
+      "old_path": "examples/岗7.mp4",
+      "new_path": "datasets/video_samples/bull_new_energy/videos/岗7.mp4",
+      "source_sha256": "8e4cfa82d5f58e8f5cfeadfdb10e0f17bcb939117122be87aa2a2e20afdf2aca",
+      "bytes": 180707496,
+      "git_blob_sha": "4b7b30eca0ddb7d481a413062de8bf654b39ad3d",
+      "storage": "git_lfs"
+    },
+    {
+      "old_path": "examples/SOP文档.pdf",
+      "new_path": "datasets/video_samples/bull_new_energy/sop/SOP文档.pdf",
+      "source_sha256": "39802e29c07b43fbee3fa9274cc56d247f178fdb833cdbfd363bdbc89904a736",
+      "bytes": 3177448,
+      "git_blob_sha": "26cceccce69d01fd8bac2346e01c44954b1f1593",
+      "storage": "git"
+    }
+  ]
+}

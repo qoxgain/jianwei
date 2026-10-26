@@ -1,0 +1,309 @@
+{
+  "schema_version": "video-samples-v1",
+  "source_commit": "54e1068600e96c51db575f531d50fba9464181cb",
+  "purpose": "Development and exploratory validation assets; not a sealed evaluation dataset.",
+  "is_training_dataset_manifest": false,
+  "assets": [
+    {
+      "asset_id": "garment_test",
+      "kind": "video",
+      "domain": "garment_quality",
+      "station_label": null,
+      "path": "datasets/video_samples/garment_quality/videos/test.mp4",
+      "sha256": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+      "bytes": 20848517,
+      "storage": "git_lfs",
+      "lfs_pointer_blob_sha": "2e483193c503f372512c1b83dad473f20039302c",
+      "media": {
+        "duration_seconds": 118.5,
+        "coded_width": 640,
+        "coded_height": 480,
+        "rotation_degrees": 0,
+        "fps_ratio": "24/1",
+        "codec": "h264",
+        "declared_frames": 2844,
+        "has_audio": true,
+        "creation_time_hint": "2026-10-25T02:10:46.000000Z",
+        "creation_time_is_verified_capture_time": false
+      },
+      "provenance": {
+        "capture_session_id": null,
+        "camera_id": null,
+        "view_id": null,
+        "captured_at": null,
+        "relation": "unknown",
+        "split": "unassigned",
+        "review_status": "pending"
+      }
+    },
+    {
+      "asset_id": "garment_test_short",
+      "kind": "video",
+      "domain": "garment_quality",
+      "station_label": null,
+      "path": "datasets/video_samples/garment_quality/videos/testShort.mp4",
+      "sha256": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+      "bytes": 18196446,
+      "storage": "git_lfs",
+      "lfs_pointer_blob_sha": "ffafaa5ca1ff88ca7ab283025444bb0f8a21302d",
+      "media": {
+        "duration_seconds": 20.44,
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": 0,
+        "fps_ratio": "25/1",
+        "codec": "h264",
+        "declared_frames": 511,
+        "has_audio": true,
+        "creation_time_hint": null,
+        "creation_time_is_verified_capture_time": false
+      },
+      "provenance": {
+        "capture_session_id": null,
+        "camera_id": null,
+        "view_id": null,
+        "captured_at": null,
+        "relation": "unknown",
+        "split": "unassigned",
+        "review_status": "pending"
+      }
+    },
+    {
+      "asset_id": "bull_station_01",
+      "kind": "video",
+      "domain": "bull_new_energy",
+      "station_label": "岗1",
+      "path": "datasets/video_samples/bull_new_energy/videos/岗1.mp4",
+      "sha256": "259bf1e24f86128947192825ef759bddcb1b000c9b5b5573aed274adc606f810",
+      "bytes": 247028964,
+      "storage": "git_lfs",
+      "lfs_pointer_blob_sha": "cb43cd520f2234a2ae6dc3875437a682e457b343",
+      "media": {
+        "duration_seconds": 196.414708,
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": -90,
+        "fps_ratio": "31230000/1039633",
+        "codec": "hevc",
+        "declared_frames": 5899,
+        "has_audio": true,
+        "creation_time_hint": "2025-06-23T05:38:25.000000Z",
+        "creation_time_is_verified_capture_time": false
+      },
+      "provenance": {
+        "capture_session_id": null,
+        "camera_id": null,
+        "view_id": null,
+        "captured_at": null,
+        "relation": "unknown",
+        "split": "unassigned",
+        "review_status": "pending"
+      }
+    },
+    {
+      "asset_id": "bull_station_02",
+      "kind": "video",
+      "domain": "bull_new_energy",
+      "station_label": "岗2",
+      "path": "datasets/video_samples/bull_new_energy/videos/岗2.mp4",
+      "sha256": "226bac7752d191d68bcd10676fd33c3f3d391f55527bf088678730adb5ad4341",
+      "bytes": 163613047,
+      "storage": "git_lfs",
+      "lfs_pointer_blob_sha": "e173d3120eebb443661dadb6e193b93946a46fb2",
+      "media": {
+        "duration_seconds": 147.21325,
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": -90,
+        "fps_ratio": "198990000/6623951",
+        "codec": "hevc",
+        "declared_frames": 4422,
+        "has_audio": true,
+        "creation_time_hint": "2025-06-23T05:41:46.000000Z",
+        "creation_time_is_verified_capture_time": false
+      },
+      "provenance": {
+        "capture_session_id": null,
+        "camera_id": null,
+        "view_id": null,
+        "captured_at": null,
+        "relation": "unknown",
+        "split": "unassigned",
+        "review_status": "pending"
+      }
+    },
+    {
+      "asset_id": "bull_station_03",
+      "kind": "video",
+      "domain": "bull_new_energy",
+      "station_label": "岗3",
+      "path": "datasets/video_samples/bull_new_energy/videos/岗3.mp4",
+      "sha256": "a87aaf50cd2155e40ed5d5368d1ff6f9e5de8a9942cf434198ba6d11814e2be0",
+      "bytes": 183924034,
+      "storage": "git_lfs",
+      "lfs_pointer_blob_sha": "acd8cb422812dd8383cfbd0eaa854676ea6bf0a5",
+      "media": {
+        "duration_seconds": 212.920083,
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": -90,
+        "fps_ratio": "287820000/9580931",
+        "codec": "hevc",
+        "declared_frames": 6396,
+        "has_audio": true,
+        "creation_time_hint": "2025-06-23T05:48:20.000000Z",
+        "creation_time_is_verified_capture_time": false
+      },
+      "provenance": {
+        "capture_session_id": null,
+        "camera_id": null,
+        "view_id": null,
+        "captured_at": null,
+        "relation": "unknown",
+        "split": "unassigned",
+        "review_status": "pending"
+      }
+    },
+    {
+      "asset_id": "bull_station_04",
+      "kind": "video",
+      "domain": "bull_new_energy",
+      "station_label": "岗4",
+      "path": "datasets/video_samples/bull_new_energy/videos/岗4.mp4",
+      "sha256": "f59b2cd48aa3a0d79661d856ce733ee910d38e84a3cc774c36959e77b46872f8",
+      "bytes": 239003203,
+      "storage": "git_lfs",
+      "lfs_pointer_blob_sha": "ba22c75604b14a76affbee00b6c70dc4248315b0",
+      "media": {
+        "duration_seconds": 170.110292,
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": -90,
+        "fps_ratio": "7300000/243001",
+        "codec": "hevc",
+        "declared_frames": 5110,
+        "has_audio": true,
+        "creation_time_hint": "2025-06-23T05:51:18.000000Z",
+        "creation_time_is_verified_capture_time": false
+      },
+      "provenance": {
+        "capture_session_id": null,
+        "camera_id": null,
+        "view_id": null,
+        "captured_at": null,
+        "relation": "unknown",
+        "split": "unassigned",
+        "review_status": "pending"
+      }
+    },
+    {
+      "asset_id": "bull_station_05",
+      "kind": "video",
+      "domain": "bull_new_energy",
+      "station_label": "岗5",
+      "path": "datasets/video_samples/bull_new_energy/videos/岗5.mp4",
+      "sha256": "13066d30bedf8aa3c8bd6d19d093c6acd55b655f9a03827f5df2397f131e70e1",
+      "bytes": 344338413,
+      "storage": "git_lfs",
+      "lfs_pointer_blob_sha": "c3bb6c077d5e7d79cd537e640b04e5a8b55d063d",
+      "media": {
+        "duration_seconds": 221.647125,
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": -90,
+        "fps_ratio": "2396880/79787",
+        "codec": "hevc",
+        "declared_frames": 6658,
+        "has_audio": true,
+        "creation_time_hint": "2025-06-23T05:55:54.000000Z",
+        "creation_time_is_verified_capture_time": false
+      },
+      "provenance": {
+        "capture_session_id": null,
+        "camera_id": null,
+        "view_id": null,
+        "captured_at": null,
+        "relation": "unknown",
+        "split": "unassigned",
+        "review_status": "pending"
+      }
+    },
+    {
+      "asset_id": "bull_station_06",
+      "kind": "video",
+      "domain": "bull_new_energy",
+      "station_label": "岗6",
+      "path": "datasets/video_samples/bull_new_energy/videos/岗6.mp4",
+      "sha256": "35a7bc1b07c456169f33f09880cb949a054dd7111fd3a60301856bb780bac65d",
+      "bytes": 185241239,
+      "storage": "git_lfs",
+      "lfs_pointer_blob_sha": "46f2e0f6d1da7ed6955a354961741c5172ff0b96",
+      "media": {
+        "duration_seconds": 151.878875,
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": -90,
+        "fps_ratio": "410580000/13667341",
+        "codec": "hevc",
+        "declared_frames": 4562,
+        "has_audio": true,
+        "creation_time_hint": "2025-06-23T06:01:24.000000Z",
+        "creation_time_is_verified_capture_time": false
+      },
+      "provenance": {
+        "capture_session_id": null,
+        "camera_id": null,
+        "view_id": null,
+        "captured_at": null,
+        "relation": "unknown",
+        "split": "unassigned",
+        "review_status": "pending"
+      }
+    },
+    {
+      "asset_id": "bull_station_07",
+      "kind": "video",
+      "domain": "bull_new_energy",
+      "station_label": "岗7",
+      "path": "datasets/video_samples/bull_new_energy/videos/岗7.mp4",
+      "sha256": "8e4cfa82d5f58e8f5cfeadfdb10e0f17bcb939117122be87aa2a2e20afdf2aca",
+      "bytes": 180707496,
+      "storage": "git_lfs",
+      "lfs_pointer_blob_sha": "4b7b30eca0ddb7d481a413062de8bf654b39ad3d",
+      "media": {
+        "duration_seconds": 158.8145,
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": -90,
+        "fps_ratio": "214650000/7145231",
+        "codec": "hevc",
+        "declared_frames": 4770,
+        "has_audio": true,
+        "creation_time_hint": "2025-06-23T06:05:10.000000Z",
+        "creation_time_is_verified_capture_time": false
+      },
+      "provenance": {
+        "capture_session_id": null,
+        "camera_id": null,
+        "view_id": null,
+        "captured_at": null,
+        "relation": "unknown",
+        "split": "unassigned",
+        "review_status": "pending"
+      }
+    },
+    {
+      "asset_id": "bull_sop",
+      "kind": "normative_document",
+      "domain": "bull_new_energy",
+      "path": "datasets/video_samples/bull_new_energy/sop/SOP文档.pdf",
+      "sha256": "39802e29c07b43fbee3fa9274cc56d247f178fdb833cdbfd363bdbc89904a736",
+      "bytes": 3177448,
+      "storage": "git",
+      "git_blob_sha": "26cceccce69d01fd8bac2346e01c44954b1f1593",
+      "pages": 26,
+      "review_status": "draft_extraction",
+      "applies_to_garment": false
+    }
+  ]
+}

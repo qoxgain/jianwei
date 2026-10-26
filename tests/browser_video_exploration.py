@@ -5,6 +5,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
 from pathlib import Path
 from threading import Thread
+from urllib.parse import urlsplit
 
 from playwright.sync_api import expect, sync_playwright
 
@@ -17,6 +18,12 @@ class Handler(SimpleHTTPRequestHandler):
         super().__init__(*args, directory=str(ROOT), **kwargs)
     def log_message(self, *args):
         pass
+
+    def translate_path(self, path):
+        # Preserve the hash-frozen historical preview after asset relocation.
+        if urlsplit(path).path == '/examples/test.mp4':
+            return str(ROOT/'datasets/video_samples/garment_quality/videos/test.mp4')
+        return super().translate_path(path)
 
 
 def main():
@@ -46,7 +53,7 @@ def main():
             # Check both rejected selection and byte-verified local source fallback.
             page.locator('#video-file').set_input_files({'name':'wrong.mp4','mimeType':'video/mp4','buffer':b'wrong video'})
             expect(page.locator('#file-check')).to_contain_text('文件 SHA256 不匹配')
-            page.locator('#video-file').set_input_files(ROOT/'examples/test.mp4')
+            page.locator('#video-file').set_input_files(ROOT/'datasets/video_samples/garment_quality/videos/test.mp4')
             expect(page.locator('#file-check')).to_contain_text('SHA256 核验通过', timeout=30000)
             page.wait_for_function('document.querySelector("video").readyState >= 1')
             chosen = expected['segments'][-1]['representative']

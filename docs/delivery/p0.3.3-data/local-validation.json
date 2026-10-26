@@ -1,0 +1,32 @@
+{
+  "base_commit": "54e1068600e96c51db575f531d50fba9464181cb",
+  "runs": {
+    "backend": {
+      "command": ".venv/bin/python -m pytest tests -q -rs",
+      "passed": 314,
+      "skipped": 3,
+      "failed": 0,
+      "skip_reason": "optional torch absent; existing pretrained-encoder CI job runs those checks",
+      "log": "pytest.txt",
+      "log_sha256": "c8ccb03cd9f664bae655d475d3890d90e345d568987060f431d2e1ea33771acd",
+      "formatting": "trailing blank lines trimmed; messages unchanged"
+    },
+    "frontend": {
+      "command": "npm --prefix apps/web test",
+      "passed": 63,
+      "failed": 0,
+      "log": "frontend.txt",
+      "log_sha256": "e8c2effa3c47a278db17e8740c160cc5b9727b3607c7566a184e58df15f936ce",
+      "formatting": "trailing blank lines trimmed; messages unchanged"
+    },
+    "reference": {
+      "command": ".venv/bin/python -m unittest discover -s reference/tests -v",
+      "passed": 29,
+      "failed": 0,
+      "log": "reference.txt",
+      "log_sha256": "13ccef1df312aa48250ea73e00906159652e739ae5ac1c3ccb5e0ffcac93af55",
+      "formatting": "trailing blank lines trimmed; messages unchanged"
+    }
+  },
+  "current_industrial_model_inference_performed": false
+}

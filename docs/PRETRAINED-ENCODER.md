@@ -47,10 +47,10 @@ profiles:
 ```bash
 .venv/bin/python -m scripts.prepare_pretrained_config --output-dir artifacts/p031-real
 .venv/bin/python -m scripts.validate_pretrained_video --config artifacts/p031-real/config/system.yaml --output-dir artifacts/p031-video-evidence
-.venv/bin/python -m scripts.preview_real_video --manifest artifacts/p031-video-evidence/manifest.json --vectors artifacts/p031-video-evidence/vectors.npy --video examples/test.mp4 --config artifacts/p031-real/config/system.yaml --encoder-report docs/delivery/p0.3.1/encoder/export.json --output-dir artifacts/p031-preview
+.venv/bin/python -m scripts.preview_real_video --manifest artifacts/p031-video-evidence/manifest.json --vectors artifacts/p031-video-evidence/vectors.npy --video datasets/video_samples/garment_quality/videos/test.mp4 --config artifacts/p031-real/config/system.yaml --encoder-report docs/delivery/p0.3.1/encoder/export.json --output-dir artifacts/p031-preview
 ```
 
-打开生成的 `artifacts/p031-preview/index.html`，选择原始 `examples/test.mp4` 即可点击代表片段回查。脚本不修改主配置，拒绝覆盖不同的已有配置或知识文件。
+打开生成的 `artifacts/p031-preview/index.html`，选择原始 `datasets/video_samples/garment_quality/videos/test.mp4` 即可点击代表片段回查。脚本不修改主配置，拒绝覆盖不同的已有配置或知识文件。
 
 ## 已执行证据
 

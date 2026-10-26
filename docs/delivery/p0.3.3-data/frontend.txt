@@ -1,0 +1,161 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> @jianwei/web@0.1.0 test
+> vitest run
+
+
+ RUN  v4.0.18 /workspace/scratch/d660ee0ac9d3/jianwei-data-review/apps/web
+
+ ✓ src/validation.test.ts (14 tests) 879ms
+stderr | src/ingestion.test.ts > import service transport > uploads raw file bytes with explicit purpose and submits scene-scoped JSON
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+
+ ✓ src/service.test.ts (3 tests) 1856ms
+     ✓ saves, deduplicates and restores a candidate without activating it  1354ms
+stderr | src/scenes.test.ts > scene-scoped offline persistence > isolates all four scenes and preserves baseline hashes after refresh
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+
+stderr | src/ingestion.test.ts > import service transport > surfaces actionable backend errors without inventing task completion
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+
+stderr | src/temporal.test.ts > research transport > prechecks metadata with scoped IDs without starting a training or test job
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+
+stderr | src/ingestion.test.ts > import service transport > never uploads or creates backend jobs from the standalone demo
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+
+ ✓ src/ingestion.test.ts (11 tests) 4032ms
+     ✓ uploads raw file bytes with explicit purpose and submits scene-scoped JSON  2277ms
+     ✓ surfaces actionable backend errors without inventing task completion  893ms
+     ✓ never uploads or creates backend jobs from the standalone demo  815ms
+stderr | src/temporal.test.ts > research transport > requests a collection draft without writing configuration
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+
+stderr | src/scenes.test.ts > scene-scoped offline persistence > isolates all four scenes and preserves baseline hashes after refresh
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+
+stderr | src/temporal.test.ts > research transport > shows recorded readiness for all four offline scenes without network calls
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+
+stderr | src/scenes.test.ts > scene-scoped offline persistence > rejects stale baselines and mode changes before storing
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+
+stderr | src/temporal.test.ts > research transport > sends source IDs only to scoped training and explicitly sealed evaluation
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+
+stderr | src/scenes.test.ts > scene-scoped offline persistence > retains old browser candidates and exposes an explicit migrated hash
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+
+stderr | src/temporal.test.ts > research transport > surfaces blocked explanations
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+
+ ✓ src/scenes.test.ts (26 tests) 4122ms
+     ✓ isolates all four scenes and preserves baseline hashes after refresh  2475ms
+     ✓ rejects stale baselines and mode changes before storing  430ms
+     ✓ retains old browser candidates and exposes an explicit migrated hash  587ms
+stderr | src/temporal.test.ts > research transport > never performs real training or reads an API from the offline demo
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/properties/captured_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/SourceReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+unknown format "date-time" ignored in schema at path "#/$defs/DuplicateReview/properties/reviewed_at/anyOf/0"
+
+ ✓ src/temporal.test.ts (9 tests) 6283ms
+     ✓ prechecks metadata with scoped IDs without starting a training or test job  3692ms
+     ✓ requests a collection draft without writing configuration  652ms
+     ✓ shows recorded readiness for all four offline scenes without network calls  475ms
+     ✓ sends source IDs only to scoped training and explicitly sealed evaluation  408ms
+     ✓ surfaces blocked explanations  403ms
+     ✓ never performs real training or reads an API from the offline demo  619ms
+
+ Test Files  5 passed (5)
+      Tests  63 passed (63)
+   Start at  09:02:55
+   Duration  8.42s (transform 4.11s, setup 0ms, import 9.15s, tests 17.17s, environment 5ms)

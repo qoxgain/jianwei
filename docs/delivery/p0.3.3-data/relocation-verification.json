@@ -1,0 +1,61 @@
+{
+  "source_commit": "54e1068600e96c51db575f531d50fba9464181cb",
+  "moved_assets": [
+    {
+      "new_path": "datasets/video_samples/garment_quality/videos/test.mp4",
+      "git_blob_sha": "2e483193c503f372512c1b83dad473f20039302c",
+      "old_new_git_blob_identical": true
+    },
+    {
+      "new_path": "datasets/video_samples/garment_quality/videos/testShort.mp4",
+      "git_blob_sha": "ffafaa5ca1ff88ca7ab283025444bb0f8a21302d",
+      "old_new_git_blob_identical": true
+    },
+    {
+      "new_path": "datasets/video_samples/bull_new_energy/videos/岗1.mp4",
+      "git_blob_sha": "cb43cd520f2234a2ae6dc3875437a682e457b343",
+      "old_new_git_blob_identical": true
+    },
+    {
+      "new_path": "datasets/video_samples/bull_new_energy/videos/岗2.mp4",
+      "git_blob_sha": "e173d3120eebb443661dadb6e193b93946a46fb2",
+      "old_new_git_blob_identical": true
+    },
+    {
+      "new_path": "datasets/video_samples/bull_new_energy/videos/岗3.mp4",
+      "git_blob_sha": "acd8cb422812dd8383cfbd0eaa854676ea6bf0a5",
+      "old_new_git_blob_identical": true
+    },
+    {
+      "new_path": "datasets/video_samples/bull_new_energy/videos/岗4.mp4",
+      "git_blob_sha": "ba22c75604b14a76affbee00b6c70dc4248315b0",
+      "old_new_git_blob_identical": true
+    },
+    {
+      "new_path": "datasets/video_samples/bull_new_energy/videos/岗5.mp4",
+      "git_blob_sha": "c3bb6c077d5e7d79cd537e640b04e5a8b55d063d",
+      "old_new_git_blob_identical": true
+    },
+    {
+      "new_path": "datasets/video_samples/bull_new_energy/videos/岗6.mp4",
+      "git_blob_sha": "46f2e0f6d1da7ed6955a354961741c5172ff0b96",
+      "old_new_git_blob_identical": true
+    },
+    {
+      "new_path": "datasets/video_samples/bull_new_energy/videos/岗7.mp4",
+      "git_blob_sha": "4b7b30eca0ddb7d481a413062de8bf654b39ad3d",
+      "old_new_git_blob_identical": true
+    },
+    {
+      "new_path": "datasets/video_samples/bull_new_energy/sop/SOP文档.pdf",
+      "git_blob_sha": "26cceccce69d01fd8bac2346e01c44954b1f1593",
+      "old_new_git_blob_identical": true
+    }
+  ],
+  "historical_p031_files_verified": 66,
+  "historical_p031_mismatches": 0,
+  "historical_paths_resolved_via_relocation": [
+    "examples/test.mp4"
+  ],
+  "original_media_modified": false
+}

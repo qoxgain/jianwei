@@ -1,0 +1,23 @@
+见微V3.0｜P0.3.3 Codex执行指令
+
+在qoxgain/jianwei的codex/p0-1-foundation分支继续开发。先同步核对最新HEAD，保护未提交工作。读AGENTS.md、docs/plans/P0.3.3-real-data.md、docs/delivery/P0.3.3-data-review.md及docs/DATASET-PROVENANCE.md。执行完整任务，不停在提出计划。
+
+目标：真实工业数据适配与验证，工程通过后继续独立研究，不能直接宣布进入P0.4。通用底层保持不变，行业差异放配置/知识；冻结基础模型，仅训练允许的小模型。
+
+素材已整理：
+datasets/video_samples/bull_new_energy/videos/岗1.mp4至岗7.mp4
+datasets/video_samples/bull_new_energy/sop/SOP文档.pdf
+datasets/video_samples/garment_quality/videos/test.mp4、testShort.mp4
+catalog.json、relocation.json记录10个资产与旧新路径。视频通过Git LFS管理，指针不算视频实体。不要重复搬运或转码覆盖原片，历史交付哈希不改。
+
+T0 核对实际SHA、拉取LFS、运行audit_video_samples.py完整解码，复核四场景回归和原始资产身份。
+T1 用受校验的system.yaml测试配置显式启用512 MiB，保留默认64 MiB；流式上传/哈希、异步进度、限额、幂等、失败清理和取消/重试。实际7大文件验证，记录RSS/磁盘/耗时，分阶段设置有界超时。
+T2 修复HEVC -90度旋转/SAR/ROI，方向只应用一次、不拉伸。验证0/±90/180度及非方形像素，保留原始PTS。更新预处理、特征空间和缓存版本，重新提取实际512维冻结编码器特征；不使用mock或随机权重。
+T3 区分工位logical source、物理camera、stable view、capture session与源/派生片。不得所有工位复用file_01而共用view。手持镜头移动不能冒充独立会话。观察窗口与业务周期分开；20.44秒testShort不伪造60秒周期，不足history+horizon的对排除。无动作标签、无SOP仍能接入和提特征。
+T4 SOP原文引用与候选复核：26页、11个编号章节，岗号不是章节号；复用outline.draft.json、station-mapping.draft.json。保留编号/前缀/SAP疑点。观测、预测、规范、人工真值、语义候选独立。扭矩、安规、电性能、老化缺仪器证据输出insufficient_evidence；草稿不自动激活。
+T5 分别运行7工位匿名探索及2服装回归，输出特征覆盖、排除区间、匿名分段和代表片段，不混不同视角训练。实际浏览器验收竖屏/中文路径/短片/上传/回查/SOP草稿，保存桌面手机截图。无人工真值不报动作准确率或SOP合规率。
+T6 有采集记录和独立录像后开展正式研究。先选1–2固定视角工位，每个作用域至少2训练+1校准+1测试独立会话，仅是软件最低门槛。不得7个不同工位直接5/1/1划分，跨工位OOD另设协议。现有素材已用于开发，另采封存测试；先固定manifest/指标/基线/阈值，保持同源同会话近重复隔离和因果时间约束，按会话报告不确定性。不足输入时继续T1–T5，研究明确blocked。
+
+不提前开发RTSP、完整多租户权限、自动持续训练器、全流程SOP判罚或Qwen语义自证。不为每个本地可逆步骤请求确认。
+
+最终提供提交SHA、后端/前端/参考/浏览器测试及skip原因、10资产迁移核验、9视频接入与特征覆盖、资源记录、SOP候选与待审项、完整版本、实际截图、科研结论与剩余门槛。只有独立真实学习验收通过才建议进入P0.4。

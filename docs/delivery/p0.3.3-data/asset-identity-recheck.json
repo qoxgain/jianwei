@@ -1,0 +1,210 @@
+{
+  "schema_version": "sample-asset-audit-v1",
+  "source_commit": "54e1068600e96c51db575f531d50fba9464181cb",
+  "scope": "Asset integrity and optional video decode only; no model or SOP accuracy claim.",
+  "full_decode_requested": false,
+  "assets": [
+    {
+      "asset_id": "garment_test",
+      "path": "datasets/video_samples/garment_quality/videos/test.mp4",
+      "kind": "video",
+      "status": "passed",
+      "bytes": 20848517,
+      "sha256": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+      "media": {
+        "codec": "h264",
+        "coded_width": 640,
+        "coded_height": 480,
+        "rotation_degrees": 0,
+        "display_width": 640,
+        "display_height": 480,
+        "display_dimensions_basis": "rotation only; SAR recorded separately",
+        "sample_aspect_ratio": "1:1",
+        "fps_ratio": "24/1",
+        "declared_frames": 2844,
+        "duration_seconds": 118.5
+      }
+    },
+    {
+      "asset_id": "garment_test_short",
+      "path": "datasets/video_samples/garment_quality/videos/testShort.mp4",
+      "kind": "video",
+      "status": "passed",
+      "bytes": 18196446,
+      "sha256": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+      "media": {
+        "codec": "h264",
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": 0,
+        "display_width": 1920,
+        "display_height": 1080,
+        "display_dimensions_basis": "rotation only; SAR recorded separately",
+        "sample_aspect_ratio": "1:1",
+        "fps_ratio": "25/1",
+        "declared_frames": 511,
+        "duration_seconds": 20.44
+      }
+    },
+    {
+      "asset_id": "bull_station_01",
+      "path": "datasets/video_samples/bull_new_energy/videos/岗1.mp4",
+      "kind": "video",
+      "status": "passed",
+      "bytes": 247028964,
+      "sha256": "259bf1e24f86128947192825ef759bddcb1b000c9b5b5573aed274adc606f810",
+      "media": {
+        "codec": "hevc",
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": -90,
+        "display_width": 1080,
+        "display_height": 1920,
+        "display_dimensions_basis": "rotation only; SAR recorded separately",
+        "sample_aspect_ratio": null,
+        "fps_ratio": "31230000/1039633",
+        "declared_frames": 5899,
+        "duration_seconds": 196.414708
+      }
+    },
+    {
+      "asset_id": "bull_station_02",
+      "path": "datasets/video_samples/bull_new_energy/videos/岗2.mp4",
+      "kind": "video",
+      "status": "passed",
+      "bytes": 163613047,
+      "sha256": "226bac7752d191d68bcd10676fd33c3f3d391f55527bf088678730adb5ad4341",
+      "media": {
+        "codec": "hevc",
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": -90,
+        "display_width": 1080,
+        "display_height": 1920,
+        "display_dimensions_basis": "rotation only; SAR recorded separately",
+        "sample_aspect_ratio": null,
+        "fps_ratio": "198990000/6623951",
+        "declared_frames": 4422,
+        "duration_seconds": 147.21325
+      }
+    },
+    {
+      "asset_id": "bull_station_03",
+      "path": "datasets/video_samples/bull_new_energy/videos/岗3.mp4",
+      "kind": "video",
+      "status": "passed",
+      "bytes": 183924034,
+      "sha256": "a87aaf50cd2155e40ed5d5368d1ff6f9e5de8a9942cf434198ba6d11814e2be0",
+      "media": {
+        "codec": "hevc",
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": -90,
+        "display_width": 1080,
+        "display_height": 1920,
+        "display_dimensions_basis": "rotation only; SAR recorded separately",
+        "sample_aspect_ratio": null,
+        "fps_ratio": "287820000/9580931",
+        "declared_frames": 6396,
+        "duration_seconds": 212.920083
+      }
+    },
+    {
+      "asset_id": "bull_station_04",
+      "path": "datasets/video_samples/bull_new_energy/videos/岗4.mp4",
+      "kind": "video",
+      "status": "passed",
+      "bytes": 239003203,
+      "sha256": "f59b2cd48aa3a0d79661d856ce733ee910d38e84a3cc774c36959e77b46872f8",
+      "media": {
+        "codec": "hevc",
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": -90,
+        "display_width": 1080,
+        "display_height": 1920,
+        "display_dimensions_basis": "rotation only; SAR recorded separately",
+        "sample_aspect_ratio": null,
+        "fps_ratio": "7300000/243001",
+        "declared_frames": 5110,
+        "duration_seconds": 170.110292
+      }
+    },
+    {
+      "asset_id": "bull_station_05",
+      "path": "datasets/video_samples/bull_new_energy/videos/岗5.mp4",
+      "kind": "video",
+      "status": "passed",
+      "bytes": 344338413,
+      "sha256": "13066d30bedf8aa3c8bd6d19d093c6acd55b655f9a03827f5df2397f131e70e1",
+      "media": {
+        "codec": "hevc",
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": -90,
+        "display_width": 1080,
+        "display_height": 1920,
+        "display_dimensions_basis": "rotation only; SAR recorded separately",
+        "sample_aspect_ratio": null,
+        "fps_ratio": "2396880/79787",
+        "declared_frames": 6658,
+        "duration_seconds": 221.647125
+      }
+    },
+    {
+      "asset_id": "bull_station_06",
+      "path": "datasets/video_samples/bull_new_energy/videos/岗6.mp4",
+      "kind": "video",
+      "status": "passed",
+      "bytes": 185241239,
+      "sha256": "35a7bc1b07c456169f33f09880cb949a054dd7111fd3a60301856bb780bac65d",
+      "media": {
+        "codec": "hevc",
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": -90,
+        "display_width": 1080,
+        "display_height": 1920,
+        "display_dimensions_basis": "rotation only; SAR recorded separately",
+        "sample_aspect_ratio": null,
+        "fps_ratio": "410580000/13667341",
+        "declared_frames": 4562,
+        "duration_seconds": 151.878875
+      }
+    },
+    {
+      "asset_id": "bull_station_07",
+      "path": "datasets/video_samples/bull_new_energy/videos/岗7.mp4",
+      "kind": "video",
+      "status": "passed",
+      "bytes": 180707496,
+      "sha256": "8e4cfa82d5f58e8f5cfeadfdb10e0f17bcb939117122be87aa2a2e20afdf2aca",
+      "media": {
+        "codec": "hevc",
+        "coded_width": 1920,
+        "coded_height": 1080,
+        "rotation_degrees": -90,
+        "display_width": 1080,
+        "display_height": 1920,
+        "display_dimensions_basis": "rotation only; SAR recorded separately",
+        "sample_aspect_ratio": null,
+        "fps_ratio": "214650000/7145231",
+        "declared_frames": 4770,
+        "duration_seconds": 158.8145
+      }
+    },
+    {
+      "asset_id": "bull_sop",
+      "path": "datasets/video_samples/bull_new_energy/sop/SOP文档.pdf",
+      "kind": "normative_document",
+      "status": "passed",
+      "bytes": 3177448,
+      "sha256": "39802e29c07b43fbee3fa9274cc56d247f178fdb833cdbfd363bdbc89904a736"
+    }
+  ],
+  "counts": {
+    "passed": 10,
+    "failed": 0,
+    "blocked": 0
+  }
+}

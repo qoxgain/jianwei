@@ -143,7 +143,7 @@ def capture(source, output):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--source', type=Path, default=PROJECT_ROOT/'examples/test.mp4')
+    parser.add_argument('--source', type=Path, default=PROJECT_ROOT/'datasets/video_samples/garment_quality/videos/test.mp4')
     parser.add_argument('--output', type=Path, default=PROJECT_ROOT/'docs/delivery/p0.3.1/decode-comparison.json')
     parser.add_argument('--worker', choices=['baseline', 'bounded'])
     parser.add_argument('--work', type=Path)

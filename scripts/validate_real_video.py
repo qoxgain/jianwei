@@ -111,7 +111,7 @@ def capture(video, output, supplied_config=None):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--video', type=Path, default=PROJECT_ROOT / 'examples/test.mp4')
+    parser.add_argument('--video', type=Path, default=PROJECT_ROOT / 'datasets/video_samples/garment_quality/videos/test.mp4')
     parser.add_argument('--output-dir', type=Path, default=Path('artifacts/video-review'))
     parser.add_argument('--config', type=Path, help='Optional actual pinned encoder configuration; no diagnostic override')
     args = parser.parse_args()

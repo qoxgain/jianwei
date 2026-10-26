@@ -43,7 +43,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--manifest', type=Path, required=True)
     parser.add_argument('--vectors', type=Path, required=True)
-    parser.add_argument('--video', type=Path, default=PROJECT_ROOT / 'examples/test.mp4')
+    parser.add_argument('--video', type=Path, default=PROJECT_ROOT / 'datasets/video_samples/garment_quality/videos/test.mp4')
     parser.add_argument('--config', type=Path, default=PROJECT_ROOT / 'config/system.yaml')
     parser.add_argument('--output-dir', type=Path, required=True)
     parser.add_argument('--video-url', help='Relative URL to the unchanged source video beside the exported HTML')

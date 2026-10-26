@@ -1,4 +1,4 @@
-name: P0.3.2 checks
+name: Foundation and sample-data checks
 on:
   push:
   pull_request:
@@ -10,6 +10,9 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Materialize only the regression video
+        run: git lfs pull --include="datasets/video_samples/garment_quality/videos/test.mp4" --exclude=""
+      - run: python3 scripts/audit_video_samples.py --asset garment_test --output artifacts/sample-integrity.json
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -39,6 +42,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+      - name: Materialize only the regression video
+        run: git lfs pull --include="datasets/video_samples/garment_quality/videos/test.mp4" --exclude=""
+      - run: python3 scripts/audit_video_samples.py --asset garment_test --output artifacts/sample-integrity.json
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -49,10 +55,10 @@ jobs:
           cache-dependency-path: apps/web/package-lock.json
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - run: python -m pip install -r requirements-encoder.txt
-      - run: python -m pytest tests -q
-      - run: python -m unittest discover -s reference/tests -v
       - run: npm ci
         working-directory: apps/web
+      - run: python -m pytest tests -q
+      - run: python -m unittest discover -s reference/tests -v
       - run: npm test
         working-directory: apps/web
       - run: npm run build
@@ -63,6 +69,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+      - name: Materialize only the regression video
+        run: git lfs pull --include="datasets/video_samples/garment_quality/videos/test.mp4" --exclude=""
+      - run: python3 scripts/audit_video_samples.py --asset garment_test --output artifacts/sample-integrity.json
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'

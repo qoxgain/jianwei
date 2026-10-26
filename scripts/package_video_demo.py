@@ -12,7 +12,7 @@ from scripts.preview_real_video import render_html
 def package():
     evidence = PROJECT_ROOT/'docs/delivery/p0.3.1'
     report = json.loads((evidence/'preview/report.json').read_text())
-    source = PROJECT_ROOT/'examples/test.mp4'
+    source = PROJECT_ROOT/'datasets/video_samples/garment_quality/videos/test.mp4'
     if file_hash(source) != report['source_hash']:
         raise ValueError('Source changed; refusing to package mismatched footage')
     if file_hash(evidence/'video/vectors.npy') != report['feature_cache']['sha256']:

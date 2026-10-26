@@ -1,0 +1,95 @@
+{
+  "source_commit": "54e1068600e96c51db575f531d50fba9464181cb",
+  "evidence_origin": "Completed initial full audit in this task; transcribed from recorded execution output after workspace refresh. Final byte identities independently rechecked in asset-identity-recheck.json.",
+  "command": "python3 scripts/audit_video_samples.py --full-decode --output docs/delivery/p0.3.3-data/asset-audit.json",
+  "decode_threads": 2,
+  "timeout_seconds_per_video": 600,
+  "video_count": 9,
+  "decoded_frames_total": 41172,
+  "failed": 0,
+  "blocked": 0,
+  "model_inference_performed": false,
+  "results": [
+    {
+      "asset_id": "garment_test",
+      "source_sha256": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+      "status": "passed",
+      "decoded_frames": 2844,
+      "elapsed_seconds": 4.746,
+      "video_stream_only": true,
+      "writes_transcoded_media": false
+    },
+    {
+      "asset_id": "garment_test_short",
+      "source_sha256": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+      "status": "passed",
+      "decoded_frames": 511,
+      "elapsed_seconds": 3.964,
+      "video_stream_only": true,
+      "writes_transcoded_media": false
+    },
+    {
+      "asset_id": "bull_station_01",
+      "source_sha256": "259bf1e24f86128947192825ef759bddcb1b000c9b5b5573aed274adc606f810",
+      "status": "passed",
+      "decoded_frames": 5899,
+      "elapsed_seconds": 119.825,
+      "video_stream_only": true,
+      "writes_transcoded_media": false
+    },
+    {
+      "asset_id": "bull_station_02",
+      "source_sha256": "226bac7752d191d68bcd10676fd33c3f3d391f55527bf088678730adb5ad4341",
+      "status": "passed",
+      "decoded_frames": 4422,
+      "elapsed_seconds": 68.798,
+      "video_stream_only": true,
+      "writes_transcoded_media": false
+    },
+    {
+      "asset_id": "bull_station_03",
+      "source_sha256": "a87aaf50cd2155e40ed5d5368d1ff6f9e5de8a9942cf434198ba6d11814e2be0",
+      "status": "passed",
+      "decoded_frames": 6396,
+      "elapsed_seconds": 98.017,
+      "video_stream_only": true,
+      "writes_transcoded_media": false
+    },
+    {
+      "asset_id": "bull_station_04",
+      "source_sha256": "f59b2cd48aa3a0d79661d856ce733ee910d38e84a3cc774c36959e77b46872f8",
+      "status": "passed",
+      "decoded_frames": 5110,
+      "elapsed_seconds": 91.008,
+      "video_stream_only": true,
+      "writes_transcoded_media": false
+    },
+    {
+      "asset_id": "bull_station_05",
+      "source_sha256": "13066d30bedf8aa3c8bd6d19d093c6acd55b655f9a03827f5df2397f131e70e1",
+      "status": "passed",
+      "decoded_frames": 6658,
+      "elapsed_seconds": 122.639,
+      "video_stream_only": true,
+      "writes_transcoded_media": false
+    },
+    {
+      "asset_id": "bull_station_06",
+      "source_sha256": "35a7bc1b07c456169f33f09880cb949a054dd7111fd3a60301856bb780bac65d",
+      "status": "passed",
+      "decoded_frames": 4562,
+      "elapsed_seconds": 83.554,
+      "video_stream_only": true,
+      "writes_transcoded_media": false
+    },
+    {
+      "asset_id": "bull_station_07",
+      "source_sha256": "8e4cfa82d5f58e8f5cfeadfdb10e0f17bcb939117122be87aa2a2e20afdf2aca",
+      "status": "passed",
+      "decoded_frames": 4770,
+      "elapsed_seconds": 75.904,
+      "video_stream_only": true,
+      "writes_transcoded_media": false
+    }
+  ]
+}
