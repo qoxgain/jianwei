@@ -1,0 +1,37 @@
+{
+  "run_id": 40255750288,
+  "url": "https://github.com/qoxgain/jianwei/actions/runs/40255750288",
+  "head_sha": "ab815f0216fc1d881244df8882363fdb0e0985c2",
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "id": 121357104046,
+      "name": "pretrained-encoder",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 121357104318,
+      "name": "foundation",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 121357104367,
+      "name": "browser",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "browser_artifact": {
+    "id": 12622730953,
+    "sha256": "4acad7b9ee8a036314dcd99b0fc9ba86917d13c7aa13bf2e0b2a8325ccca7143"
+  },
+  "review": {
+    "downloaded_archive_digest_verified": true,
+    "api_and_demo_build_bytes_match_ci": true,
+    "desktop_and_expanded_mobile_visually_inspected": true
+  },
+  "note": "Code and demo verified at head_sha; subsequent evidence-only commit does not modify runtime files."
+}
