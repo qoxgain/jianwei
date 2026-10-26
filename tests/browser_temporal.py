@@ -62,6 +62,12 @@ def readiness(page, mode, scene, downloads, suffix, evaluation_ready=False):
     assert not any(result[key] for key in ('feature_files_opened', 'test_values_read', 'training_executed', 'jobs_created'))
     assert result['partitions']['train']['reviewed_independent_groups'] == 4
     assert result['partitions']['test']['reviewed_independent_groups'] == 2
+    # The expanded five-column metadata table must also fit the narrow layout.
+    if scene == 'anonymous_observation':
+        page.set_viewport_size({'width': 390, 'height': 844})
+        assert page.evaluate('document.documentElement.scrollWidth <= innerWidth + 1')
+        page.locator('.readiness-panel').screenshot(path=str(downloads/f'{mode}-{scene}-readiness-{suffix}-mobile.png'), animations='disabled')
+        page.set_viewport_size({'width': 1440, 'height': 1000})
     return result
 
 
@@ -269,6 +275,8 @@ def main():
                 'downloads': {path.name: {'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'bytes': path.stat().st_size}
                               for path in sorted(downloads.iterdir())}, 'results': results}
     output = json.dumps(evidence, ensure_ascii=False, indent=2) + '\n'
+    for capture in downloads.glob('*-readiness-*-mobile.png'):
+        shutil.copyfile(capture, args.output/capture.name)
     (args.output / 'results.json').write_text(output)
     print(output)
 

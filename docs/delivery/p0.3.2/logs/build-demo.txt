@@ -10,8 +10,8 @@ rendering chunks...
 [plugin vite:singlefile]
 
 [plugin vite:singlefile] Inlining: index-DdG7WYwQ.js
-[plugin vite:singlefile] Inlining: style-BlGRrl0_.css
+[plugin vite:singlefile] Inlining: style-DWxj66fZ.css
 computing gzip size...
-dist-demo/index.html  1,726.91 kB │ gzip: 275.44 kB
+dist-demo/index.html  1,727.40 kB │ gzip: 275.53 kB
 
-✓ built in 312ms
+✓ built in 252ms

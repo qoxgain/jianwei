@@ -5,8 +5,8 @@
   "docs/delivery/p0.3.2/historical-integrity.json": "d59a1372a5edea60fbb8867c6111e8c0350078172cf2566db49d675c00fa3f3e",
   "docs/delivery/p0.3.2/logs/backend.txt": "1bceb4c8d84ce524f5945d4255701809ba31b15f69553e05a4b4516bc0c7afe3",
   "docs/delivery/p0.3.2/logs/baseline-reference.txt": "8e3ebb18331dd83b7cf22a566f93113203906036df42c5e89943137aba68174b",
-  "docs/delivery/p0.3.2/logs/build-demo.txt": "82e90c57d61582e6ac5de4f8688ce3836a766ab8f0375aaf3a55406c52a285f7",
-  "docs/delivery/p0.3.2/logs/build.txt": "28959a351be965393c344cd0097b6cf624cdaa7dcdf956136863a122d83a35f3",
+  "docs/delivery/p0.3.2/logs/build-demo.txt": "d50e7c073f0613acb7bbcef35ea49bf346b10224eff58807c41582a03b53341a",
+  "docs/delivery/p0.3.2/logs/build.txt": "c7348135b1aa9fbfd8927c762aba4b567d58c83e18387c1fcbcfd33334ff1929",
   "docs/delivery/p0.3.2/logs/final-targeted.txt": "930d8f836ba3323146ab74862938946224a27de14859f00d1ebe1ef5477e670a",
   "docs/delivery/p0.3.2/logs/frontend.txt": "42d566e6f44b4a10907cefb70fe0ae424a5003e10d6fbb404063bc76675b24b2",
   "docs/delivery/p0.3.2/logs/readiness-capture.txt": "77fcaf9991af8e5833c0151b884f18dd281c3cde63f52408bf00198c60dde347",
@@ -22,6 +22,6 @@
   "docs/delivery/p0.3.2/real-readiness.json": "3227cda16d3c5510310ca584e485138bf10a8e3622c35ab6a35303435db7c5f5",
   "docs/delivery/p0.3.2/video-reproduction.json": "4a6d9f7f58df439fc8cceab0ab2e8c00e559b90fce6630542a4851494c69b690",
   "docs/delivery/p0.3.2/video-validation.json": "786c6a2f4d8c1ae8b082f7c0e82fca797e0b8c6ea39c2a15c40b3b79789768b9",
-  "demo/jianwei-p0.3.2-demo.zip": "fb3c6a142f0a057e8d90a85060abbdb1a19b714e6fc2e3c41186fcc9908bf207",
-  "demo/jianwei-p0.3.2.html": "cff4489c101a2037d5e5774953b4b43c073804d68b6096f0c7ae0757f98a830d"
+  "demo/jianwei-p0.3.2-demo.zip": "2fd67a15c5c20a36121025550fe0faf13284682a75d93e88437ebb6177c62fd8",
+  "demo/jianwei-p0.3.2.html": "a53500aed1d27ed863201d0bbd62f0555fc8853580ca75eaa202cf261f99208e"
 }
