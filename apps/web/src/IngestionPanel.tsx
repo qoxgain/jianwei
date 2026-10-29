@@ -1,9 +1,11 @@
+import Field from './FormField';
 import {useCallback,useEffect,useRef,useState} from 'react';
 import {CheckCircle2,Clock3,Database,Download,FileUp,LoaderCircle,Play,RefreshCw,TriangleAlert} from 'lucide-react';
 import {sha256} from 'js-sha256';
 import {isDemo} from './sceneService';
+import ImportExplorationPanel from './ImportExplorationPanel';
 import {downloadText} from './service';
-import {downloadManifest,importJob,importJobs,ingestionCapabilities,retryImport,runImportExample,submitImport,uploadArtifact} from './ingestionService';
+import {cancelImport,downloadManifest,importJob,importJobs,ingestionCapabilities,retryImport,runImportExample,submitImport,uploadArtifact} from './ingestionService';
 import {importMetadata,parseFeatureSpace} from './ingestionTypes';
 import type {ImportForm,ImportJob,ImportManifest,IngestionCapabilities} from './ingestionTypes';
 import type {Scene} from './sceneTypes';
@@ -12,8 +14,7 @@ const statusNames={queued:'排队中',running:'处理中',succeeded:'导入完�
 const isPending=(job:ImportJob)=>job.status==='queued'||job.status==='running';
 const json=(value:unknown)=>JSON.stringify(value,null,2);
 const featureTemplate={contract_version:'3.1',encoder_sha:'',preprocessing_sha:'填写实际预处理 SHA256',sampling_sha:'填写实际采样 SHA256',roi_policy_hash:'填写实际 ROI 策略 SHA256',pooling:'填写实际 pooling',dimension:'填写实际维度（正整数）'};
-const initialForm=(scene:Scene):ImportForm=>({sourceId:scene.sources.find(s=>s.type==='file')?.id??'',format:'mp4',contextFields:{},episodesText:'[]',episodeOrigin:scene.episode_policy.mode==='external_cycle'?'external':'manual',anchorsText:'[]',featureSpaceText:json(featureTemplate),sourceHash:''});
-function Field({label,help,children}:{label:string;help?:string;children:React.ReactNode}){return <label className="field"><span>{label}</span>{children}{help&&<small>{help}</small>}</label>;}
+const initialForm=(scene:Scene):ImportForm=>({sourceId:scene.sources.find(s=>s.type==='file')?.id??'',format:'mp4',contextFields:{},episodesText:'[]',episodeOrigin:scene.episode_policy.mode==='external_cycle'?'external':'manual',anchorsText:'[]',acquisitionText:'null',viewIntervalsText:'[]',featureSpaceText:json(featureTemplate),sourceHash:''});
 function Hash({value}:{value:unknown}){return <code className="ingest-hash">{typeof value==='string'&&value?value:'未提供'}</code>;}
 function records(value:unknown):Record<string,unknown>[]{return Array.isArray(value)?value.filter(v=>v&&typeof v==='object'):[];}
 function text(value:unknown,fallback='未记录'){return typeof value==='string'||typeof value==='number'?String(value):fallback;}
@@ -22,10 +23,10 @@ function ManifestDetails({manifest}:{manifest:ImportManifest}){
  const episodes=records(manifest.episodes),domains=records(manifest.time_domains??manifest.domains),batches=records(manifest.feature_batches);
  const rowCount=manifest.total_rows??manifest.feature_rows??manifest.row_count??batches.length;
  return <div className="ingest-manifest">
-  <div className="ingest-metrics"><div><strong>{text(rowCount,'—')}</strong><span>特征行</span></div><div><strong>{episodes.length}</strong><span>周期</span></div><div><strong>{domains.length}</strong><span>时间域</span></div><div><strong>{text(manifest.split,'unassigned')}</strong><span>数据分区</span></div></div>
+  <div className="ingest-metrics"><div><strong>{text(rowCount,'—')}</strong><span>特征行</span></div><div><strong>{episodes.length}</strong><span>观察窗口 / 周期</span></div><div><strong>{domains.length}</strong><span>时间域</span></div><div><strong>{text(manifest.split,'unassigned')}</strong><span>数据分区</span></div></div>
   <dl className="ingest-facts"><div><dt>数据来源</dt><dd>{manifest.data_origin==='synthetic_features'?'合成特征 · 仅验证导入流程':'用户上传数据'}</dd></div><div><dt>来源核验</dt><dd>{manifest.source_verified?'原视频字节已核验':manifest.source_verification==='synthetic'?'明确的合成来源':'来源声明未核验'}</dd></div><div><dt>原始来源 SHA256</dt><dd><Hash value={manifest.source_hash}/></dd></div><div><dt>输入文件 SHA256</dt><dd><Hash value={manifest.artifact_hash}/></dd></div><div><dt>特征空间 SHA256</dt><dd><Hash value={manifest.feature_space_id}/></dd></div></dl>
   {manifest.feature_space&&<p className="ingest-note">特征维度 {manifest.feature_space.dimension} · {manifest.feature_space.pooling}。文件指纹不等于已证明外部向量由该编码器生成。</p>}
-  {!!episodes.length&&<details open><summary>周期边界</summary><div className="ingest-table-wrap"><table><thead><tr><th>周期</th><th>时间域</th><th>PTS 毫秒</th><th>边界状态</th></tr></thead><tbody>{episodes.map((episode,i)=><tr key={i}><td>{text(episode.episode_id)}</td><td>{text(episode.time_domain_id??episode.domain_index)}</td><td>{text(episode.pts_start_ms??episode.start_ms)} — {text(episode.pts_end_ms??episode.end_ms)}</td><td>{episode.complete===false?'不完整':episode.complete===true?'完整':'见清单'}</td></tr>)}</tbody></table></div></details>}
+  {!!episodes.length&&<details open><summary>观察窗口与周期边界</summary><div className="ingest-table-wrap"><table><thead><tr><th>周期</th><th>时间域</th><th>PTS 毫秒</th><th>边界与用途</th></tr></thead><tbody>{episodes.map((episode,i)=><tr key={i}><td>{text(episode.episode_id)}</td><td>{text(episode.time_domain_id??episode.domain_index)}</td><td>{text(episode.pts_start_ms??episode.start_ms)} — {text(episode.pts_end_ms??episode.end_ms)}</td><td>{episode.kind==='observation_window'?'观察窗口 · 非业务周期 · ':''}{episode.complete===false?'不足完整窗口':episode.complete===true?'完整':'见清单'}{episode.feature_eligible===true?' · 可提特征':''}</td></tr>)}</tbody></table></div></details>}
   {!!domains.length&&<details><summary>时间域与采集时钟</summary>{domains.map((domain,i)=><p className="ingest-note" key={i}>{text(domain.time_domain_id??domain.id??domain.domain_index)} · PTS {text(domain.start_ms??domain.pts_start_ms)} — {text(domain.end_ms??domain.pts_end_ms)} ms · UTC {text(domain.capture_start_utc??domain.utc_start,'未知，未推测采集时间')}</p>)}</details>}
   <details><summary>质量检测与完整清单</summary><pre>{json(manifest)}</pre></details>
  </div>;
@@ -37,9 +38,11 @@ export default function IngestionPanel({scene}:{scene:Scene}){
  const [capabilities,setCapabilities]=useState<IngestionCapabilities|null>(null),[jobs,setJobs]=useState<ImportJob[]>([]),[selected,setSelected]=useState('');
  const [detail,setDetail]=useState<ImportJob|null>(null),[detailLoading,setDetailLoading]=useState(false);
  const [busy,setBusy]=useState(''),[error,setError]=useState(''),[notice,setNotice]=useState(''),[loading,setLoading]=useState(true);
+ const [uploadProgress,setUploadProgress]=useState<{name:string;loaded:number;total:number}|null>(null);
+ const uploadController=useRef<AbortController|null>(null);
  const active=useRef(true),refreshToken=useRef(0);
  const refresh=useCallback(async()=>{const token=++refreshToken.current;try{const rows=await importJobs(scene.id);if(active.current&&token===refreshToken.current)setJobs(rows);}catch(e){if(active.current&&token===refreshToken.current)setError((e as Error).message);}},[scene.id]);
- useEffect(()=>{active.current=true;void Promise.all([ingestionCapabilities().then(c=>{if(active.current)setCapabilities(c);}),refresh()]).catch(e=>{if(active.current)setError((e as Error).message);}).finally(()=>{if(active.current)setLoading(false);});return()=>{active.current=false;refreshToken.current++;};},[refresh]);
+ useEffect(()=>{active.current=true;void Promise.all([ingestionCapabilities().then(c=>{if(active.current)setCapabilities(c);}),refresh()]).catch(e=>{if(active.current)setError((e as Error).message);}).finally(()=>{if(active.current)setLoading(false);});return()=>{active.current=false;refreshToken.current++;uploadController.current?.abort();};},[refresh]);
  useEffect(()=>{if(!jobs.some(isPending)||isDemo)return;const timer=setTimeout(()=>void refresh(),1000);return()=>clearTimeout(timer);},[jobs,refresh]);
  const update=(patch:Partial<ImportForm>)=>setForm(previous=>({...previous,...patch}));
  const summary=jobs.find(j=>j.id===selected)??jobs[0];
@@ -56,7 +59,7 @@ export default function IngestionPanel({scene}:{scene:Scene}){
  const requiresCycles=!scene.episode_policy.mode.includes('fixed_window');
  const blockedForm=isDemo||!capabilities?.enabled||!!busy;
  const acceptJob=async(job:ImportJob)=>{if(!active.current)return;setSelected(job.id);setJobs(previous=>[job,...previous.filter(item=>item.id!==job.id)]);await refresh();};
- async function operation(label:string,work:()=>Promise<void>){setBusy(label);setError('');setNotice('');try{await work();}catch(e){if(active.current)setError((e as Error).message);}finally{if(active.current)setBusy('');}}
+ async function operation(label:string,work:()=>Promise<void>){setBusy(label);setError('');setNotice('');try{await work();}catch(e){if(active.current)setError((e as Error).message);}finally{if(active.current){setBusy('');setUploadProgress(null);}uploadController.current=null;}}
  async function upload(){await operation('校验并上传文件',async()=>{
   if(!input)throw new Error('请先选择输入文件');
   if(!capabilities?.enabled)throw new Error('当前服务未启用导入');
@@ -68,14 +71,18 @@ export default function IngestionPanel({scene}:{scene:Scene}){
    if(!sourceVideo&&!form.sourceHash.trim())throw new Error('请提供原视频文件或声明原始来源 SHA256');
    space=parseFeatureSpace(form.featureSpaceText,sha256(await fingerprint.arrayBuffer()));
   }
-  const uploaded=await uploadArtifact(input,form.format);
-  const encoder=form.format==='npz'&&fingerprint?await uploadArtifact(fingerprint,'encoder'):undefined;
-  const source=form.format==='npz'&&sourceVideo?await uploadArtifact(sourceVideo,'mp4'):undefined;
+  const controller=new AbortController();uploadController.current=controller;
+  const send=(file:File,kind:'mp4'|'npz'|'encoder')=>{if(active.current)setUploadProgress({name:file.name,loaded:0,total:file.size});return uploadArtifact(file,kind,{timeoutSeconds:capabilities.upload_timeout_seconds,signal:controller.signal,onProgress:(loaded,total)=>{if(active.current)setUploadProgress({name:file.name,loaded,total});}});};
+  const uploaded=await send(input,form.format);
+  const encoder=form.format==='npz'&&fingerprint?await send(fingerprint,'encoder'):undefined;
+  const source=form.format==='npz'&&sourceVideo?await send(sourceVideo,'mp4'):undefined;
+  if(controller.signal.aborted)throw new Error('上传已取消');
+  if(active.current)setUploadProgress(null);uploadController.current=null;
   await acceptJob(await submitImport(scene.id,{...metadata,upload_id:uploaded.id,...(space?{feature_space:space}:{}),...(encoder?{encoder_artifact_id:encoder.id}:{}),...(source?{source_upload_id:source.id}:{})}));
   if(active.current)setNotice('已提交导入；任务和结果会保存在服务器，刷新后可继续查看。');
  });}
  async function example(){await operation(isDemo?'读取随附示例':'创建示例导入',async()=>{await acceptJob(await runImportExample(scene.id));if(active.current)setNotice(isDemo?'正在查看随附的服务端示例记录；浏览器没有执行导入。':'已通过服务端实际导入路径提交合成特征示例。');});}
- function template(){downloadText(`${scene.id}.import-template.json`,json({format:form.format,source_id:form.sourceId,data_origin:'real_video',requested_split:form.requestedSplit??'unassigned',context:Object.fromEntries(Object.entries(scene.context_schema).map(([key,spec])=>[key,spec.type==='boolean'?false:spec.type==='integer'||spec.type==='number'?0:'请填写'])),episode_origin:requiresCycles?form.episodeOrigin:null,episodes:requiresCycles?[{episode_id:'cycle_1',domain_index:0,start_ms:0,end_ms:10000}]:[],clock_anchors:[],...(form.format==='npz'?{feature_space:featureTemplate,declared_source_hash:'填写原视频 SHA256'}:{})}));}
+ function template(){downloadText(`${scene.id}.import-template.json`,json({format:form.format,source_id:form.sourceId,data_origin:'real_video',requested_split:form.requestedSplit??'unassigned',context:Object.fromEntries(Object.entries(scene.context_schema).map(([key,spec])=>[key,spec.type==='boolean'?false:spec.type==='integer'||spec.type==='number'?0:'请填写'])),episode_origin:requiresCycles?form.episodeOrigin:null,episodes:requiresCycles?[{episode_id:'cycle_1',domain_index:0,start_ms:0,end_ms:10000}]:[],clock_anchors:[],acquisition:null,view_intervals:[],...(form.format==='npz'?{feature_space:featureTemplate,declared_source_hash:'填写原视频 SHA256'}:{})}));}
  return <div className="ingest-workspace">
   <section className="panel ingest-start"><div className="ingest-start-icon"><Database size={26}/></div><div><h2>先走通一份数据</h2><p>{isDemo?'查看实际服务端生成的合成示例清单。此页面离线运行，文件导入需启动完整应用。':'没有现场数据也可以开始：使用确定性合成特征，验证上传、周期校验、缓存与清单。'}</p><small>示例不产生动作标签、识别准确率或学习收益。</small></div><button className="button primary" onClick={example} disabled={!!busy||loading||capabilities?.example_available===false}><Play size={16}/>{isDemo?'查看示例流程':'运行示例导入'}</button></section>
   {error&&<div className="ingest-alert" role="alert"><TriangleAlert size={18}/><span>{error}</span></div>}
@@ -94,9 +101,11 @@ export default function IngestionPanel({scene}:{scene:Scene}){
       <Field label="周期边界 JSON" help={'格式：[{"episode_id":"cycle_1","domain_index":0,"start_ms":0,"end_ms":10000}]'}><textarea rows={4} spellCheck={false} value={form.episodesText} onChange={e=>update({episodesText:e.target.value})}/></Field>
      </details>
      <details className="ingest-settings"><summary>采集 UTC 锚点（可选）</summary><p className="ingest-note">未知时保持 []。PTS 重置后的新时间域需要独立锚点；不会使用文件修改时间代替。</p><Field label="采集锚点 JSON" help={'格式：[{"domain_index":0,"pts_ms":0,"capture_utc":"2026-10-23T08:00:00+08:00"}]'}><textarea rows={3} spellCheck={false} value={form.anchorsText} onChange={e=>update({anchorsText:e.target.value})}/></Field></details>
+     <details className="ingest-settings"><summary>采集会话与视角审核（可选）</summary><p className="ingest-note">机位与稳定视角由来源配置登记。未知会话保持 null；文件名、上传时间和镜头移动不能代替独立采集记录。未覆盖区间会标记为未审查。</p><Field label="采集会话 JSON" help={'格式：{"capture_session_id":"session_01","captured_at":"2026-10-27T08:00:00+08:00","review_status":"confirmed"}'}><textarea rows={4} spellCheck={false} value={form.acquisitionText??'null'} onChange={e=>update({acquisitionText:e.target.value})}/></Field><Field label="视角审核区间 JSON" help={'格式：[{"domain_index":0,"start_ms":0,"end_ms":10000,"status":"usable","reason":"固定机位","reviewer":"reviewer_01"}]；可用 usable / 排除 excluded / 未审查 unreviewed'}><textarea rows={4} spellCheck={false} value={form.viewIntervalsText??'[]'} onChange={e=>update({viewIntervalsText:e.target.value})}/></Field></details>
      {form.format==='npz'&&<div className="ingest-npz"><h3>已有特征的来源凭据</h3><p className="ingest-note">NPZ 必须包含 features[N,D]、pts_ms[N]、durations_ms[N]。特征只接受有限的 float32 / float64 数值。</p><Field label="编码器指纹文件" help="用于计算文件 SHA256，不会执行上传的模型。"><input type="file" onChange={e=>setFingerprint(e.target.files?.[0]??null)}/></Field><Field label="特征空间 JSON" help="encoder_sha 可留空，由所选文件计算；其他哈希需来自实际处理配置。"><textarea rows={8} spellCheck={false} value={form.featureSpaceText} onChange={e=>update({featureSpaceText:e.target.value})}/></Field><Field label="对应原视频（可选）"><input type="file" accept=".mp4,video/mp4" onChange={e=>setSourceVideo(e.target.files?.[0]??null)}/></Field><Field label="声明原始来源 SHA256" help="没有原视频时必须填写；此时来源保持未核验，不能分配训练或评测分区。"><input value={form.sourceHash} onChange={e=>update({sourceHash:e.target.value})} spellCheck={false}/></Field></div>}
      <button className="button primary ingest-submit" disabled={!input||!availableSources.length} onClick={upload}>{busy?<LoaderCircle size={16} className="spin"/>:<FileUp size={16}/>}上传并开始导入</button>
     </fieldset>
+    {uploadProgress&&<div className="ingest-transfer" role="status"><strong>{uploadProgress.name}</strong><progress aria-label="上传进度" value={uploadProgress.loaded} max={Math.max(1,uploadProgress.total)}/><span>{(uploadProgress.loaded/1048576).toFixed(1)} / {(uploadProgress.total/1048576).toFixed(1)} MiB {uploadProgress.loaded===uploadProgress.total?' · 等待服务器核验文件':''}</span><button className="button secondary small" onClick={()=>uploadController.current?.abort()}>取消上传</button></div>}
     <button className="button secondary" onClick={template}><Download size={15}/>下载元信息模板</button>
     <p className="ingest-note">{capabilities?.encoder_adapter==='existing_features'?'当前编码器配置接收已有特征；MP4 会完成解码检查，并等待真实权重后提取特征。':'MP4 仅使用服务器配置的冻结编码器。缺少权重或依赖时任务会说明等待原因。'}</p>
    </div></section>
@@ -106,9 +115,12 @@ export default function IngestionPanel({scene}:{scene:Scene}){
     {chosen&&<div className="ingest-job-detail"><div className="ingest-detail-heading"><div><h3>{chosen.demo_reference?'示例流程清单':statusNames[chosen.status]}</h3><code>{chosen.id}</code></div>{chosen.manifest&&<button className="button secondary small" onClick={()=>void operation('导出清单',()=>downloadManifest(scene.id,chosen))}><Download size={14}/>导出清单</button>}</div>
      {chosen.demo_reference&&<p className="ingest-note">这是随附的实际服务端示例记录。浏览器仅展示清单，不执行上传、解码或特征提取。</p>}
      {isPending(chosen)&&<p className="ingest-note"><LoaderCircle className="spin" size={14}/> 正在后台处理，页面会自动更新；刷新页面不会取消任务。</p>}
+     {chosen.progress&&<div className="ingest-stage" role="status"><strong>{({queued:'等待处理',verify:'文件核验',probe:'读取视频信息',decode:'解码与质量检查',sampling_decode:'采样解码',encode:'冻结编码器提取特征',cache:'保存特征',persist:'保存任务',complete:'完成',commit:'保存任务',succeeded:'导入完成',failed:'处理失败',blocked:'等待条件',cancel_requested:'取消处理中'} as Record<string,string>)[chosen.progress.stage]??chosen.progress.stage}</strong><span>{chosen.progress.completed??0}{chosen.progress.total!=null?` / ${chosen.progress.total}`:''} {chosen.progress.unit??''}</span>{chosen.progress.total!=null&&chosen.progress.total>0&&<progress aria-label="任务阶段进度" value={chosen.progress.completed??0} max={chosen.progress.total}/>}<small>已用时 {Math.round(chosen.progress.elapsed_seconds??0)} 秒</small></div>}
+     {!isDemo&&isPending(chosen)&&<button className="button secondary small" disabled={!!busy||chosen.cancel_requested} onClick={()=>void operation('请求取消',async()=>{await acceptJob(await cancelImport(scene.id,chosen.id));})}>{chosen.cancel_requested?'已请求取消':'取消导入任务'}</button>}
      {chosen.error&&<div className="ingest-blocker"><TriangleAlert size={18}/><div><strong>{chosen.error.message}</strong><code>{chosen.error.code}</code><p>补齐条件后可重试。配置或知识基线变化时，请新建导入保留原记录。</p>{!isDemo&&<button className="button secondary small" disabled={!!busy} onClick={()=>void operation('重试导入',async()=>{await acceptJob(await retryImport(scene.id,chosen.id));})}>重试导入</button>}</div></div>}
      {detailLoading&&<p className="ingest-note" role="status">正在读取任务详情…</p>}
-     {chosen.manifest&&<ManifestDetails manifest={chosen.manifest}/>}<div className="ingest-flow"><span>文件指纹</span><span>边界校验</span><span>质量 / 特征</span><span>持久清单</span></div>
+     {chosen.manifest&&<ManifestDetails manifest={chosen.manifest}/>}
+     {!isDemo&&chosen.status==='succeeded'&&chosen.manifest?.data_origin==='real_video'&&chosen.manifest?.split==='unassigned'&&<ImportExplorationPanel key={chosen.id} scene={scene.id} importId={chosen.id}/>}<div className="ingest-flow"><span>文件指纹</span><span>边界校验</span><span>质量 / 特征</span><span>持久清单</span></div>
     </div>}</>}
    </section>
   </div>
