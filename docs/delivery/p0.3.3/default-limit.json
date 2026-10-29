@@ -1,0 +1,44 @@
+[
+  {
+    "asset_id": "bull_station_01",
+    "size_bytes": 247028964,
+    "status": 413,
+    "code": "UPLOAD_TOO_LARGE"
+  },
+  {
+    "asset_id": "bull_station_02",
+    "size_bytes": 163613047,
+    "status": 413,
+    "code": "UPLOAD_TOO_LARGE"
+  },
+  {
+    "asset_id": "bull_station_03",
+    "size_bytes": 183924034,
+    "status": 413,
+    "code": "UPLOAD_TOO_LARGE"
+  },
+  {
+    "asset_id": "bull_station_04",
+    "size_bytes": 239003203,
+    "status": 413,
+    "code": "UPLOAD_TOO_LARGE"
+  },
+  {
+    "asset_id": "bull_station_05",
+    "size_bytes": 344338413,
+    "status": 413,
+    "code": "UPLOAD_TOO_LARGE"
+  },
+  {
+    "asset_id": "bull_station_06",
+    "size_bytes": 185241239,
+    "status": 413,
+    "code": "UPLOAD_TOO_LARGE"
+  },
+  {
+    "asset_id": "bull_station_07",
+    "size_bytes": 180707496,
+    "status": 413,
+    "code": "UPLOAD_TOO_LARGE"
+  }
+]

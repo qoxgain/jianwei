@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "source": "docs/demo/p0.3.3/P0.3.3-验收Demo.html",
+  "file_scheme": false,
+  "file_scheme_blocker": "Managed Chromium denies file URLs: ERR_BLOCKED_BY_ADMINISTRATOR; tested identical bytes over localhost HTTP",
+  "rows": 9,
+  "total_feature_rows": 695,
+  "selection": "bull_station_02",
+  "segment_click": "passed",
+  "json_download": "passed",
+  "desktop_mobile_overflow": false,
+  "page_errors": [],
+  "console_errors": [],
+  "browser": "154.0.8037.57",
+  "screenshots_public": false
+}

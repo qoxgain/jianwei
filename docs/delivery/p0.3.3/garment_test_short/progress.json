@@ -1,0 +1,197 @@
+[
+  {
+    "observed_elapsed_seconds": 1.078,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 0.883,
+      "stage": "probe",
+      "stage_seconds": {
+        "verify": 0.029
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 4.091,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 4.001,
+      "stage": "decode",
+      "stage_seconds": {
+        "probe": 3.215,
+        "verify": 0.029
+      },
+      "total": 511,
+      "unit": "frames"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 7.107,
+    "progress": {
+      "completed": 511,
+      "elapsed_seconds": 6.98,
+      "stage": "decode",
+      "stage_seconds": {
+        "probe": 3.215,
+        "verify": 0.029
+      },
+      "total": 511,
+      "unit": "frames"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 8.112,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 7.872,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 4.263,
+        "encode": 0.005,
+        "probe": 3.215,
+        "sampling_decode": 0.359,
+        "verify": 0.029
+      },
+      "total": 10,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 9.114,
+    "progress": {
+      "completed": 1,
+      "elapsed_seconds": 8.861,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 4.263,
+        "encode": 0.6,
+        "probe": 3.215,
+        "sampling_decode": 0.498,
+        "verify": 0.029
+      },
+      "total": 10,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 10.124,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 9.972,
+      "stage": "sampling_decode",
+      "stage_seconds": {
+        "decode": 4.263,
+        "encode": 1.789,
+        "probe": 3.215,
+        "sampling_decode": 0.676,
+        "verify": 0.029
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 11.128,
+    "progress": {
+      "completed": 4,
+      "elapsed_seconds": 10.975,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 4.263,
+        "encode": 2.452,
+        "probe": 3.215,
+        "sampling_decode": 1.016,
+        "verify": 0.029
+      },
+      "total": 10,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 12.134,
+    "progress": {
+      "completed": 5,
+      "elapsed_seconds": 11.969,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 4.263,
+        "encode": 3.026,
+        "probe": 3.215,
+        "sampling_decode": 1.176,
+        "verify": 0.029
+      },
+      "total": 10,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 13.138,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 12.928,
+      "stage": "sampling_decode",
+      "stage_seconds": {
+        "decode": 4.263,
+        "encode": 4.113,
+        "probe": 3.215,
+        "sampling_decode": 1.307,
+        "verify": 0.029
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 14.14,
+    "progress": {
+      "completed": 8,
+      "elapsed_seconds": 13.809,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 4.263,
+        "encode": 4.686,
+        "probe": 3.215,
+        "sampling_decode": 1.615,
+        "verify": 0.029
+      },
+      "total": 10,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 15.323,
+    "progress": {
+      "completed": 10,
+      "elapsed_seconds": 14.991,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 4.263,
+        "encode": 5.238,
+        "probe": 3.215,
+        "sampling_decode": 1.756,
+        "verify": 0.029
+      },
+      "total": 10,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 16.33,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 16.238,
+      "stage": "succeeded",
+      "stage_seconds": {
+        "cache": 0.02,
+        "decode": 4.263,
+        "encode": 6.95,
+        "probe": 3.215,
+        "sampling_decode": 1.756,
+        "verify": 0.029
+      },
+      "total": null,
+      "unit": null
+    }
+  }
+]

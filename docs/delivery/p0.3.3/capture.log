@@ -1,0 +1,48 @@
+garment_test uploaded 20848517 job 41540265-1bd4-4822-93f7-e1c6db89b79c
+garment_test encode 22 59
+garment_test encode 50 59
+garment_test succeeded 59 rows 0.9958 coverage
+garment_test_short uploaded 18196446 job cff39f45-1fb5-435e-8939-6fbdf77346f0
+garment_test_short succeeded 10 rows 0.9785 coverage
+bull_station_01 uploaded 247028964 job ddc48c82-97d3-4cf4-9aa2-9fe8ae8ad8a7
+bull_station_01 encode 16 98
+bull_station_01 encode 46 98
+bull_station_01 encode 79 98
+bull_station_01 succeeded 98 rows 0.9981 coverage
+bull_station_02 uploaded 163613047 job acf1dcc1-dd37-4848-99af-0cb1400b4854
+bull_station_02 encode 17 73
+bull_station_02 encode 38 73
+bull_station_02 encode 64 73
+bull_station_02 succeeded 73 rows 0.9919 coverage
+bull_station_03 uploaded 183924034 job d99053c1-accd-42e5-b652-11fcad34dccd
+bull_station_03 encode 27 106
+bull_station_03 sampling_decode 0 None
+bull_station_03 encode 78 106
+bull_station_03 succeeded 106 rows 0.9957 coverage
+bull_station_04 uploaded 239003203 job 96a56795-4262-4947-994f-d0faf30730ac
+garment_test resumed completed evidence
+garment_test_short resumed completed evidence
+bull_station_01 resumed completed evidence
+bull_station_02 resumed completed evidence
+bull_station_03 resumed completed evidence
+bull_station_04 uploaded 239003203 job 96a56795-4262-4947-994f-d0faf30730ac
+bull_station_04 encode 20 85
+bull_station_04 encode 52 85
+bull_station_04 sampling_decode 0 None
+bull_station_04 succeeded 85 rows 0.9994 coverage
+bull_station_05 uploaded 344338413 job 73c477df-066c-4bfa-a1e0-69474ed62268
+bull_station_05 encode 30 110
+bull_station_05 encode 53 110
+bull_station_05 encode 81 110
+bull_station_05 encode 108 110
+bull_station_05 succeeded 110 rows 0.9926 coverage
+bull_station_06 uploaded 185241239 job 24fc06b2-b9b5-4724-acb3-4e1a07ce27d0
+bull_station_06 sampling_decode 0 None
+bull_station_06 encode 48 75
+bull_station_06 encode 74 75
+bull_station_06 succeeded 75 rows 0.9878 coverage
+bull_station_07 uploaded 180707496 job 5e5715a1-d8c0-4dfc-980f-4d9b8052750a
+bull_station_07 encode 19 79
+bull_station_07 sampling_decode 0 None
+bull_station_07 encode 72 79
+bull_station_07 succeeded 79 rows 0.9951 coverage

@@ -1,0 +1,41 @@
+{
+  "source_sha256": "226bac7752d191d68bcd10676fd33c3f3d391f55527bf088678730adb5ad4341",
+  "preview_sha256": "8f486c842529317cafb1a3d536da15df6040b92194b27d9eac51e1e5690f6ec9",
+  "preview_bytes": 10634921,
+  "recipe": {
+    "contract": "local-h264-preview-v1",
+    "geometry_version": "display-square-pixels-v1",
+    "implementation_sha256": "81b1a69108518220b927c740c56de2f6c7331f64ac20d5f151ef8fec62a26224",
+    "long_edge": 640,
+    "threads": 1,
+    "video_codec": "libx264",
+    "pixel_format": "yuv420p",
+    "time_policy": "copy_original_pts_and_input_timebase_vfr",
+    "audio": "omitted"
+  },
+  "geometry": {
+    "version": "display-square-pixels-v1",
+    "coded_width": 1920,
+    "coded_height": 1080,
+    "sample_aspect_ratio": "1:1",
+    "sar_origin": "assumed_square_unspecified",
+    "rotation_degrees_ccw": -90,
+    "display_width": 1080.0,
+    "display_height": 1920.0,
+    "decoded_width": 360,
+    "decoded_height": 640,
+    "roi_coordinates": "normalized_display_after_rotation_and_sar",
+    "transform": "ffmpeg_noautorotate_then_right_angle_then_bilinear_scale_setsar1"
+  },
+  "display_width": 360,
+  "display_height": 640,
+  "decoded_frames": 4422,
+  "original_pts_preserved": true,
+  "first_pts_seconds": 0.0,
+  "last_pts_seconds": 147.16562222222223,
+  "lineage": "derived_for_local_browser_viewing_only",
+  "feature_input": false,
+  "source_file_modified": false,
+  "audio_included": false,
+  "actual_prepare_seconds": 72.237
+}

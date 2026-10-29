@@ -1,0 +1,1500 @@
+{
+  "schema_version": "p033-real-acceptance-v1",
+  "assets": [
+    {
+      "asset_id": "garment_test",
+      "source_sha256": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+      "bytes": 20848517,
+      "upload_seconds": 0.072,
+      "total_seconds": 75.216,
+      "import_id": "41540265-1bd4-4822-93f7-e1c6db89b79c",
+      "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+      "feature_space_id": "4c0121abc18e31c847baa1c270f656548750513c7202ecfbe03b9f084492824a",
+      "feature_cache_sha256": "6b21ef47d128a64183998c74f1b8728c348a09552828326a8d2eb23263bc1376",
+      "eligible_rows": 59,
+      "total_rows": 59,
+      "coverage": {
+        "covered_ms": 118000,
+        "source_domain_ms": 118500,
+        "fraction": 0.9957805907172996,
+        "domains": [
+          {
+            "time_domain_id": "d0",
+            "start_ms": 0,
+            "end_ms": 118500,
+            "intervals": [
+              [
+                0,
+                118000
+              ]
+            ],
+            "covered_ms": 118000
+          }
+        ],
+        "definition": "union of eligible clip intervals, without counting overlap twice"
+      },
+      "geometry": {
+        "coded_height": 480,
+        "coded_width": 640,
+        "decoded_height": 480,
+        "decoded_width": 640,
+        "display_height": 480.0,
+        "display_width": 640.0,
+        "roi_coordinates": "normalized_display_after_rotation_and_sar",
+        "rotation_degrees_ccw": 0,
+        "sample_aspect_ratio": "1:1",
+        "sar_origin": "stream",
+        "transform": "ffmpeg_noautorotate_then_right_angle_then_bilinear_scale_setsar1",
+        "version": "display-square-pixels-v1"
+      },
+      "quality": {
+        "bright_frames": 0,
+        "dark_frames": 0,
+        "decoded_frames": 2844,
+        "low_contrast_frames": 0,
+        "method": "decoded_luma_and_contrast_v1",
+        "score": 1.0,
+        "semantic_accuracy": null
+      },
+      "episodes": [
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 60000,
+          "episode_id": "d0_window_0",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 0,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": false,
+          "domain_index": 0,
+          "end_ms": 118500,
+          "episode_id": "d0_window_1",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 60000,
+          "time_domain_id": "d0"
+        }
+      ],
+      "view_id": "71a12bb321a2c931b3d3ef303663114b8085d86cf4c016f09ccbfac1892f7bf1",
+      "view_review": [
+        {
+          "domain_index": 0,
+          "end_ms": 118500,
+          "reason": "no_human_view_review",
+          "reviewer": null,
+          "start_ms": 0,
+          "status": "unreviewed"
+        }
+      ],
+      "capture_identity": {
+        "physical_camera_id": null,
+        "review_status": "pending",
+        "stable_view_id": null
+      },
+      "acquisition": null,
+      "anonymous_segments": 11,
+      "available_causal_pairs_metadata_only": 0,
+      "rejected_pairs": {
+        "target_outside_tolerance": 37,
+        "future_not_available": 8
+      },
+      "split": "unassigned",
+      "research_status": "blocked_unreviewed_capture_and_no_independent_heldout",
+      "training_executed": false,
+      "encoder_evidence": {
+        "artifact_sha_verified": true,
+        "execution": "frozen_onnx_cpu",
+        "vector_production": "executed_from_this_source",
+        "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+      },
+      "stage_timings_seconds": {
+        "decode": 26.313405,
+        "encode_and_sampling": 42.652202,
+        "probe": 3.299223
+      },
+      "resources": {
+        "upload": {
+          "peak_process_tree_rss_bytes": 91598848,
+          "peak_owned_disk_bytes": 21118853,
+          "samples": 5
+        },
+        "probe": {
+          "peak_process_tree_rss_bytes": 100220928,
+          "peak_owned_disk_bytes": 21118853,
+          "samples": 15
+        },
+        "decode": {
+          "peak_process_tree_rss_bytes": 659906560,
+          "peak_owned_disk_bytes": 21135781,
+          "samples": 136
+        },
+        "encode": {
+          "peak_process_tree_rss_bytes": 605929472,
+          "peak_owned_disk_bytes": 21396146,
+          "samples": 180
+        },
+        "sampling_decode": {
+          "peak_process_tree_rss_bytes": 605929472,
+          "peak_owned_disk_bytes": 21135781,
+          "samples": 35
+        },
+        "explore": {
+          "peak_process_tree_rss_bytes": 284778496,
+          "peak_owned_disk_bytes": 21396146,
+          "samples": 3
+        }
+      }
+    },
+    {
+      "asset_id": "garment_test_short",
+      "source_sha256": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+      "bytes": 18196446,
+      "upload_seconds": 0.064,
+      "total_seconds": 16.36,
+      "import_id": "cff39f45-1fb5-435e-8939-6fbdf77346f0",
+      "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+      "feature_space_id": "f4b6b5c8f823e09d6bc231cc0ae7fd0931e97f8660e1514aa628cb6f8c6619e7",
+      "feature_cache_sha256": "6060b80bf3571c3f9b4ea6b202529c7d88139a02bdaac6c05ee207af3f2f6cfb",
+      "eligible_rows": 10,
+      "total_rows": 10,
+      "coverage": {
+        "covered_ms": 20000,
+        "source_domain_ms": 20440,
+        "fraction": 0.9784735812133072,
+        "domains": [
+          {
+            "time_domain_id": "d0",
+            "start_ms": 0,
+            "end_ms": 20440,
+            "intervals": [
+              [
+                0,
+                20000
+              ]
+            ],
+            "covered_ms": 20000
+          }
+        ],
+        "definition": "union of eligible clip intervals, without counting overlap twice"
+      },
+      "geometry": {
+        "coded_height": 1080,
+        "coded_width": 1920,
+        "decoded_height": 360,
+        "decoded_width": 640,
+        "display_height": 1080.0,
+        "display_width": 1920.0,
+        "roi_coordinates": "normalized_display_after_rotation_and_sar",
+        "rotation_degrees_ccw": 0,
+        "sample_aspect_ratio": "1:1",
+        "sar_origin": "stream",
+        "transform": "ffmpeg_noautorotate_then_right_angle_then_bilinear_scale_setsar1",
+        "version": "display-square-pixels-v1"
+      },
+      "quality": {
+        "bright_frames": 0,
+        "dark_frames": 0,
+        "decoded_frames": 511,
+        "low_contrast_frames": 0,
+        "method": "decoded_luma_and_contrast_v1",
+        "score": 1.0,
+        "semantic_accuracy": null
+      },
+      "episodes": [
+        {
+          "business_cycle_verified": false,
+          "complete": false,
+          "domain_index": 0,
+          "end_ms": 20440,
+          "episode_id": "d0_window_0",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 0,
+          "time_domain_id": "d0"
+        }
+      ],
+      "view_id": "6a2e53de181ef0b44841b856a28f49f7e6e2d7f750f446dd9761a396a31764bd",
+      "view_review": [
+        {
+          "domain_index": 0,
+          "end_ms": 20440,
+          "reason": "no_human_view_review",
+          "reviewer": null,
+          "start_ms": 0,
+          "status": "unreviewed"
+        }
+      ],
+      "capture_identity": {
+        "physical_camera_id": null,
+        "review_status": "pending",
+        "stable_view_id": null
+      },
+      "acquisition": null,
+      "anonymous_segments": 2,
+      "available_causal_pairs_metadata_only": 0,
+      "rejected_pairs": {
+        "future_not_available": 3
+      },
+      "split": "unassigned",
+      "research_status": "blocked_unreviewed_capture_and_no_independent_heldout",
+      "training_executed": false,
+      "encoder_evidence": {
+        "artifact_sha_verified": true,
+        "execution": "frozen_onnx_cpu",
+        "vector_production": "executed_from_this_source",
+        "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+      },
+      "stage_timings_seconds": {
+        "decode": 3.73844,
+        "encode_and_sampling": 7.483536,
+        "probe": 3.216504
+      },
+      "resources": {
+        "upload": {
+          "peak_process_tree_rss_bytes": 285851648,
+          "peak_owned_disk_bytes": 39604880,
+          "samples": 5
+        },
+        "probe": {
+          "peak_process_tree_rss_bytes": 285884416,
+          "peak_owned_disk_bytes": 39604880,
+          "samples": 15
+        },
+        "decode": {
+          "peak_process_tree_rss_bytes": 628891648,
+          "peak_owned_disk_bytes": 39604880,
+          "samples": 20
+        },
+        "encode": {
+          "peak_process_tree_rss_bytes": 660971520,
+          "peak_owned_disk_bytes": 39621808,
+          "samples": 31
+        },
+        "sampling_decode": {
+          "peak_process_tree_rss_bytes": 660807680,
+          "peak_owned_disk_bytes": 39604880,
+          "samples": 10
+        }
+      }
+    },
+    {
+      "asset_id": "bull_station_01",
+      "source_sha256": "259bf1e24f86128947192825ef759bddcb1b000c9b5b5573aed274adc606f810",
+      "bytes": 247028964,
+      "upload_seconds": 0.647,
+      "total_seconds": 227.995,
+      "import_id": "ddc48c82-97d3-4cf4-9aa2-9fe8ae8ad8a7",
+      "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+      "feature_space_id": "1df54e83f902d1a8fd64abf3afc4ef4c9f24f5640eb3f68f24b933f7ab65e495",
+      "feature_cache_sha256": "9a27e9077db1480a5a8b3fbcd20bdd74b2584f5c75a143fd2ba6d8f5700401a2",
+      "eligible_rows": 98,
+      "total_rows": 98,
+      "coverage": {
+        "covered_ms": 196000,
+        "source_domain_ms": 196375,
+        "fraction": 0.9980903882877148,
+        "domains": [
+          {
+            "time_domain_id": "d0",
+            "start_ms": 0,
+            "end_ms": 196375,
+            "intervals": [
+              [
+                0,
+                196000
+              ]
+            ],
+            "covered_ms": 196000
+          }
+        ],
+        "definition": "union of eligible clip intervals, without counting overlap twice"
+      },
+      "geometry": {
+        "coded_height": 1080,
+        "coded_width": 1920,
+        "decoded_height": 640,
+        "decoded_width": 360,
+        "display_height": 1920.0,
+        "display_width": 1080.0,
+        "roi_coordinates": "normalized_display_after_rotation_and_sar",
+        "rotation_degrees_ccw": -90,
+        "sample_aspect_ratio": "1:1",
+        "sar_origin": "assumed_square_unspecified",
+        "transform": "ffmpeg_noautorotate_then_right_angle_then_bilinear_scale_setsar1",
+        "version": "display-square-pixels-v1"
+      },
+      "quality": {
+        "bright_frames": 0,
+        "dark_frames": 0,
+        "decoded_frames": 5899,
+        "low_contrast_frames": 0,
+        "method": "decoded_luma_and_contrast_v1",
+        "score": 1.0,
+        "semantic_accuracy": null
+      },
+      "episodes": [
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 60000,
+          "episode_id": "d0_window_0",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 0,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 120000,
+          "episode_id": "d0_window_1",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 60000,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 180000,
+          "episode_id": "d0_window_2",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 120000,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": false,
+          "domain_index": 0,
+          "end_ms": 196375,
+          "episode_id": "d0_window_3",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 180000,
+          "time_domain_id": "d0"
+        }
+      ],
+      "view_id": "0202e9e570478efefe5bcdff271907aeb4955b8eb2578d394200712ee63e421c",
+      "view_review": [
+        {
+          "domain_index": 0,
+          "end_ms": 196375,
+          "reason": "no_human_view_review",
+          "reviewer": null,
+          "start_ms": 0,
+          "status": "unreviewed"
+        }
+      ],
+      "capture_identity": {
+        "physical_camera_id": null,
+        "review_status": "pending",
+        "stable_view_id": null
+      },
+      "acquisition": null,
+      "anonymous_segments": 13,
+      "available_causal_pairs_metadata_only": 0,
+      "rejected_pairs": {
+        "target_outside_tolerance": 57,
+        "future_not_available": 13
+      },
+      "split": "unassigned",
+      "research_status": "blocked_unreviewed_capture_and_no_independent_heldout",
+      "training_executed": false,
+      "encoder_evidence": {
+        "artifact_sha_verified": true,
+        "execution": "frozen_onnx_cpu",
+        "vector_production": "executed_from_this_source",
+        "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+      },
+      "stage_timings_seconds": {
+        "decode": 56.907708,
+        "encode_and_sampling": 90.131108,
+        "probe": 77.526526
+      },
+      "resources": {
+        "upload": {
+          "peak_process_tree_rss_bytes": 286339072,
+          "peak_owned_disk_bytes": 286716770,
+          "samples": 8
+        },
+        "probe": {
+          "peak_process_tree_rss_bytes": 291950592,
+          "peak_owned_disk_bytes": 286733698,
+          "samples": 384
+        },
+        "decode": {
+          "peak_process_tree_rss_bytes": 661598208,
+          "peak_owned_disk_bytes": 286733698,
+          "samples": 285
+        },
+        "sampling_decode": {
+          "peak_process_tree_rss_bytes": 708251648,
+          "peak_owned_disk_bytes": 286733698,
+          "samples": 195
+        },
+        "encode": {
+          "peak_process_tree_rss_bytes": 708255744,
+          "peak_owned_disk_bytes": 287172692,
+          "samples": 259
+        },
+        "explore": {
+          "peak_process_tree_rss_bytes": 288911360,
+          "peak_owned_disk_bytes": 287172692,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "asset_id": "bull_station_02",
+      "source_sha256": "226bac7752d191d68bcd10676fd33c3f3d391f55527bf088678730adb5ad4341",
+      "bytes": 163613047,
+      "upload_seconds": 0.378,
+      "total_seconds": 162.257,
+      "import_id": "acf1dcc1-dd37-4848-99af-0cb1400b4854",
+      "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+      "feature_space_id": "ab0efe5adf0cced1d5d44f8f8c25bd7c8c3fbe7f2b0e5abad80a7edd3ec430ae",
+      "feature_cache_sha256": "098dc733327f7b419af9fe8e0efb600a4f4ca32960d88394826c37ffdb487e65",
+      "eligible_rows": 73,
+      "total_rows": 73,
+      "coverage": {
+        "covered_ms": 146000,
+        "source_domain_ms": 147199,
+        "fraction": 0.9918545642293766,
+        "domains": [
+          {
+            "time_domain_id": "d0",
+            "start_ms": 0,
+            "end_ms": 147199,
+            "intervals": [
+              [
+                0,
+                146000
+              ]
+            ],
+            "covered_ms": 146000
+          }
+        ],
+        "definition": "union of eligible clip intervals, without counting overlap twice"
+      },
+      "geometry": {
+        "coded_height": 1080,
+        "coded_width": 1920,
+        "decoded_height": 640,
+        "decoded_width": 360,
+        "display_height": 1920.0,
+        "display_width": 1080.0,
+        "roi_coordinates": "normalized_display_after_rotation_and_sar",
+        "rotation_degrees_ccw": -90,
+        "sample_aspect_ratio": "1:1",
+        "sar_origin": "assumed_square_unspecified",
+        "transform": "ffmpeg_noautorotate_then_right_angle_then_bilinear_scale_setsar1",
+        "version": "display-square-pixels-v1"
+      },
+      "quality": {
+        "bright_frames": 0,
+        "dark_frames": 0,
+        "decoded_frames": 4422,
+        "low_contrast_frames": 0,
+        "method": "decoded_luma_and_contrast_v1",
+        "score": 1.0,
+        "semantic_accuracy": null
+      },
+      "episodes": [
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 60000,
+          "episode_id": "d0_window_0",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 0,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 120000,
+          "episode_id": "d0_window_1",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 60000,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": false,
+          "domain_index": 0,
+          "end_ms": 147199,
+          "episode_id": "d0_window_2",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 120000,
+          "time_domain_id": "d0"
+        }
+      ],
+      "view_id": "700d62f1ee01e86dcb9470d7630174571556dd15408bc0c013ffd5b0ef0461f2",
+      "view_review": [
+        {
+          "domain_index": 0,
+          "end_ms": 147199,
+          "reason": "no_human_view_review",
+          "reviewer": null,
+          "start_ms": 0,
+          "status": "unreviewed"
+        }
+      ],
+      "capture_identity": {
+        "physical_camera_id": null,
+        "review_status": "pending",
+        "stable_view_id": null
+      },
+      "acquisition": null,
+      "anonymous_segments": 9,
+      "available_causal_pairs_metadata_only": 0,
+      "rejected_pairs": {
+        "target_outside_tolerance": 40,
+        "future_not_available": 12
+      },
+      "split": "unassigned",
+      "research_status": "blocked_unreviewed_capture_and_no_independent_heldout",
+      "training_executed": false,
+      "encoder_evidence": {
+        "artifact_sha_verified": true,
+        "execution": "frozen_onnx_cpu",
+        "vector_production": "executed_from_this_source",
+        "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+      },
+      "stage_timings_seconds": {
+        "decode": 40.255829,
+        "encode_and_sampling": 65.63207,
+        "probe": 53.336865
+      },
+      "resources": {
+        "upload": {
+          "peak_process_tree_rss_bytes": 288915456,
+          "peak_owned_disk_bytes": 450798027,
+          "samples": 7
+        },
+        "probe": {
+          "peak_process_tree_rss_bytes": 290697216,
+          "peak_owned_disk_bytes": 450798027,
+          "samples": 264
+        },
+        "decode": {
+          "peak_process_tree_rss_bytes": 605212672,
+          "peak_owned_disk_bytes": 450814955,
+          "samples": 200
+        },
+        "sampling_decode": {
+          "peak_process_tree_rss_bytes": 651780096,
+          "peak_owned_disk_bytes": 450814955,
+          "samples": 74
+        },
+        "encode": {
+          "peak_process_tree_rss_bytes": 651788288,
+          "peak_owned_disk_bytes": 451138409,
+          "samples": 259
+        },
+        "explore": {
+          "peak_process_tree_rss_bytes": 289673216,
+          "peak_owned_disk_bytes": 451138409,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "asset_id": "bull_station_03",
+      "source_sha256": "a87aaf50cd2155e40ed5d5368d1ff6f9e5de8a9942cf434198ba6d11814e2be0",
+      "bytes": 183924034,
+      "upload_seconds": 0.432,
+      "total_seconds": 206.547,
+      "import_id": "d99053c1-accd-42e5-b652-11fcad34dccd",
+      "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+      "feature_space_id": "5aaef5d20f167ce172d109b43eb822bcd4f4191a2e08155c77dde53741736419",
+      "feature_cache_sha256": "fa2bd4405ccc9859fbb721d3466038dce3dedfe940992c2f09f6d1e9a614502b",
+      "eligible_rows": 106,
+      "total_rows": 106,
+      "coverage": {
+        "covered_ms": 212000,
+        "source_domain_ms": 212910,
+        "fraction": 0.995725893570053,
+        "domains": [
+          {
+            "time_domain_id": "d0",
+            "start_ms": 0,
+            "end_ms": 212910,
+            "intervals": [
+              [
+                0,
+                212000
+              ]
+            ],
+            "covered_ms": 212000
+          }
+        ],
+        "definition": "union of eligible clip intervals, without counting overlap twice"
+      },
+      "geometry": {
+        "coded_height": 1080,
+        "coded_width": 1920,
+        "decoded_height": 640,
+        "decoded_width": 360,
+        "display_height": 1920.0,
+        "display_width": 1080.0,
+        "roi_coordinates": "normalized_display_after_rotation_and_sar",
+        "rotation_degrees_ccw": -90,
+        "sample_aspect_ratio": "1:1",
+        "sar_origin": "assumed_square_unspecified",
+        "transform": "ffmpeg_noautorotate_then_right_angle_then_bilinear_scale_setsar1",
+        "version": "display-square-pixels-v1"
+      },
+      "quality": {
+        "bright_frames": 0,
+        "dark_frames": 0,
+        "decoded_frames": 6396,
+        "low_contrast_frames": 0,
+        "method": "decoded_luma_and_contrast_v1",
+        "score": 1.0,
+        "semantic_accuracy": null
+      },
+      "episodes": [
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 60000,
+          "episode_id": "d0_window_0",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 0,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 120000,
+          "episode_id": "d0_window_1",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 60000,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 180000,
+          "episode_id": "d0_window_2",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 120000,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": false,
+          "domain_index": 0,
+          "end_ms": 212910,
+          "episode_id": "d0_window_3",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 180000,
+          "time_domain_id": "d0"
+        }
+      ],
+      "view_id": "903c3ca97c94e9348d0dab6a3ef21510a3059ab7805ec8e5075649d7d5a2ec0d",
+      "view_review": [
+        {
+          "domain_index": 0,
+          "end_ms": 212910,
+          "reason": "no_human_view_review",
+          "reviewer": null,
+          "start_ms": 0,
+          "status": "unreviewed"
+        }
+      ],
+      "capture_identity": {
+        "physical_camera_id": null,
+        "review_status": "pending",
+        "stable_view_id": null
+      },
+      "acquisition": null,
+      "anonymous_segments": 15,
+      "available_causal_pairs_metadata_only": 0,
+      "rejected_pairs": {
+        "target_outside_tolerance": 62,
+        "future_not_available": 16
+      },
+      "split": "unassigned",
+      "research_status": "blocked_unreviewed_capture_and_no_independent_heldout",
+      "training_executed": false,
+      "encoder_evidence": {
+        "artifact_sha_verified": true,
+        "execution": "frozen_onnx_cpu",
+        "vector_production": "executed_from_this_source",
+        "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+      },
+      "stage_timings_seconds": {
+        "decode": 49.808222,
+        "encode_and_sampling": 88.633637,
+        "probe": 65.671822
+      },
+      "resources": {
+        "upload": {
+          "peak_process_tree_rss_bytes": 289673216,
+          "peak_owned_disk_bytes": 635082923,
+          "samples": 7
+        },
+        "probe": {
+          "peak_process_tree_rss_bytes": 292655104,
+          "peak_owned_disk_bytes": 635099851,
+          "samples": 324
+        },
+        "decode": {
+          "peak_process_tree_rss_bytes": 612687872,
+          "peak_owned_disk_bytes": 635091643,
+          "samples": 249
+        },
+        "sampling_decode": {
+          "peak_process_tree_rss_bytes": 668950528,
+          "peak_owned_disk_bytes": 635082923,
+          "samples": 154
+        },
+        "encode": {
+          "peak_process_tree_rss_bytes": 668950528,
+          "peak_owned_disk_bytes": 635317067,
+          "samples": 290
+        },
+        "explore": {
+          "peak_process_tree_rss_bytes": 348274688,
+          "peak_owned_disk_bytes": 635577548,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "asset_id": "bull_station_04",
+      "source_sha256": "f59b2cd48aa3a0d79661d856ce733ee910d38e84a3cc774c36959e77b46872f8",
+      "bytes": 239003203,
+      "upload_seconds": 1.117,
+      "total_seconds": 237.031,
+      "import_id": "96a56795-4262-4947-994f-d0faf30730ac",
+      "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+      "feature_space_id": "c46a2a8feb45150ad900811807795b49878d231929bf4138d27b108cd818bd76",
+      "feature_cache_sha256": "7f3f1cb2564867665c8504e8669cebcbd15bdc61dfe85737c5781ac49ee2b911",
+      "eligible_rows": 85,
+      "total_rows": 85,
+      "coverage": {
+        "covered_ms": 170000,
+        "source_domain_ms": 170101,
+        "fraction": 0.9994062351191351,
+        "domains": [
+          {
+            "time_domain_id": "d0",
+            "start_ms": 0,
+            "end_ms": 170101,
+            "intervals": [
+              [
+                0,
+                170000
+              ]
+            ],
+            "covered_ms": 170000
+          }
+        ],
+        "definition": "union of eligible clip intervals, without counting overlap twice"
+      },
+      "geometry": {
+        "coded_height": 1080,
+        "coded_width": 1920,
+        "decoded_height": 640,
+        "decoded_width": 360,
+        "display_height": 1920.0,
+        "display_width": 1080.0,
+        "roi_coordinates": "normalized_display_after_rotation_and_sar",
+        "rotation_degrees_ccw": -90,
+        "sample_aspect_ratio": "1:1",
+        "sar_origin": "assumed_square_unspecified",
+        "transform": "ffmpeg_noautorotate_then_right_angle_then_bilinear_scale_setsar1",
+        "version": "display-square-pixels-v1"
+      },
+      "quality": {
+        "bright_frames": 0,
+        "dark_frames": 0,
+        "decoded_frames": 5110,
+        "low_contrast_frames": 0,
+        "method": "decoded_luma_and_contrast_v1",
+        "score": 1.0,
+        "semantic_accuracy": null
+      },
+      "episodes": [
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 60000,
+          "episode_id": "d0_window_0",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 0,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 120000,
+          "episode_id": "d0_window_1",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 60000,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": false,
+          "domain_index": 0,
+          "end_ms": 170101,
+          "episode_id": "d0_window_2",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 120000,
+          "time_domain_id": "d0"
+        }
+      ],
+      "view_id": "61aee1ae3ff4f64013cfebe95e4bbb934694ec7d0b347f2b0e88ae8287047114",
+      "view_review": [
+        {
+          "domain_index": 0,
+          "end_ms": 170101,
+          "reason": "no_human_view_review",
+          "reviewer": null,
+          "start_ms": 0,
+          "status": "unreviewed"
+        }
+      ],
+      "capture_identity": {
+        "physical_camera_id": null,
+        "review_status": "pending",
+        "stable_view_id": null
+      },
+      "acquisition": null,
+      "anonymous_segments": 16,
+      "available_causal_pairs_metadata_only": 0,
+      "rejected_pairs": {
+        "target_outside_tolerance": 52,
+        "future_not_available": 12
+      },
+      "split": "unassigned",
+      "research_status": "blocked_unreviewed_capture_and_no_independent_heldout",
+      "training_executed": false,
+      "encoder_evidence": {
+        "artifact_sha_verified": true,
+        "execution": "frozen_onnx_cpu",
+        "vector_production": "executed_from_this_source",
+        "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+      },
+      "stage_timings_seconds": {
+        "decode": 88.984931,
+        "encode_and_sampling": 74.447153,
+        "probe": 70.73451
+      },
+      "resources": {
+        "upload": {
+          "peak_process_tree_rss_bytes": 93454336,
+          "peak_owned_disk_bytes": 1027714831,
+          "samples": 11
+        },
+        "probe": {
+          "peak_process_tree_rss_bytes": 95555584,
+          "peak_owned_disk_bytes": 874609967,
+          "samples": 344
+        },
+        "decode": {
+          "peak_process_tree_rss_bytes": 641183744,
+          "peak_owned_disk_bytes": 874609967,
+          "samples": 443
+        },
+        "sampling_decode": {
+          "peak_process_tree_rss_bytes": 608509952,
+          "peak_owned_disk_bytes": 874601759,
+          "samples": 155
+        },
+        "encode": {
+          "peak_process_tree_rss_bytes": 608509952,
+          "peak_owned_disk_bytes": 874989405,
+          "samples": 219
+        },
+        "explore": {
+          "peak_process_tree_rss_bytes": 287191040,
+          "peak_owned_disk_bytes": 874989405,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "asset_id": "bull_station_05",
+      "source_sha256": "13066d30bedf8aa3c8bd6d19d093c6acd55b655f9a03827f5df2397f131e70e1",
+      "bytes": 344338413,
+      "upload_seconds": 0.979,
+      "total_seconds": 257.771,
+      "import_id": "73c477df-066c-4bfa-a1e0-69474ed62268",
+      "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+      "feature_space_id": "6950a111fe27492192021dc0c823b417ff1f7ffa0e9e00034d0d331a1133e498",
+      "feature_cache_sha256": "67743ba1446fd80dee59bba49d9fac0c2eb4fa6d87c584f68a0852ef91f2dad8",
+      "eligible_rows": 110,
+      "total_rows": 110,
+      "coverage": {
+        "covered_ms": 220000,
+        "source_domain_ms": 221631,
+        "fraction": 0.9926409211707748,
+        "domains": [
+          {
+            "time_domain_id": "d0",
+            "start_ms": 0,
+            "end_ms": 221631,
+            "intervals": [
+              [
+                0,
+                220000
+              ]
+            ],
+            "covered_ms": 220000
+          }
+        ],
+        "definition": "union of eligible clip intervals, without counting overlap twice"
+      },
+      "geometry": {
+        "coded_height": 1080,
+        "coded_width": 1920,
+        "decoded_height": 640,
+        "decoded_width": 360,
+        "display_height": 1920.0,
+        "display_width": 1080.0,
+        "roi_coordinates": "normalized_display_after_rotation_and_sar",
+        "rotation_degrees_ccw": -90,
+        "sample_aspect_ratio": "1:1",
+        "sar_origin": "assumed_square_unspecified",
+        "transform": "ffmpeg_noautorotate_then_right_angle_then_bilinear_scale_setsar1",
+        "version": "display-square-pixels-v1"
+      },
+      "quality": {
+        "bright_frames": 0,
+        "dark_frames": 0,
+        "decoded_frames": 6658,
+        "low_contrast_frames": 0,
+        "method": "decoded_luma_and_contrast_v1",
+        "score": 1.0,
+        "semantic_accuracy": null
+      },
+      "episodes": [
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 60000,
+          "episode_id": "d0_window_0",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 0,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 120000,
+          "episode_id": "d0_window_1",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 60000,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 180000,
+          "episode_id": "d0_window_2",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 120000,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": false,
+          "domain_index": 0,
+          "end_ms": 221631,
+          "episode_id": "d0_window_3",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 180000,
+          "time_domain_id": "d0"
+        }
+      ],
+      "view_id": "8b0afd04ec0444532e45ed2838ceb20255a13b4e2861be3ab74044811106e247",
+      "view_review": [
+        {
+          "domain_index": 0,
+          "end_ms": 221631,
+          "reason": "no_human_view_review",
+          "reviewer": null,
+          "start_ms": 0,
+          "status": "unreviewed"
+        }
+      ],
+      "capture_identity": {
+        "physical_camera_id": null,
+        "review_status": "pending",
+        "stable_view_id": null
+      },
+      "acquisition": null,
+      "anonymous_segments": 16,
+      "available_causal_pairs_metadata_only": 0,
+      "rejected_pairs": {
+        "target_outside_tolerance": 66,
+        "future_not_available": 16
+      },
+      "split": "unassigned",
+      "research_status": "blocked_unreviewed_capture_and_no_independent_heldout",
+      "training_executed": false,
+      "encoder_evidence": {
+        "artifact_sha_verified": true,
+        "execution": "frozen_onnx_cpu",
+        "vector_production": "executed_from_this_source",
+        "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+      },
+      "stage_timings_seconds": {
+        "decode": 65.361508,
+        "encode_and_sampling": 96.722441,
+        "probe": 91.663964
+      },
+      "resources": {
+        "upload": {
+          "peak_process_tree_rss_bytes": 287375360,
+          "peak_owned_disk_bytes": 1219340106,
+          "samples": 10
+        },
+        "probe": {
+          "peak_process_tree_rss_bytes": 292966400,
+          "peak_owned_disk_bytes": 1219357034,
+          "samples": 454
+        },
+        "decode": {
+          "peak_process_tree_rss_bytes": 648232960,
+          "peak_owned_disk_bytes": 1219357034,
+          "samples": 330
+        },
+        "encode": {
+          "peak_process_tree_rss_bytes": 664297472,
+          "peak_owned_disk_bytes": 1219852035,
+          "samples": 330
+        },
+        "sampling_decode": {
+          "peak_process_tree_rss_bytes": 664297472,
+          "peak_owned_disk_bytes": 1219357034,
+          "samples": 153
+        },
+        "explore": {
+          "peak_process_tree_rss_bytes": 288899072,
+          "peak_owned_disk_bytes": 1219852035,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "asset_id": "bull_station_06",
+      "source_sha256": "35a7bc1b07c456169f33f09880cb949a054dd7111fd3a60301856bb780bac65d",
+      "bytes": 185241239,
+      "upload_seconds": 0.495,
+      "total_seconds": 171.744,
+      "import_id": "24fc06b2-b9b5-4724-acb3-4e1a07ce27d0",
+      "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+      "feature_space_id": "8af9d61ab2c9364f9c5b367f4be8d5543aa44450b0c6f6f3b48343e3d4012a95",
+      "feature_cache_sha256": "ba91c0a34fa19682a7f5c9c37220c6c03cb66f4912b281a1a62edacece95af72",
+      "eligible_rows": 75,
+      "total_rows": 75,
+      "coverage": {
+        "covered_ms": 150000,
+        "source_domain_ms": 151859,
+        "fraction": 0.9877583811298639,
+        "domains": [
+          {
+            "time_domain_id": "d0",
+            "start_ms": 0,
+            "end_ms": 151859,
+            "intervals": [
+              [
+                0,
+                150000
+              ]
+            ],
+            "covered_ms": 150000
+          }
+        ],
+        "definition": "union of eligible clip intervals, without counting overlap twice"
+      },
+      "geometry": {
+        "coded_height": 1080,
+        "coded_width": 1920,
+        "decoded_height": 640,
+        "decoded_width": 360,
+        "display_height": 1920.0,
+        "display_width": 1080.0,
+        "roi_coordinates": "normalized_display_after_rotation_and_sar",
+        "rotation_degrees_ccw": -90,
+        "sample_aspect_ratio": "1:1",
+        "sar_origin": "assumed_square_unspecified",
+        "transform": "ffmpeg_noautorotate_then_right_angle_then_bilinear_scale_setsar1",
+        "version": "display-square-pixels-v1"
+      },
+      "quality": {
+        "bright_frames": 0,
+        "dark_frames": 0,
+        "decoded_frames": 4562,
+        "low_contrast_frames": 0,
+        "method": "decoded_luma_and_contrast_v1",
+        "score": 1.0,
+        "semantic_accuracy": null
+      },
+      "episodes": [
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 60000,
+          "episode_id": "d0_window_0",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 0,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 120000,
+          "episode_id": "d0_window_1",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 60000,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": false,
+          "domain_index": 0,
+          "end_ms": 151859,
+          "episode_id": "d0_window_2",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 120000,
+          "time_domain_id": "d0"
+        }
+      ],
+      "view_id": "514d7827eb113f5c1662a55ae46052e06f54c99493b9829716761cde758a5945",
+      "view_review": [
+        {
+          "domain_index": 0,
+          "end_ms": 151859,
+          "reason": "no_human_view_review",
+          "reviewer": null,
+          "start_ms": 0,
+          "status": "unreviewed"
+        }
+      ],
+      "capture_identity": {
+        "physical_camera_id": null,
+        "review_status": "pending",
+        "stable_view_id": null
+      },
+      "acquisition": null,
+      "anonymous_segments": 11,
+      "available_causal_pairs_metadata_only": 0,
+      "rejected_pairs": {
+        "target_outside_tolerance": 42,
+        "future_not_available": 12
+      },
+      "split": "unassigned",
+      "research_status": "blocked_unreviewed_capture_and_no_independent_heldout",
+      "training_executed": false,
+      "encoder_evidence": {
+        "artifact_sha_verified": true,
+        "execution": "frozen_onnx_cpu",
+        "vector_production": "executed_from_this_source",
+        "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+      },
+      "stage_timings_seconds": {
+        "decode": 43.7132,
+        "encode_and_sampling": 67.7787,
+        "probe": 57.19303
+      },
+      "resources": {
+        "upload": {
+          "peak_process_tree_rss_bytes": 289050624,
+          "peak_owned_disk_bytes": 1405109658,
+          "samples": 8
+        },
+        "probe": {
+          "peak_process_tree_rss_bytes": 291274752,
+          "peak_owned_disk_bytes": 1405126586,
+          "samples": 284
+        },
+        "decode": {
+          "peak_process_tree_rss_bytes": 684687360,
+          "peak_owned_disk_bytes": 1405118378,
+          "samples": 220
+        },
+        "encode": {
+          "peak_process_tree_rss_bytes": 707424256,
+          "peak_owned_disk_bytes": 1405464828,
+          "samples": 224
+        },
+        "sampling_decode": {
+          "peak_process_tree_rss_bytes": 707424256,
+          "peak_owned_disk_bytes": 1405118378,
+          "samples": 115
+        },
+        "explore": {
+          "peak_process_tree_rss_bytes": 290230272,
+          "peak_owned_disk_bytes": 1405464828,
+          "samples": 1
+        }
+      }
+    },
+    {
+      "asset_id": "bull_station_07",
+      "source_sha256": "8e4cfa82d5f58e8f5cfeadfdb10e0f17bcb939117122be87aa2a2e20afdf2aca",
+      "bytes": 180707496,
+      "upload_seconds": 0.512,
+      "total_seconds": 174.554,
+      "import_id": "5e5715a1-d8c0-4dfc-980f-4d9b8052750a",
+      "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+      "feature_space_id": "83de04946539a593649dfcd28e2971c6161f90cd2718e4e328ae4d54647f7c4c",
+      "feature_cache_sha256": "81ef18f288f1e23df6c9bf7e7e8fb15f71844f7aeed8d69512d422390ea4dfdf",
+      "eligible_rows": 79,
+      "total_rows": 79,
+      "coverage": {
+        "covered_ms": 158000,
+        "source_domain_ms": 158783,
+        "fraction": 0.9950687416159161,
+        "domains": [
+          {
+            "time_domain_id": "d0",
+            "start_ms": 0,
+            "end_ms": 158783,
+            "intervals": [
+              [
+                0,
+                158000
+              ]
+            ],
+            "covered_ms": 158000
+          }
+        ],
+        "definition": "union of eligible clip intervals, without counting overlap twice"
+      },
+      "geometry": {
+        "coded_height": 1080,
+        "coded_width": 1920,
+        "decoded_height": 640,
+        "decoded_width": 360,
+        "display_height": 1920.0,
+        "display_width": 1080.0,
+        "roi_coordinates": "normalized_display_after_rotation_and_sar",
+        "rotation_degrees_ccw": -90,
+        "sample_aspect_ratio": "1:1",
+        "sar_origin": "assumed_square_unspecified",
+        "transform": "ffmpeg_noautorotate_then_right_angle_then_bilinear_scale_setsar1",
+        "version": "display-square-pixels-v1"
+      },
+      "quality": {
+        "bright_frames": 0,
+        "dark_frames": 0,
+        "decoded_frames": 4770,
+        "low_contrast_frames": 0,
+        "method": "decoded_luma_and_contrast_v1",
+        "score": 1.0,
+        "semantic_accuracy": null
+      },
+      "episodes": [
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 60000,
+          "episode_id": "d0_window_0",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 0,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": true,
+          "domain_index": 0,
+          "end_ms": 120000,
+          "episode_id": "d0_window_1",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 60000,
+          "time_domain_id": "d0"
+        },
+        {
+          "business_cycle_verified": false,
+          "complete": false,
+          "domain_index": 0,
+          "end_ms": 158783,
+          "episode_id": "d0_window_2",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 120000,
+          "time_domain_id": "d0"
+        }
+      ],
+      "view_id": "1b52247250d518c524e5628eb570cbd477300e286c51c5ce01ca1f6c0d2a90e0",
+      "view_review": [
+        {
+          "domain_index": 0,
+          "end_ms": 158783,
+          "reason": "no_human_view_review",
+          "reviewer": null,
+          "start_ms": 0,
+          "status": "unreviewed"
+        }
+      ],
+      "capture_identity": {
+        "physical_camera_id": null,
+        "review_status": "pending",
+        "stable_view_id": null
+      },
+      "acquisition": null,
+      "anonymous_segments": 13,
+      "available_causal_pairs_metadata_only": 0,
+      "rejected_pairs": {
+        "target_outside_tolerance": 46,
+        "future_not_available": 12
+      },
+      "split": "unassigned",
+      "research_status": "blocked_unreviewed_capture_and_no_independent_heldout",
+      "training_executed": false,
+      "encoder_evidence": {
+        "artifact_sha_verified": true,
+        "execution": "frozen_onnx_cpu",
+        "vector_production": "executed_from_this_source",
+        "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+      },
+      "stage_timings_seconds": {
+        "decode": 43.741013,
+        "encode_and_sampling": 69.495889,
+        "probe": 58.403517
+      },
+      "resources": {
+        "upload": {
+          "peak_process_tree_rss_bytes": 290246656,
+          "peak_owned_disk_bytes": 1586184612,
+          "samples": 7
+        },
+        "probe": {
+          "peak_process_tree_rss_bytes": 291532800,
+          "peak_owned_disk_bytes": 1586201540,
+          "samples": 290
+        },
+        "decode": {
+          "peak_process_tree_rss_bytes": 733241344,
+          "peak_owned_disk_bytes": 1586193332,
+          "samples": 219
+        },
+        "sampling_decode": {
+          "peak_process_tree_rss_bytes": 720105472,
+          "peak_owned_disk_bytes": 1586193332,
+          "samples": 100
+        },
+        "encode": {
+          "peak_process_tree_rss_bytes": 720105472,
+          "peak_owned_disk_bytes": 1586552987,
+          "samples": 248
+        },
+        "explore": {
+          "peak_process_tree_rss_bytes": 411975680,
+          "peak_owned_disk_bytes": 1586552987,
+          "samples": 1
+        }
+      }
+    }
+  ],
+  "resource_measurement": {
+    "interval_seconds": 0.2,
+    "rss": "sum of Linux VmRSS for API process and all descendants; includes shared pages per process",
+    "disk": "apparent bytes under isolated data_demo; cumulative retained uploads plus temporary files; no original media/model files"
+  },
+  "independent_learning_status": "blocked",
+  "semantic_accuracy": null
+}

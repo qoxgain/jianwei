@@ -1,9 +1,9 @@
 # 见微 · 多模态自学习感知平台
 
-当前实现 **P0.3.2 多来源研究准备与预检**，已复核 P0.3.1 正式冻结编码器与单视频链路。服装SOP、电子装配、无SOP安全事件、无标签观察使用同一套场景API和页面；动作、状态、事件、流程节点分别定义。产品版本为V3.0，配置与知识契约为3.1。
+当前实现 **P0.3.3 真实素材接入与 SOP 人工复核**，九段真实录像已分别完成正式冻结编码器提取与匿名探索；独立学习验收仍 blocked。服装SOP、电子装配、无SOP安全事件、无标签观察使用同一套场景API和页面；动作、状态、事件、流程节点分别定义。产品版本为V3.0，配置与知识契约为3.1。
 
-- [本步任务与后续执行方案](docs/plans/P0.3.2.md) · [Codex 后续指令](docs/plans/P0.3.2-next-codex.txt) · [P0.1.1最终任务书](docs/plans/P0.1.1-final.md)
-- [本次交付、测试与边界](docs/delivery/P0.3.2.md) · [P0.3.1 历史交付](docs/delivery/P0.3.1.md)
+- [本步任务](docs/plans/P0.3.3-real-data.md) · [下一步独立研究门槛](docs/plans/P0.3.3-next.md) · [P0.1.1最终任务书](docs/plans/P0.1.1-final.md)
+- [本次交付、测试与边界](docs/delivery/P0.3.3.md) · [九视频验收 Demo 下载](docs/demo/p0.3.3/jianwei-p0.3.3-demo.zip) · [P0.3.2 历史交付](docs/delivery/P0.3.2.md) · [P0.3.1 历史交付](docs/delivery/P0.3.1.md)
 - [研究路线与阶段依赖](docs/ROADMAP.md) · [P0.2衔接契约](docs/P0.2-CONTRACTS.md)
 - [四场景离线演示使用说明](demo/README.md)
 
@@ -11,7 +11,7 @@
 
 ## 运行
 
-Python 3.12、Node 24、FFmpeg/FFprobe；依赖分别锁在 `requirements.lock` 和 `apps/web/package-lock.json`。
+Python 3.12、Node 24、FFmpeg/FFprobe、Poppler 的 pdftotext（SOP原文提取）；依赖分别锁在 `requirements.lock` 和 `apps/web/package-lock.json`。
 
 ```bash
 bash scripts/install.sh
@@ -20,6 +20,25 @@ bash scripts/start.sh
 ```
 
 默认浏览器访问本机 `http://127.0.0.1:8000`。当前仅开放单用户、回环地址的demo服务。候选存入SQLite，候选不自动激活。lab/site只做静态检查和前置条件诊断。
+
+## 本批真实素材与 SOP
+
+默认配置继续保留 64 MiB 上传上限。电子装配场景的“SOP 人工复核”提供注册原片/PDF回查、11章与7工位的多对多草稿、争议、批准/撤销和追加审计。HEVC使用有界本地H.264兼容预览，原片、原SHA和特征输入不变；派生画面不自动发布。
+
+对九视频使用显式512 MiB隔离配置：
+
+```bash
+git lfs install --local
+git lfs pull --include='datasets/video_samples/**/*.mp4' --exclude=''
+.venv/bin/python -m pip install -r requirements-pretrained.txt --extra-index-url https://download.pytorch.org/whl/cpu
+.venv/bin/python scripts/export_pretrained_encoder.py --download --report artifacts/encoder-export.json
+.venv/bin/python -m scripts.prepare_video_dataset
+.venv/bin/python -m scripts.validate_video_dataset
+# 完成批量实测后，打开本机 http://127.0.0.1:18053
+.venv/bin/python -m jianwei serve --config artifacts/p033-runtime/config/system.yaml --profile demo
+```
+
+选择“无标签观察 → 数据接入”查看9个实际导入、逐源匿名探索与代表片段；选择“电子装配 → SOP 人工复核”核对规范。配置工厂验证模型与已核验官方导出SHA一致，拒绝随机替代。报告在 `artifacts/p033`，正式交付的数字证据在 `docs/delivery/p0.3.3`。本轮2秒采样是CPU工程验收设置，不能支持现有0.5秒预测目标；可用因果训练对为0，详见后续研究门槛。
 
 ## 数据接入
 

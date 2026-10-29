@@ -1,0 +1,143 @@
+{
+  "scope": "Local browser verification only; no public derivative authorization",
+  "items": [
+    {
+      "file": "anonymous-exploration-desktop.png",
+      "sha256": "27f7d6a166f37770169ccf50377c3e40cb427f5947b8d9ad6dc51cb8396436cd",
+      "bytes": 518305,
+      "public": false
+    },
+    {
+      "file": "anonymous-exploration-mobile-result.png",
+      "sha256": "56a65e29319c062586dd3655e934ba5622c63b2c120b657711e2b4560b1bcb0b",
+      "bytes": 124110,
+      "public": false
+    },
+    {
+      "file": "anonymous-exploration-mobile.png",
+      "sha256": "1343169afec0dc3ca6ecbb9d9fe899864dbcd555441a68b43355652f071035fd",
+      "bytes": 79078,
+      "public": false
+    },
+    {
+      "file": "anonymous_observation-desktop.png",
+      "sha256": "ea81c6788133177e5ea114230d49e3551ed850da45f81526439a9ddd5964577f",
+      "bytes": 112325,
+      "public": false
+    },
+    {
+      "file": "anonymous_observation-mobile.png",
+      "sha256": "d79da862e656887bf0cf465c170a9d2d0f795d0bff688733949133806353b291",
+      "bytes": 46497,
+      "public": false
+    },
+    {
+      "file": "electronics_assembly-desktop.png",
+      "sha256": "051af4befa3ba3cceececbf207e9f0d15103c2391e4ec709c52608e60adb63fa",
+      "bytes": 128254,
+      "public": false
+    },
+    {
+      "file": "electronics_assembly-mobile.png",
+      "sha256": "af5e1bc3ff05d0bdd7d49093fbe7da90e8264f880d2f023ce8cfe7a17cff3ffb",
+      "bytes": 43827,
+      "public": false
+    },
+    {
+      "file": "garment_sop-desktop.png",
+      "sha256": "cce467b9dae30af4c06a9110beeb7bf54b25419cfd68f073bc1647d4580d22df",
+      "bytes": 151339,
+      "public": false
+    },
+    {
+      "file": "garment_sop-mobile.png",
+      "sha256": "42e35cb598ef1bc901f4bbbf2f5869b45b779bb11c43a8eb25ee04d02a0125cc",
+      "bytes": 47431,
+      "public": false
+    },
+    {
+      "file": "large-import-cancelled.png",
+      "sha256": "a833e0db1d83920b5b093e903cbe853949c823a314a46a36091ac4a99c9d075e",
+      "bytes": 179978,
+      "public": false
+    },
+    {
+      "file": "large-upload-progress.png",
+      "sha256": "efd657dde2c7dde0eb3b43352bc229b837733642f2d5b16cb1f20b31671c9c4a",
+      "bytes": 171475,
+      "public": false
+    },
+    {
+      "file": "numeric-demo-desktop.png",
+      "sha256": "482979558c31b9a9d4dbec13489e1ce9fb09663803c60b91f81e9fd6f7e13715",
+      "bytes": 297020,
+      "public": false
+    },
+    {
+      "file": "numeric-demo-mobile.png",
+      "sha256": "818e3d5d0b614c929ed94daef5001bdd353333531c8eac23e6f55d2a9797fb81",
+      "bytes": 268883,
+      "public": false
+    },
+    {
+      "file": "short-video-desktop.png",
+      "sha256": "dcdb76ee06cabf2d5c4fb496b65903b2106ed3df17e388bdaab2551b2aef630e",
+      "bytes": 268662,
+      "public": false
+    },
+    {
+      "file": "short-video-mobile-result.png",
+      "sha256": "2a424cef33b84a28a9c4dc0040c8cd2b0268fa3cf2da5f333ea70d5039c79364",
+      "bytes": 88942,
+      "public": false
+    },
+    {
+      "file": "short-video-mobile.png",
+      "sha256": "1343169afec0dc3ca6ecbb9d9fe899864dbcd555441a68b43355652f071035fd",
+      "bytes": 79078,
+      "public": false
+    },
+    {
+      "file": "sop-portrait-desktop.png",
+      "sha256": "922aa2d198f2506c43e3ac52a3ad3d8aaf8e16cacc0258139ac510469617f315",
+      "bytes": 220102,
+      "public": false
+    },
+    {
+      "file": "sop-portrait-mobile-video.png",
+      "sha256": "209a084dffe012faa519b9ed31a49f643f712f13f6406e0ba83d6dd68f433802",
+      "bytes": 184124,
+      "public": false
+    },
+    {
+      "file": "sop-portrait-mobile.png",
+      "sha256": "7bf28c3cc6ceded7a14028004d40b54798dfe0baf1f259322febed2d13273f9b",
+      "bytes": 61670,
+      "public": false
+    },
+    {
+      "file": "sop-reviewed-desktop.png",
+      "sha256": "bbbf91bdc4978a957d9528437f98769d59732a56010f4229061916e2be866c8f",
+      "bytes": 151339,
+      "public": false
+    },
+    {
+      "file": "sop-reviewed-mobile.png",
+      "sha256": "4bfd1df612fd1e714ec09d56eb3080c6ef36aa0f98677776d85292d8878b089d",
+      "bytes": 62615,
+      "public": false
+    },
+    {
+      "file": "workshop_safety-desktop.png",
+      "sha256": "268ce46d0aaf8aa6e7d770bffcb2fe79ebb57e155c162646bf268aaa8f7e07ef",
+      "bytes": 130291,
+      "public": false
+    },
+    {
+      "file": "workshop_safety-mobile.png",
+      "sha256": "7ce8ed238cbb5433ca42921ddf29d22869b1dbc8c52af2625d33890a0352606c",
+      "bytes": 45998,
+      "public": false
+    }
+  ]
+}

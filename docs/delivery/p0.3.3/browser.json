@@ -1,0 +1,113 @@
+{
+  "desktop": [
+    1440,
+    1000
+  ],
+  "mobile": [
+    390,
+    844
+  ],
+  "scope": "Isolated browser fixture database. Test reviewers do not certify source SOP or operations.",
+  "scenes": [
+    {
+      "scene": "garment_sop",
+      "knowledge_and_no_label_scope": "passed",
+      "desktop_mobile_overflow": false
+    },
+    {
+      "scene": "electronics_assembly",
+      "knowledge_and_no_label_scope": "passed",
+      "desktop_mobile_overflow": false
+    },
+    {
+      "scene": "workshop_safety",
+      "knowledge_and_no_label_scope": "passed",
+      "desktop_mobile_overflow": false
+    },
+    {
+      "scene": "anonymous_observation",
+      "knowledge_and_no_label_scope": "passed",
+      "desktop_mobile_overflow": false
+    }
+  ],
+  "large_upload": {
+    "asset_id": "bull_station_02",
+    "bytes": 163613047,
+    "sha256": "226bac7752d191d68bcd10676fd33c3f3d391f55527bf088678730adb5ad4341",
+    "stream_progress_visible": true,
+    "upload_cancelled": true,
+    "import_cancelled_and_persisted": true,
+    "retry_same_job": true,
+    "job_id": "9449f578-b656-4395-9458-3c73f4d77f20"
+  },
+  "short_video": {
+    "source_sha256": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+    "eligible_rows": 10,
+    "episode": {
+      "business_cycle_verified": false,
+      "complete": false,
+      "domain_index": 0,
+      "end_ms": 20440,
+      "episode_id": "d0_window_0",
+      "feature_eligible": true,
+      "kind": "observation_window",
+      "observation_contract": "p033-observation-v1",
+      "origin": "fixed_window",
+      "start_ms": 0,
+      "time_domain_id": "d0"
+    },
+    "encoder_evidence": {
+      "artifact_sha_verified": true,
+      "execution": "frozen_onnx_cpu",
+      "vector_production": "executed_from_this_source",
+      "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+    },
+    "desktop_mobile": "passed"
+  },
+  "exploration": {
+    "source_sha256": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+    "coverage": 0.9784735812133072,
+    "anonymous_segments": 2,
+    "dimension": 512,
+    "representative_seek": "passed",
+    "training_executed": false
+  },
+  "sop": {
+    "chapters": 11,
+    "mapped_assets": 7,
+    "pdf_pages": 26,
+    "source_sha256": "39802e29c07b43fbee3fa9274cc56d247f178fdb833cdbfd363bdbc89904a736",
+    "video_display": {
+      "width": 360,
+      "height": 640,
+      "duration": 147.198911,
+      "src": "http://127.0.0.1:18054/api/scenes/electronics_assembly/sop/media/bull_station_02/preview"
+    },
+    "seek_seconds": 10.229938,
+    "raw_pdf_range": "passed",
+    "raw_pdf_page_link": "passed",
+    "mapping_revision_saved": true,
+    "stale_revision_rejected": true,
+    "pending_disputes_block_approval": true,
+    "approve_revoke_reload": "passed",
+    "evidence_kinds_separate": true,
+    "missing_instrument_result": "insufficient_evidence",
+    "activated": false,
+    "is_ground_truth": false,
+    "audit_events": 9
+  },
+  "page_errors": [],
+  "console_errors": [
+    "Failed to load resource: the server responded with a status of 422 (Unprocessable Entity)"
+  ],
+  "expected_console_statuses": [
+    409,
+    422
+  ],
+  "passed": true,
+  "phase": "all",
+  "browser": "154.0.8037.57",
+  "build_sha256": "c10b2bb573a50c8eb822727811449a574d58017591487847322785ee59826bdf",
+  "config_sha256": "7eff28f6a01d48fce08a16f53b26d0b53f10a30b7a84a2921c52d9b2ad6b9fbb",
+  "screenshots_public": false
+}

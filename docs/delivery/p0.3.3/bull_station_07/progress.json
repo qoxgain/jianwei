@@ -1,0 +1,1128 @@
+[
+  {
+    "observed_elapsed_seconds": 1.531,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 0.806,
+      "stage": "probe",
+      "stage_seconds": {
+        "verify": 0.234
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 59.747,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 59.151,
+      "stage": "decode",
+      "stage_seconds": {
+        "probe": 58.403,
+        "verify": 0.234
+      },
+      "total": 4770,
+      "unit": "frames"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 70.816,
+    "progress": {
+      "completed": 1101,
+      "elapsed_seconds": 70.054,
+      "stage": "decode",
+      "stage_seconds": {
+        "probe": 58.403,
+        "verify": 0.234
+      },
+      "total": 4770,
+      "unit": "frames"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 102.997,
+    "progress": {
+      "completed": 4770,
+      "elapsed_seconds": 102.371,
+      "stage": "decode",
+      "stage_seconds": {
+        "probe": 58.403,
+        "verify": 0.234
+      },
+      "total": 4770,
+      "unit": "frames"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 104.004,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 103.377,
+      "stage": "sampling_decode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 0.006,
+        "probe": 58.403,
+        "verify": 0.234
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 105.01,
+    "progress": {
+      "completed": 1,
+      "elapsed_seconds": 104.442,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 0.578,
+        "probe": 58.403,
+        "sampling_decode": 0.997,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 106.019,
+    "progress": {
+      "completed": 2,
+      "elapsed_seconds": 105.449,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 1.185,
+        "probe": 58.403,
+        "sampling_decode": 1.397,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 107.026,
+    "progress": {
+      "completed": 3,
+      "elapsed_seconds": 106.339,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 1.736,
+        "probe": 58.403,
+        "sampling_decode": 1.736,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 108.029,
+    "progress": {
+      "completed": 4,
+      "elapsed_seconds": 107.389,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 2.283,
+        "probe": 58.403,
+        "sampling_decode": 1.983,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 109.036,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 108.49,
+      "stage": "sampling_decode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 3.403,
+        "probe": 58.403,
+        "sampling_decode": 2.22,
+        "verify": 0.234
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 111.046,
+    "progress": {
+      "completed": 8,
+      "elapsed_seconds": 110.511,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 4.561,
+        "probe": 58.403,
+        "sampling_decode": 3.083,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 112.05,
+    "progress": {
+      "completed": 9,
+      "elapsed_seconds": 111.518,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 5.112,
+        "probe": 58.403,
+        "sampling_decode": 3.282,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 113.053,
+    "progress": {
+      "completed": 10,
+      "elapsed_seconds": 112.314,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 5.699,
+        "probe": 58.403,
+        "sampling_decode": 3.491,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 114.058,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 113.39,
+      "stage": "sampling_decode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 6.81,
+        "probe": 58.403,
+        "sampling_decode": 3.713,
+        "verify": 0.234
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 115.064,
+    "progress": {
+      "completed": 13,
+      "elapsed_seconds": 114.335,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 7.323,
+        "probe": 58.403,
+        "sampling_decode": 4.145,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 116.068,
+    "progress": {
+      "completed": 14,
+      "elapsed_seconds": 115.409,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 7.864,
+        "probe": 58.403,
+        "sampling_decode": 4.416,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 117.071,
+    "progress": {
+      "completed": 15,
+      "elapsed_seconds": 116.296,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 8.435,
+        "probe": 58.403,
+        "sampling_decode": 4.739,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 118.077,
+    "progress": {
+      "completed": 16,
+      "elapsed_seconds": 117.546,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 9.025,
+        "probe": 58.403,
+        "sampling_decode": 5.141,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 119.08,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 118.395,
+      "stage": "sampling_decode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 10.134,
+        "probe": 58.403,
+        "sampling_decode": 5.395,
+        "verify": 0.234
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 120.088,
+    "progress": {
+      "completed": 19,
+      "elapsed_seconds": 119.509,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 10.734,
+        "probe": 58.403,
+        "sampling_decode": 5.908,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 121.092,
+    "progress": {
+      "completed": 20,
+      "elapsed_seconds": 120.534,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 11.392,
+        "probe": 58.403,
+        "sampling_decode": 6.276,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 122.097,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 121.508,
+      "stage": "sampling_decode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 12.112,
+        "probe": 58.403,
+        "sampling_decode": 6.276,
+        "verify": 0.234
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 123.105,
+    "progress": {
+      "completed": 22,
+      "elapsed_seconds": 122.429,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 12.664,
+        "probe": 58.403,
+        "sampling_decode": 6.898,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 124.108,
+    "progress": {
+      "completed": 23,
+      "elapsed_seconds": 123.536,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 13.239,
+        "probe": 58.403,
+        "sampling_decode": 7.17,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 125.111,
+    "progress": {
+      "completed": 24,
+      "elapsed_seconds": 124.382,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 13.801,
+        "probe": 58.403,
+        "sampling_decode": 7.455,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 126.115,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 125.547,
+      "stage": "sampling_decode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 14.916,
+        "probe": 58.403,
+        "sampling_decode": 7.764,
+        "verify": 0.234
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 129.127,
+    "progress": {
+      "completed": 29,
+      "elapsed_seconds": 128.527,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 16.723,
+        "probe": 58.403,
+        "sampling_decode": 8.937,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 130.13,
+    "progress": {
+      "completed": 30,
+      "elapsed_seconds": 129.581,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 17.437,
+        "probe": 58.403,
+        "sampling_decode": 9.278,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 131.133,
+    "progress": {
+      "completed": 31,
+      "elapsed_seconds": 130.387,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 18.018,
+        "probe": 58.403,
+        "sampling_decode": 9.502,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 132.14,
+    "progress": {
+      "completed": 32,
+      "elapsed_seconds": 131.495,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 18.661,
+        "probe": 58.403,
+        "sampling_decode": 9.711,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 133.143,
+    "progress": {
+      "completed": 33,
+      "elapsed_seconds": 132.436,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 19.268,
+        "probe": 58.403,
+        "sampling_decode": 10.045,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 134.148,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 133.497,
+      "stage": "sampling_decode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 20.312,
+        "probe": 58.403,
+        "sampling_decode": 10.319,
+        "verify": 0.234
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 136.155,
+    "progress": {
+      "completed": 37,
+      "elapsed_seconds": 135.466,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 21.461,
+        "probe": 58.403,
+        "sampling_decode": 11.138,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 137.159,
+    "progress": {
+      "completed": 38,
+      "elapsed_seconds": 136.557,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 21.983,
+        "probe": 58.403,
+        "sampling_decode": 11.44,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 138.163,
+    "progress": {
+      "completed": 39,
+      "elapsed_seconds": 137.412,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 22.511,
+        "probe": 58.403,
+        "sampling_decode": 11.77,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 139.167,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 138.584,
+      "stage": "sampling_decode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 23.658,
+        "probe": 58.403,
+        "sampling_decode": 12.06,
+        "verify": 0.234
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 141.183,
+    "progress": {
+      "completed": 43,
+      "elapsed_seconds": 140.501,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 24.759,
+        "probe": 58.403,
+        "sampling_decode": 12.875,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 142.187,
+    "progress": {
+      "completed": 44,
+      "elapsed_seconds": 141.508,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 25.261,
+        "probe": 58.403,
+        "sampling_decode": 13.126,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 143.191,
+    "progress": {
+      "completed": 45,
+      "elapsed_seconds": 142.452,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 25.859,
+        "probe": 58.403,
+        "sampling_decode": 13.469,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 144.195,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 143.626,
+      "stage": "sampling_decode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 26.997,
+        "probe": 58.403,
+        "sampling_decode": 13.762,
+        "verify": 0.234
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 147.212,
+    "progress": {
+      "completed": 50,
+      "elapsed_seconds": 146.647,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 28.853,
+        "probe": 58.403,
+        "sampling_decode": 14.928,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 148.223,
+    "progress": {
+      "completed": 51,
+      "elapsed_seconds": 147.446,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 29.395,
+        "probe": 58.403,
+        "sampling_decode": 15.184,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 149.226,
+    "progress": {
+      "completed": 52,
+      "elapsed_seconds": 148.529,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 29.926,
+        "probe": 58.403,
+        "sampling_decode": 15.474,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 150.232,
+    "progress": {
+      "completed": 53,
+      "elapsed_seconds": 149.519,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 30.471,
+        "probe": 58.403,
+        "sampling_decode": 15.926,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 151.239,
+    "progress": {
+      "completed": 54,
+      "elapsed_seconds": 150.682,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 31.038,
+        "probe": 58.403,
+        "sampling_decode": 16.262,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 152.245,
+    "progress": {
+      "completed": 55,
+      "elapsed_seconds": 151.48,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 31.832,
+        "probe": 58.403,
+        "sampling_decode": 16.522,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 153.248,
+    "progress": {
+      "completed": 56,
+      "elapsed_seconds": 152.581,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 32.574,
+        "probe": 58.403,
+        "sampling_decode": 16.875,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 154.251,
+    "progress": {
+      "completed": 57,
+      "elapsed_seconds": 153.503,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 33.195,
+        "probe": 58.403,
+        "sampling_decode": 17.186,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 155.255,
+    "progress": {
+      "completed": 58,
+      "elapsed_seconds": 154.713,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 33.774,
+        "probe": 58.403,
+        "sampling_decode": 17.551,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 156.259,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 155.685,
+      "stage": "sampling_decode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 34.95,
+        "probe": 58.403,
+        "sampling_decode": 17.868,
+        "verify": 0.234
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 157.264,
+    "progress": {
+      "completed": 61,
+      "elapsed_seconds": 156.726,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 35.498,
+        "probe": 58.403,
+        "sampling_decode": 18.361,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 158.268,
+    "progress": {
+      "completed": 62,
+      "elapsed_seconds": 157.613,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 36.092,
+        "probe": 58.403,
+        "sampling_decode": 18.654,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 159.272,
+    "progress": {
+      "completed": 63,
+      "elapsed_seconds": 158.646,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 36.634,
+        "probe": 58.403,
+        "sampling_decode": 18.883,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 160.277,
+    "progress": {
+      "completed": 64,
+      "elapsed_seconds": 159.68,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 37.157,
+        "probe": 58.403,
+        "sampling_decode": 19.142,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 161.281,
+    "progress": {
+      "completed": 65,
+      "elapsed_seconds": 160.726,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 37.967,
+        "probe": 58.403,
+        "sampling_decode": 19.364,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 162.287,
+    "progress": {
+      "completed": 66,
+      "elapsed_seconds": 161.676,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 38.655,
+        "probe": 58.403,
+        "sampling_decode": 19.636,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 163.292,
+    "progress": {
+      "completed": 67,
+      "elapsed_seconds": 162.632,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 39.351,
+        "probe": 58.403,
+        "sampling_decode": 19.903,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 164.296,
+    "progress": {
+      "completed": 68,
+      "elapsed_seconds": 163.589,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 40.078,
+        "probe": 58.403,
+        "sampling_decode": 20.115,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 165.3,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 164.646,
+      "stage": "sampling_decode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 41.417,
+        "probe": 58.403,
+        "sampling_decode": 20.362,
+        "verify": 0.234
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 167.31,
+    "progress": {
+      "completed": 72,
+      "elapsed_seconds": 166.697,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 42.542,
+        "probe": 58.403,
+        "sampling_decode": 21.289,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 168.313,
+    "progress": {
+      "completed": 73,
+      "elapsed_seconds": 167.627,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 43.095,
+        "probe": 58.403,
+        "sampling_decode": 21.665,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 169.32,
+    "progress": {
+      "completed": 74,
+      "elapsed_seconds": 168.781,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 43.61,
+        "probe": 58.403,
+        "sampling_decode": 22.046,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 170.327,
+    "progress": {
+      "completed": 75,
+      "elapsed_seconds": 169.759,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 44.146,
+        "probe": 58.403,
+        "sampling_decode": 22.486,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 171.33,
+    "progress": {
+      "completed": 76,
+      "elapsed_seconds": 170.605,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 44.681,
+        "probe": 58.403,
+        "sampling_decode": 22.801,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 172.336,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 171.652,
+      "stage": "sampling_decode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 45.732,
+        "probe": 58.403,
+        "sampling_decode": 23.052,
+        "verify": 0.234
+      },
+      "total": null,
+      "unit": null
+    }
+  },
+  {
+    "observed_elapsed_seconds": 173.339,
+    "progress": {
+      "completed": 79,
+      "elapsed_seconds": 172.363,
+      "stage": "encode",
+      "stage_seconds": {
+        "decode": 44.23,
+        "encode": 45.732,
+        "probe": 58.403,
+        "sampling_decode": 23.258,
+        "verify": 0.234
+      },
+      "total": 79,
+      "unit": "clips"
+    }
+  },
+  {
+    "observed_elapsed_seconds": 174.361,
+    "progress": {
+      "completed": 0,
+      "elapsed_seconds": 173.4,
+      "stage": "succeeded",
+      "stage_seconds": {
+        "cache": 0.02,
+        "decode": 44.23,
+        "encode": 47.25,
+        "probe": 58.403,
+        "sampling_decode": 23.258,
+        "verify": 0.234
+      },
+      "total": null,
+      "unit": null
+    }
+  }
+]

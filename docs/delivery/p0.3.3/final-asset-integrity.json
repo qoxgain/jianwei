@@ -1,0 +1,52 @@
+[
+  {
+    "asset_id": "garment_test",
+    "sha256": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+    "preserved": true
+  },
+  {
+    "asset_id": "garment_test_short",
+    "sha256": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+    "preserved": true
+  },
+  {
+    "asset_id": "bull_station_01",
+    "sha256": "259bf1e24f86128947192825ef759bddcb1b000c9b5b5573aed274adc606f810",
+    "preserved": true
+  },
+  {
+    "asset_id": "bull_station_02",
+    "sha256": "226bac7752d191d68bcd10676fd33c3f3d391f55527bf088678730adb5ad4341",
+    "preserved": true
+  },
+  {
+    "asset_id": "bull_station_03",
+    "sha256": "a87aaf50cd2155e40ed5d5368d1ff6f9e5de8a9942cf434198ba6d11814e2be0",
+    "preserved": true
+  },
+  {
+    "asset_id": "bull_station_04",
+    "sha256": "f59b2cd48aa3a0d79661d856ce733ee910d38e84a3cc774c36959e77b46872f8",
+    "preserved": true
+  },
+  {
+    "asset_id": "bull_station_05",
+    "sha256": "13066d30bedf8aa3c8bd6d19d093c6acd55b655f9a03827f5df2397f131e70e1",
+    "preserved": true
+  },
+  {
+    "asset_id": "bull_station_06",
+    "sha256": "35a7bc1b07c456169f33f09880cb949a054dd7111fd3a60301856bb780bac65d",
+    "preserved": true
+  },
+  {
+    "asset_id": "bull_station_07",
+    "sha256": "8e4cfa82d5f58e8f5cfeadfdb10e0f17bcb939117122be87aa2a2e20afdf2aca",
+    "preserved": true
+  },
+  {
+    "asset_id": "bull_sop",
+    "sha256": "39802e29c07b43fbee3fa9274cc56d247f178fdb833cdbfd363bdbc89904a736",
+    "preserved": true
+  }
+]

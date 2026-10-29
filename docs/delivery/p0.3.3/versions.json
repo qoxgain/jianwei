@@ -1,0 +1,25 @@
+{
+  "base_git_commit": "58e8af583ac52cd679ec8246f5c6900f1d7a12d3",
+  "python": "3.12.14",
+  "os": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "ffprobe": "ffprobe version 7.1.5-0+deb13u1 Copyright (c) 2007-2026 the FFmpeg developers",
+  "node": "v24.19.0",
+  "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+  "ingestion_implementation_hash": "57aee19008d32cc8113ddb3d884794de609113111c0bde5708e01057976bda62",
+  "weights_sha256": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141",
+  "dependencies": {
+    "numpy": "2.2.5",
+    "onnx": "1.17.0",
+    "onnxruntime": "1.20.1",
+    "torch": "2.7.1+cpu",
+    "torchvision": "0.22.1+cpu",
+    "fastapi": "0.115.12",
+    "sqlalchemy": "2.0.40",
+    "pydantic": "2.11.4"
+  },
+  "cpu_quota": "400000 100000",
+  "measurement_scope": "CPU shared with regression/browser checks; timings are measured, not isolated performance benchmarks.",
+  "backend_implementation_commit": "a21c46e927b3dd0f947b272d99ca00306a543886",
+  "application_implementation_commit": "28dffbfaef63c34a1413649e7dc910e5559b7431"
+}
