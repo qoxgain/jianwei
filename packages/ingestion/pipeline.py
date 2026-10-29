@@ -11,6 +11,7 @@ import hashlib
 import os
 from pathlib import Path
 import tempfile
+import time
 import numpy as np
 
 from packages.config.errors import ContractError
@@ -21,6 +22,7 @@ from packages.knowledge.service import content_hash
 from .npz import read_npz
 from .time import time_domains, build_episodes
 from .video import decode_video, clip_tensor, close_frames
+from .capture import feature_window, roi_identity, view_identity, reviewed_intervals
 
 
 def file_hash(path):
@@ -106,7 +108,10 @@ def _records(bundle, scene_id, request, manifest, space, pts, durations, row_dom
         episode = _episode_for(episodes, domain_index, start, end)
         reason = None
         if episode is None: reason = 'outside_complete_episode'
-        elif not episode['complete']: reason = 'incomplete_episode'
+        elif not feature_window(episode): reason = 'incomplete_episode'
+        elif any(v['status'] == 'excluded' and v['domain_index'] == domain_index and
+                 v['start_ms'] < end and v['end_ms'] > start for v in manifest.get('view_review', [])):
+            reason = 'human_view_exclusion'
         elif scores[index] < bundle.config.video.quality_min: reason = 'quality_below_threshold'
         row = {'row': index, 'time_domain_id': domain['time_domain_id'], 'start_ms': start, 'end_ms': end,
                'capture_start_utc': _utc(domain, start), 'capture_end_utc': _utc(domain, end),
@@ -135,7 +140,10 @@ def _base(bundle, scene_id, request, source, artifact_hash, source_hash, verific
             'artifact_hash': artifact_hash, 'source_ref': 'upload:' + (request.source_upload_id or request.upload_id),
             'source_verified': verification == 'verified', 'source_verification': verification,
             'data_origin': request.data_origin, 'split': request.requested_split,
-            'view_id': content_hash({'source_id': source.id, 'roi_xyxy': source.roi_xyxy}),
+            'view_id': view_identity(source, source_hash, request.data_origin == 'real_video'),
+            'capture_contract': 'p033-capture-v1',
+            'capture_identity': source.capture_identity.model_dump(mode='json') if getattr(source, 'capture_identity', None) else None,
+            'acquisition': request.acquisition.model_dump(mode='json') if request.acquisition else None,
             'roi_xyxy': source.roi_xyxy, 'context': request.context,
             'feature_space': None, 'feature_space_id': None, 'feature_cache': None, 'vector_uri': None,
             'feature_batches': [], 'rows': [], 'rejected_rows': [], 'eligible_rows': 0, 'total_rows': 0,
@@ -144,8 +152,11 @@ def _base(bundle, scene_id, request, source, artifact_hash, source_hash, verific
 
 def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Path,
                    encoder_artifact_path: Path | None = None, source_path: Path | None = None,
-                   output_dir: Path | None = None) -> dict:
+                   output_dir: Path | None = None, progress=None) -> dict:
     """Process validated uploads; caller owns final persistence and split locking."""
+    def notify(stage, **details):
+        if progress is not None: progress(stage, **details)
+    notify('verify')
     spec, source = validate_input(bundle, scene_id, request)
     settings = bundle.config.ingestion
     if output_dir is None:
@@ -158,7 +169,7 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
             raise ContractError('ENCODER_ARTIFACT_REQUIRED', 'NPZ 需要编码器指纹文件；该文件仅计算哈希，不执行')
         if file_hash(encoder_artifact_path) != request.feature_space.encoder_sha:
             raise ContractError('ENCODER_HASH_MISMATCH', '编码器指纹文件的实际 SHA 与特征空间声明不符')
-        if request.feature_space.roi_policy_hash != content_hash({'source_id': source.id, 'roi_xyxy': source.roi_xyxy}):
+        if request.feature_space.roi_policy_hash != roi_identity(source):
             raise ContractError('ROI_HASH_MISMATCH', '特征空间的 ROI 策略与配置的来源视角不一致')
         vectors, pts, durations = read_npz(input_path, settings, request.feature_space.dimension)
         domains, gaps, row_domains = time_domains(pts, durations, settings, request.clock_anchors)
@@ -173,7 +184,7 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
                 raise ContractError('SOURCE_HASH_MISMATCH', '原视频实际 SHA 与来源声明不一致')
             # Verify this really is a decodable video, and intervals fit its time domains.
             with tempfile.TemporaryDirectory(prefix='source-', dir=output_dir) as work, ExitStack() as frames_cleanup:
-                pixels, source_pts, source_durations, _, _, _ = decode_video(source_path, Path(work), settings)
+                pixels, source_pts, source_durations, _, _, _ = decode_video(source_path, Path(work), settings, **({'progress': progress} if progress else {}))
                 frames_cleanup.callback(close_frames, pixels)
                 source_domains, _, _ = time_domains(source_pts, source_durations, settings, [])
             if request.source_domain_map is not None and len(request.source_domain_map) != len(domains):
@@ -211,6 +222,7 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
                 raise ContractError('SOURCE_UNVERIFIED', '未核验原视频的特征只能保留为未分区，不能用于训练或评测')
         manifest = _base(bundle, scene_id, request, source, artifact_hash, source_hash, verification)
         manifest.update(domains=domains, gaps=gaps, episodes=build_episodes(spec, request, domains),
+            view_review=reviewed_intervals(request, domains),
             quality={'method': 'numeric_validation_only', 'score': 1.0, 'visual_quality_checked': False,
                      'semantic_accuracy': None},
             encoder_evidence={'artifact_sha_verified': True, 'execution': 'not_executed',
@@ -228,11 +240,12 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
     manifest = _base(bundle, scene_id, request, source, artifact_hash, source_hash, verification)
     manifest['input_format'] = 'mp4'
     with tempfile.TemporaryDirectory(prefix='decode-', dir=output_dir) as work, ExitStack() as frames_cleanup:
-        pixels, frame_pts, frame_durations, frame_scores, quality, video_info = decode_video(input_path, Path(work), settings)
+        pixels, frame_pts, frame_durations, frame_scores, quality, video_info = decode_video(input_path, Path(work), settings, **({'progress': progress} if progress else {}))
         frames_cleanup.callback(close_frames, pixels)
         domains, gaps, frame_domains = time_domains(frame_pts, frame_durations, settings, request.clock_anchors)
         episodes = build_episodes(spec, request, domains)
         manifest.update(domains=domains, gaps=gaps, episodes=episodes, quality=quality, video=video_info,
+                        view_review=reviewed_intervals(request, domains),
                         encoder_evidence={'execution': 'not_executed', 'vector_production': 'not_available'})
         try:
             if bundle.config.encoder.adapter != 'onnx':
@@ -260,13 +273,16 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
         if min(clip_ms, stride_ms) < 1:
             raise ContractError('VIDEO_SAMPLING_INVALID', '片段长度与步长至少需要 1 毫秒')
         candidate_count = sum(max(0, (e['end_ms']-e['start_ms']-clip_ms)//stride_ms+1)
-                              for e in episodes if e['complete'])
+                              for e in episodes if feature_window(e))
         if candidate_count > settings.max_rows:
             raise ContractError('CLIP_COUNT_LIMIT', '候选片段数量超过配置限制，请增加步长或缩短视频')
         vectors, starts, durations, clip_domains, scores = [], [], [], [], []
         discarded = []
+        encode_started = time.monotonic()
+        processed = 0
+        notify('encode', completed=0, total=candidate_count, unit='clips')
         for episode in sorted(episodes, key=lambda e: (e['domain_index'], e['start_ms'])):
-            if not episode['complete']:
+            if not feature_window(episode):
                 continue
             domain_index = episode['domain_index']
             domain = domains[domain_index]
@@ -274,6 +290,13 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
             domain_pts = frame_pts[domain_indices]
             for start in range(episode['start_ms'], episode['end_ms']-clip_ms+1, stride_ms):
                 end = start+clip_ms
+                if time.monotonic()-encode_started > settings.encode_timeout_seconds:
+                    raise ContractError('ENCODER_TIMEOUT', '特征阶段超过配置时间限制')
+                processed += 1
+                notify('encode', completed=processed-1, total=candidate_count, unit='clips')
+                if any(v['status']=='excluded' and v['domain_index']==domain_index and v['start_ms']<end and v['end_ms']>start for v in manifest['view_review']):
+                    discarded.append({'start_ms':start,'end_ms':end,'time_domain_id':domain['time_domain_id'],'reason':'human_view_exclusion'})
+                    continue
                 left, right = np.searchsorted(domain_pts, [start, end], side='left')
                 indices = domain_indices[left:right]
                 if len(indices) == 0:
@@ -287,11 +310,16 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
                     discarded.append({'start_ms': start, 'end_ms': end, 'time_domain_id': domain['time_domain_id'],
                                       'reason': 'quality_or_missing_frames', 'quality': score, 'missing_fraction': missing})
                     continue
-                vector = encoder.encode(tensor_builder(pixels, selected, source.roi_xyxy, settings.encoder_input_size))[0]
+                tensor = tensor_builder(pixels, selected, source.roi_xyxy, settings.encoder_input_size)
+                vector = encoder.encode(tensor, deadline=encode_started + settings.encode_timeout_seconds,
+                    check_cancelled=lambda: notify('encode', completed=processed-1, total=candidate_count, unit='clips'))[0]
                 vectors.append(vector)
                 starts.append(start); durations.append(clip_ms); clip_domains.append(domain_index); scores.append(score)
                 if len(vectors) > settings.max_rows or len(vectors)*bundle.config.encoder.feature_dim*4 > settings.max_expanded_bytes:
                     raise ContractError('FEATURE_SIZE_LIMIT', '提取特征超过配置上限，请缩短视频或减少采样')
+        if progress:
+            manifest['video']['stage_timings_seconds']['encode_and_sampling'] = round(time.monotonic()-encode_started, 6)
+        notify('encode', completed=processed, total=candidate_count, unit='clips')
     manifest['discarded_clips'] = discarded
     if not vectors:
         manifest.update(status='blocked', blocker={'code': 'NO_USABLE_CLIPS', 'message': '没有满足完整周期、片段长度与质量门槛的片段'})
@@ -299,7 +327,7 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
     preprocessing = {'implementation_sha': file_hash(Path(__file__).with_name('video.py')),
                      'version': bundle.config.encoder.preprocessing_version, 'input_size': settings.encoder_input_size,
                      'decode_width': settings.decode_width, 'color': 'RGB_float32_0_1',
-                     'resize': 'bounded_bilinear_decode_then_roi_nearest'}
+                     'geometry': video_info.get('geometry'), 'resize': 'display_bilinear_decode_then_roi_nearest'}
     if official_recipe:
         preprocessing.update(
             recipe_implementation_sha=file_hash(Path(pretrained.__file__)),
@@ -310,10 +338,11 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
         preprocessing_sha=content_hash(preprocessing), sampling_sha=content_hash({
             'clip_ms': clip_ms, 'stride_ms': stride_ms, 'frames_per_clip': bundle.config.video.frames_per_clip,
             'method': 'nearest_original_pts_v1'}),
-        roi_policy_hash=content_hash({'source_id': source.id, 'roi_xyxy': source.roi_xyxy}),
+        roi_policy_hash=roi_identity(source),
         pooling=bundle.config.encoder.pooling, dimension=bundle.config.encoder.feature_dim)
     manifest['encoder_evidence'] = {'artifact_sha_verified': True, 'execution': 'frozen_onnx_cpu',
                                     'vector_production': 'executed_from_this_source', 'weights_sha': encoder.weights_sha}
+    notify('cache')
     cache = _cache(np.stack(vectors), output_dir)
     _records(bundle, scene_id, request, manifest, space, np.array(starts), np.array(durations), clip_domains, scores, cache)
     return manifest

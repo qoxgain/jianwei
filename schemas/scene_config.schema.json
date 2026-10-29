@@ -1,5 +1,47 @@
 {
   "$defs": {
+    "CaptureIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "physical_camera_id": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Physical Camera Id"
+        },
+        "stable_view_id": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Stable View Id"
+        },
+        "review_status": {
+          "default": "pending",
+          "enum": [
+            "pending",
+            "confirmed"
+          ],
+          "title": "Review Status",
+          "type": "string"
+        }
+      },
+      "title": "CaptureIdentity",
+      "type": "object"
+    },
     "ContextField": {
       "additionalProperties": false,
       "properties": {
@@ -330,6 +372,28 @@
             }
           ],
           "title": "Window Seconds"
+        },
+        "observation_contract": {
+          "anyOf": [
+            {
+              "const": "p033-observation-v1",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observation Contract"
+        },
+        "partial_window": {
+          "default": "exclude",
+          "enum": [
+            "exclude",
+            "extract_only"
+          ],
+          "title": "Partial Window",
+          "type": "string"
         }
       },
       "required": [
@@ -513,6 +577,34 @@
           "maximum": 3600,
           "minimum": 1,
           "title": "Probe Timeout Seconds",
+          "type": "integer"
+        },
+        "decode_timeout_seconds": {
+          "default": 180,
+          "maximum": 7200,
+          "minimum": 1,
+          "title": "Decode Timeout Seconds",
+          "type": "integer"
+        },
+        "encode_timeout_seconds": {
+          "default": 1800,
+          "maximum": 86400,
+          "minimum": 1,
+          "title": "Encode Timeout Seconds",
+          "type": "integer"
+        },
+        "upload_timeout_seconds": {
+          "default": 900,
+          "maximum": 7200,
+          "minimum": 1,
+          "title": "Upload Timeout Seconds",
+          "type": "integer"
+        },
+        "max_staging_bytes": {
+          "default": 2147483648,
+          "maximum": 17179869184,
+          "minimum": 1024,
+          "title": "Max Staging Bytes",
           "type": "integer"
         },
         "decode_width": {
@@ -1333,6 +1425,88 @@
       "title": "SessionPolicy",
       "type": "object"
     },
+    "SopSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "scene_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "Scene Id",
+          "type": "string"
+        },
+        "asset_root": {
+          "default": ".",
+          "title": "Asset Root",
+          "type": "string"
+        },
+        "catalog_path": {
+          "title": "Catalog Path",
+          "type": "string"
+        },
+        "outline_path": {
+          "title": "Outline Path",
+          "type": "string"
+        },
+        "mapping_path": {
+          "title": "Mapping Path",
+          "type": "string"
+        },
+        "media_chunk_bytes": {
+          "default": 1048576,
+          "maximum": 8388608,
+          "minimum": 4096,
+          "title": "Media Chunk Bytes",
+          "type": "integer"
+        },
+        "text_timeout_seconds": {
+          "default": 30,
+          "maximum": 300,
+          "minimum": 1,
+          "title": "Text Timeout Seconds",
+          "type": "integer"
+        },
+        "preview_enabled": {
+          "default": true,
+          "title": "Preview Enabled",
+          "type": "boolean"
+        },
+        "preview_long_edge": {
+          "default": 640,
+          "maximum": 1920,
+          "minimum": 112,
+          "title": "Preview Long Edge",
+          "type": "integer"
+        },
+        "preview_timeout_seconds": {
+          "default": 600,
+          "maximum": 3600,
+          "minimum": 1,
+          "title": "Preview Timeout Seconds",
+          "type": "integer"
+        },
+        "preview_disk_budget_bytes": {
+          "default": 536870912,
+          "maximum": 2147483648,
+          "minimum": 1048576,
+          "title": "Preview Disk Budget Bytes",
+          "type": "integer"
+        },
+        "preview_threads": {
+          "default": 1,
+          "maximum": 8,
+          "minimum": 1,
+          "title": "Preview Threads",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "scene_id",
+        "catalog_path",
+        "outline_path",
+        "mapping_path"
+      ],
+      "title": "SopSettings",
+      "type": "object"
+    },
     "SourceBinding": {
       "additionalProperties": false,
       "properties": {
@@ -1371,6 +1545,17 @@
           "minItems": 4,
           "title": "Roi Xyxy",
           "type": "array"
+        },
+        "capture_identity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CaptureIdentity"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         }
       },
       "required": [
@@ -1880,6 +2065,17 @@
       "anyOf": [
         {
           "$ref": "#/$defs/TemporalSettings"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "sop_review": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SopSettings"
         },
         {
           "type": "null"

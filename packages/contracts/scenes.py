@@ -9,9 +9,15 @@ TaskMode = Literal['activity_recognition', 'event_monitoring', 'procedure_compli
 class EpisodePolicy(Strict):
     mode: Literal['manual_cycle', 'external_cycle', 'fixed_window', 'manual_or_external_cycle', 'manual_or_fixed_window']
     window_seconds: float | None
+    observation_contract: Literal['p033-observation-v1'] | None = None
+    partial_window: Literal['exclude', 'extract_only'] = 'exclude'
 
     @model_validator(mode='after')
     def windows(self):
+        if self.observation_contract and self.mode not in {'fixed_window', 'manual_or_fixed_window'}:
+            raise ValueError('观察窗口契约仅适用于固定观察策略')
+        if self.partial_window == 'extract_only' and self.observation_contract is None:
+            raise ValueError('尾部提特征需要显式观察窗口版本')
         if self.mode in {'fixed_window', 'manual_or_fixed_window'}:
             if self.window_seconds is None or self.window_seconds <= 0:
                 raise ValueError('固定窗口需要正数 window_seconds')

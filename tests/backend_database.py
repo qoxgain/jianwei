@@ -34,7 +34,7 @@ def test_migrations_are_idempotent_and_persist_across_restart(tmp_path):
         saved = session.get(ConfigVersion, version_id)
         assert saved.profile == "cpu"
         assert saved.created_at.tzinfo == timezone.utc
-        assert session.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "0004_temporal"
+        assert session.execute(text("SELECT version_num FROM alembic_version")).scalar_one() == "0005_ingestion_progress"
     reopened.close()
 
 

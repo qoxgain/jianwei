@@ -5,6 +5,7 @@ from pydantic import Field, model_validator
 from .models import Strict
 from .scenes import Identifier
 from .learning import ContextValue, FeatureSpace, Sha
+from .capture import Acquisition, ViewInterval
 
 Split = Literal['unassigned', 'train', 'calibration', 'test']
 
@@ -49,6 +50,8 @@ class ImportRequest(Strict):
     episodes: list[ImportEpisode] = Field(default_factory=list, max_length=10000)
     episode_origin: Literal['manual', 'external'] | None = None
     clock_anchors: list[ClockAnchor] = Field(default_factory=list, max_length=10000)
+    acquisition: Acquisition | None = None
+    view_intervals: list[ViewInterval] = Field(default_factory=list, max_length=10000)
 
     @model_validator(mode='after')
     def format_requirements(self):
@@ -70,6 +73,10 @@ class IngestionSettings(Strict):
     max_frames: int = Field(default=18000, ge=2, le=1000000)
     max_pixels: int = Field(default=8294400, ge=64, le=67108864)
     probe_timeout_seconds: int = Field(default=60, ge=1, le=3600)
+    decode_timeout_seconds: int = Field(default=180, ge=1, le=7200)
+    encode_timeout_seconds: int = Field(default=1800, ge=1, le=86400)
+    upload_timeout_seconds: int = Field(default=900, ge=1, le=7200)
+    max_staging_bytes: int = Field(default=2147483648, ge=1024, le=17179869184)
     decode_width: int = Field(default=160, ge=16, le=1024)
     max_gap_ms: int = Field(default=2000, ge=1, le=600000)
     encoder_input_size: int = Field(default=224, ge=16, le=1024)

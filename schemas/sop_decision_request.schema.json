@@ -1,0 +1,38 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "revision": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Revision",
+      "type": "string"
+    },
+    "action": {
+      "enum": [
+        "approve",
+        "revoke"
+      ],
+      "title": "Action",
+      "type": "string"
+    },
+    "reviewer": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Reviewer",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    }
+  },
+  "required": [
+    "revision",
+    "action",
+    "reviewer",
+    "reason"
+  ],
+  "title": "DecisionRequest",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

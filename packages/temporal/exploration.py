@@ -1,3 +1,4 @@
+from packages.ingestion.capture import feature_window
 """Retrospective, single-source discovery; never a training/evaluation shortcut.
 
 This intentionally accepts only unassigned real video. Its statistics describe
@@ -82,7 +83,7 @@ def explore(manifest, vectors_path, video_path, settings, config_hash):
                         batch.pts_start_ms, batch.pts_end_ms, batch.time_domain_id, batch.episode_id)):
                 fail('EXPLORATION_ROW_INVALID', '特征与原始时间、周期、质量记录不一致')
             episode = episodes.get(batch.episode_id)
-            if (not episode or not episode['complete'] or episode['time_domain_id'] != batch.time_domain_id
+            if (not feature_window(episode) or episode['time_domain_id'] != batch.time_domain_id
                     or not episode['start_ms'] <= batch.pts_start_ms < batch.pts_end_ms <= episode['end_ms']):
                 fail('EXPLORATION_ROW_INVALID', '特征不在完整周期内')
             groups[(batch.episode_id, batch.time_domain_id, batch.entity_id)].append((index, batch))
@@ -171,7 +172,10 @@ def explore(manifest, vectors_path, video_path, settings, config_hash):
             'coverage': {'covered_ms': covered, 'source_domain_ms': duration,
                          'fraction': covered / duration if duration else 0, 'domains': coverage,
                          'definition': 'union of eligible clip intervals, without counting overlap twice'},
-            'incomplete_episodes': [dict(e, exclusion_reason='incomplete_episode') for e in manifest['episodes'] if not e['complete']],
+            'observation_windows': [e for e in manifest['episodes'] if e.get('kind') == 'observation_window'],
+            'capture_identity': manifest.get('capture_identity'), 'acquisition': manifest.get('acquisition'),
+            'view_review': manifest.get('view_review', []),
+            'incomplete_episodes': [dict(e, exclusion_reason='incomplete_episode') for e in manifest['episodes'] if not feature_window(e)],
             'rejected_rows': manifest.get('rejected_rows', []), 'discarded_clips': manifest.get('discarded_clips', []),
             'direct_video_seek_supported': len(coverage) == 1 and coverage[0]['start_ms'] == 0,
             'semantic_accuracy': None, 'boundary_accuracy': None, 'forecast_evaluation': None,

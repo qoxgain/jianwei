@@ -1,8 +1,188 @@
 openapi: 3.1.0
 info:
-  title: 见微 P0.3.2 时序研究与数据知识服务
-  version: 0.3.2
+  title: 见微 P0.3.3 真实数据与规范复核服务
+  version: 0.3.3
 paths:
+  /api/scenes/{scene_id}/sop:
+    get:
+      tags:
+      - sop-review
+      summary: Get Review
+      operationId: get_review_api_scenes__scene_id__sop_get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/sop/revisions:
+    post:
+      tags:
+      - sop-review
+      summary: Revise
+      operationId: revise_api_scenes__scene_id__sop_revisions_post
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevisionRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/sop/decisions:
+    post:
+      tags:
+      - sop-review
+      summary: Decide
+      operationId: decide_api_scenes__scene_id__sop_decisions_post
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecisionRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/sop/evidence:
+    post:
+      tags:
+      - sop-review
+      summary: Evidence
+      operationId: evidence_api_scenes__scene_id__sop_evidence_post
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvidenceRecord'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/sop/media/{asset_id}:
+    get:
+      tags:
+      - sop-review
+      summary: Media
+      operationId: media_api_scenes__scene_id__sop_media__asset_id__get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      - name: asset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Asset Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/sop/media/{asset_id}/preview:
+    get:
+      tags:
+      - sop-review
+      summary: Preview
+      operationId: preview_api_scenes__scene_id__sop_media__asset_id__preview_get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      - name: asset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Asset Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/health:
     get:
       summary: Health
@@ -189,6 +369,122 @@ paths:
           title: Import Id
       responses:
         '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/imports/{import_id}/exploration:
+    get:
+      summary: Explore Import
+      operationId: explore_import_api_scenes__scene_id__imports__import_id__exploration_get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      - name: import_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Import Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/imports/{import_id}/media:
+    get:
+      summary: Import Media
+      operationId: import_media_api_scenes__scene_id__imports__import_id__media_get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      - name: import_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Import Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/imports/{import_id}/media/preview:
+    get:
+      summary: Import Preview
+      operationId: import_preview_api_scenes__scene_id__imports__import_id__media_preview_get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      - name: import_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Import Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/imports/{import_id}/cancel:
+    post:
+      summary: Cancel Import
+      operationId: cancel_import_api_scenes__scene_id__imports__import_id__cancel_post
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      - name: import_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Import Id
+      responses:
+        '202':
           description: Successful Response
           content:
             application/json:
@@ -792,6 +1088,30 @@ paths:
       deprecated: true
 components:
   schemas:
+    Acquisition:
+      properties:
+        capture_session_id:
+          anyOf:
+          - type: string
+            pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          - type: 'null'
+          title: Capture Session Id
+        captured_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Captured At
+        review_status:
+          type: string
+          enum:
+          - pending
+          - confirmed
+          title: Review Status
+          default: pending
+      additionalProperties: false
+      type: object
+      title: Acquisition
     ClockAnchor:
       properties:
         domain_index:
@@ -812,6 +1132,35 @@ components:
       - pts_ms
       - capture_utc
       title: ClockAnchor
+    DecisionRequest:
+      properties:
+        revision:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Revision
+        action:
+          type: string
+          enum:
+          - approve
+          - revoke
+          title: Action
+        reviewer:
+          type: string
+          pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          title: Reviewer
+        reason:
+          type: string
+          maxLength: 2000
+          minLength: 1
+          title: Reason
+      additionalProperties: false
+      type: object
+      required:
+      - revision
+      - action
+      - reviewer
+      - reason
+      title: DecisionRequest
     EvaluationRequest:
       properties:
         model_run_id:
@@ -837,6 +1186,72 @@ components:
       - import_ids
       - sealed_test
       title: EvaluationRequest
+    EvidenceRecord:
+      properties:
+        revision:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Revision
+        kind:
+          type: string
+          enum:
+          - observation
+          - prediction
+          - normative_expectation
+          - human_annotation
+          - semantic_candidate
+          title: Kind
+        asset_id:
+          type: string
+          pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          title: Asset Id
+        section_id:
+          type: string
+          pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          title: Section Id
+        start_ms:
+          type: integer
+          minimum: 0.0
+          title: Start Ms
+        end_ms:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: End Ms
+        producer:
+          type: string
+          pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          title: Producer
+        note:
+          type: string
+          maxLength: 8000
+          minLength: 1
+          title: Note
+        evidence_type:
+          type: string
+          enum:
+          - visible_operation
+          - closeup_detail
+          - instrument_record
+          title: Evidence Type
+        evidence_reference:
+          anyOf:
+          - type: string
+            maxLength: 2000
+          - type: 'null'
+          title: Evidence Reference
+      additionalProperties: false
+      type: object
+      required:
+      - revision
+      - kind
+      - asset_id
+      - section_id
+      - start_ms
+      - end_ms
+      - producer
+      - note
+      - evidence_type
+      title: EvidenceRecord
     FeatureSpace:
       properties:
         contract_version:
@@ -1006,6 +1421,16 @@ components:
           type: array
           maxItems: 10000
           title: Clock Anchors
+        acquisition:
+          anyOf:
+          - $ref: '#/components/schemas/Acquisition'
+          - type: 'null'
+        view_intervals:
+          items:
+            $ref: '#/components/schemas/ViewInterval'
+          type: array
+          maxItems: 10000
+          title: View Intervals
       additionalProperties: false
       type: object
       required:
@@ -1014,6 +1439,30 @@ components:
       - source_id
       - data_origin
       title: ImportRequest
+    MappingEntry:
+      properties:
+        asset_id:
+          type: string
+          pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          title: Asset Id
+        section_ids:
+          items:
+            type: string
+            pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          type: array
+          maxItems: 100
+          title: Section Ids
+        notes:
+          type: string
+          maxLength: 4000
+          title: Notes
+          default: ''
+      additionalProperties: false
+      type: object
+      required:
+      - asset_id
+      - section_ids
+      title: MappingEntry
     PreviewRequest:
       properties:
         yaml:
@@ -1059,6 +1508,42 @@ components:
       required:
       - import_ids
       title: ReadinessRequest
+    RevisionRequest:
+      properties:
+        base_revision:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Base Revision
+        reviewer:
+          type: string
+          pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          title: Reviewer
+        reason:
+          type: string
+          maxLength: 2000
+          minLength: 1
+          title: Reason
+        mappings:
+          items:
+            $ref: '#/components/schemas/MappingEntry'
+          type: array
+          maxItems: 100
+          minItems: 1
+          title: Mappings
+        disputes:
+          items:
+            type: string
+          type: array
+          maxItems: 100
+          title: Disputes
+      additionalProperties: false
+      type: object
+      required:
+      - base_revision
+      - reviewer
+      - reason
+      - mappings
+      title: RevisionRequest
     TrainRequest:
       properties:
         import_ids:
@@ -1112,3 +1597,44 @@ components:
       - yaml
       - base_hash
       title: VersionRequest
+    ViewInterval:
+      properties:
+        domain_index:
+          type: integer
+          minimum: 0.0
+          title: Domain Index
+        start_ms:
+          type: integer
+          minimum: 0.0
+          title: Start Ms
+        end_ms:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: End Ms
+        status:
+          type: string
+          enum:
+          - usable
+          - excluded
+          - unreviewed
+          title: Status
+        reason:
+          type: string
+          maxLength: 1000
+          minLength: 1
+          title: Reason
+        reviewer:
+          anyOf:
+          - type: string
+            pattern: ^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$
+          - type: 'null'
+          title: Reviewer
+      additionalProperties: false
+      type: object
+      required:
+      - domain_index
+      - start_ms
+      - end_ms
+      - status
+      - reason
+      title: ViewInterval

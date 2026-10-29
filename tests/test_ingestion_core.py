@@ -176,3 +176,30 @@ def test_actual_invalid_video_returns_safe_error(tmp_path):
     path = tmp_path/'private-customer-video.mp4'; path.write_bytes(b'not a movie')
     error = error_code('VIDEO_DECODE_FAILED', lambda: process_import(load_bundle(), 'anonymous_observation', video_request(), path, output_dir=tmp_path/'out'))
     assert str(tmp_path) not in str(error.detail())
+
+
+def test_short_observation_extracts_features_without_inventing_full_cycle_or_future(tmp_path):
+    """Analytical test graph checks mechanics only; no pretrained learning claim."""
+    from packages.contracts.scenes import EpisodePolicy
+    from packages.temporal.data import metadata_sequences, window_refs
+    path = tmp_path / 'short-20.44.mp4'
+    subprocess.run(['ffmpeg', '-v', 'error', '-f', 'lavfi', '-i',
+        'testsrc2=size=64x48:rate=25:duration=20.44', '-c:v', 'mpeg4', '-threads', '1', '-y', str(path)],
+        check=True, timeout=30)
+    bundle = onnx_bundle(tmp_path)
+    bundle.config.video.stride_seconds = 2
+    bundle.scenes['anonymous_observation'].episode_policy = EpisodePolicy(mode='fixed_window',
+        window_seconds=60, observation_contract='p033-observation-v1', partial_window='extract_only')
+    request = ImportRequest(upload_id='short', format='mp4', source_id='cam_01', data_origin='synthetic_features')
+    manifest = process_import(bundle, 'anonymous_observation', request, path, output_dir=tmp_path / 'short-out')
+    assert manifest['status'] == 'succeeded' and manifest['eligible_rows'] == 10
+    assert manifest['domains'][0]['end_ms'] == 20440
+    episode, = manifest['episodes']
+    assert episode['complete'] is False and episode['kind'] == 'observation_window'
+    assert episode['business_cycle_verified'] is False and episode['end_ms'] == 20440
+    assert all(b['pts_end_ms'] <= 20440 for b in manifest['feature_batches'])
+    sequences = metadata_sequences(manifest, bundle.config.temporal)
+    learning = bundle.config.learning.model_copy(update={'history_windows': 4, 'forecast_horizons_seconds': [30.0]})
+    windows, excluded = window_refs(sequences, learning, bundle.config.temporal)
+    assert windows == [] and excluded['future_not_available'] == 7
+    assert bundle.scenes['anonymous_observation'].episode_policy.window_seconds == 60

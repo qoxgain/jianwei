@@ -127,6 +127,8 @@ class ImportJob(Base):
     status: Mapped[str] = mapped_column(String(16), nullable=False, default='queued')
     error_json: Mapped[str | None] = mapped_column(Text, nullable=True)
     manifest_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    progress_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+    cancel_requested: Mapped[bool] = mapped_column(nullable=False, default=False, server_default='0')
     created_at: Mapped[datetime] = mapped_column(UTCDateTime(), default=utc_now, nullable=False)
     updated_at: Mapped[datetime] = mapped_column(UTCDateTime(), default=utc_now, nullable=False)
 

@@ -9,6 +9,7 @@ from pathlib import Path
 
 from packages.contracts.models import Forecast, Knowledge, MemoryPatch, SystemConfig, TeacherResult
 from packages.contracts.ingestion import ImportRequest
+from packages.contracts.sop import RevisionRequest, DecisionRequest, EvidenceRecord
 from packages.contracts.temporal import TrainRequest, EvaluationRequest, ReadinessRequest
 from packages.contracts.dataset import DatasetManifest
 from packages.contracts.scenes import SceneKnowledge
@@ -18,6 +19,9 @@ from packages.contracts.learning import Episode, FeatureSpace, FeatureBatch, Act
 
 ROOT = Path(__file__).resolve().parents[1]
 MODELS = {
+    "sop_revision_request": RevisionRequest,
+    "sop_decision_request": DecisionRequest,
+    "sop_evidence_record": EvidenceRecord,
     "temporal_readiness_request": ReadinessRequest,
     "dataset_manifest": DatasetManifest,
     "temporal_train_request": TrainRequest,

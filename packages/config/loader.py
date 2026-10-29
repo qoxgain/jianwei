@@ -161,12 +161,28 @@ def load_bundle(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", p
     excluded = {'knowledge_file', 'session'} if isinstance(config, SceneConfig) else set()
     if isinstance(config, SceneConfig) and config.temporal is None: excluded.add('temporal')
     snapshot = _redact(config.model_dump(exclude=excluded))
+    if snapshot.get('sop_review') is None: snapshot.pop('sop_review', None)
+    # Viewing derivatives do not invalidate existing feature configuration when
+    # their optional defaults were not explicitly supplied in system.yaml.
+    for name in ('preview_enabled','preview_long_edge','preview_timeout_seconds','preview_disk_budget_bytes','preview_threads'):
+        if name not in (raw.get('sop_review') or {}):
+            (snapshot.get('sop_review') or {}).pop(name, None)
     # An optional real-source registry must not change historical configuration
     # hashes when absent. A populated manifest is included in full.
     if snapshot.get('temporal', {}).get('dataset_manifest') is None:
         snapshot.get('temporal', {}).pop('dataset_manifest', None)
     else:
         snapshot['temporal']['dataset_manifest'] = config.temporal.dataset_manifest.model_dump(mode='json')
+    for profile_snapshot in snapshot['profiles'].values():
+        for source_snapshot in profile_snapshot['sources']:
+            if source_snapshot.get('capture_identity') is None: source_snapshot.pop('capture_identity', None)
+    for scene_snapshot in snapshot.get('scenes', {}).values():
+        policy = scene_snapshot['episode_policy']
+        if policy.get('observation_contract') is None:
+            policy.pop('observation_contract', None)
+            if policy.get('partial_window') == 'exclude': policy.pop('partial_window', None)
+    for name in ('decode_timeout_seconds','encode_timeout_seconds','upload_timeout_seconds','max_staging_bytes'):
+        if name not in (raw.get('ingestion') or {}): (snapshot.get('ingestion') or {}).pop(name, None)
     return Bundle(config=config, profile=selected, root=root, path=path, config_hash=content_hash(snapshot),
                   snapshot=snapshot, knowledge=knowledge, knowledge_yaml=knowledge_yaml, paths=paths, scenes=scenes)
 

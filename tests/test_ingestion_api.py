@@ -92,7 +92,7 @@ def test_real_worker_imports_examples_in_each_scene_without_labels(import_api, s
     assert response.status_code == 200
     assert response.json() == manifest
     assert 'attachment' in response.headers['content-disposition']
-    assert client.get('/api/health').json()['schema_version'] == '0004_temporal'
+    assert client.get('/api/health').json()['schema_version'] == '0005_ingestion_progress'
     capabilities = client.get(f'/api/scenes/{scene}').json()['capabilities']
     assert capabilities['video_ingest'] is True
     assert capabilities['training'] is True  # P0.3 is explicitly enabled in this fixture
@@ -287,3 +287,165 @@ def test_imports_disabled_for_legacy_config(tmp_path):
         assert client.get('/api/ingestion/capabilities').json()['enabled'] is False
         assert client.post('/api/uploads?kind=npz', content=b'x').json()['detail']['code'] == 'INGESTION_DISABLED'
         assert client.get('/api/bootstrap').json()['capabilities']['video_ingest'] is False
+
+
+def test_default_limit_rejects_declared_sizes_of_all_seven_industrial_assets_before_read(import_api):
+    _, app, _ = import_api
+    from packages.config.errors import ContractError
+    service = app.state.imports
+    assert service.settings.max_upload_bytes == 64 * 1024 * 1024
+    catalog = json.loads((ROOT / 'datasets/video_samples/catalog.json').read_text())
+    assets = [a for a in catalog['assets'] if a['asset_id'].startswith('bull_station_')]
+    assert len(assets) == 7
+    for asset in assets:
+        class DeclaredLargeRequest:
+            headers = {'content-length': str(asset['bytes'])}
+            async def stream(self):
+                raise AssertionError('Over-limit declared body must not be read')
+                yield b''
+        with pytest.raises(ContractError) as rejected:
+            asyncio.run(service.upload(DeclaredLargeRequest(), 'mp4'))
+        assert rejected.value.code == 'UPLOAD_TOO_LARGE'
+    assert not list(service.upload_root.glob('.upload-*'))
+    assert service.staging_bytes == 0
+
+
+def test_lfs_pointer_rejected_and_partial_upload_removed(import_api):
+    client, app, _ = import_api
+    pointer = b'version https://git-lfs.github.com/spec/v1\noid sha256:' + b'a' * 64 + b'\nsize 1234\n'
+    response = client.post('/api/uploads?kind=mp4', content=pointer)
+    assert response.status_code == 422
+    assert response.json()['detail']['code'] == 'UPLOAD_LFS_POINTER'
+    assert not list(app.state.imports.upload_root.glob('.upload-*'))
+    assert not list(app.state.imports.upload_root.glob('*.mp4'))
+    assert app.state.imports.staging_bytes == 0
+
+
+def test_upload_deadline_and_concurrent_staging_budget_release_on_failure(import_api):
+    _, app, _ = import_api
+    from packages.config.errors import ContractError
+    service = app.state.imports
+    service.settings = service.settings.model_copy(update={'upload_timeout_seconds': 1, 'max_staging_bytes': 1024})
+    class SlowRequest:
+        headers = {}
+        async def stream(self):
+            yield b'x' * 700
+            await asyncio.sleep(2)
+    with pytest.raises(ContractError) as rejected:
+        asyncio.run(service.upload(SlowRequest(), 'mp4'))
+    assert rejected.value.code == 'UPLOAD_TIMEOUT'
+    assert service.staging_bytes == 0
+    assert not list(service.upload_root.glob('.upload-*'))
+
+    async def contention():
+        holding = asyncio.Event()
+        finish = asyncio.Event()
+        class HeldRequest:
+            headers = {}
+            async def stream(self):
+                yield b'a' * 700
+                holding.set()
+                await finish.wait()
+        class OtherRequest:
+            headers = {}
+            async def stream(self):
+                yield b'b' * 700
+        first = asyncio.create_task(service.upload(HeldRequest(), 'encoder'))
+        await holding.wait()
+        try:
+            with pytest.raises(ContractError) as exhausted:
+                await service.upload(OtherRequest(), 'encoder')
+            assert exhausted.value.code == 'UPLOAD_STAGING_LIMIT'
+            assert service.staging_bytes == 700
+        finally:
+            finish.set()
+        completed = await first
+        assert completed['size_bytes'] == 700
+    asyncio.run(contention())
+    assert service.staging_bytes == 0
+    assert not list(service.upload_root.glob('.upload-*'))
+
+
+def test_cancel_running_import_cleans_output_persists_progress_and_retry_preserves_id(import_api, tmp_path, monkeypatch):
+    client, app, config = import_api
+    import packages.ingestion as ingestion
+    service = app.state.imports
+    service.close()
+    body = example_request(client, config, tmp_path / 'fixture')
+    job = enqueue(client, 'anonymous_observation', body)
+    with app.state.database.session() as session:
+        session.get(ImportJob, job['id']).status = 'running'
+    original_process = ingestion.process_import
+    observed = []
+    def interrupted(*args, output_dir, progress, **kwargs):
+        (output_dir / 'partial-vectors.npy').write_bytes(b'partial')
+        progress('encode', completed=1, total=2, unit='clips')
+        current = client.get(f'/api/scenes/anonymous_observation/imports/{job["id"]}').json()
+        observed.append(current['progress'])
+        assert client.post(f'/api/scenes/workshop_safety/imports/{job["id"]}/cancel').status_code == 404
+        cancelled = client.post(f'/api/scenes/anonymous_observation/imports/{job["id"]}/cancel')
+        assert cancelled.status_code == 202 and cancelled.json()['cancel_requested'] is True
+        progress('encode', completed=2, total=2, unit='clips')
+        raise AssertionError('Cancellation must interrupt before returning partial results')
+    monkeypatch.setattr(ingestion, 'process_import', interrupted)
+    service._process(job['id'])
+    failed = client.get(f'/api/scenes/anonymous_observation/imports/{job["id"]}').json()
+    assert failed['status'] == 'failed' and failed['error']['code'] == 'IMPORT_CANCELLED'
+    assert failed['manifest'] is None
+    assert observed[0]['stage'] == 'encode' and observed[0]['completed'] == 1 and observed[0]['total'] == 2
+    assert not (service.output_root / job['id']).exists()
+    monkeypatch.setattr(ingestion, 'process_import', original_process)
+    retried = client.post(f'/api/scenes/anonymous_observation/imports/{job["id"]}/retry').json()
+    assert retried['id'] == job['id'] and retried['cancel_requested'] is False
+    assert retried['progress']['stage'] == 'queued'
+    service._process(job['id'])
+    completed = client.get(f'/api/scenes/anonymous_observation/imports/{job["id"]}').json()
+    assert completed['status'] == 'succeeded'
+    assert completed['progress']['stage'] == 'succeeded'
+    # Finished work is not invalidated by a late cancellation request.
+    late = client.post(f'/api/scenes/anonymous_observation/imports/{job["id"]}/cancel').json()
+    assert late == completed
+
+
+def test_changed_implementation_rejects_retry_and_new_request_gets_new_identity(import_api, tmp_path, monkeypatch):
+    client, app, config = import_api
+    service = app.state.imports
+    service.close()
+    body = example_request(client, config, tmp_path / 'fixture')
+    first = enqueue(client, 'anonymous_observation', body)
+    cancelled = client.post(f'/api/scenes/anonymous_observation/imports/{first["id"]}/cancel').json()
+    assert cancelled['status'] == 'failed' and cancelled['error']['code'] == 'IMPORT_CANCELLED'
+    monkeypatch.setattr(service, 'implementation_hash', lambda: '0' * 64)
+    rejected = client.post(f'/api/scenes/anonymous_observation/imports/{first["id"]}/retry')
+    assert rejected.json()['detail']['code'] == 'IMPORT_IMPLEMENTATION_CHANGED'
+    second = enqueue(client, 'anonymous_observation', body)
+    assert second['id'] != first['id']
+    assert client.get(f'/api/scenes/anonymous_observation/imports/{first["id"]}').json() == cancelled
+
+
+def test_abandoned_upload_cleanup_preserves_live_leases(import_api):
+    """An interrupted upload cannot accumulate outside the next upload budget."""
+    import os
+    _, app, _ = import_api
+    service=app.state.imports
+    first_fd, first_path=service._temporary_upload()
+    os.write(first_fd,b'active stream')
+    try:
+        abandoned=service.upload_root/'.upload-abandoned-fixture'
+        abandoned.write_bytes(b'interrupted bytes')
+        next_fd, next_path=service._temporary_upload()
+        try:
+            assert first_path.read_bytes()==b'active stream'
+            assert not abandoned.exists()
+        finally:
+            os.close(next_fd)
+            next_path.unlink(missing_ok=True)
+    finally:
+        os.close(first_fd)
+    # Closing an unfinished owner simulates its process exit, releasing the lease.
+    recovered_fd,recovered_path=service._temporary_upload()
+    try:
+        assert not first_path.exists()
+    finally:
+        os.close(recovered_fd)
+        recovered_path.unlink(missing_ok=True)

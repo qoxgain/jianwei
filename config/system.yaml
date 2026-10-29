@@ -399,3 +399,13 @@ temporal:
   max_abs_feature: 1000000
   gradient_clip_norm: 5.0
   worker_poll_seconds: 0.25
+
+# 工业规范候选仅在注册场景人工复核，不自动激活或作为视频真值。
+sop_review:
+  scene_id: electronics_assembly
+  asset_root: .
+  catalog_path: datasets/video_samples/catalog.json
+  outline_path: datasets/video_samples/bull_new_energy/sop/outline.draft.json
+  mapping_path: datasets/video_samples/bull_new_energy/sop/station-mapping.draft.json
+  media_chunk_bytes: 1048576
+  text_timeout_seconds: 30

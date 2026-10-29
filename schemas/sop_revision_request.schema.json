@@ -1,0 +1,80 @@
+{
+  "$defs": {
+    "MappingEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "section_ids": {
+          "items": {
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+            "type": "string"
+          },
+          "maxItems": 100,
+          "title": "Section Ids",
+          "type": "array"
+        },
+        "notes": {
+          "default": "",
+          "maxLength": 4000,
+          "title": "Notes",
+          "type": "string"
+        }
+      },
+      "required": [
+        "asset_id",
+        "section_ids"
+      ],
+      "title": "MappingEntry",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "base_revision": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Base Revision",
+      "type": "string"
+    },
+    "reviewer": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Reviewer",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "mappings": {
+      "items": {
+        "$ref": "#/$defs/MappingEntry"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Mappings",
+      "type": "array"
+    },
+    "disputes": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Disputes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "base_revision",
+    "reviewer",
+    "reason",
+    "mappings"
+  ],
+  "title": "RevisionRequest",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

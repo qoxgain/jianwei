@@ -24,6 +24,9 @@ from packages.config.loader import PROJECT_ROOT, assert_demo_service, database_u
 from packages.contracts.models import Strict, Knowledge
 from packages.contracts.ingestion import ImportRequest
 from packages.ingest_jobs.service import ImportService
+from packages.ingest_jobs.inspection import ImportInspection
+from packages.sop.service import SopService
+from apps.api.sop import router as sop_router
 from packages.ingestion_examples import build_example
 from packages.temporal_jobs.service import TemporalService
 from packages.temporal_examples import enqueue_examples
@@ -101,6 +104,8 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
         application.state.bundle, application.state.database = bundle, database
         imports = ImportService(bundle, database)
         application.state.imports = imports
+        application.state.inspection = ImportInspection(imports)
+        application.state.sop = SopService(bundle, database)
         temporal = TemporalService(bundle, database, imports)
         application.state.temporal = temporal
         try:
@@ -121,8 +126,9 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
             imports.close()
             database.close()
 
-    application = FastAPI(title="见微 P0.3.2 时序研究与数据知识服务", version="0.3.2", lifespan=lifespan)
+    application = FastAPI(title="见微 P0.3.3 真实数据与规范复核服务", version="0.3.3", lifespan=lifespan)
     application.add_middleware(BodyLimit)
+    application.include_router(sop_router)
 
     def scope(scene_id=None):
         bundle = application.state.bundle
@@ -262,6 +268,26 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
     @application.get('/api/scenes/{scene_id}/imports/{import_id}')
     def get_import(scene_id: str, import_id: str):
         return application.state.imports.get(scene_id, import_id)
+
+    @application.get('/api/scenes/{scene_id}/imports/{import_id}/exploration')
+    def explore_import(scene_id: str, import_id: str):
+        return application.state.inspection.report(scene_id, import_id)
+
+    @application.get('/api/scenes/{scene_id}/imports/{import_id}/media')
+    @application.head('/api/scenes/{scene_id}/imports/{import_id}/media', include_in_schema=False)
+    def import_media(scene_id: str, import_id: str):
+        path, digest = application.state.inspection.media(scene_id, import_id)
+        return FileResponse(path, media_type='video/mp4', headers={'ETag': f'"{digest}"', 'Cache-Control': 'private, no-cache'})
+
+    @application.get('/api/scenes/{scene_id}/imports/{import_id}/media/preview')
+    @application.head('/api/scenes/{scene_id}/imports/{import_id}/media/preview', include_in_schema=False)
+    def import_preview(scene_id: str, import_id: str):
+        path, _metadata = application.state.inspection.preview(scene_id, import_id)
+        return FileResponse(path, media_type='video/mp4', headers={'Cache-Control': 'private, no-cache'})
+
+    @application.post('/api/scenes/{scene_id}/imports/{import_id}/cancel', status_code=202)
+    def cancel_import(scene_id: str, import_id: str):
+        return application.state.imports.cancel(scene_id, import_id)
 
     @application.post('/api/scenes/{scene_id}/imports/{import_id}/retry', status_code=202)
     def retry_import(scene_id: str, import_id: str):

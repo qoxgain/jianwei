@@ -1,5 +1,47 @@
 {
   "$defs": {
+    "Acquisition": {
+      "additionalProperties": false,
+      "properties": {
+        "capture_session_id": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capture Session Id"
+        },
+        "captured_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Captured At"
+        },
+        "review_status": {
+          "default": "pending",
+          "enum": [
+            "pending",
+            "confirmed"
+          ],
+          "title": "Review Status",
+          "type": "string"
+        }
+      },
+      "title": "Acquisition",
+      "type": "object"
+    },
     "ClockAnchor": {
       "additionalProperties": false,
       "properties": {
@@ -108,6 +150,63 @@
         "end_ms"
       ],
       "title": "ImportEpisode",
+      "type": "object"
+    },
+    "ViewInterval": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_index": {
+          "minimum": 0,
+          "title": "Domain Index",
+          "type": "integer"
+        },
+        "start_ms": {
+          "minimum": 0,
+          "title": "Start Ms",
+          "type": "integer"
+        },
+        "end_ms": {
+          "exclusiveMinimum": 0,
+          "title": "End Ms",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "usable",
+            "excluded",
+            "unreviewed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 1000,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "reviewer": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reviewer"
+        }
+      },
+      "required": [
+        "domain_index",
+        "start_ms",
+        "end_ms",
+        "status",
+        "reason"
+      ],
+      "title": "ViewInterval",
       "type": "object"
     }
   },
@@ -272,6 +371,25 @@
       },
       "maxItems": 10000,
       "title": "Clock Anchors",
+      "type": "array"
+    },
+    "acquisition": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Acquisition"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "view_intervals": {
+      "items": {
+        "$ref": "#/$defs/ViewInterval"
+      },
+      "maxItems": 10000,
+      "title": "View Intervals",
       "type": "array"
     }
   },

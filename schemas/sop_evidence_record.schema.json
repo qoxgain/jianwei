@@ -1,0 +1,88 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "revision": {
+      "pattern": "^[a-f0-9]{64}$",
+      "title": "Revision",
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "observation",
+        "prediction",
+        "normative_expectation",
+        "human_annotation",
+        "semantic_candidate"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "asset_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Asset Id",
+      "type": "string"
+    },
+    "section_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Section Id",
+      "type": "string"
+    },
+    "start_ms": {
+      "minimum": 0,
+      "title": "Start Ms",
+      "type": "integer"
+    },
+    "end_ms": {
+      "exclusiveMinimum": 0,
+      "title": "End Ms",
+      "type": "integer"
+    },
+    "producer": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Producer",
+      "type": "string"
+    },
+    "note": {
+      "maxLength": 8000,
+      "minLength": 1,
+      "title": "Note",
+      "type": "string"
+    },
+    "evidence_type": {
+      "enum": [
+        "visible_operation",
+        "closeup_detail",
+        "instrument_record"
+      ],
+      "title": "Evidence Type",
+      "type": "string"
+    },
+    "evidence_reference": {
+      "anyOf": [
+        {
+          "maxLength": 2000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Evidence Reference"
+    }
+  },
+  "required": [
+    "revision",
+    "kind",
+    "asset_id",
+    "section_id",
+    "start_ms",
+    "end_ms",
+    "producer",
+    "note",
+    "evidence_type"
+  ],
+  "title": "EvidenceRecord",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

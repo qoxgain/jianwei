@@ -5,6 +5,8 @@ from .models import Strict, SystemConfig, Profile, Encoder
 from .scenes import Identifier, SceneSpec
 from .ingestion import IngestionSettings
 from .temporal import TemporalSettings
+from .capture import CaptureIdentity
+from .sop import SopSettings
 
 class SourceBinding(Strict):
     id: Identifier
@@ -12,6 +14,7 @@ class SourceBinding(Strict):
     uri: str
     scene_ids: list[Identifier] = Field(min_length=1)
     roi_xyxy: list[float] = Field(min_length=4, max_length=4)
+    capture_identity: CaptureIdentity | None = None
 
 class SceneProfile(Profile):
     sources: list[SourceBinding]  # An unlabeled scene may start before any source is registered.
@@ -23,6 +26,7 @@ class SceneConfig(SystemConfig):
     config_version: Literal['3.1']
     ingestion: IngestionSettings | None = None
     temporal: TemporalSettings | None = None
+    sop_review: SopSettings | None = None
     encoder: SceneEncoder
     knowledge_file: None = None
     session: None = None
@@ -31,6 +35,8 @@ class SceneConfig(SystemConfig):
 
     @model_validator(mode='after')
     def consistency(self):
+        if self.sop_review and self.sop_review.scene_id not in self.scenes:
+            raise ValueError('SOP复核配置引用未知场景')
         if self.temporal is not None:
             if self.ingestion is None: raise ValueError('temporal需要ingestion')
             if len(set(self.learning.forecast_horizons_seconds)) != len(self.learning.forecast_horizons_seconds): raise ValueError('重复预测窗口')

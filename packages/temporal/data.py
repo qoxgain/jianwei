@@ -1,3 +1,4 @@
+from packages.ingestion.capture import feature_window
 """Snapshot admission and causal window references. No labels or SOP inputs."""
 from collections import Counter, defaultdict
 from dataclasses import dataclass
@@ -141,7 +142,7 @@ def metadata_sequences(manifest, settings):
                     row['start_ms'],row['end_ms'],row['episode_id'],row['time_domain_id']):
                 fail('TEMPORAL_ROW_INVALID', '特征时间/周期与源记录不一致')
             episode = episodes.get(batch.episode_id)
-            if (not episode or not episode['complete'] or episode['time_domain_id'] != batch.time_domain_id
+            if (not feature_window(episode) or episode['time_domain_id'] != batch.time_domain_id
                     or not episode['start_ms'] <= batch.pts_start_ms < batch.pts_end_ms <= episode['end_ms']):
                 fail('TEMPORAL_ROW_INVALID', '特征不在完整周期内')
             groups[(batch.episode_id,batch.time_domain_id,batch.entity_id)].append((i,batch))

@@ -1,5 +1,8 @@
 """Admission of reviewed acquisition groups; no claim of automated authenticity."""
+import json
+from pydantic import ValidationError
 from packages.config.errors import ContractError
+from packages.contracts.capture import Acquisition, CaptureIdentity, ViewInterval
 from packages.knowledge.service import content_hash
 
 
@@ -7,10 +10,57 @@ def fail(code, message):
     raise ContractError(code, message)
 
 
+def _reviewed_coverage(manifest):
+    """A confirmed flag alone cannot replace complete reviewed time coverage."""
+    try:
+        intervals = [ViewInterval.model_validate(item) for item in manifest.get('view_review', [])]
+        domains = manifest['domains']
+        if not intervals or not domains or any(item.status == 'unreviewed' for item in intervals):
+            raise ValueError
+        by_index = {}
+        for domain in domains:
+            index, start, end = domain['domain_index'], domain['start_ms'], domain['end_ms']
+            if (any(type(value) is not int for value in (index, start, end))
+                    or index < 0 or start < 0 or end <= start or index in by_index):
+                raise ValueError
+            by_index[index] = (start, end)
+        if any(item.domain_index not in by_index or not item.reason.strip() for item in intervals):
+            raise ValueError
+        for index, (start, end) in by_index.items():
+            cursor = start
+            for item in sorted((item for item in intervals if item.domain_index == index), key=lambda item:item.start_ms):
+                if item.start_ms != cursor or item.end_ms > end:
+                    raise ValueError
+                cursor = item.end_ms
+            if cursor != end:
+                raise ValueError
+    except (ValidationError, KeyError, TypeError, ValueError):
+        fail('TEMPORAL_VIEW_REVIEW_PENDING', '完整来源仍有未审查、缺失、重叠或无效的镜头稳定性区间')
+
+
 def source_provenance(bundle, manifest):
     """Return immutable evidence only for real research, not exploratory imports."""
     if manifest['data_origin'] == 'synthetic_features':
         return None
+    identity = acquisition = None
+    if manifest.get('capture_contract') == 'p033-capture-v1':
+        raw_identity, raw_acquisition = manifest.get('capture_identity') or {}, manifest.get('acquisition') or {}
+        if (not isinstance(raw_identity, dict) or not isinstance(raw_acquisition, dict)
+                or raw_identity.get('review_status') != 'confirmed'
+                or raw_acquisition.get('review_status') != 'confirmed'):
+            fail('TEMPORAL_CAPTURE_PENDING', '机位、稳定视角或采集会话尚未核实，特征可探索但不可作为独立研究来源')
+        try:
+            identity = CaptureIdentity.model_validate(raw_identity)
+            # Manifests persist JSON, including an ISO datetime string. JSON mode
+            # retains the strict field contract while accepting its wire format.
+            acquisition = Acquisition.model_validate_json(json.dumps(raw_acquisition))
+        except (ValidationError, TypeError, ValueError):
+            fail('TEMPORAL_CAPTURE_INVALID', '确认采集记录缺少有效机位、稳定视角、会话或带时区时间')
+        expected_view = content_hash({'contract': 'physical-view-v1',
+            'physical_camera_id': identity.physical_camera_id, 'stable_view_id': identity.stable_view_id})
+        if manifest.get('view_id') != expected_view:
+            fail('TEMPORAL_PROVENANCE_SCOPE', '导入视角摘要与已确认机位及稳定视角不一致')
+        _reviewed_coverage(manifest)
     registry = bundle.config.temporal.dataset_manifest
     if registry is None:
         fail('TEMPORAL_PROVENANCE_REQUIRED', '真实研究需要在 system.yaml 登记采集会话与近重复审查清单')
@@ -33,6 +83,11 @@ def source_provenance(bundle, manifest):
         node = sources[node.parent_source_sha256]
     if source.split == 'unassigned' or source.split != manifest['split']:
         fail('TEMPORAL_PROVENANCE_SPLIT', '导入分区与已固定采集会话分区不一致')
+    if identity is not None:
+        if (source.capture_session_id != acquisition.capture_session_id
+                or source.camera_id != identity.physical_camera_id
+                or source.captured_at != acquisition.captured_at):
+            fail('TEMPORAL_PROVENANCE_SCOPE', '导入采集身份与已复核研究来源记录不一致')
     if source.view_id != manifest['view_id']:
         fail('TEMPORAL_PROVENANCE_SCOPE', '采集来源视角与导入视角不一致')
     # A flagged duplicate involving any file of this root/session is a blocker,

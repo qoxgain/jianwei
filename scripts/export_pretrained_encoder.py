@@ -57,12 +57,14 @@ def official_checkpoint(path, download=False):
 def validation_clips(video):
     """Two distinct real source intervals, for conversion diagnostics only."""
     info = json.loads(subprocess.check_output(["ffprobe", "-v", "error", "-select_streams", "v:0",
-        "-show_entries", "stream=width,height", "-of", "json", str(video)], timeout=30))["streams"][0]
-    width, height = info["width"], info["height"]
+        "-show_entries", "stream=width,height,sample_aspect_ratio:stream_tags=rotate:stream_side_data=rotation,displaymatrix", "-of", "json", str(video)], timeout=30))["streams"][0]
+    from packages.ingestion.video import video_geometry, geometry_filter
+    geometry = video_geometry(info, max(info['width'], info['height']))
+    width, height = geometry['decoded_width'], geometry['decoded_height']
     clips, raw = [], []
     for start in (0, 30):
         data = subprocess.check_output(["ffmpeg", "-v", "error", "-threads", "1", "-ss", str(start),
-            "-i", str(video), "-vf", "fps=8", "-frames:v", "16", "-an", "-sn", "-dn",
+            "-noautorotate", "-i", str(video), "-vf", geometry_filter(geometry)+",fps=8", "-frames:v", "16", "-an", "-sn", "-dn",
             "-threads", "1", "-pix_fmt", "rgb24", "-f", "rawvideo", "pipe:1"], timeout=60)
         frames = np.frombuffer(data, dtype=np.uint8).reshape(16, height, width, 3)
         raw.append(frames)

@@ -62,7 +62,7 @@ def build_episodes(spec, request, domains):
             if not domain['start_ms'] <= item.start_ms < item.end_ms <= domain['end_ms']:
                 raise ContractError('EPISODE_RANGE', '周期不能超出时间域或跨越断流、PTS 重置')
             result.append({**item.model_dump(), 'time_domain_id': domain['time_domain_id'], 'complete': True,
-                           'origin': request.episode_origin})
+                           'origin': request.episode_origin, 'kind': 'business_cycle', 'business_cycle_verified': True})
         ordered = sorted(result, key=lambda x: (x['domain_index'], x['start_ms']))
         for previous, current in zip(ordered, ordered[1:]):
             if previous['domain_index'] == current['domain_index'] and previous['end_ms'] > current['start_ms']:
@@ -88,6 +88,10 @@ def build_episodes(spec, request, domains):
             result.append({'episode_id': f"d{domain['domain_index']}_window_{n}",
                            'domain_index': domain['domain_index'], 'time_domain_id': domain['time_domain_id'],
                            'start_ms': start, 'end_ms': end, 'complete': end-start == window, 'origin': 'fixed_window'})
+            if policy.observation_contract:
+                result[-1].update(kind='observation_window', business_cycle_verified=False,
+                    observation_contract=policy.observation_contract,
+                    feature_eligible=end-start == window or policy.partial_window == 'extract_only')
             start = end
             n += 1
     return result
