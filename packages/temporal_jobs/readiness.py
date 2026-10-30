@@ -11,6 +11,7 @@ from packages.temporal import engine
 from packages.temporal.data import metadata_sequences, snapshot_imports, window_refs, fail
 from packages.temporal.provenance import source_provenance, assert_evaluation_independent
 from infra.models import ImportJob
+from .sampling import analyze, grid_plan
 
 SPLITS = ('train', 'calibration', 'test', 'unassigned')
 
@@ -70,7 +71,8 @@ def check(service, scene, request):
         record = {'import_id': job['id'], 'source_hash': m.get('source_hash'),
                   'split': m.get('split', 'unassigned'), 'data_origin': m.get('data_origin'),
                   'eligible_rows': m.get('eligible_rows', 0), 'complete_episodes': 0,
-                  'reviewed_group': None, 'missing_records': missing_records(registry, m), 'issues': []}
+                  'reviewed_group': None, 'missing_records': missing_records(registry, m), 'issues': [],
+                  'sampling_diagnostics': None}
         records.append(record)
         if job['status'] != 'succeeded' or not m.get('feature_cache'):
             record['issues'].append({'code': 'TEMPORAL_IMPORT_NOT_READY', 'message': '先完成有效特征导入'})
@@ -83,6 +85,8 @@ def check(service, scene, request):
             record['issues'].append(_issue(error))
         try:
             sequences.extend(metadata_sequences(m, settings))
+            if m['split'] != 'test':
+                record['sampling_diagnostics'] = analyze(m, bundle.config.learning, settings)
         except ContractError as error:
             record['issues'].append(_issue(error))
 
@@ -156,11 +160,12 @@ def check(service, scene, request):
             'causal_windows': len(windows_by_split[split]),
             'sources_with_causal_windows': len(set(windows_by_split[split])),
             'minimum_sources': getattr(settings, 'min_'+split+'_sources') if split != 'unassigned' else None}
-    result = {'stage': 'P0.3.2', 'scene_id': scene, 'metadata_only': True, 'feature_files_opened': False,
+    result = {'stage': 'P0.3.4', 'scene_id': scene, 'metadata_only': True, 'feature_files_opened': False,
               'training_executed': False, 'test_values_read': False, 'jobs_created': False,
               'config_hash': bundle.config_hash, 'engine_hash': engine.code_hash(),
               'dataset_manifest_hash': content_hash(registry.model_dump(mode='json')) if registry else None,
               'records': records, 'partitions': partitions, **gates,
+              'sampling_plan': grid_plan(bundle.config.video, bundle.config.learning, settings),
               'can_submit_train': gates['train']['status'] == 'metadata_ready',
               'can_submit_evaluate': gates['evaluation']['status'] == 'metadata_ready',
               'note': '仅检查来源与时间元数据；执行仍校验缓存字节、模型文件和数值。软件门槛通过不代表泛化效果通过。'}

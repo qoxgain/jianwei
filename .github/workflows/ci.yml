@@ -30,12 +30,16 @@ jobs:
         run: .venv/bin/python tests/browser_temporal.py --serve-isolated --chromium "$(command -v google-chrome)" --output artifacts/p032-browser/research
       - name: Original real-video playback
         run: .venv/bin/python tests/browser_video_exploration.py --chromium "$(command -v google-chrome)" --output-dir artifacts/p032-browser/video
+      - name: Sampling diagnostics from recorded timestamps, blocked admission and mobile layout
+        run: .venv/bin/python tests/browser_sampling.py --chromium "$(command -v google-chrome)" --output artifacts/p034-browser/sampling
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: browser-verification
           path: |
             artifacts/p032-browser
+            artifacts/p034-browser/sampling/*.json
+            artifacts/p034-browser/sampling/*.png
             artifacts/p031-browser-work/**/api.log
             artifacts/p031-browser-work/**/static.log
   foundation:

@@ -1,0 +1,266 @@
+{
+  "stage": "P0.3.4",
+  "scene_id": "anonymous_observation",
+  "metadata_only": true,
+  "feature_files_opened": false,
+  "training_executed": false,
+  "test_values_read": false,
+  "jobs_created": false,
+  "config_hash": "44f98044fc779c9b0837603cf585749491cdb8f760bf7583e9192c45ff9372bc",
+  "engine_hash": "e924f2fc247a74b65b996027cb12d4d272cdb6ba9049747808f5cd26dc11554c",
+  "dataset_manifest_hash": null,
+  "records": [
+    {
+      "import_id": "1ab091d8-38a9-4938-970f-5f874def0c3a",
+      "source_hash": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+      "split": "unassigned",
+      "data_origin": "real_video",
+      "eligible_rows": 37,
+      "complete_episodes": 0,
+      "reviewed_group": null,
+      "missing_records": [
+        "dataset_manifest",
+        "capture_session_id",
+        "camera_id",
+        "view_id",
+        "captured_at",
+        "provenance_review",
+        "near_duplicate_review"
+      ],
+      "issues": [
+        {
+          "code": "TEMPORAL_CAPTURE_PENDING",
+          "message": "机位、稳定视角或采集会话尚未核实，特征可探索但不可作为独立研究来源"
+        }
+      ],
+      "sampling_diagnostics": {
+        "schema_version": "p034-sampling-diagnostics-v1",
+        "source_hash": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+        "feature_space_id": "7948ee1b119d75f232385c10f4862397ebbfe055fc949f4c7ac7b4261521c46f",
+        "manifest_hash": "8084997d32e372102caa0b682ac9bf7d30429e69e06a123fbed8f5ddcf615239",
+        "policy": {
+          "history_windows": 8,
+          "horizons_ms": [
+            500,
+            2000,
+            5000
+          ],
+          "target_tolerance_ms": 1000,
+          "max_gap_ms": 2000,
+          "max_pairs_per_split": 512,
+          "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+          "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+        },
+        "status": "has_causal_windows",
+        "eligible_rows": 37,
+        "sequence_count": 1,
+        "short_history_sequences": 0,
+        "candidate_histories": 30,
+        "causal_windows": 16,
+        "uncapped_causal_windows": 16,
+        "rejected_windows": {
+          "future_not_available": 14,
+          "resource_subsampled": 0
+        },
+        "horizons": [
+          {
+            "horizon_ms": 500,
+            "uncapped_causal_windows": 25,
+            "rejected_windows": {
+              "future_not_available": 5,
+              "resource_subsampled": 0
+            },
+            "first_history_example": {
+              "issued_ms": 5500,
+              "requested_start_ms": 6000,
+              "actual_start_ms": 6000,
+              "overshoot_ms": 0
+            }
+          },
+          {
+            "horizon_ms": 2000,
+            "uncapped_causal_windows": 22,
+            "rejected_windows": {
+              "future_not_available": 8,
+              "resource_subsampled": 0
+            },
+            "first_history_example": {
+              "issued_ms": 5500,
+              "requested_start_ms": 7500,
+              "actual_start_ms": 7500,
+              "overshoot_ms": 0
+            }
+          },
+          {
+            "horizon_ms": 5000,
+            "uncapped_causal_windows": 16,
+            "rejected_windows": {
+              "future_not_available": 14,
+              "resource_subsampled": 0
+            },
+            "first_history_example": {
+              "issued_ms": 5500,
+              "requested_start_ms": 10500,
+              "actual_start_ms": 10500,
+              "overshoot_ms": 0
+            }
+          }
+        ],
+        "observed_clip_ms": {
+          "min": 2000,
+          "max": 2000,
+          "uniform": true
+        },
+        "observed_start_step_ms": {
+          "min": 500,
+          "max": 500,
+          "uniform": true
+        },
+        "observation_windows": 1,
+        "verified_business_cycles": 0,
+        "feature_values_read": false,
+        "training_executed": false,
+        "training_admission_checked": false,
+        "messages": [
+          "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。",
+          "已有因果窗口仅证明时间覆盖；来源、会话、视角和独立分区仍需单独核验。"
+        ],
+        "report_hash": "0ff3a59009a32476954d6f67e74b65ef6ca94864c55e420a75a165b125ae7884"
+      }
+    }
+  ],
+  "partitions": {
+    "train": {
+      "imports": 0,
+      "source_files": 0,
+      "reviewed_independent_groups": 0,
+      "complete_episodes": 0,
+      "eligible_rows": 0,
+      "causal_windows": 0,
+      "sources_with_causal_windows": 0,
+      "minimum_sources": 2
+    },
+    "calibration": {
+      "imports": 0,
+      "source_files": 0,
+      "reviewed_independent_groups": 0,
+      "complete_episodes": 0,
+      "eligible_rows": 0,
+      "causal_windows": 0,
+      "sources_with_causal_windows": 0,
+      "minimum_sources": 1
+    },
+    "test": {
+      "imports": 0,
+      "source_files": 0,
+      "reviewed_independent_groups": 0,
+      "complete_episodes": 0,
+      "eligible_rows": 0,
+      "causal_windows": 0,
+      "sources_with_causal_windows": 0,
+      "minimum_sources": 1
+    },
+    "unassigned": {
+      "imports": 1,
+      "source_files": 1,
+      "reviewed_independent_groups": 0,
+      "complete_episodes": 0,
+      "eligible_rows": 37,
+      "causal_windows": 0,
+      "sources_with_causal_windows": 0,
+      "minimum_sources": null
+    }
+  },
+  "train": {
+    "status": "blocked",
+    "import_ids": [],
+    "snapshot_hash": null,
+    "blockers": [
+      {
+        "code": "TEMPORAL_UNASSIGNED_SELECTION",
+        "message": "所选来源包含未分区数据，请先按采集记录固定分区或取消选择"
+      },
+      {
+        "code": "TEMPORAL_INSUFFICIENT_SOURCES",
+        "message": "请选择 train/calibration 来源"
+      },
+      {
+        "code": "TEMPORAL_INSUFFICIENT_PAIRS",
+        "message": "calibration没有足够因果窗口"
+      }
+    ],
+    "rejected_windows": {}
+  },
+  "evaluation": {
+    "status": "blocked",
+    "import_ids": [],
+    "snapshot_hash": null,
+    "blockers": [
+      {
+        "code": "TEMPORAL_INSUFFICIENT_SOURCES",
+        "message": "尚未选择独立 test 来源"
+      },
+      {
+        "code": "TEMPORAL_MODEL_REQUIRED",
+        "message": "评估预检还需选择已成功训练的候选模型"
+      },
+      {
+        "code": "TEMPORAL_INSUFFICIENT_PAIRS",
+        "message": "test没有足够因果窗口"
+      }
+    ],
+    "rejected_windows": {}
+  },
+  "sampling_plan": {
+    "schema_version": "p034-grid-plan-v1",
+    "basis": "configured_uniform_grid_not_observed_data",
+    "clip_ms": 2000,
+    "stride_ms": 500,
+    "frames_per_clip": 16,
+    "policy": {
+      "history_windows": 8,
+      "horizons_ms": [
+        500,
+        2000,
+        5000
+      ],
+      "target_tolerance_ms": 1000,
+      "max_gap_ms": 2000,
+      "max_pairs_per_split": 512,
+      "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+      "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+    },
+    "history_span_ms": 5500,
+    "horizons": [
+      {
+        "horizon_ms": 500,
+        "target_start_offset_ms": 6000,
+        "overshoot_ms": 0,
+        "fits_tolerance": true
+      },
+      {
+        "horizon_ms": 2000,
+        "target_start_offset_ms": 7500,
+        "overshoot_ms": 0,
+        "fits_tolerance": true
+      },
+      {
+        "horizon_ms": 5000,
+        "target_start_offset_ms": 10500,
+        "overshoot_ms": 0,
+        "fits_tolerance": true
+      }
+    ],
+    "minimum_episode_ms": 12500,
+    "continuous_grid": true,
+    "compatible_grid": true,
+    "configuration_changed": false,
+    "test_data_used": false,
+    "note": "理想网格规划不代表实际可用窗口；配置变更不会改变已有缓存，改变采样须重提特征。",
+    "plan_hash": "db4e55b25eb0e4d3437a09549ccef9aeadae17353704217c9e104cc8d01019a7"
+  },
+  "can_submit_train": false,
+  "can_submit_evaluate": false,
+  "note": "仅检查来源与时间元数据；执行仍校验缓存字节、模型文件和数值。软件门槛通过不代表泛化效果通过。",
+  "report_hash": "3055d75c0a7d2f3c87450fd4b9d15c25be94cb260a15731ef4a7687664e2f089"
+}

@@ -1,0 +1,664 @@
+{
+  "config_version": "3.1",
+  "active_profile": "demo",
+  "active_scene": "garment_sop",
+  "profiles": {
+    "demo": {
+      "mode": "demo",
+      "tenant_id": "tenant_demo",
+      "data_root": "./data_demo",
+      "model_root": "./models",
+      "api_host": "127.0.0.1",
+      "api_port": 18053,
+      "public_base_url": "http://127.0.0.1:8080",
+      "database_url": "sqlite:///./data_demo/jianwei.db",
+      "redis_url": "redis://127.0.0.1:6379/0",
+      "teacher_enabled": false,
+      "teacher_base_url": "http://127.0.0.1:8901/v1",
+      "teacher_api_key_ref": "env://JIANWEI_TEACHER_KEY",
+      "device": "cpu",
+      "encoder_weights": "../models/r3d18-kinetics400-v1.onnx",
+      "auth_enabled": false,
+      "jwt_secret_ref": "env://JIANWEI_JWT_SECRET",
+      "sources": [
+        {
+          "id": "cam_01",
+          "type": "synthetic",
+          "uri": "synthetic://feature_demo",
+          "scene_ids": [
+            "garment_sop",
+            "electronics_assembly",
+            "workshop_safety",
+            "anonymous_observation"
+          ],
+          "roi_xyxy": [
+            0.02,
+            0.02,
+            0.98,
+            0.98
+          ]
+        },
+        {
+          "id": "file_01",
+          "type": "file",
+          "uri": "./data_demo/inbox/manual.mp4",
+          "scene_ids": [
+            "garment_sop",
+            "electronics_assembly",
+            "workshop_safety",
+            "anonymous_observation"
+          ],
+          "roi_xyxy": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "id": "garment_test",
+          "type": "file",
+          "uri": "../../datasets/video_samples/garment_quality/videos/test.mp4",
+          "scene_ids": [
+            "anonymous_observation"
+          ],
+          "roi_xyxy": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "capture_identity": {
+            "physical_camera_id": null,
+            "stable_view_id": null,
+            "review_status": "pending"
+          }
+        },
+        {
+          "id": "garment_test_short",
+          "type": "file",
+          "uri": "../../datasets/video_samples/garment_quality/videos/testShort.mp4",
+          "scene_ids": [
+            "anonymous_observation"
+          ],
+          "roi_xyxy": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "capture_identity": {
+            "physical_camera_id": null,
+            "stable_view_id": null,
+            "review_status": "pending"
+          }
+        },
+        {
+          "id": "bull_station_01",
+          "type": "file",
+          "uri": "../../datasets/video_samples/bull_new_energy/videos/岗1.mp4",
+          "scene_ids": [
+            "anonymous_observation"
+          ],
+          "roi_xyxy": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "capture_identity": {
+            "physical_camera_id": null,
+            "stable_view_id": null,
+            "review_status": "pending"
+          }
+        },
+        {
+          "id": "bull_station_02",
+          "type": "file",
+          "uri": "../../datasets/video_samples/bull_new_energy/videos/岗2.mp4",
+          "scene_ids": [
+            "anonymous_observation"
+          ],
+          "roi_xyxy": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "capture_identity": {
+            "physical_camera_id": null,
+            "stable_view_id": null,
+            "review_status": "pending"
+          }
+        },
+        {
+          "id": "bull_station_03",
+          "type": "file",
+          "uri": "../../datasets/video_samples/bull_new_energy/videos/岗3.mp4",
+          "scene_ids": [
+            "anonymous_observation"
+          ],
+          "roi_xyxy": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "capture_identity": {
+            "physical_camera_id": null,
+            "stable_view_id": null,
+            "review_status": "pending"
+          }
+        },
+        {
+          "id": "bull_station_04",
+          "type": "file",
+          "uri": "../../datasets/video_samples/bull_new_energy/videos/岗4.mp4",
+          "scene_ids": [
+            "anonymous_observation"
+          ],
+          "roi_xyxy": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "capture_identity": {
+            "physical_camera_id": null,
+            "stable_view_id": null,
+            "review_status": "pending"
+          }
+        },
+        {
+          "id": "bull_station_05",
+          "type": "file",
+          "uri": "../../datasets/video_samples/bull_new_energy/videos/岗5.mp4",
+          "scene_ids": [
+            "anonymous_observation"
+          ],
+          "roi_xyxy": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "capture_identity": {
+            "physical_camera_id": null,
+            "stable_view_id": null,
+            "review_status": "pending"
+          }
+        },
+        {
+          "id": "bull_station_06",
+          "type": "file",
+          "uri": "../../datasets/video_samples/bull_new_energy/videos/岗6.mp4",
+          "scene_ids": [
+            "anonymous_observation"
+          ],
+          "roi_xyxy": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "capture_identity": {
+            "physical_camera_id": null,
+            "stable_view_id": null,
+            "review_status": "pending"
+          }
+        },
+        {
+          "id": "bull_station_07",
+          "type": "file",
+          "uri": "../../datasets/video_samples/bull_new_energy/videos/岗7.mp4",
+          "scene_ids": [
+            "anonymous_observation"
+          ],
+          "roi_xyxy": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "capture_identity": {
+            "physical_camera_id": null,
+            "stable_view_id": null,
+            "review_status": "pending"
+          }
+        }
+      ]
+    },
+    "lab": {
+      "mode": "replay",
+      "tenant_id": "tenant_lab",
+      "data_root": "./data_lab",
+      "model_root": "./models",
+      "api_host": "0.0.0.0",
+      "api_port": 8000,
+      "public_base_url": "http://127.0.0.1:8080",
+      "database_url": "sqlite:///./data_lab/jianwei.db",
+      "redis_url": "redis://127.0.0.1:6379/1",
+      "teacher_enabled": true,
+      "teacher_base_url": "http://127.0.0.1:8901/v1",
+      "teacher_api_key_ref": "env://JIANWEI_TEACHER_KEY",
+      "device": "cuda:0",
+      "encoder_weights": "./models/encoder/model.pt",
+      "auth_enabled": true,
+      "jwt_secret_ref": "env://JIANWEI_JWT_SECRET",
+      "sources": [
+        {
+          "id": "cam_01",
+          "type": "file",
+          "uri": "./data_lab/inbox/production.mp4",
+          "scene_ids": [
+            "garment_sop",
+            "electronics_assembly",
+            "workshop_safety",
+            "anonymous_observation"
+          ],
+          "roi_xyxy": [
+            0.02,
+            0.02,
+            0.98,
+            0.98
+          ]
+        }
+      ]
+    },
+    "site": {
+      "mode": "live",
+      "tenant_id": "tenant_site_a",
+      "data_root": "/data/jianwei",
+      "model_root": "/data/jianwei_models",
+      "api_host": "0.0.0.0",
+      "api_port": 8000,
+      "public_base_url": "https://jianwei.example.internal",
+      "database_url": "env://JIANWEI_DATABASE_URL",
+      "redis_url": "redis://10.0.0.20:6379/0",
+      "teacher_enabled": true,
+      "teacher_base_url": "http://10.0.0.21:8901/v1",
+      "teacher_api_key_ref": "env://JIANWEI_TEACHER_KEY",
+      "device": "cuda:0",
+      "encoder_weights": "/data/jianwei_models/encoder/model.pt",
+      "auth_enabled": true,
+      "jwt_secret_ref": "env://JIANWEI_JWT_SECRET",
+      "sources": [
+        {
+          "id": "cam_01",
+          "type": "rtsp",
+          "uri": "env://JIANWEI_CAMERA_01_RTSP",
+          "scene_ids": [
+            "garment_sop",
+            "electronics_assembly",
+            "workshop_safety",
+            "anonymous_observation"
+          ],
+          "roi_xyxy": [
+            0.02,
+            0.02,
+            0.98,
+            0.98
+          ]
+        }
+      ]
+    }
+  },
+  "paths": {
+    "inbox": "inbox",
+    "clips": "clips",
+    "features": "features",
+    "datasets": "datasets",
+    "memory": "memory",
+    "reports": "reports",
+    "logs": "logs",
+    "demo_output": "demo_runs"
+  },
+  "video": {
+    "clip_seconds": 2.0,
+    "stride_seconds": 0.5,
+    "frames_per_clip": 16,
+    "quality_min": 0.8,
+    "missing_frame_fraction_max": 0.05,
+    "reconnect_seconds": 2,
+    "queue_size": 12,
+    "queue_policy": "drop_oldest",
+    "pre_event_seconds": 8.0,
+    "post_event_seconds": 4.0,
+    "allowed_lateness_seconds": 3.0
+  },
+  "encoder": {
+    "adapter": "onnx",
+    "frozen": true,
+    "feature_dim": 512,
+    "weights_sha256": "2979019509005056778db9f462e9eed212c40f02d5e5bf1d6fc9e06caf2ebab8",
+    "preprocessing_version": "torchvision-r3d18-kinetics400-v1",
+    "pooling": "global_avg_pool",
+    "checkpoint_revision": "torchvision-v0.22.1-R3D_18_Weights.KINETICS400_V1"
+  },
+  "teacher": {
+    "model": "Qwen/Qwen3-VL-4B-Instruct",
+    "frozen": true,
+    "timeout_seconds": 60,
+    "max_concurrency": 1,
+    "max_queue": 20,
+    "max_frames": 8,
+    "max_calls_per_camera_hour": 60,
+    "include_forecast_in_prompt": false,
+    "output_schema": "schemas/teacher_result.schema.json"
+  },
+  "region": {
+    "enabled": true,
+    "original_resolution": true,
+    "proposal_methods": [
+      "configured_roi",
+      "detector",
+      "motion",
+      "tiling"
+    ],
+    "tile_size_px": 640,
+    "tile_overlap": 0.2,
+    "expand_ratio": 0.18,
+    "max_regions": 6,
+    "min_original_short_side_px": 12
+  },
+  "learning": {
+    "enabled": true,
+    "auto_train": false,
+    "auto_evaluate": false,
+    "freeze_foundation_models": true,
+    "min_new_episodes": 50,
+    "cooldown_hours": 24.0,
+    "history_windows": 8,
+    "forecast_horizons_seconds": [
+      0.5,
+      2.0,
+      5.0
+    ],
+    "temporal_adapter": "causal_tcn",
+    "hidden_dim": 32,
+    "epochs": 20,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "ridge_l2": 1.0,
+    "dirichlet_alpha": 1.0,
+    "pseudo_label_fraction_max": 0.5,
+    "replay_old_fraction": 0.3,
+    "min_independent_cycles_per_action": 20,
+    "min_audited_events_per_action": 100,
+    "pseudo_precision_wilson_lower_min": 0.95,
+    "empirical_prior_weight_max": 0.2,
+    "allow_cross_tenant": false,
+    "train_split": "train",
+    "train_adapters": [
+      "temporal_head",
+      "tsm",
+      "yolo_detector"
+    ],
+    "require_verified_boxes_for_detector": true
+  },
+  "evaluation": {
+    "minimum_gold_events_per_class": 30,
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "bootstrap_iterations": 1000,
+    "confidence_level": 0.95,
+    "required_macro_f1_gain": 0.01,
+    "max_old_macro_f1_drop": 0.02,
+    "max_old_class_f1_drop": 0.03,
+    "gain_ci_lower_min": 0.0,
+    "max_false_alarm_ratio": 1.05,
+    "max_coverage_drop": 0.02,
+    "online_p95_ms_budget": 1000,
+    "protocol_version": "episode-heldout-v1"
+  },
+  "release": {
+    "memory_policy": "gated_auto_known_class",
+    "student_policy": "shadow_then_gated_canary",
+    "new_class_requires_confirmation": true,
+    "critical_requires_confirmation": true,
+    "shadow_min_episodes": 100,
+    "shadow_min_hours": 8.0,
+    "canary_percentages": [
+      10,
+      50,
+      100
+    ],
+    "switch_at_episode_boundary": true,
+    "preserve_previous_versions": 3
+  },
+  "resources": {
+    "max_training_jobs": 1,
+    "training_window_local": "22:00-06:00",
+    "max_train_minutes": 120,
+    "gpu_memory_fraction_max": 0.8,
+    "pause_train_on_inference_queue": 8,
+    "random_seed": 17
+  },
+  "media": {
+    "demo": {
+      "engine": "mediamtx",
+      "proxy_rtsp_base": "rtsp://127.0.0.1:8554",
+      "webrtc_public_base": "http://127.0.0.1:8889",
+      "hls_public_base": "http://127.0.0.1:8888"
+    },
+    "lab": {
+      "engine": "mediamtx",
+      "proxy_rtsp_base": "rtsp://127.0.0.1:8554",
+      "webrtc_public_base": "http://127.0.0.1:8889",
+      "hls_public_base": "http://127.0.0.1:8888"
+    },
+    "site": {
+      "engine": "mediamtx",
+      "proxy_rtsp_base": "rtsp://10.0.0.20:8554",
+      "webrtc_public_base": "https://jianwei.example.internal/webrtc",
+      "hls_public_base": "https://jianwei.example.internal/hls"
+    }
+  },
+  "retention": {
+    "raw_video_days": 15,
+    "evidence_days": 30,
+    "feature_days": 90,
+    "audit_days": 180
+  },
+  "ui": {
+    "title": "见微 多模态自学习感知平台",
+    "theme": "dark",
+    "video_ratio": 0.6,
+    "timezone": "Asia/Shanghai",
+    "demo_banner": true
+  },
+  "demo": {
+    "seed": 17,
+    "train_episodes": 80,
+    "test_episodes": 40,
+    "feature_dim": 8,
+    "noise_std": 0.08,
+    "ridge_l2": 1.0,
+    "skip_branch_probability": 0.15
+  },
+  "ingestion": {
+    "max_upload_bytes": 536870912,
+    "max_expanded_bytes": 134217728,
+    "max_rows": 100000,
+    "max_duration_seconds": 600,
+    "max_frames": 18000,
+    "max_pixels": 8294400,
+    "probe_timeout_seconds": 300,
+    "decode_timeout_seconds": 600,
+    "encode_timeout_seconds": 3600,
+    "upload_timeout_seconds": 900,
+    "max_staging_bytes": 2147483648,
+    "decode_width": 640,
+    "max_gap_ms": 2000,
+    "encoder_input_size": 112,
+    "encoder_threads": 2,
+    "worker_poll_seconds": 0.25,
+    "quality_luma_min": 4.0,
+    "quality_luma_max": 251.0,
+    "quality_std_min": 2.0
+  },
+  "temporal": {
+    "protocol_version": "p03-causal-v1",
+    "seed": 23,
+    "projection_dim": 16,
+    "cluster_count": 4,
+    "cluster_iterations": 20,
+    "min_segment_windows": 3,
+    "change_quantile": 0.8,
+    "target_tolerance_ms": 1000,
+    "max_gap_ms": 2000,
+    "max_rows": 12000,
+    "max_dimension": 1024,
+    "max_feature_values": 8000000,
+    "max_pairs_per_split": 512,
+    "min_pairs_per_split": 8,
+    "min_train_sources": 2,
+    "min_calibration_sources": 1,
+    "min_test_sources": 1,
+    "max_abs_feature": 1000000.0,
+    "gradient_clip_norm": 5.0,
+    "worker_poll_seconds": 0.25
+  },
+  "sop_review": {
+    "scene_id": "electronics_assembly",
+    "asset_root": "../..",
+    "catalog_path": "datasets/video_samples/catalog.json",
+    "outline_path": "datasets/video_samples/bull_new_energy/sop/outline.draft.json",
+    "mapping_path": "datasets/video_samples/bull_new_energy/sop/station-mapping.draft.json",
+    "media_chunk_bytes": 1048576,
+    "text_timeout_seconds": 30
+  },
+  "scenes": {
+    "garment_sop": {
+      "display_name": "服装SOP检验",
+      "task_modes": [
+        "activity_recognition",
+        "procedure_compliance"
+      ],
+      "learning_capabilities": [
+        "unlabeled_temporal_learning",
+        "prototype_learning"
+      ],
+      "knowledge_file": "knowledge/scenes/garment_sop.yaml",
+      "episode_policy": {
+        "mode": "manual_or_external_cycle",
+        "window_seconds": null
+      },
+      "session_policy": {
+        "required_context_keys": [
+          "camera_id",
+          "product_style_id"
+        ],
+        "exclusive_resource_key": "camera_id",
+        "lease_ttl_seconds": 30,
+        "lease_heartbeat_seconds": 10,
+        "max_session_minutes": 20
+      },
+      "context_schema": {
+        "camera_id": {
+          "type": "string",
+          "description": "注册相机"
+        },
+        "product_style_id": {
+          "type": "string",
+          "description": "款式"
+        }
+      },
+      "business_extension": {
+        "type": "garment_inspection",
+        "score_base": 100,
+        "verified_missing_penalty": 1,
+        "missing_without_evidence": "REVIEW_REQUIRED",
+        "separate_rework": true
+      }
+    },
+    "electronics_assembly": {
+      "display_name": "电子装配",
+      "task_modes": [
+        "activity_recognition",
+        "procedure_compliance"
+      ],
+      "learning_capabilities": [
+        "unlabeled_temporal_learning"
+      ],
+      "knowledge_file": "knowledge/scenes/electronics_assembly.yaml",
+      "episode_policy": {
+        "mode": "external_cycle",
+        "window_seconds": null
+      },
+      "session_policy": {
+        "required_context_keys": [
+          "station_id",
+          "work_order_id"
+        ],
+        "exclusive_resource_key": "station_id",
+        "lease_ttl_seconds": 30,
+        "lease_heartbeat_seconds": 10,
+        "max_session_minutes": 20
+      },
+      "context_schema": {
+        "station_id": {
+          "type": "string",
+          "description": "station_id"
+        },
+        "work_order_id": {
+          "type": "string",
+          "description": "work_order_id"
+        }
+      },
+      "business_extension": null
+    },
+    "workshop_safety": {
+      "display_name": "车间安全",
+      "task_modes": [
+        "event_monitoring"
+      ],
+      "learning_capabilities": [
+        "unlabeled_temporal_learning"
+      ],
+      "knowledge_file": "knowledge/scenes/workshop_safety.yaml",
+      "episode_policy": {
+        "mode": "fixed_window",
+        "window_seconds": 60.0
+      },
+      "session_policy": {
+        "required_context_keys": [],
+        "exclusive_resource_key": null,
+        "lease_ttl_seconds": 30,
+        "lease_heartbeat_seconds": 10,
+        "max_session_minutes": 20
+      },
+      "context_schema": {},
+      "business_extension": null
+    },
+    "anonymous_observation": {
+      "display_name": "通用无标注观察",
+      "task_modes": [
+        "activity_recognition"
+      ],
+      "learning_capabilities": [
+        "unlabeled_temporal_learning",
+        "anonymous_cluster_discovery"
+      ],
+      "knowledge_file": "knowledge/scenes/anonymous_observation.yaml",
+      "episode_policy": {
+        "mode": "manual_or_fixed_window",
+        "window_seconds": 60.0,
+        "observation_contract": "p033-observation-v1",
+        "partial_window": "extract_only"
+      },
+      "session_policy": {
+        "required_context_keys": [],
+        "exclusive_resource_key": null,
+        "lease_ttl_seconds": 30,
+        "lease_heartbeat_seconds": 10,
+        "max_session_minutes": 20
+      },
+      "context_schema": {},
+      "business_extension": null
+    }
+  }
+}

@@ -62,6 +62,12 @@ def readiness(page, mode, scene, downloads, suffix, evaluation_ready=False):
     assert not any(result[key] for key in ('feature_files_opened', 'test_values_read', 'training_executed', 'jobs_created'))
     assert result['partitions']['train']['reviewed_independent_groups'] == 4
     assert result['partitions']['test']['reviewed_independent_groups'] == 2
+    if mode == 'api':
+        expect(page.get_by_role('heading', name='采样与预测跨度', exact=True)).to_be_visible()
+        assert result['sampling_plan']['configuration_changed'] is False
+        assert all(r['sampling_diagnostics'] is None for r in result['records'] if r['split'] == 'test')
+        page.locator('.sampling-diagnostics summary').first.click()
+        expect(page.get_by_text('计数不代表训练准入或学习效果。', exact=False).first).to_be_visible()
     # The expanded five-column metadata table must also fit the narrow layout.
     if scene == 'anonymous_observation':
         page.set_viewport_size({'width': 390, 'height': 844})

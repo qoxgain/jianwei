@@ -45,6 +45,9 @@ def test_readiness_opens_no_feature_files_and_has_no_side_effects(research, monk
     assert report['partitions']['train']['reviewed_independent_groups'] == 4
     assert report['partitions']['test']['reviewed_independent_groups'] == 2
     assert report['partitions']['train']['causal_windows'] == 32
+    assert report['sampling_plan']['configuration_changed'] is False
+    assert all(r['sampling_diagnostics'] is None for r in report['records'] if r['split']=='test')
+    assert all(r['sampling_diagnostics']['causal_windows'] > 0 for r in report['records'] if r['split']=='train')
     assert any(b['code'] == 'TEMPORAL_MODEL_REQUIRED' for b in report['evaluation']['blockers'])
     assert client.post(PREFIX+'/readiness', json=selected(example)).json() == report
     assert counts(app) == before
@@ -129,6 +132,8 @@ def test_real_recorded_video_remains_blocked_and_template_does_not_invent_captur
         assert not report['can_submit_train'] and not report['can_submit_evaluate']
         assert report['partitions']['unassigned']['source_files']==1
         assert report['partitions']['unassigned']['reviewed_independent_groups']==0
+        assert report['records'][0]['sampling_diagnostics']['causal_windows'] > 0
+        assert report['partitions']['unassigned']['causal_windows'] == 0
         assert 'captured_at' in report['records'][0]['missing_records']
         draft=client.post(PREFIX+'/dataset-template',json=body).json()
         registry=DatasetManifest.model_validate(draft['manifest'])

@@ -1,0 +1,94 @@
+{
+  "schema_version": "p034-sampling-diagnostics-v1",
+  "source_hash": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+  "feature_space_id": "7948ee1b119d75f232385c10f4862397ebbfe055fc949f4c7ac7b4261521c46f",
+  "manifest_hash": "8084997d32e372102caa0b682ac9bf7d30429e69e06a123fbed8f5ddcf615239",
+  "policy": {
+    "history_windows": 8,
+    "horizons_ms": [
+      500,
+      2000,
+      5000
+    ],
+    "target_tolerance_ms": 1000,
+    "max_gap_ms": 2000,
+    "max_pairs_per_split": 512,
+    "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+    "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+  },
+  "status": "has_causal_windows",
+  "eligible_rows": 37,
+  "sequence_count": 1,
+  "short_history_sequences": 0,
+  "candidate_histories": 30,
+  "causal_windows": 16,
+  "uncapped_causal_windows": 16,
+  "rejected_windows": {
+    "future_not_available": 14,
+    "resource_subsampled": 0
+  },
+  "horizons": [
+    {
+      "horizon_ms": 500,
+      "uncapped_causal_windows": 25,
+      "rejected_windows": {
+        "future_not_available": 5,
+        "resource_subsampled": 0
+      },
+      "first_history_example": {
+        "issued_ms": 5500,
+        "requested_start_ms": 6000,
+        "actual_start_ms": 6000,
+        "overshoot_ms": 0
+      }
+    },
+    {
+      "horizon_ms": 2000,
+      "uncapped_causal_windows": 22,
+      "rejected_windows": {
+        "future_not_available": 8,
+        "resource_subsampled": 0
+      },
+      "first_history_example": {
+        "issued_ms": 5500,
+        "requested_start_ms": 7500,
+        "actual_start_ms": 7500,
+        "overshoot_ms": 0
+      }
+    },
+    {
+      "horizon_ms": 5000,
+      "uncapped_causal_windows": 16,
+      "rejected_windows": {
+        "future_not_available": 14,
+        "resource_subsampled": 0
+      },
+      "first_history_example": {
+        "issued_ms": 5500,
+        "requested_start_ms": 10500,
+        "actual_start_ms": 10500,
+        "overshoot_ms": 0
+      }
+    }
+  ],
+  "observed_clip_ms": {
+    "min": 2000,
+    "max": 2000,
+    "uniform": true
+  },
+  "observed_start_step_ms": {
+    "min": 500,
+    "max": 500,
+    "uniform": true
+  },
+  "observation_windows": 1,
+  "verified_business_cycles": 0,
+  "feature_values_read": false,
+  "training_executed": false,
+  "training_admission_checked": false,
+  "messages": [
+    "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。",
+    "已有因果窗口仅证明时间覆盖；来源、会话、视角和独立分区仍需单独核验。"
+  ],
+  "report_hash": "0ff3a59009a32476954d6f67e74b65ef6ca94864c55e420a75a165b125ae7884"
+}

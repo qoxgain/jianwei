@@ -1,0 +1,901 @@
+{
+  "schema_version": "p034-sampling-audit-v1",
+  "config_hash": "dd78543c527dd895273d33a085268362797905d41ae6288ed7def83f8c9f442c",
+  "metadata_only": true,
+  "feature_values_read": false,
+  "training_admission_checked": false,
+  "sampling_plan": {
+    "schema_version": "p034-grid-plan-v1",
+    "basis": "configured_uniform_grid_not_observed_data",
+    "clip_ms": 2000,
+    "stride_ms": 500,
+    "frames_per_clip": 16,
+    "policy": {
+      "history_windows": 8,
+      "horizons_ms": [
+        500,
+        2000,
+        5000
+      ],
+      "target_tolerance_ms": 1000,
+      "max_gap_ms": 2000,
+      "max_pairs_per_split": 512,
+      "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+      "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+    },
+    "history_span_ms": 5500,
+    "horizons": [
+      {
+        "horizon_ms": 500,
+        "target_start_offset_ms": 6000,
+        "overshoot_ms": 0,
+        "fits_tolerance": true
+      },
+      {
+        "horizon_ms": 2000,
+        "target_start_offset_ms": 7500,
+        "overshoot_ms": 0,
+        "fits_tolerance": true
+      },
+      {
+        "horizon_ms": 5000,
+        "target_start_offset_ms": 10500,
+        "overshoot_ms": 0,
+        "fits_tolerance": true
+      }
+    ],
+    "minimum_episode_ms": 12500,
+    "continuous_grid": true,
+    "compatible_grid": true,
+    "configuration_changed": false,
+    "test_data_used": false,
+    "note": "理想网格规划不代表实际可用窗口；配置变更不会改变已有缓存，改变采样须重提特征。",
+    "plan_hash": "db4e55b25eb0e4d3437a09549ccef9aeadae17353704217c9e104cc8d01019a7"
+  },
+  "sources": [
+    {
+      "schema_version": "p034-sampling-diagnostics-v1",
+      "source_hash": "259bf1e24f86128947192825ef759bddcb1b000c9b5b5573aed274adc606f810",
+      "feature_space_id": "1df54e83f902d1a8fd64abf3afc4ef4c9f24f5640eb3f68f24b933f7ab65e495",
+      "manifest_hash": "a5f543b646759da1816e3aa11ffd6e4213bd5c4b93b92a59444fc564fc2de264",
+      "policy": {
+        "history_windows": 8,
+        "horizons_ms": [
+          500,
+          2000,
+          5000
+        ],
+        "target_tolerance_ms": 1000,
+        "max_gap_ms": 2000,
+        "max_pairs_per_split": 512,
+        "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+        "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+      },
+      "status": "no_causal_windows",
+      "eligible_rows": 98,
+      "sequence_count": 4,
+      "short_history_sequences": 0,
+      "candidate_histories": 70,
+      "causal_windows": 0,
+      "uncapped_causal_windows": 0,
+      "rejected_windows": {
+        "target_outside_tolerance": 57,
+        "future_not_available": 13
+      },
+      "horizons": [
+        {
+          "horizon_ms": 500,
+          "uncapped_causal_windows": 0,
+          "rejected_windows": {
+            "target_outside_tolerance": 63,
+            "future_not_available": 7
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 16500,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 1500
+          }
+        },
+        {
+          "horizon_ms": 2000,
+          "uncapped_causal_windows": 63,
+          "rejected_windows": {
+            "future_not_available": 7,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 18000,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 0
+          }
+        },
+        {
+          "horizon_ms": 5000,
+          "uncapped_causal_windows": 57,
+          "rejected_windows": {
+            "future_not_available": 13,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 21000,
+            "actual_start_ms": 22000,
+            "overshoot_ms": 1000
+          }
+        }
+      ],
+      "observed_clip_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observed_start_step_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observation_windows": 4,
+      "verified_business_cycles": 0,
+      "feature_values_read": false,
+      "training_executed": false,
+      "training_admission_checked": false,
+      "messages": [
+        "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+        "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+      ],
+      "report_hash": "db8cf3b884743c0fb08a16b64feaff79e4b7eabc52605c9c2ad629d5d9f6b08d"
+    },
+    {
+      "schema_version": "p034-sampling-diagnostics-v1",
+      "source_hash": "226bac7752d191d68bcd10676fd33c3f3d391f55527bf088678730adb5ad4341",
+      "feature_space_id": "ab0efe5adf0cced1d5d44f8f8c25bd7c8c3fbe7f2b0e5abad80a7edd3ec430ae",
+      "manifest_hash": "76659d414dc68c587f851ebf4a9b41eb4064ac0ced90dc78150621baa27ad509",
+      "policy": {
+        "history_windows": 8,
+        "horizons_ms": [
+          500,
+          2000,
+          5000
+        ],
+        "target_tolerance_ms": 1000,
+        "max_gap_ms": 2000,
+        "max_pairs_per_split": 512,
+        "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+        "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+      },
+      "status": "no_causal_windows",
+      "eligible_rows": 73,
+      "sequence_count": 3,
+      "short_history_sequences": 0,
+      "candidate_histories": 52,
+      "causal_windows": 0,
+      "uncapped_causal_windows": 0,
+      "rejected_windows": {
+        "target_outside_tolerance": 40,
+        "future_not_available": 12
+      },
+      "horizons": [
+        {
+          "horizon_ms": 500,
+          "uncapped_causal_windows": 0,
+          "rejected_windows": {
+            "target_outside_tolerance": 46,
+            "future_not_available": 6
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 16500,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 1500
+          }
+        },
+        {
+          "horizon_ms": 2000,
+          "uncapped_causal_windows": 46,
+          "rejected_windows": {
+            "future_not_available": 6,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 18000,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 0
+          }
+        },
+        {
+          "horizon_ms": 5000,
+          "uncapped_causal_windows": 40,
+          "rejected_windows": {
+            "future_not_available": 12,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 21000,
+            "actual_start_ms": 22000,
+            "overshoot_ms": 1000
+          }
+        }
+      ],
+      "observed_clip_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observed_start_step_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observation_windows": 3,
+      "verified_business_cycles": 0,
+      "feature_values_read": false,
+      "training_executed": false,
+      "training_admission_checked": false,
+      "messages": [
+        "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+        "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+      ],
+      "report_hash": "948bf6e443261a70241872f4705674f1a9ab90d4f1cc96555750a8d6662613af"
+    },
+    {
+      "schema_version": "p034-sampling-diagnostics-v1",
+      "source_hash": "a87aaf50cd2155e40ed5d5368d1ff6f9e5de8a9942cf434198ba6d11814e2be0",
+      "feature_space_id": "5aaef5d20f167ce172d109b43eb822bcd4f4191a2e08155c77dde53741736419",
+      "manifest_hash": "5bdb35a0045523d4a8194bdd0ca8210798894abea0b8967a6c4c32621fde0ac3",
+      "policy": {
+        "history_windows": 8,
+        "horizons_ms": [
+          500,
+          2000,
+          5000
+        ],
+        "target_tolerance_ms": 1000,
+        "max_gap_ms": 2000,
+        "max_pairs_per_split": 512,
+        "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+        "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+      },
+      "status": "no_causal_windows",
+      "eligible_rows": 106,
+      "sequence_count": 4,
+      "short_history_sequences": 0,
+      "candidate_histories": 78,
+      "causal_windows": 0,
+      "uncapped_causal_windows": 0,
+      "rejected_windows": {
+        "target_outside_tolerance": 62,
+        "future_not_available": 16
+      },
+      "horizons": [
+        {
+          "horizon_ms": 500,
+          "uncapped_causal_windows": 0,
+          "rejected_windows": {
+            "target_outside_tolerance": 70,
+            "future_not_available": 8
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 16500,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 1500
+          }
+        },
+        {
+          "horizon_ms": 2000,
+          "uncapped_causal_windows": 70,
+          "rejected_windows": {
+            "future_not_available": 8,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 18000,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 0
+          }
+        },
+        {
+          "horizon_ms": 5000,
+          "uncapped_causal_windows": 62,
+          "rejected_windows": {
+            "future_not_available": 16,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 21000,
+            "actual_start_ms": 22000,
+            "overshoot_ms": 1000
+          }
+        }
+      ],
+      "observed_clip_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observed_start_step_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observation_windows": 4,
+      "verified_business_cycles": 0,
+      "feature_values_read": false,
+      "training_executed": false,
+      "training_admission_checked": false,
+      "messages": [
+        "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+        "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+      ],
+      "report_hash": "ee4c1ec69bfe44c4974dca5393af36cef7b355aaa5bb6a2d879cf21ff4b78cb2"
+    },
+    {
+      "schema_version": "p034-sampling-diagnostics-v1",
+      "source_hash": "f59b2cd48aa3a0d79661d856ce733ee910d38e84a3cc774c36959e77b46872f8",
+      "feature_space_id": "c46a2a8feb45150ad900811807795b49878d231929bf4138d27b108cd818bd76",
+      "manifest_hash": "bdb9f9dd05feca8256891a539627a2ffd6a4bf336492f501589ced6ee3694046",
+      "policy": {
+        "history_windows": 8,
+        "horizons_ms": [
+          500,
+          2000,
+          5000
+        ],
+        "target_tolerance_ms": 1000,
+        "max_gap_ms": 2000,
+        "max_pairs_per_split": 512,
+        "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+        "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+      },
+      "status": "no_causal_windows",
+      "eligible_rows": 85,
+      "sequence_count": 3,
+      "short_history_sequences": 0,
+      "candidate_histories": 64,
+      "causal_windows": 0,
+      "uncapped_causal_windows": 0,
+      "rejected_windows": {
+        "target_outside_tolerance": 52,
+        "future_not_available": 12
+      },
+      "horizons": [
+        {
+          "horizon_ms": 500,
+          "uncapped_causal_windows": 0,
+          "rejected_windows": {
+            "target_outside_tolerance": 58,
+            "future_not_available": 6
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 16500,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 1500
+          }
+        },
+        {
+          "horizon_ms": 2000,
+          "uncapped_causal_windows": 58,
+          "rejected_windows": {
+            "future_not_available": 6,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 18000,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 0
+          }
+        },
+        {
+          "horizon_ms": 5000,
+          "uncapped_causal_windows": 52,
+          "rejected_windows": {
+            "future_not_available": 12,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 21000,
+            "actual_start_ms": 22000,
+            "overshoot_ms": 1000
+          }
+        }
+      ],
+      "observed_clip_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observed_start_step_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observation_windows": 3,
+      "verified_business_cycles": 0,
+      "feature_values_read": false,
+      "training_executed": false,
+      "training_admission_checked": false,
+      "messages": [
+        "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+        "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+      ],
+      "report_hash": "a4ee5afab926b5b0194acdef0b48e7b09959cabdab0e1efd951e90e720763107"
+    },
+    {
+      "schema_version": "p034-sampling-diagnostics-v1",
+      "source_hash": "13066d30bedf8aa3c8bd6d19d093c6acd55b655f9a03827f5df2397f131e70e1",
+      "feature_space_id": "6950a111fe27492192021dc0c823b417ff1f7ffa0e9e00034d0d331a1133e498",
+      "manifest_hash": "75629086cfab394beace7f42b96cce899010ad3f1f31781681c15b0fa90d19fc",
+      "policy": {
+        "history_windows": 8,
+        "horizons_ms": [
+          500,
+          2000,
+          5000
+        ],
+        "target_tolerance_ms": 1000,
+        "max_gap_ms": 2000,
+        "max_pairs_per_split": 512,
+        "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+        "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+      },
+      "status": "no_causal_windows",
+      "eligible_rows": 110,
+      "sequence_count": 4,
+      "short_history_sequences": 0,
+      "candidate_histories": 82,
+      "causal_windows": 0,
+      "uncapped_causal_windows": 0,
+      "rejected_windows": {
+        "target_outside_tolerance": 66,
+        "future_not_available": 16
+      },
+      "horizons": [
+        {
+          "horizon_ms": 500,
+          "uncapped_causal_windows": 0,
+          "rejected_windows": {
+            "target_outside_tolerance": 74,
+            "future_not_available": 8
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 16500,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 1500
+          }
+        },
+        {
+          "horizon_ms": 2000,
+          "uncapped_causal_windows": 74,
+          "rejected_windows": {
+            "future_not_available": 8,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 18000,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 0
+          }
+        },
+        {
+          "horizon_ms": 5000,
+          "uncapped_causal_windows": 66,
+          "rejected_windows": {
+            "future_not_available": 16,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 21000,
+            "actual_start_ms": 22000,
+            "overshoot_ms": 1000
+          }
+        }
+      ],
+      "observed_clip_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observed_start_step_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observation_windows": 4,
+      "verified_business_cycles": 0,
+      "feature_values_read": false,
+      "training_executed": false,
+      "training_admission_checked": false,
+      "messages": [
+        "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+        "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+      ],
+      "report_hash": "4b06b9e31065e266b420c13b639bd187a6233c1a2d0b3b87713a0938e3d08e00"
+    },
+    {
+      "schema_version": "p034-sampling-diagnostics-v1",
+      "source_hash": "35a7bc1b07c456169f33f09880cb949a054dd7111fd3a60301856bb780bac65d",
+      "feature_space_id": "8af9d61ab2c9364f9c5b367f4be8d5543aa44450b0c6f6f3b48343e3d4012a95",
+      "manifest_hash": "bd0945eb5eaad6ca9688f00210c9d8b2aa18c59616484f7e699b66a7a6f63409",
+      "policy": {
+        "history_windows": 8,
+        "horizons_ms": [
+          500,
+          2000,
+          5000
+        ],
+        "target_tolerance_ms": 1000,
+        "max_gap_ms": 2000,
+        "max_pairs_per_split": 512,
+        "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+        "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+      },
+      "status": "no_causal_windows",
+      "eligible_rows": 75,
+      "sequence_count": 3,
+      "short_history_sequences": 0,
+      "candidate_histories": 54,
+      "causal_windows": 0,
+      "uncapped_causal_windows": 0,
+      "rejected_windows": {
+        "target_outside_tolerance": 42,
+        "future_not_available": 12
+      },
+      "horizons": [
+        {
+          "horizon_ms": 500,
+          "uncapped_causal_windows": 0,
+          "rejected_windows": {
+            "target_outside_tolerance": 48,
+            "future_not_available": 6
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 16500,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 1500
+          }
+        },
+        {
+          "horizon_ms": 2000,
+          "uncapped_causal_windows": 48,
+          "rejected_windows": {
+            "future_not_available": 6,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 18000,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 0
+          }
+        },
+        {
+          "horizon_ms": 5000,
+          "uncapped_causal_windows": 42,
+          "rejected_windows": {
+            "future_not_available": 12,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 21000,
+            "actual_start_ms": 22000,
+            "overshoot_ms": 1000
+          }
+        }
+      ],
+      "observed_clip_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observed_start_step_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observation_windows": 3,
+      "verified_business_cycles": 0,
+      "feature_values_read": false,
+      "training_executed": false,
+      "training_admission_checked": false,
+      "messages": [
+        "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+        "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+      ],
+      "report_hash": "ec866786bf5754f42f2d49672206216e12f6a087d403d77cbbe10b507576bd0a"
+    },
+    {
+      "schema_version": "p034-sampling-diagnostics-v1",
+      "source_hash": "8e4cfa82d5f58e8f5cfeadfdb10e0f17bcb939117122be87aa2a2e20afdf2aca",
+      "feature_space_id": "83de04946539a593649dfcd28e2971c6161f90cd2718e4e328ae4d54647f7c4c",
+      "manifest_hash": "ccbbc44f10506bd46e89a868f1c42954932abfd72dbd3a0533bb4a8244047906",
+      "policy": {
+        "history_windows": 8,
+        "horizons_ms": [
+          500,
+          2000,
+          5000
+        ],
+        "target_tolerance_ms": 1000,
+        "max_gap_ms": 2000,
+        "max_pairs_per_split": 512,
+        "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+        "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+      },
+      "status": "no_causal_windows",
+      "eligible_rows": 79,
+      "sequence_count": 3,
+      "short_history_sequences": 0,
+      "candidate_histories": 58,
+      "causal_windows": 0,
+      "uncapped_causal_windows": 0,
+      "rejected_windows": {
+        "target_outside_tolerance": 46,
+        "future_not_available": 12
+      },
+      "horizons": [
+        {
+          "horizon_ms": 500,
+          "uncapped_causal_windows": 0,
+          "rejected_windows": {
+            "target_outside_tolerance": 52,
+            "future_not_available": 6
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 16500,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 1500
+          }
+        },
+        {
+          "horizon_ms": 2000,
+          "uncapped_causal_windows": 52,
+          "rejected_windows": {
+            "future_not_available": 6,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 18000,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 0
+          }
+        },
+        {
+          "horizon_ms": 5000,
+          "uncapped_causal_windows": 46,
+          "rejected_windows": {
+            "future_not_available": 12,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 21000,
+            "actual_start_ms": 22000,
+            "overshoot_ms": 1000
+          }
+        }
+      ],
+      "observed_clip_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observed_start_step_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observation_windows": 3,
+      "verified_business_cycles": 0,
+      "feature_values_read": false,
+      "training_executed": false,
+      "training_admission_checked": false,
+      "messages": [
+        "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+        "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+      ],
+      "report_hash": "0b04d012e58f8f0b0fe7bd0e6d23034b0a9c4435d64d4fa48257070512d75355"
+    },
+    {
+      "schema_version": "p034-sampling-diagnostics-v1",
+      "source_hash": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+      "feature_space_id": "4c0121abc18e31c847baa1c270f656548750513c7202ecfbe03b9f084492824a",
+      "manifest_hash": "17d3ba37ec32c0a64007e4b09320ce787b1f0c045179b0b9e9960851c5876ff0",
+      "policy": {
+        "history_windows": 8,
+        "horizons_ms": [
+          500,
+          2000,
+          5000
+        ],
+        "target_tolerance_ms": 1000,
+        "max_gap_ms": 2000,
+        "max_pairs_per_split": 512,
+        "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+        "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+      },
+      "status": "no_causal_windows",
+      "eligible_rows": 59,
+      "sequence_count": 2,
+      "short_history_sequences": 0,
+      "candidate_histories": 45,
+      "causal_windows": 0,
+      "uncapped_causal_windows": 0,
+      "rejected_windows": {
+        "target_outside_tolerance": 37,
+        "future_not_available": 8
+      },
+      "horizons": [
+        {
+          "horizon_ms": 500,
+          "uncapped_causal_windows": 0,
+          "rejected_windows": {
+            "target_outside_tolerance": 41,
+            "future_not_available": 4
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 16500,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 1500
+          }
+        },
+        {
+          "horizon_ms": 2000,
+          "uncapped_causal_windows": 41,
+          "rejected_windows": {
+            "future_not_available": 4,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 18000,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 0
+          }
+        },
+        {
+          "horizon_ms": 5000,
+          "uncapped_causal_windows": 37,
+          "rejected_windows": {
+            "future_not_available": 8,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 21000,
+            "actual_start_ms": 22000,
+            "overshoot_ms": 1000
+          }
+        }
+      ],
+      "observed_clip_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observed_start_step_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observation_windows": 2,
+      "verified_business_cycles": 0,
+      "feature_values_read": false,
+      "training_executed": false,
+      "training_admission_checked": false,
+      "messages": [
+        "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+        "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+      ],
+      "report_hash": "5ab03f7ae120c57f11bd7f3d8c4dd1ef70a0bfce53634b280ef523af4b864a9f"
+    },
+    {
+      "schema_version": "p034-sampling-diagnostics-v1",
+      "source_hash": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+      "feature_space_id": "f4b6b5c8f823e09d6bc231cc0ae7fd0931e97f8660e1514aa628cb6f8c6619e7",
+      "manifest_hash": "2fad07dbe3c03d3c8d9a9c076841c80874bffb02c44be16dc11cd7dd95c91ae3",
+      "policy": {
+        "history_windows": 8,
+        "horizons_ms": [
+          500,
+          2000,
+          5000
+        ],
+        "target_tolerance_ms": 1000,
+        "max_gap_ms": 2000,
+        "max_pairs_per_split": 512,
+        "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+        "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+      },
+      "status": "no_causal_windows",
+      "eligible_rows": 10,
+      "sequence_count": 1,
+      "short_history_sequences": 0,
+      "candidate_histories": 3,
+      "causal_windows": 0,
+      "uncapped_causal_windows": 0,
+      "rejected_windows": {
+        "future_not_available": 3
+      },
+      "horizons": [
+        {
+          "horizon_ms": 500,
+          "uncapped_causal_windows": 0,
+          "rejected_windows": {
+            "target_outside_tolerance": 1,
+            "future_not_available": 2
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 16500,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 1500
+          }
+        },
+        {
+          "horizon_ms": 2000,
+          "uncapped_causal_windows": 1,
+          "rejected_windows": {
+            "future_not_available": 2,
+            "resource_subsampled": 0
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 18000,
+            "actual_start_ms": 18000,
+            "overshoot_ms": 0
+          }
+        },
+        {
+          "horizon_ms": 5000,
+          "uncapped_causal_windows": 0,
+          "rejected_windows": {
+            "future_not_available": 3
+          },
+          "first_history_example": {
+            "issued_ms": 16000,
+            "requested_start_ms": 21000,
+            "actual_start_ms": null,
+            "overshoot_ms": null
+          }
+        }
+      ],
+      "observed_clip_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observed_start_step_ms": {
+        "min": 2000,
+        "max": 2000,
+        "uniform": true
+      },
+      "observation_windows": 1,
+      "verified_business_cycles": 0,
+      "feature_values_read": false,
+      "training_executed": false,
+      "training_admission_checked": false,
+      "messages": [
+        "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+      ],
+      "report_hash": "6f6bcc65185787a37893dc97ed57ef4d7b6d69db31e6264e023acdfc947cbb14"
+    }
+  ],
+  "note": "各源单独诊断，不合并工位/视角，不改变分区，也不运行训练。"
+}

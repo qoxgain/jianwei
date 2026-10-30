@@ -1,0 +1,147 @@
+{
+  "schema_version": "p033-real-acceptance-v1",
+  "assets": [
+    {
+      "asset_id": "garment_test_short",
+      "source_sha256": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+      "bytes": 18196446,
+      "upload_seconds": 0.06,
+      "total_seconds": 35.316,
+      "import_id": "1ab091d8-38a9-4938-970f-5f874def0c3a",
+      "config_hash": "44f98044fc779c9b0837603cf585749491cdb8f760bf7583e9192c45ff9372bc",
+      "feature_space_id": "7948ee1b119d75f232385c10f4862397ebbfe055fc949f4c7ac7b4261521c46f",
+      "feature_cache_sha256": "6eb274d16f16a008d8670bd78c4ea46e7e07b8f3e43efbd21a3df07471d834f4",
+      "eligible_rows": 37,
+      "total_rows": 37,
+      "coverage": {
+        "covered_ms": 20000,
+        "source_domain_ms": 20440,
+        "fraction": 0.9784735812133072,
+        "domains": [
+          {
+            "time_domain_id": "d0",
+            "start_ms": 0,
+            "end_ms": 20440,
+            "intervals": [
+              [
+                0,
+                20000
+              ]
+            ],
+            "covered_ms": 20000
+          }
+        ],
+        "definition": "union of eligible clip intervals, without counting overlap twice"
+      },
+      "geometry": {
+        "coded_height": 1080,
+        "coded_width": 1920,
+        "decoded_height": 360,
+        "decoded_width": 640,
+        "display_height": 1080.0,
+        "display_width": 1920.0,
+        "roi_coordinates": "normalized_display_after_rotation_and_sar",
+        "rotation_degrees_ccw": 0,
+        "sample_aspect_ratio": "1:1",
+        "sar_origin": "stream",
+        "transform": "ffmpeg_noautorotate_then_right_angle_then_bilinear_scale_setsar1",
+        "version": "display-square-pixels-v1"
+      },
+      "quality": {
+        "bright_frames": 0,
+        "dark_frames": 0,
+        "decoded_frames": 511,
+        "low_contrast_frames": 0,
+        "method": "decoded_luma_and_contrast_v1",
+        "score": 1.0,
+        "semantic_accuracy": null
+      },
+      "episodes": [
+        {
+          "business_cycle_verified": false,
+          "complete": false,
+          "domain_index": 0,
+          "end_ms": 20440,
+          "episode_id": "d0_window_0",
+          "feature_eligible": true,
+          "kind": "observation_window",
+          "observation_contract": "p033-observation-v1",
+          "origin": "fixed_window",
+          "start_ms": 0,
+          "time_domain_id": "d0"
+        }
+      ],
+      "view_id": "6a2e53de181ef0b44841b856a28f49f7e6e2d7f750f446dd9761a396a31764bd",
+      "view_review": [
+        {
+          "domain_index": 0,
+          "end_ms": 20440,
+          "reason": "no_human_view_review",
+          "reviewer": null,
+          "start_ms": 0,
+          "status": "unreviewed"
+        }
+      ],
+      "capture_identity": {
+        "physical_camera_id": null,
+        "review_status": "pending",
+        "stable_view_id": null
+      },
+      "acquisition": null,
+      "anonymous_segments": 4,
+      "available_causal_pairs_metadata_only": 16,
+      "rejected_pairs": {
+        "future_not_available": 14,
+        "resource_subsampled": 0
+      },
+      "split": "unassigned",
+      "research_status": "blocked_unreviewed_capture_and_no_independent_heldout",
+      "training_executed": false,
+      "encoder_evidence": {
+        "artifact_sha_verified": true,
+        "execution": "frozen_onnx_cpu",
+        "vector_production": "executed_from_this_source",
+        "weights_sha": "2979019509005056778db9f462e9eed212c40f02d5e5bf1d6fc9e06caf2ebab8"
+      },
+      "stage_timings_seconds": {
+        "decode": 3.680204,
+        "encode_and_sampling": 25.329698,
+        "probe": 3.705901
+      },
+      "resources": {
+        "upload": {
+          "peak_process_tree_rss_bytes": 0,
+          "peak_owned_disk_bytes": 18417630,
+          "samples": 5
+        },
+        "probe": {
+          "peak_process_tree_rss_bytes": 0,
+          "peak_owned_disk_bytes": 18426350,
+          "samples": 15
+        },
+        "decode": {
+          "peak_process_tree_rss_bytes": 0,
+          "peak_owned_disk_bytes": 18417630,
+          "samples": 20
+        },
+        "sampling_decode": {
+          "peak_process_tree_rss_bytes": 0,
+          "peak_owned_disk_bytes": 18417630,
+          "samples": 15
+        },
+        "encode": {
+          "peak_process_tree_rss_bytes": 0,
+          "peak_owned_disk_bytes": 18593671,
+          "samples": 120
+        }
+      }
+    }
+  ],
+  "resource_measurement": {
+    "interval_seconds": 0.2,
+    "rss": "sum of Linux VmRSS for API process and all descendants; includes shared pages per process",
+    "disk": "apparent bytes under isolated data_demo; cumulative retained uploads plus temporary files; no original media/model files"
+  },
+  "independent_learning_status": "blocked",
+  "semantic_accuracy": null
+}

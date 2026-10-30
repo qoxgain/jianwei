@@ -1,9 +1,9 @@
 # 见微 · 多模态自学习感知平台
 
-当前实现 **P0.3.3 真实素材接入与 SOP 人工复核**，九段真实录像已分别完成正式冻结编码器提取与匿名探索；独立学习验收仍 blocked。服装SOP、电子装配、无SOP安全事件、无标签观察使用同一套场景API和页面；动作、状态、事件、流程节点分别定义。产品版本为V3.0，配置与知识契约为3.1。
+当前实现 **P0.3.4 采样预检与研究准备**，保留 P0.3.3 九段真实录像接入、冻结特征与 SOP 人工复核；新增逐来源时间诊断，真实短片密采样得到37个片段、16个因果窗口，独立学习验收仍 blocked。服装SOP、电子装配、无SOP安全事件、无标签观察使用同一套场景API和页面；动作、状态、事件、流程节点分别定义。产品版本为V3.0，配置与知识契约为3.1。
 
-- [本步任务](docs/plans/P0.3.3-real-data.md) · [下一步独立研究门槛](docs/plans/P0.3.3-next.md) · [P0.1.1最终任务书](docs/plans/P0.1.1-final.md)
-- [本次交付、测试与边界](docs/delivery/P0.3.3.md) · [九视频验收 Demo 下载](docs/demo/p0.3.3/jianwei-p0.3.3-demo.zip) · [P0.3.2 历史交付](docs/delivery/P0.3.2.md) · [P0.3.1 历史交付](docs/delivery/P0.3.1.md)
+- [后续真实研究任务](docs/plans/P0.3.4-next.md) · [Codex执行指令](docs/plans/P0.3.4-Codex.txt) · [P0.1.1最终任务书](docs/plans/P0.1.1-final.md)
+- [本次交付、测试与边界](docs/delivery/P0.3.4.md) · [P0.3.3历史交付](docs/delivery/P0.3.3.md) · [九视频验收 Demo 下载](docs/demo/p0.3.3/jianwei-p0.3.3-demo.zip) · [P0.3.2 历史交付](docs/delivery/P0.3.2.md) · [P0.3.1 历史交付](docs/delivery/P0.3.1.md)
 - [研究路线与阶段依赖](docs/ROADMAP.md) · [P0.2衔接契约](docs/P0.2-CONTRACTS.md)
 - [四场景离线演示使用说明](demo/README.md)
 
@@ -32,7 +32,7 @@ git lfs install --local
 git lfs pull --include='datasets/video_samples/**/*.mp4' --exclude=''
 .venv/bin/python -m pip install -r requirements-pretrained.txt --extra-index-url https://download.pytorch.org/whl/cpu
 .venv/bin/python scripts/export_pretrained_encoder.py --download --report artifacts/encoder-export.json
-.venv/bin/python -m scripts.prepare_video_dataset
+.venv/bin/python -m scripts.prepare_video_dataset --encoder-report artifacts/encoder-export.json
 .venv/bin/python -m scripts.validate_video_dataset
 # 完成批量实测后，打开本机 http://127.0.0.1:18053
 .venv/bin/python -m jianwei serve --config artifacts/p033-runtime/config/system.yaml --profile demo
@@ -42,7 +42,7 @@ git lfs pull --include='datasets/video_samples/**/*.mp4' --exclude=''
 
 ## 数据接入
 
-新增现场素材统一放在 [datasets/video_samples](datasets/video_samples/README.md)。本轮完成素材整理与评估；工业接入、旋转与工位/SOP适配按 [P0.3.3任务书](docs/plans/P0.3.3-real-data.md) 继续开发。查看 [实际评估](docs/delivery/P0.3.3-data-review.md) 和 [Codex指令](docs/plans/P0.3.3-Codex.txt)。尚未宣称真实学习效果通过。
+新增现场素材统一放在 [datasets/video_samples](datasets/video_samples/README.md)。P0.3.3已完成工业接入、显示方向与SOP人工复核；P0.3.4继续对齐采样和研究门槛。按 [后续任务](docs/plans/P0.3.4-next.md) 补齐独立采集与真实学习验收，历史 [素材评估](docs/delivery/P0.3.3-data-review.md) 保留可追溯。
 
 启动后进入“数据接入”，选择场景并点击“运行示例导入”。这是服务端真实执行的确定性合成 NPZ，不代表现场模型效果。上传自己的 MP4 使用 `file_01`，按场景填写上下文与完整周期。预计算特征协议、时钟锚点和来源核验见 [导入说明](docs/INGESTION.md)；冻结模型配置见 [编码器说明](docs/ENCODER.md)。
 
@@ -65,6 +65,18 @@ P0.3.2 的四场景 API/离线浏览器验收、展开预检的手机布局和�
 
 原 `knowledge/labels.yaml` 保留为3.0兼容资料，不被自动改写。时序模型保持候选；机器语义记忆为后续能力，不自动覆盖人工知识。敏感值仍只使用 `env://NAME`，来源URI不发往浏览器。
 
+## 研究采样预检
+
+默认批量工程配置采用2秒步长，不能满足原0.5秒预测跨度；已有九片的695个有效片段不能直接当作训练对。显式研究配置保留根配置的0.5秒步长及原预测跨度，不自动调参或改变分区：
+
+```bash
+.venv/bin/python -m scripts.prepare_video_dataset --research --output-dir artifacts/p034-runtime --encoder-report artifacts/encoder-export.json
+.venv/bin/python -m scripts.validate_video_dataset --config artifacts/p034-runtime/config/system.yaml --output artifacts/p034-real --asset garment_test_short --skip-default-limit
+.venv/bin/python -m jianwei serve --config artifacts/p034-runtime/config/system.yaml --profile demo
+```
+
+打开无标签观察→时序研究→选中来源→检查选中来源。页面分别显示当前配置网格和已导入的实际时间戳；配置变化不更新旧特征，需重提。训练准入仍要求真实采集审查和独立分区；观察窗口不等于已核验业务周期。详见本次交付报告。
+
 ## 兼容与迁移
 
 旧3.0配置可只读加载；新场景接口提供正规化知识，原API保持默认场景兼容并标记deprecated。显式导出新文件：
@@ -75,7 +87,7 @@ python -m scripts.migrate_v30 --config tests/fixtures/v30/config/system.yaml --o
 
 实际使用时把 `--config` 替换为自己的旧配置。命令不覆盖原文件，保留旧场景/动作/来源ID，输出节点映射与新旧hash，并保持原有资源路径的物理指向。已有输出不同则拒绝覆盖。
 
-启动自动执行 Alembic `0004_temporal`，在 P0.2 导入表基础上新增研究任务表，不改写知识与导入历史。旧SQLite迁移前生成 `.pre-p011.sqlite` 备份；旧版本ID、hash、YAML和JSON不变，新表示写入 `legacy_knowledge_mappings`。不能确定旧租户归属时停止迁移。详情见交付记录。
+启动自动迁移至 Alembic `0005_ingestion_progress`，保留研究任务与导入进度表；P0.3.4无新数据库迁移，不改写知识与导入历史。旧SQLite迁移前生成 `.pre-p011.sqlite` 备份；旧版本ID、hash、YAML和JSON不变，新表示写入 `legacy_knowledge_mappings`。不能确定旧租户归属时停止迁移。详情见交付记录。
 
 ## 验证
 
@@ -110,4 +122,4 @@ site预检缺少现场资源时返回2是预期阻塞，不是假就绪。浏览
 | `contracts/future-openapi.yaml` | 尚未实现的后续API草案 |
 | `reference` | 原始合成机制参考，不代表真实模型效果 |
 
-主线A的顺序为：公共底座 → 视频/特征 → 自监督时序 → 语义与状态记忆 → 少样本抗遗忘 → 主动局部感知。P0.3.2 将独立来源、采集审查和有效时间窗口的缺口显示在研究页面；独立录像与真实训练/校准/测试仍待验收，尚不进入 P0.4。
+主线A的顺序为：公共底座 → 视频/特征 → 自监督时序 → 语义与状态记忆 → 少样本抗遗忘 → 主动局部感知。P0.3.4 在研究页面显示来源审查缺口、采样规划和逐源实际因果窗口；独立录像与真实训练/校准/测试仍待验收，尚不进入 P0.4。
