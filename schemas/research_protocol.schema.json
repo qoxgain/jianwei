@@ -1,0 +1,100 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "protocol_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Protocol Id",
+      "type": "string"
+    },
+    "registered_by": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+      "title": "Registered By",
+      "type": "string"
+    },
+    "registered_at": {
+      "format": "date-time",
+      "title": "Registered At",
+      "type": "string"
+    },
+    "primary_metric": {
+      "const": "source_macro_mse",
+      "default": "source_macro_mse",
+      "title": "Primary Metric",
+      "type": "string"
+    },
+    "min_independent_sessions": {
+      "maximum": 100,
+      "minimum": 2,
+      "title": "Min Independent Sessions",
+      "type": "integer"
+    },
+    "confidence_level": {
+      "default": 0.95,
+      "maximum": 0.999,
+      "minimum": 0.8,
+      "title": "Confidence Level",
+      "type": "number"
+    },
+    "bootstrap_replicates": {
+      "default": 2000,
+      "maximum": 10000,
+      "minimum": 200,
+      "title": "Bootstrap Replicates",
+      "type": "integer"
+    },
+    "bootstrap_seed": {
+      "default": 23,
+      "maximum": 4294967295,
+      "minimum": 0,
+      "title": "Bootstrap Seed",
+      "type": "integer"
+    },
+    "minimum_relative_improvement": {
+      "exclusiveMaximum": 1,
+      "minimum": 0,
+      "title": "Minimum Relative Improvement",
+      "type": "number"
+    },
+    "controls": {
+      "items": {
+        "enum": [
+          "persistence",
+          "shuffled_ridge"
+        ],
+        "type": "string"
+      },
+      "maxItems": 2,
+      "minItems": 2,
+      "title": "Controls",
+      "type": "array"
+    },
+    "source_sha256s": {
+      "anyOf": [
+        {
+          "items": {
+            "pattern": "^[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "maxItems": 1000,
+          "minItems": 4,
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Sha256S"
+    }
+  },
+  "required": [
+    "protocol_id",
+    "registered_by",
+    "registered_at",
+    "min_independent_sessions",
+    "minimum_relative_improvement"
+  ],
+  "title": "ResearchProtocol",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

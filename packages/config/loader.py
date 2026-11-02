@@ -173,6 +173,10 @@ def load_bundle(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", p
         snapshot.get('temporal', {}).pop('dataset_manifest', None)
     else:
         snapshot['temporal']['dataset_manifest'] = config.temporal.dataset_manifest.model_dump(mode='json')
+    if snapshot.get('temporal', {}).get('research_protocol') is None:
+        snapshot.get('temporal', {}).pop('research_protocol', None)
+    else:
+        snapshot['temporal']['research_protocol'] = config.temporal.research_protocol.model_dump(mode='json')
     for profile_snapshot in snapshot['profiles'].values():
         for source_snapshot in profile_snapshot['sources']:
             if source_snapshot.get('capture_identity') is None: source_snapshot.pop('capture_identity', None)

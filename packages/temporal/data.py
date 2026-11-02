@@ -58,6 +58,14 @@ def snapshot_imports(bundle, database, scene_id, identifiers, allowed_splits):
                 'encoder_evidence': m['encoder_evidence'], 'import_config_hash': job.config_hash})
             if provenance is not None:
                 entries[-1]['provenance'] = provenance
+                # P0.3.5 binds the actual imported recipe, not just the current
+                # configuration's claim. Historical/synthetic snapshots stay intact.
+                entries[-1]['feature_space'] = space.model_dump(mode='json')
+                entries[-1]['preprocessing'] = m.get('preprocessing')
+                entries[-1]['source_id'] = m.get('source_id')
+                entries[-1]['capture_contract'] = m.get('capture_contract')
+                entries[-1]['capture_identity'] = m.get('capture_identity')
+                entries[-1]['acquisition'] = m.get('acquisition')
             counts[m['split']] += 1
     if len(keys) != 1: fail('TEMPORAL_SCOPE_MISMATCH', '禁止混合租户、场景、视角、特征空间或真实/合成来源')
     requirements = {'train':settings.min_train_sources, 'calibration':settings.min_calibration_sources,

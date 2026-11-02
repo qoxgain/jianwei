@@ -305,6 +305,10 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
     def temporal_capabilities():
         return application.state.temporal.capabilities()
 
+    @application.get('/api/scenes/{scene_id}/temporal/protocol')
+    def temporal_protocol(scene_id: str):
+        return application.state.temporal.protocol_preview(scene_id)
+
     @application.post('/api/scenes/{scene_id}/temporal/readiness')
     def temporal_readiness(scene_id: str, body: ReadinessRequest):
         return application.state.temporal.readiness(scene_id, body)

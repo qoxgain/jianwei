@@ -4,10 +4,12 @@ from pydantic import Field, model_validator
 from .models import Strict
 from .scenes import Identifier
 from .dataset import DatasetManifest
+from .research import ResearchProtocol
 
 
 class TemporalSettings(Strict):
     dataset_manifest: DatasetManifest | None = None
+    research_protocol: ResearchProtocol | None = None
     protocol_version: Literal['p03-causal-v1'] = 'p03-causal-v1'
     seed: int = Field(default=23, ge=0, le=2**32-1)
     projection_dim: int = Field(default=16, ge=2, le=64)

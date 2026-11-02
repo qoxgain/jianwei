@@ -1,0 +1,49 @@
+{
+  "scope": "Disposable fixture; not a customer database",
+  "from_revision": "0003_ingestion",
+  "to_revision": "0005_ingestion_progress",
+  "repeated_upgrade_identical": true,
+  "new_research_rows": 0,
+  "additive_import_defaults": {
+    "progress_json": null,
+    "cancel_requested": 0
+  },
+  "old_tables": {
+    "audit_events": {
+      "rows": 1,
+      "before_sha256": "cb1fe9719225995c439cc9dc861f9a22950964b495bfbee2d0e2ee0cf55389fa",
+      "after_sha256": "cb1fe9719225995c439cc9dc861f9a22950964b495bfbee2d0e2ee0cf55389fa"
+    },
+    "config_versions": {
+      "rows": 1,
+      "before_sha256": "86fd72d222eff7f7774f419797f535eb698c0ba056a246232389b4f58ae7f53a",
+      "after_sha256": "86fd72d222eff7f7774f419797f535eb698c0ba056a246232389b4f58ae7f53a"
+    },
+    "import_jobs": {
+      "rows": 1,
+      "before_sha256": "c303562ca21a1f0ee54999f98077dcd75c57e80c572e2924cf44c27f2d9b823d",
+      "after_sha256": "c303562ca21a1f0ee54999f98077dcd75c57e80c572e2924cf44c27f2d9b823d"
+    },
+    "knowledge_versions": {
+      "rows": 1,
+      "before_sha256": "f0224aa67cbd0080a36ca58fa2d91b50dfa997924183ce3728252fd69462080b",
+      "after_sha256": "f0224aa67cbd0080a36ca58fa2d91b50dfa997924183ce3728252fd69462080b"
+    },
+    "legacy_knowledge_mappings": {
+      "rows": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "after_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "source_splits": {
+      "rows": 1,
+      "before_sha256": "fd508a08e732d8ea7874e7e1319dcf3b6ad1d6e5c28c7780010cf9750d557987",
+      "after_sha256": "fd508a08e732d8ea7874e7e1319dcf3b6ad1d6e5c28c7780010cf9750d557987"
+    },
+    "uploaded_artifacts": {
+      "rows": 1,
+      "before_sha256": "9f451b7f3c5f591f026e16733908f47692789583aa7526edfb3cec698f553957",
+      "after_sha256": "9f451b7f3c5f591f026e16733908f47692789583aa7526edfb3cec698f553957"
+    }
+  },
+  "old_ids_hashes_payloads_and_source_splits_preserved": true
+}

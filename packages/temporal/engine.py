@@ -16,8 +16,12 @@ MODELS=('persistence','empirical','ridge','causal_tcn','shuffled_ridge')
 
 
 def code_hash():
-    paths=sorted(Path(__file__).parent.glob('*.py'))
-    return content_hash({p.name:file_hash(p) for p in paths})
+    # Admission/consumption and schema changes alter the experiment just as
+    # numerical code does. Bind those rules as well as the forecast engine.
+    root=Path(__file__).resolve().parents[2]
+    paths=sorted(p for package in ('temporal','temporal_jobs','contracts')
+                 for p in (root/'packages'/package).glob('*.py'))
+    return content_hash({str(p.relative_to(root)):file_hash(p) for p in paths})
 
 
 def _json(value):return json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False)
@@ -198,12 +202,30 @@ def validate_windows(sequences,windows,settings,splits):
         if len(sources)<minimum:fail('TEMPORAL_INSUFFICIENT_SOURCES',f'{split}有效窗口来源不足')
 
 
-def train(sequences,snapshot,learning,settings,directory,config_hash,knowledge_hash):
+def train(sequences,snapshot,learning,settings,directory,config_hash,knowledge_hash,research_protocol=None):
     if any(s.batches[0].split not in {'train','calibration'} for s in sequences):
         fail('TEMPORAL_SPLIT_FORBIDDEN','训练不可读取test或未分配来源')
     if not learning.enabled or not learning.freeze_foundation_models or 'temporal_head' not in learning.train_adapters:
         fail('TEMPORAL_DISABLED','配置未启用冻结特征上的独立时序学习')
     if learning.temporal_adapter not in {'ridge','causal_tcn'}:fail('TEMPORAL_ADAPTER_UNAVAILABLE','P0.3实现ridge与causal_tcn，尚未实现GRU')
+    # The service freezes metadata before opening feature caches. Repeat the
+    # immutable checks here so direct engine calls cannot fit an unbound study.
+    if snapshot['data_origin']=='real_video':
+        if research_protocol is None:
+            fail('TEMPORAL_PROTOCOL_REQUIRED','真实研究需在读取特征和拟合前冻结研究协议')
+        frozen=research_protocol.get('snapshot',{})
+        if (research_protocol.get('hash')!=content_hash(frozen)
+                or frozen.get('training_snapshot_hash')!=snapshot['hash']
+                or settings.research_protocol is None
+                or frozen.get('protocol')!=settings.research_protocol.model_dump(mode='json')):
+            fail('TEMPORAL_PROTOCOL_CHANGED','研究协议与训练数据或预注册参数不一致')
+        bindings=frozen.get('bindings',{})
+        if any(bindings.get(key)!=value for key,value in
+               (('config_hash',config_hash),('knowledge_hash',knowledge_hash),('engine_hash',code_hash()))):
+            fail('TEMPORAL_PROTOCOL_CHANGED','研究协议绑定的配置、知识或代码版本不一致')
+    if research_protocol is not None:
+        directory.mkdir(parents=True,exist_ok=True)
+        atomic_json(directory/'protocol.json',research_protocol)
     windows,rejected=window_refs(sequences,learning,settings);validate_windows(sequences,windows,settings,{'train','calibration'})
     train_windows=[w for w in windows if w.split=='train'];cal=[w for w in windows if w.split=='calibration']
     raw=np.concatenate([values(s,range(len(s.rows))) for s in sequences if s.batches[0].split=='train'])
@@ -238,14 +260,19 @@ def train(sequences,snapshot,learning,settings,directory,config_hash,knowledge_h
     calibration=replay(sequences,cal,arrays,learning,directory,'calibration')
     # The shuffled model is a falsification control, never an activation candidate.
     selected=min(MODELS[:-1],key=lambda n:calibration['source_macro_mse'][n])
+    from .uncertainty import summarize_sessions
+    policy=research_protocol['snapshot']['protocol'] if research_protocol else settings.research_protocol
+    statistics=summarize_sessions(calibration,snapshot,policy,selected,'calibration')
+    statistics['horizons_seconds']=list(learning.forecast_horizons_seconds)
     cluster_version=content_hash({'centers':centers.tolist(),'projection':{k:v.tolist() for k,v in projection.items()},'train_sources':[e['source_hash'] for e in snapshot['entries'] if e['split']=='train']})
     payload={'protocol_version':settings.protocol_version,'engine_sha256':code_hash(),'state':'candidate','selected_model':selected,
              'selection_split':'calibration','snapshot':snapshot,'config_hash':config_hash,'knowledge_hash':knowledge_hash,
-             'learning':learning.model_dump(),'settings':settings.model_dump(),'cluster_version':cluster_version,
+             'learning':learning.model_dump(mode='json'),'settings':settings.model_dump(mode='json'),'cluster_version':cluster_version,
+             'research_protocol':research_protocol,
              'numpy_version':np.__version__,'models':list(MODELS),'encoder_training':False}
     model=save_model(directory,payload,arrays)
     return {'stage':'P0.3','kind':'train','data_origin':snapshot['data_origin'],'snapshot':snapshot,'model':model,
-            'calibration':calibration,'training':training,'train_pairs':len(train_windows),'rejected_windows':rejected,
+            'calibration':calibration,'session_statistics':statistics,'training':training,'train_pairs':len(train_windows),'rejected_windows':rejected,
             'used_training_sources':len({sequences[w.sequence].manifest['source_hash'] for w in train_windows}),
             'used_training_episodes':len({(sequences[w.sequence].manifest['source_hash'],sequences[w.sequence].batches[0].episode_id,sequences[w.sequence].batches[0].time_domain_id) for w in train_windows}),
             'projection':{'fit_split':'train','dimension':z.shape[1],'explained_variance_ratio':explained,
@@ -265,13 +292,20 @@ def evaluate(sequences,snapshot,model_directory,expected_model,directory):
     if any(snapshot[k]!=model['snapshot'][k] for k in ('tenant_id','scene_id','view_id','feature_space_id','data_origin')):
         fail('TEMPORAL_SCOPE_MISMATCH','评估输入与模型作用域不一致')
     assert_evaluation_independent(snapshot, model['snapshot'])
+    from .protocol import assert_frozen_protocol
+    assert_frozen_protocol(model.get('research_protocol'),snapshot)
     learning=Learning.model_validate(model['learning']);settings=TemporalSettings.model_validate(model['settings'])
     windows,rejected=window_refs(sequences,learning,settings);validate_windows(sequences,windows,settings,{'test'})
     if any(w.split!='test' for w in windows):fail('TEMPORAL_SPLIT_FORBIDDEN','独立评估只能读取test')
     directory.mkdir(parents=True,exist_ok=True)
     result=replay(sequences,windows,arrays,learning,directory,'test')
+    from .uncertainty import summarize_sessions
+    binding=model.get('research_protocol')
+    policy=binding['snapshot']['protocol'] if binding else settings.research_protocol
+    statistics=summarize_sessions(result,snapshot,policy,model['selected_model'],'test')
+    statistics['horizons_seconds']=list(learning.forecast_horizons_seconds)
     return {'stage':'P0.3','kind':'evaluate','data_origin':snapshot['data_origin'],'snapshot':snapshot,
             'model_hash':expected_model['weights_sha256'],'selected_model':model['selected_model'],'selection_split':'calibration',
-            'test':result,'rejected_windows':rejected,'anonymous_discovery':discovery(sequences,arrays,settings,'test'),
+            'test':result,'research_protocol':binding,'session_statistics':statistics,'rejected_windows':rejected,'anonymous_discovery':discovery(sequences,arrays,settings,'test'),
             'next_anonymous_state':next_cluster_replay(sequences,arrays,settings,directory,'test'),
             'semantic_accuracy':None,'real_world_evidence':False,'auto_activated':False,'refit_on_test':False}

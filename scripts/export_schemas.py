@@ -12,6 +12,7 @@ from packages.contracts.ingestion import ImportRequest
 from packages.contracts.sop import RevisionRequest, DecisionRequest, EvidenceRecord
 from packages.contracts.temporal import TrainRequest, EvaluationRequest, ReadinessRequest
 from packages.contracts.dataset import DatasetManifest
+from packages.contracts.research import ResearchProtocol
 from packages.contracts.scenes import SceneKnowledge
 from packages.contracts.configuration import SceneConfig
 from packages.contracts.learning import Episode, FeatureSpace, FeatureBatch, ActivityObservation, Prediction, NormativeExpectation, MemorySnapshot, StateSnapshot, EventOccurrence
@@ -24,6 +25,7 @@ MODELS = {
     "sop_evidence_record": EvidenceRecord,
     "temporal_readiness_request": ReadinessRequest,
     "dataset_manifest": DatasetManifest,
+    "research_protocol": ResearchProtocol,
     "temporal_train_request": TrainRequest,
     "temporal_evaluation_request": EvaluationRequest,
     "import_request": ImportRequest,

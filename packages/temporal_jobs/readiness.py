@@ -10,6 +10,7 @@ from packages.knowledge.service import content_hash
 from packages.temporal import engine
 from packages.temporal.data import metadata_sequences, snapshot_imports, window_refs, fail
 from packages.temporal.provenance import source_provenance, assert_evaluation_independent
+from packages.temporal.protocol import freeze_protocol, assert_frozen_protocol
 from infra.models import ImportJob
 from .sampling import analyze, grid_plan
 
@@ -84,8 +85,8 @@ def check(service, scene, request):
         except ContractError as error:
             record['issues'].append(_issue(error))
         try:
-            sequences.extend(metadata_sequences(m, settings))
             if m['split'] != 'test':
+                sequences.extend(metadata_sequences(m, settings))
                 record['sampling_diagnostics'] = analyze(m, bundle.config.learning, settings)
         except ContractError as error:
             record['issues'].append(_issue(error))
@@ -95,7 +96,7 @@ def check(service, scene, request):
     for name, splits in [('train', {'train', 'calibration'}), ('evaluation', {'test'})]:
         chosen = [r for r in records if r['split'] in splits]
         gate = {'status': 'blocked', 'import_ids': [r['import_id'] for r in chosen],
-                'snapshot_hash': None, 'blockers': [], 'rejected_windows': {}}
+                'snapshot_hash': None, 'blockers': [], 'rejected_windows': {}, 'windows_checked': False}
         gates[name] = gate
         blockers = gate['blockers']
         for record in chosen:
@@ -129,23 +130,44 @@ def check(service, scene, request):
                            ('tenant_id', 'scene_id', 'view_id', 'feature_space_id', 'data_origin')):
                         fail('TEMPORAL_SCOPE_MISMATCH', 'test 与候选模型作用域不一致')
                     assert_evaluation_independent(snapshot, expected['snapshot'])
+                    binding = expected.get('research_protocol')
+                    assert_frozen_protocol(binding, snapshot, bundle, scene)
+                    with service.database.session() as session:
+                        service._heldout_available(session, binding)
             except ContractError as error:
                 blockers.append(_issue(error))
         else:
+            if snapshot:
+                try:
+                    binding = freeze_protocol(bundle, scene, snapshot)
+                    with service.database.session() as session:
+                        service._heldout_available(session, binding)
+                except ContractError as error:
+                    blockers.append(_issue(error))
             if (not learning.enabled or not learning.freeze_foundation_models
                     or 'temporal_head' not in learning.train_adapters):
                 blockers.append({'code': 'TEMPORAL_DISABLED', 'message': '配置未启用冻结特征上的时序学习'})
             if learning.temporal_adapter not in {'ridge', 'causal_tcn'}:
                 blockers.append({'code': 'TEMPORAL_ADAPTER_UNAVAILABLE', 'message': '当前仅实现 ridge 与 causal_tcn'})
-        subset = [s for s in sequences if s.batches[0].split in splits]
-        windows, rejected = window_refs(subset, learning, limits)
-        gate['rejected_windows'] = rejected
-        for window in windows:
-            windows_by_split[window.split].append(subset[window.sequence].manifest['source_hash'])
-        try:
-            engine.validate_windows(subset, windows, limits, sorted(splits))
-        except ContractError as error:
-            blockers.append(_issue(error))
+        # No test timestamp/window diagnostic is available until the candidate,
+        # full frozen roster and unused heldout identity have been admitted.
+        # Merely withholding the per-source panel would still leak aggregate
+        # window/rejection counts for post-hoc protocol selection.
+        if name == 'train' or not blockers:
+            try:
+                if name == 'evaluation':
+                    subset = [sequence for job in jobs if job['id'] in gate['import_ids']
+                              for sequence in metadata_sequences(job['manifest'], limits)]
+                else:
+                    subset = [s for s in sequences if s.batches[0].split in splits]
+                windows, rejected = window_refs(subset, learning, limits)
+                gate['windows_checked'] = True
+                gate['rejected_windows'] = rejected
+                for window in windows:
+                    windows_by_split[window.split].append(subset[window.sequence].manifest['source_hash'])
+                engine.validate_windows(subset, windows, limits, sorted(splits))
+            except ContractError as error:
+                blockers.append(_issue(error))
         # Repeated per-source reasons are shown once at the gate, individually above.
         gate['blockers'] = list({(b['code'], b['message']): b for b in blockers}.values())
         gate['status'] = 'blocked' if gate['blockers'] else 'metadata_ready'
@@ -157,10 +179,12 @@ def check(service, scene, request):
             'reviewed_independent_groups': len({r['reviewed_group'] for r in selected if r['reviewed_group']}),
             'complete_episodes': sum(r['complete_episodes'] for r in selected),
             'eligible_rows': sum(r['eligible_rows'] for r in selected),
-            'causal_windows': len(windows_by_split[split]),
-            'sources_with_causal_windows': len(set(windows_by_split[split])),
+            'causal_windows': (None if split == 'test' and not gates['evaluation']['windows_checked']
+                               else len(windows_by_split[split])),
+            'sources_with_causal_windows': (None if split == 'test' and not gates['evaluation']['windows_checked']
+                                           else len(set(windows_by_split[split]))),
             'minimum_sources': getattr(settings, 'min_'+split+'_sources') if split != 'unassigned' else None}
-    result = {'stage': 'P0.3.4', 'scene_id': scene, 'metadata_only': True, 'feature_files_opened': False,
+    result = {'stage': 'P0.3.5', 'scene_id': scene, 'metadata_only': True, 'feature_files_opened': False,
               'training_executed': False, 'test_values_read': False, 'jobs_created': False,
               'config_hash': bundle.config_hash, 'engine_hash': engine.code_hash(),
               'dataset_manifest_hash': content_hash(registry.model_dump(mode='json')) if registry else None,

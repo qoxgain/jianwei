@@ -563,6 +563,29 @@ paths:
           content:
             application/json:
               schema: {}
+  /api/scenes/{scene_id}/temporal/protocol:
+    get:
+      summary: Temporal Protocol
+      operationId: temporal_protocol_api_scenes__scene_id__temporal_protocol_get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/scenes/{scene_id}/temporal/readiness:
     post:
       summary: Temporal Readiness
