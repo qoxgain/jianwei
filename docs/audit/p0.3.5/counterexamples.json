@@ -1,0 +1,34 @@
+{
+  "baseline": "0bf8fbab9b986940eb8d24a92a7435db06f03ea3",
+  "counterexamples": [
+    {
+      "id": "AUD-01",
+      "case": "9 eligible sequences, max_pairs=8",
+      "selected_sequences": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "omitted": [
+        8
+      ],
+      "rejected": {
+        "future_not_available": 126,
+        "resource_subsampled": 253
+      },
+      "note": "earlier sequences receive quota; last entire source omitted before complete-source session statistics"
+    },
+    {
+      "id": "AUD-02",
+      "case": "change hash oracle for ingestion/pipeline.py without editing source",
+      "code_hash_unchanged": true,
+      "protocol_bindings_unchanged": true,
+      "note": "sampling/quality orchestration implementation absent from frozen dependency hashes"
+    }
+  ]
+}
