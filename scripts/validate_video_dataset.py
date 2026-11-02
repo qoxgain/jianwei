@@ -17,6 +17,18 @@ def save(path, value):
     temporary=path.with_suffix('.tmp');temporary.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n');temporary.replace(path)
 
 
+def poll_import(client, url, failure_path):
+    response=client.get(url)
+    if response.status_code!=200:
+        save(failure_path,{'stage':'poll_import','http_status':response.status_code,'response':response.text[:4096]})
+        response.raise_for_status()
+    job=response.json()
+    if not isinstance(job,dict) or job.get('status') not in {'queued','running','succeeded','failed','blocked'}:
+        save(failure_path,{'stage':'poll_import','http_status':response.status_code,'response':job})
+        raise ValueError('Invalid import status response; failure evidence saved')
+    return job
+
+
 def tree_rss(pid):
     seen=set();pending=[pid];total=0
     while pending:
@@ -124,7 +136,7 @@ def main():
                 while job['status'] in {'queued','running'}:
                     if time.monotonic()>deadline:raise TimeoutError(asset_id)
                     time.sleep(1)
-                    job=client.get('/api/scenes/anonymous_observation/imports/'+job_id).json()
+                    job=poll_import(client,'/api/scenes/anonymous_observation/imports/'+job_id,output/asset_id/'poll-failure.json')
                     progress=job.get('progress') or {};stage=progress.get('stage',job['status']);monitor.stage=asset_id+':'+stage
                     marker=(stage,progress.get('completed'))
                     if marker!=last:

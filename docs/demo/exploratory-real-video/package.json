@@ -1,0 +1,12 @@
+{
+  "jianwei-real-video-learning-demo.zip": {
+    "sha256": "341a185f12fb10879c5edd54405281232753f440cd52a3e1a9dbe960d54a508f",
+    "bytes": 970753
+  },
+  "jianwei-real-video-numerical-bundle.zip": {
+    "sha256": "86eb8bc7b3bac8730e2285283f6792fb8c6143b6f3e1f416587c8fd0b76f2a5d",
+    "bytes": 18499181,
+    "publication_status": "private_delivery_only_not_uploaded_to_github"
+  },
+  "html_sha256": "6d5067954c0b2b1e2a6ce6dede22616bd1017a53b151b6391996b136c5a42404"
+}

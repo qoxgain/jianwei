@@ -1,0 +1,144 @@
+{
+  "baseline": "0bf8fbab9b986940eb8d24a92a7435db06f03ea3",
+  "numerical_code_head_at_run": "6a6fc24cc49b0f3140843fe56f27d5965de297d1",
+  "git_dirty_at_run": true,
+  "code_files_match_final_sources": {
+    "packages/ingestion/npz.py": true,
+    "packages/ingestion/video.py": true,
+    "packages/ingestion/capture.py": true,
+    "packages/ingestion/__init__.py": true,
+    "packages/ingestion/pipeline.py": true,
+    "packages/ingestion/time.py": true,
+    "packages/encoders/onnx_cpu.py": true,
+    "packages/encoders/__init__.py": true,
+    "packages/encoders/pretrained.py": true,
+    "packages/temporal/models.py": true,
+    "packages/temporal/provenance.py": true,
+    "packages/temporal/engine.py": true,
+    "packages/temporal/uncertainty.py": true,
+    "packages/temporal/exploration.py": true,
+    "packages/temporal/data.py": true,
+    "packages/temporal/__init__.py": true,
+    "packages/temporal/protocol.py": true,
+    "packages/exploratory/experiment.py": true,
+    "packages/exploratory/__init__.py": true,
+    "scripts/run_exploratory_real_video.py": true
+  },
+  "weights": [
+    {
+      "source": "garment_test",
+      "mode": "A",
+      "sha256": "9ed5d71568ebeca6d5bf512d55f0318058d4169dc8f78c1385d46e3fb51fd535",
+      "reloaded": true
+    },
+    {
+      "source": "garment_test",
+      "mode": "B",
+      "sha256": "a4c38017b63791cca8417218b19ffbb5d461edc09035ddb2b90eb57ee118f87e",
+      "reloaded": true
+    },
+    {
+      "source": "garment_test_short",
+      "mode": "A",
+      "sha256": "3248f42859d72a07211393f87bd2fb7d0fc59da3156b27c3dafab371e8dedddf",
+      "reloaded": true
+    },
+    {
+      "source": "bull_station_01",
+      "mode": "A",
+      "sha256": "0ba7e7fb45b0e7b3d459581d3c87b1146769ca018b36dc01f819156f86761271",
+      "reloaded": true
+    },
+    {
+      "source": "bull_station_01",
+      "mode": "B",
+      "sha256": "48d178874662dfde3c18820b856f15ea6dd902d5fe801e5fb32bca531107a8f4",
+      "reloaded": true
+    },
+    {
+      "source": "bull_station_02",
+      "mode": "A",
+      "sha256": "9990a7577a07bc715a3b5aa4950fc1854883473dddd0726bba06eaf0e587fa17",
+      "reloaded": true
+    },
+    {
+      "source": "bull_station_02",
+      "mode": "B",
+      "sha256": "e7dcd7f4cefb194f0083c96a495424a2c8206175ca69e5b2335a28981343f876",
+      "reloaded": true
+    },
+    {
+      "source": "bull_station_03",
+      "mode": "A",
+      "sha256": "95bab4fe45facf726b2850ba8a8f74037eaa1d6e73b04717bae626a5ed8e29ab",
+      "reloaded": true
+    },
+    {
+      "source": "bull_station_03",
+      "mode": "B",
+      "sha256": "3c302ae46539b12837b162f19a8f8e5d0fe26cdab6ef4aec5307f66fce7abdc8",
+      "reloaded": true
+    },
+    {
+      "source": "bull_station_05",
+      "mode": "A",
+      "sha256": "e93d7fc06ca4e8321b545b37977698630750a1883c6e5d5cf92b7e3a45f68306",
+      "reloaded": true
+    },
+    {
+      "source": "bull_station_05",
+      "mode": "B",
+      "sha256": "9d622b9b237c1939e95a4bcad2e45d5be3726333bda5629683042f3477e754f2",
+      "reloaded": true
+    },
+    {
+      "source": "bull_station_07",
+      "mode": "A",
+      "sha256": "d32b5f4bf3a0c81ac1217ed98def3f0d8217decd5876145ea5bf2ab733bbee67",
+      "reloaded": true
+    },
+    {
+      "source": "bull_station_07",
+      "mode": "B",
+      "sha256": "67a0ac4977ccf902ca6bc145e27052f70fbaef2f3b02fec5630b5bde8119089a",
+      "reloaded": true
+    },
+    {
+      "source": "bull_station_06",
+      "mode": "A",
+      "sha256": "2e48fa5da7b9dfa3e95309414ce073f16e97f7a76828731d762fd3b4749c3d53",
+      "reloaded": true
+    },
+    {
+      "source": "bull_station_06",
+      "mode": "B",
+      "sha256": "4b87c6f5005e2753fc5b3bd4ee84c938655bb5443d19b7e2640640fed71d093c",
+      "reloaded": true
+    },
+    {
+      "source": "bull_station_04",
+      "mode": "A",
+      "sha256": "07b3dc606d7c32239c57fdbc8be629b0d348589375eaa5ea026e481a07a513dd",
+      "reloaded": true
+    },
+    {
+      "source": "bull_station_04",
+      "mode": "B",
+      "sha256": "3997a436f13d7442f6c3f151eb92433ee6b18167078a032b56ad3db24e39ffb4",
+      "reloaded": true
+    }
+  ],
+  "sources": 9,
+  "feature_rows": 2710,
+  "executed_A": 9,
+  "executed_B": 8,
+  "C": "not_executed",
+  "formal_status": "blocked",
+  "unit_tests": {
+    "backend_passed": 528,
+    "backend_skipped_optional_torch": 3,
+    "frontend_passed": 95,
+    "reference_passed": 29
+  },
+  "new_targeted_tests": 15
+}

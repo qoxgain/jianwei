@@ -1,3 +1,9 @@
+> 本分支为 **P0.3.5 独立审核与真实视频回顾性学习实验**。原研发分支保持独立，正式科研验收仍 blocked。
+>
+> [独立技术审核](docs/audit/P0.3.5-independent-review.md) · [真实实验报告](docs/delivery/REAL-VIDEO-EXPLORATORY.md) · [实验代码与复现](experiments/real_video/README.md) · [数值包清单（完整包私下交付）](docs/delivery/exploratory-real-video/bundle.json) · [实际结果 Demo](docs/demo/exploratory-real-video/jianwei-real-video-learning-demo.zip)
+>
+> 九段真实视频重新提取2710个512维片段；9组同视频拟合、8组时间留出训练实际执行，C未执行。部分来源有探索增益，部分退化；不宣称动作准确率或独立泛化通过。完整失败记录、参数和权重一并保留。
+
 # 见微 · 多模态自学习感知平台
 
 当前实现 **P0.3.5 研究协议与独立会话验收**：训练前固定研究协议、完整来源分区和实际特征版本；新增按会话配对区间、双对照门槛及封存测试消费保护。现有九段开发录像和 SOP 保留，真实学习验收仍 blocked。服装SOP、电子装配、无SOP安全事件、无标签观察使用同一套场景API和页面；动作、状态、事件、流程节点分别定义。产品版本为V3.0，配置与知识契约为3.1。

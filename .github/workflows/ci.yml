@@ -34,6 +34,8 @@ jobs:
         run: .venv/bin/python tests/browser_sampling.py --chromium "$(command -v google-chrome)" --output artifacts/p034-browser/sampling
       - name: Preregistered protocol, session uncertainty and desktop/mobile research review
         run: .venv/bin/python tests/browser_research_protocol.py --chromium "$(command -v google-chrome)" --output artifacts/p035-browser
+      - name: Actual exploratory real-video records, all sources and both experiment modes
+        run: .venv/bin/python tests/browser_exploratory.py --chromium "$(command -v google-chrome)" --output artifacts/exploratory/browser
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -43,6 +45,8 @@ jobs:
             artifacts/p034-browser/sampling/*.json
             artifacts/p034-browser/sampling/*.png
             artifacts/p035-browser/*.json
+            artifacts/exploratory/browser/*.json
+            artifacts/exploratory/browser/*.png
             artifacts/p031-browser-work/**/api.log
             artifacts/p031-browser-work/**/static.log
   foundation:

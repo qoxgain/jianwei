@@ -1,0 +1,10 @@
+{
+  "status": "failed",
+  "stage": "HTTP extraction job",
+  "observed_error": "sqlite3.DatabaseError: database disk image is malformed; driver KeyError status",
+  "database_bytes": 593920,
+  "database_sha256": "9ac5ceb18424cb1fd53800e936460213789c4a5c74076df0d612d8ee931008c2",
+  "root_cause": "not_established",
+  "formal_database_affected": false,
+  "fallback": "same frozen pipeline, direct file-only execution, unchanged sampling/learning/evaluation conditions"
+}

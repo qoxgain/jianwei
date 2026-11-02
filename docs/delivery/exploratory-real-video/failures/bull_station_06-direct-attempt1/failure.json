@@ -1,0 +1,7 @@
+{
+  "asset_id": "bull_station_06",
+  "status": "failed",
+  "error_type": "ContractError",
+  "error": "视频解码超过时间限制，请缩短视频或调整有界解码预算",
+  "conditions_relaxed": false
+}

@@ -100,6 +100,10 @@ def run(directory,asset,bundle,options,out,model_sha):
         'auto_activated':False,'formal_database_accessed':False}
     for mode in ('A','B'):
         output=out/mode;output.mkdir(parents=True,exist_ok=True)
+        if mode=='B' and (len(manifest['domains'])!=1 or manifest['domains'][0]['start_ms']!=0):
+            result['modes'][mode]={'status':'blocked','reason':'ambiguous raw chronology; no automatic PTS reset concatenation',
+                'intervals_ms':{},'counts':{},'shared_rows':{}}
+            save(output/'report.json',result['modes'][mode]);continue
         spans=partitions(duration,options['guard_ms'],mode)
         pools={k:within(seqs,v) for k,v in spans.items()}
         windows={};rejected={}

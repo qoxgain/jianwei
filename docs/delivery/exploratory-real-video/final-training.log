@@ -1,0 +1,18 @@
+garment_test training actual real-video features
+garment_test completed [('A', 'executed'), ('B', 'executed')]
+garment_test_short training actual real-video features
+garment_test_short completed [('A', 'executed'), ('B', 'blocked')]
+bull_station_01 training actual real-video features
+bull_station_01 completed [('A', 'executed'), ('B', 'executed')]
+bull_station_02 training actual real-video features
+bull_station_02 completed [('A', 'executed'), ('B', 'executed')]
+bull_station_03 training actual real-video features
+bull_station_03 completed [('A', 'executed'), ('B', 'executed')]
+bull_station_05 training actual real-video features
+bull_station_05 completed [('A', 'executed'), ('B', 'executed')]
+bull_station_07 training actual real-video features
+bull_station_07 completed [('A', 'executed'), ('B', 'executed')]
+bull_station_06 training actual real-video features
+bull_station_06 completed [('A', 'executed'), ('B', 'executed')]
+bull_station_04 training actual real-video features
+bull_station_04 completed [('A', 'executed'), ('B', 'executed')]

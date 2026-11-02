@@ -1,0 +1,986 @@
+[
+  {
+    "asset": "bull_station_01",
+    "horizon_seconds": 0.5,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.25224710662685357,
+        "normalized_feature_mse": 1.8135775564276315,
+        "feature_cosine": 0.8720256261076665
+      },
+      "train_mean": {
+        "feature_mse": 0.3414627470505513,
+        "normalized_feature_mse": 2.3115672665710547,
+        "feature_cosine": 0.8138776912064264
+      },
+      "ridge": {
+        "feature_mse": 0.5448859935645208,
+        "normalized_feature_mse": 3.3738201258820797,
+        "feature_cosine": 0.7304880574697724
+      },
+      "shuffled_ridge": {
+        "feature_mse": 2.122457926005016,
+        "normalized_feature_mse": 10.235904276543506,
+        "feature_cosine": 0.477277901439358
+      },
+      "causal_tcn": {
+        "feature_mse": 0.3331401999536552,
+        "normalized_feature_mse": 2.2794001498651753,
+        "feature_cosine": 0.817537772823823
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.3387839634821458,
+        "normalized_feature_mse": 2.307293554245874,
+        "feature_cosine": 0.8140732657138289
+      },
+      "initial_tcn": {
+        "feature_mse": 0.339820003362963,
+        "normalized_feature_mse": 2.3077698100421116,
+        "feature_cosine": 0.8140135278608535
+      }
+    }
+  },
+  {
+    "asset": "bull_station_01",
+    "horizon_seconds": 2.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.3235231887616929,
+        "normalized_feature_mse": 2.2383799990753284,
+        "feature_cosine": 0.8414726576759223
+      },
+      "train_mean": {
+        "feature_mse": 0.3346160113931367,
+        "normalized_feature_mse": 2.2455752127726822,
+        "feature_cosine": 0.8093890395117774
+      },
+      "ridge": {
+        "feature_mse": 0.5414804165311964,
+        "normalized_feature_mse": 3.370977847521576,
+        "feature_cosine": 0.717272437114806
+      },
+      "shuffled_ridge": {
+        "feature_mse": 1.976046442077444,
+        "normalized_feature_mse": 9.495906359737365,
+        "feature_cosine": 0.38310047074269366
+      },
+      "causal_tcn": {
+        "feature_mse": 0.3301499280452299,
+        "normalized_feature_mse": 2.2342724783661154,
+        "feature_cosine": 0.8113447107600408
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.328445422158023,
+        "normalized_feature_mse": 2.230993981514515,
+        "feature_cosine": 0.8109348683040963
+      },
+      "initial_tcn": {
+        "feature_mse": 0.33166367636649097,
+        "normalized_feature_mse": 2.2430775614265603,
+        "feature_cosine": 0.8093126952321315
+      }
+    }
+  },
+  {
+    "asset": "bull_station_01",
+    "horizon_seconds": 5.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.4231451357843346,
+        "normalized_feature_mse": 2.943250288672447,
+        "feature_cosine": 0.8025231723809908
+      },
+      "train_mean": {
+        "feature_mse": 0.3358723959249393,
+        "normalized_feature_mse": 2.269136130393406,
+        "feature_cosine": 0.8086888791285585
+      },
+      "ridge": {
+        "feature_mse": 0.7929906660845352,
+        "normalized_feature_mse": 4.501019167352901,
+        "feature_cosine": 0.6280357765822552
+      },
+      "shuffled_ridge": {
+        "feature_mse": 1.411451664886949,
+        "normalized_feature_mse": 7.334994537434586,
+        "feature_cosine": 0.46619598075851365
+      },
+      "causal_tcn": {
+        "feature_mse": 0.34590688907175315,
+        "normalized_feature_mse": 2.3287491544846013,
+        "feature_cosine": 0.8041147478417939
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.3355140363597189,
+        "normalized_feature_mse": 2.2828591494438637,
+        "feature_cosine": 0.8077808720197613
+      },
+      "initial_tcn": {
+        "feature_mse": 0.3382278209548141,
+        "normalized_feature_mse": 2.287663146005828,
+        "feature_cosine": 0.8074904034580705
+      }
+    }
+  },
+  {
+    "asset": "bull_station_02",
+    "horizon_seconds": 0.5,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.4186786010341433,
+        "normalized_feature_mse": 3.0297417645128704,
+        "feature_cosine": 0.7488692864778803
+      },
+      "train_mean": {
+        "feature_mse": 0.3135442143115699,
+        "normalized_feature_mse": 2.065481764795434,
+        "feature_cosine": 0.8061992128228437
+      },
+      "ridge": {
+        "feature_mse": 0.486607042061287,
+        "normalized_feature_mse": 3.243217894623082,
+        "feature_cosine": 0.6909692147451607
+      },
+      "shuffled_ridge": {
+        "feature_mse": 1.5124876281235775,
+        "normalized_feature_mse": 8.399541144007694,
+        "feature_cosine": 0.5761627124134023
+      },
+      "causal_tcn": {
+        "feature_mse": 0.301303515355042,
+        "normalized_feature_mse": 2.024889775884865,
+        "feature_cosine": 0.81009149434523
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.31578298916864733,
+        "normalized_feature_mse": 2.0832323085303295,
+        "feature_cosine": 0.8050658146159267
+      },
+      "initial_tcn": {
+        "feature_mse": 0.314154085245948,
+        "normalized_feature_mse": 2.073976528259064,
+        "feature_cosine": 0.8064648146123009
+      }
+    }
+  },
+  {
+    "asset": "bull_station_02",
+    "horizon_seconds": 2.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.4721478323996526,
+        "normalized_feature_mse": 3.3598186526962555,
+        "feature_cosine": 0.7169705382139315
+      },
+      "train_mean": {
+        "feature_mse": 0.3117751865562177,
+        "normalized_feature_mse": 2.07874865312994,
+        "feature_cosine": 0.8094552643748228
+      },
+      "ridge": {
+        "feature_mse": 0.5593506667099736,
+        "normalized_feature_mse": 3.516160564978794,
+        "feature_cosine": 0.7290899059168926
+      },
+      "shuffled_ridge": {
+        "feature_mse": 1.2430455689900255,
+        "normalized_feature_mse": 7.212971970834202,
+        "feature_cosine": 0.5053548759937271
+      },
+      "causal_tcn": {
+        "feature_mse": 0.3044498974164487,
+        "normalized_feature_mse": 2.0720953421901904,
+        "feature_cosine": 0.8108244506490788
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.3124671447929302,
+        "normalized_feature_mse": 2.0936392570631184,
+        "feature_cosine": 0.8084671151616205
+      },
+      "initial_tcn": {
+        "feature_mse": 0.31297206868614236,
+        "normalized_feature_mse": 2.09614773504816,
+        "feature_cosine": 0.8079168821351826
+      }
+    }
+  },
+  {
+    "asset": "bull_station_02",
+    "horizon_seconds": 5.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.49065009963295936,
+        "normalized_feature_mse": 3.409531815820414,
+        "feature_cosine": 0.7083614614720948
+      },
+      "train_mean": {
+        "feature_mse": 0.2807741322530208,
+        "normalized_feature_mse": 1.8058452378798997,
+        "feature_cosine": 0.8309555889808722
+      },
+      "ridge": {
+        "feature_mse": 0.40931500152661104,
+        "normalized_feature_mse": 2.600504450823417,
+        "feature_cosine": 0.764258416725755
+      },
+      "shuffled_ridge": {
+        "feature_mse": 1.5819431620704394,
+        "normalized_feature_mse": 8.947996643125185,
+        "feature_cosine": 0.6009955917987451
+      },
+      "causal_tcn": {
+        "feature_mse": 0.28227289731427146,
+        "normalized_feature_mse": 1.8211854998290453,
+        "feature_cosine": 0.8299731900071642
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.2862182262346276,
+        "normalized_feature_mse": 1.8369896759465651,
+        "feature_cosine": 0.829044223272335
+      },
+      "initial_tcn": {
+        "feature_mse": 0.28673250927959065,
+        "normalized_feature_mse": 1.8377028111841949,
+        "feature_cosine": 0.8285107775654122
+      }
+    }
+  },
+  {
+    "asset": "bull_station_03",
+    "horizon_seconds": 0.5,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.19041501911806324,
+        "normalized_feature_mse": 1.1644767685631838,
+        "feature_cosine": 0.9070833296896852
+      },
+      "train_mean": {
+        "feature_mse": 0.235479293088502,
+        "normalized_feature_mse": 1.2817396595742916,
+        "feature_cosine": 0.8760934351942109
+      },
+      "ridge": {
+        "feature_mse": 0.4250489870593539,
+        "normalized_feature_mse": 2.269984467842332,
+        "feature_cosine": 0.8061058502968956
+      },
+      "shuffled_ridge": {
+        "feature_mse": 1.2934991168818062,
+        "normalized_feature_mse": 6.188065302821776,
+        "feature_cosine": 0.548652863292781
+      },
+      "causal_tcn": {
+        "feature_mse": 0.2305471672507661,
+        "normalized_feature_mse": 1.266503096196676,
+        "feature_cosine": 0.8788462630742
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.23906757704261056,
+        "normalized_feature_mse": 1.2979321401300037,
+        "feature_cosine": 0.8741776341303548
+      },
+      "initial_tcn": {
+        "feature_mse": 0.2377888941826166,
+        "normalized_feature_mse": 1.2945573355595241,
+        "feature_cosine": 0.8747785689660723
+      }
+    }
+  },
+  {
+    "asset": "bull_station_03",
+    "horizon_seconds": 2.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.24853635722357936,
+        "normalized_feature_mse": 1.497680328861031,
+        "feature_cosine": 0.8800792240078553
+      },
+      "train_mean": {
+        "feature_mse": 0.2359212166184661,
+        "normalized_feature_mse": 1.2759204834069882,
+        "feature_cosine": 0.8760339765438663
+      },
+      "ridge": {
+        "feature_mse": 0.4804171805259292,
+        "normalized_feature_mse": 2.553551618749222,
+        "feature_cosine": 0.756742141323892
+      },
+      "shuffled_ridge": {
+        "feature_mse": 1.2119553347588794,
+        "normalized_feature_mse": 5.449588906948977,
+        "feature_cosine": 0.612807171942071
+      },
+      "causal_tcn": {
+        "feature_mse": 0.23106991904065877,
+        "normalized_feature_mse": 1.2605164302783245,
+        "feature_cosine": 0.8786955462170603
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.23599580817191293,
+        "normalized_feature_mse": 1.274742859810304,
+        "feature_cosine": 0.8759608713226028
+      },
+      "initial_tcn": {
+        "feature_mse": 0.23330714584936033,
+        "normalized_feature_mse": 1.2647151516835788,
+        "feature_cosine": 0.8774875106393769
+      }
+    }
+  },
+  {
+    "asset": "bull_station_03",
+    "horizon_seconds": 5.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.3081344478943467,
+        "normalized_feature_mse": 1.7976373772542107,
+        "feature_cosine": 0.852592406242493
+      },
+      "train_mean": {
+        "feature_mse": 0.24898371851430115,
+        "normalized_feature_mse": 1.3631869988615204,
+        "feature_cosine": 0.8743547243063805
+      },
+      "ridge": {
+        "feature_mse": 0.42812628001567166,
+        "normalized_feature_mse": 2.228579961152203,
+        "feature_cosine": 0.8159677281338436
+      },
+      "shuffled_ridge": {
+        "feature_mse": 1.2970591302136352,
+        "normalized_feature_mse": 5.932252499251483,
+        "feature_cosine": 0.6032790662563716
+      },
+      "causal_tcn": {
+        "feature_mse": 0.24586979087298658,
+        "normalized_feature_mse": 1.3600719947331172,
+        "feature_cosine": 0.875885408724832
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.25008531431499215,
+        "normalized_feature_mse": 1.3719557286155208,
+        "feature_cosine": 0.8737899491189102
+      },
+      "initial_tcn": {
+        "feature_mse": 0.25014114408163096,
+        "normalized_feature_mse": 1.371161771100446,
+        "feature_cosine": 0.8736999958147786
+      }
+    }
+  },
+  {
+    "asset": "bull_station_04",
+    "horizon_seconds": 0.5,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.177270928101295,
+        "normalized_feature_mse": 1.2849497246851185,
+        "feature_cosine": 0.9056046565481557
+      },
+      "train_mean": {
+        "feature_mse": 0.19510652307201792,
+        "normalized_feature_mse": 1.4680879060988443,
+        "feature_cosine": 0.8961665243778727
+      },
+      "ridge": {
+        "feature_mse": 0.4237039143195598,
+        "normalized_feature_mse": 2.9678142803008414,
+        "feature_cosine": 0.7796974253860975
+      },
+      "shuffled_ridge": {
+        "feature_mse": 1.7749102449375083,
+        "normalized_feature_mse": 11.578757745496,
+        "feature_cosine": 0.5229411322666233
+      },
+      "causal_tcn": {
+        "feature_mse": 0.19690381474944635,
+        "normalized_feature_mse": 1.480901518945905,
+        "feature_cosine": 0.8948147831970835
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.1952147739280791,
+        "normalized_feature_mse": 1.4711495418192428,
+        "feature_cosine": 0.8957360498017478
+      },
+      "initial_tcn": {
+        "feature_mse": 0.19563756413817432,
+        "normalized_feature_mse": 1.4729402266818092,
+        "feature_cosine": 0.895699023355831
+      }
+    }
+  },
+  {
+    "asset": "bull_station_04",
+    "horizon_seconds": 2.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.22140904278225398,
+        "normalized_feature_mse": 1.6213751464141504,
+        "feature_cosine": 0.884194514101063
+      },
+      "train_mean": {
+        "feature_mse": 0.1970896907901896,
+        "normalized_feature_mse": 1.4700037554347247,
+        "feature_cosine": 0.8950523370593173
+      },
+      "ridge": {
+        "feature_mse": 0.34528395690749225,
+        "normalized_feature_mse": 2.49986234873576,
+        "feature_cosine": 0.8215523069204899
+      },
+      "shuffled_ridge": {
+        "feature_mse": 1.6330711399206064,
+        "normalized_feature_mse": 10.55549592221911,
+        "feature_cosine": 0.5623126346953746
+      },
+      "causal_tcn": {
+        "feature_mse": 0.20195546803788877,
+        "normalized_feature_mse": 1.497740333505612,
+        "feature_cosine": 0.8923037793701499
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.19735739929240004,
+        "normalized_feature_mse": 1.472232675136097,
+        "feature_cosine": 0.8950886136775538
+      },
+      "initial_tcn": {
+        "feature_mse": 0.19884525599561287,
+        "normalized_feature_mse": 1.4799620071784731,
+        "feature_cosine": 0.8941748212195504
+      }
+    }
+  },
+  {
+    "asset": "bull_station_04",
+    "horizon_seconds": 5.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.26398959015060364,
+        "normalized_feature_mse": 2.014415819712897,
+        "feature_cosine": 0.8630826543131119
+      },
+      "train_mean": {
+        "feature_mse": 0.1829520020829134,
+        "normalized_feature_mse": 1.3468510673036937,
+        "feature_cosine": 0.8971357388401292
+      },
+      "ridge": {
+        "feature_mse": 0.43002076056277944,
+        "normalized_feature_mse": 2.9389592419392048,
+        "feature_cosine": 0.7750379619879214
+      },
+      "shuffled_ridge": {
+        "feature_mse": 2.275047001953794,
+        "normalized_feature_mse": 13.683883015431281,
+        "feature_cosine": 0.5633194096126217
+      },
+      "causal_tcn": {
+        "feature_mse": 0.18549253990551992,
+        "normalized_feature_mse": 1.3653287484655583,
+        "feature_cosine": 0.8954945138553417
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.18336353832966168,
+        "normalized_feature_mse": 1.3499431422570345,
+        "feature_cosine": 0.8968529089419366
+      },
+      "initial_tcn": {
+        "feature_mse": 0.18434447600066256,
+        "normalized_feature_mse": 1.3551879891338365,
+        "feature_cosine": 0.8962648699806616
+      }
+    }
+  },
+  {
+    "asset": "bull_station_05",
+    "horizon_seconds": 0.5,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.24795882614851159,
+        "normalized_feature_mse": 1.5350504033512424,
+        "feature_cosine": 0.9015967784466311
+      },
+      "train_mean": {
+        "feature_mse": 0.41506955936674556,
+        "normalized_feature_mse": 2.353618784066993,
+        "feature_cosine": 0.8319965144765025
+      },
+      "ridge": {
+        "feature_mse": 1.30640410807679,
+        "normalized_feature_mse": 7.008972947785815,
+        "feature_cosine": 0.5642587480424331
+      },
+      "shuffled_ridge": {
+        "feature_mse": 1.9409738587841237,
+        "normalized_feature_mse": 9.710157126801418,
+        "feature_cosine": 0.5987865726448757
+      },
+      "causal_tcn": {
+        "feature_mse": 0.379507043010719,
+        "normalized_feature_mse": 2.257809488009135,
+        "feature_cosine": 0.8486627667117934
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.4166081399641592,
+        "normalized_feature_mse": 2.3599416110452456,
+        "feature_cosine": 0.8312921651353892
+      },
+      "initial_tcn": {
+        "feature_mse": 0.4145382354227709,
+        "normalized_feature_mse": 2.3503991850692385,
+        "feature_cosine": 0.8327269659703597
+      }
+    }
+  },
+  {
+    "asset": "bull_station_05",
+    "horizon_seconds": 2.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.30252488544225986,
+        "normalized_feature_mse": 1.8801260884402484,
+        "feature_cosine": 0.8827207312006623
+      },
+      "train_mean": {
+        "feature_mse": 0.4073682073254534,
+        "normalized_feature_mse": 2.2900568462654975,
+        "feature_cosine": 0.8315592085423973
+      },
+      "ridge": {
+        "feature_mse": 0.8679646897542639,
+        "normalized_feature_mse": 4.46608736410209,
+        "feature_cosine": 0.7367753221376014
+      },
+      "shuffled_ridge": {
+        "feature_mse": 2.0521768690155673,
+        "normalized_feature_mse": 10.595268744470518,
+        "feature_cosine": 0.5063828998821155
+      },
+      "causal_tcn": {
+        "feature_mse": 0.3710699994366945,
+        "normalized_feature_mse": 2.1757779232353993,
+        "feature_cosine": 0.8485909316651794
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.401496928902371,
+        "normalized_feature_mse": 2.280732851591573,
+        "feature_cosine": 0.8341237849580214
+      },
+      "initial_tcn": {
+        "feature_mse": 0.4081107642854023,
+        "normalized_feature_mse": 2.294982604610094,
+        "feature_cosine": 0.8311491184911546
+      }
+    }
+  },
+  {
+    "asset": "bull_station_05",
+    "horizon_seconds": 5.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.421776206464615,
+        "normalized_feature_mse": 2.639157907375328,
+        "feature_cosine": 0.8396801543200685
+      },
+      "train_mean": {
+        "feature_mse": 0.38906785964211793,
+        "normalized_feature_mse": 2.1224403428025136,
+        "feature_cosine": 0.8274005050811762
+      },
+      "ridge": {
+        "feature_mse": 0.8491828980553007,
+        "normalized_feature_mse": 4.307479846121045,
+        "feature_cosine": 0.7587401929691725
+      },
+      "shuffled_ridge": {
+        "feature_mse": 1.7446509318537289,
+        "normalized_feature_mse": 8.183708464758803,
+        "feature_cosine": 0.5561861041172885
+      },
+      "causal_tcn": {
+        "feature_mse": 0.3754740737960407,
+        "normalized_feature_mse": 2.109382959140933,
+        "feature_cosine": 0.8353987932668889
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.38329760058517,
+        "normalized_feature_mse": 2.109478655683344,
+        "feature_cosine": 0.8301321304130552
+      },
+      "initial_tcn": {
+        "feature_mse": 0.39068776186338244,
+        "normalized_feature_mse": 2.1395127748261964,
+        "feature_cosine": 0.8271335656062705
+      }
+    }
+  },
+  {
+    "asset": "bull_station_06",
+    "horizon_seconds": 0.5,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.27943297761392494,
+        "normalized_feature_mse": 2.421899640114394,
+        "feature_cosine": 0.8770553802516327
+      },
+      "train_mean": {
+        "feature_mse": 0.3143769750900214,
+        "normalized_feature_mse": 2.55025818849418,
+        "feature_cosine": 0.8685186836664932
+      },
+      "ridge": {
+        "feature_mse": 0.9930732068779935,
+        "normalized_feature_mse": 7.751330401531149,
+        "feature_cosine": 0.6696797936914134
+      },
+      "shuffled_ridge": {
+        "feature_mse": 3.9173637445620435,
+        "normalized_feature_mse": 22.212141554738846,
+        "feature_cosine": 0.23721487857008638
+      },
+      "causal_tcn": {
+        "feature_mse": 0.30741073495006677,
+        "normalized_feature_mse": 2.5071212132070686,
+        "feature_cosine": 0.871379929451063
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.31702354109175535,
+        "normalized_feature_mse": 2.557634806755344,
+        "feature_cosine": 0.868273329917369
+      },
+      "initial_tcn": {
+        "feature_mse": 0.3209582129215804,
+        "normalized_feature_mse": 2.57456649853291,
+        "feature_cosine": 0.8669609839486628
+      }
+    }
+  },
+  {
+    "asset": "bull_station_06",
+    "horizon_seconds": 2.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.3549347550296111,
+        "normalized_feature_mse": 3.0959928378567767,
+        "feature_cosine": 0.8450077058401663
+      },
+      "train_mean": {
+        "feature_mse": 0.33551841379298974,
+        "normalized_feature_mse": 2.7216819898075837,
+        "feature_cosine": 0.8590510694781537
+      },
+      "ridge": {
+        "feature_mse": 1.1180008672005546,
+        "normalized_feature_mse": 7.557446427816608,
+        "feature_cosine": 0.5547699373553785
+      },
+      "shuffled_ridge": {
+        "feature_mse": 4.022074613247394,
+        "normalized_feature_mse": 23.804987722597897,
+        "feature_cosine": 0.1577932763680292
+      },
+      "causal_tcn": {
+        "feature_mse": 0.32623216298263563,
+        "normalized_feature_mse": 2.672077512976243,
+        "feature_cosine": 0.8615902342145672
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.3279240058490484,
+        "normalized_feature_mse": 2.6803648104948765,
+        "feature_cosine": 0.8601800297419852
+      },
+      "initial_tcn": {
+        "feature_mse": 0.33147268417062364,
+        "normalized_feature_mse": 2.697969340053891,
+        "feature_cosine": 0.8596292850200502
+      }
+    }
+  },
+  {
+    "asset": "bull_station_06",
+    "horizon_seconds": 5.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.43408717434172733,
+        "normalized_feature_mse": 3.7617403077423397,
+        "feature_cosine": 0.8123654536808238
+      },
+      "train_mean": {
+        "feature_mse": 0.37267707279988854,
+        "normalized_feature_mse": 2.954867231752319,
+        "feature_cosine": 0.8397067296327327
+      },
+      "ridge": {
+        "feature_mse": 0.6878671509444896,
+        "normalized_feature_mse": 5.264263146602603,
+        "feature_cosine": 0.7335317921126138
+      },
+      "shuffled_ridge": {
+        "feature_mse": 4.126274214823223,
+        "normalized_feature_mse": 25.774404413671643,
+        "feature_cosine": 0.14796350545960912
+      },
+      "causal_tcn": {
+        "feature_mse": 0.3608887488669761,
+        "normalized_feature_mse": 2.9150273970589335,
+        "feature_cosine": 0.8424769521115388
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.36315751936078466,
+        "normalized_feature_mse": 2.9250453079656755,
+        "feature_cosine": 0.8410550361818053
+      },
+      "initial_tcn": {
+        "feature_mse": 0.3607241674579208,
+        "normalized_feature_mse": 2.9168903176446133,
+        "feature_cosine": 0.8418444138268245
+      }
+    }
+  },
+  {
+    "asset": "bull_station_07",
+    "horizon_seconds": 0.5,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.19506350135425415,
+        "normalized_feature_mse": 1.1939820523919764,
+        "feature_cosine": 0.9030106800095963
+      },
+      "train_mean": {
+        "feature_mse": 0.23512774632275493,
+        "normalized_feature_mse": 1.3493955493147,
+        "feature_cosine": 0.8874914383433524
+      },
+      "ridge": {
+        "feature_mse": 0.5703174420600264,
+        "normalized_feature_mse": 3.080214169152548,
+        "feature_cosine": 0.7910090869182304
+      },
+      "shuffled_ridge": {
+        "feature_mse": 2.0493197244669243,
+        "normalized_feature_mse": 10.1406655642847,
+        "feature_cosine": 0.496003148584734
+      },
+      "causal_tcn": {
+        "feature_mse": 0.23505185229518055,
+        "normalized_feature_mse": 1.3461268330204919,
+        "feature_cosine": 0.8876096713356122
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.2390894247623045,
+        "normalized_feature_mse": 1.3681240059125483,
+        "feature_cosine": 0.8857406266273177
+      },
+      "initial_tcn": {
+        "feature_mse": 0.2349115804169056,
+        "normalized_feature_mse": 1.349263967883125,
+        "feature_cosine": 0.8872057971983551
+      }
+    }
+  },
+  {
+    "asset": "bull_station_07",
+    "horizon_seconds": 2.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.24730747365968886,
+        "normalized_feature_mse": 1.5280150176694582,
+        "feature_cosine": 0.8751917358934184
+      },
+      "train_mean": {
+        "feature_mse": 0.25122398630196363,
+        "normalized_feature_mse": 1.465176862699491,
+        "feature_cosine": 0.8779645086045516
+      },
+      "ridge": {
+        "feature_mse": 0.4754689316347118,
+        "normalized_feature_mse": 2.6163344652512786,
+        "feature_cosine": 0.8069541251245728
+      },
+      "shuffled_ridge": {
+        "feature_mse": 2.1139870126545794,
+        "normalized_feature_mse": 10.097113617469525,
+        "feature_cosine": 0.5218333295420884
+      },
+      "causal_tcn": {
+        "feature_mse": 0.2601052288602238,
+        "normalized_feature_mse": 1.5082013106792889,
+        "feature_cosine": 0.8745542715113391
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.2514926016185037,
+        "normalized_feature_mse": 1.4709082113984169,
+        "feature_cosine": 0.8777038435962907
+      },
+      "initial_tcn": {
+        "feature_mse": 0.25495698029755237,
+        "normalized_feature_mse": 1.4871502891950528,
+        "feature_cosine": 0.8763595016777388
+      }
+    }
+  },
+  {
+    "asset": "bull_station_07",
+    "horizon_seconds": 5.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.3200884990779941,
+        "normalized_feature_mse": 2.0420233635907223,
+        "feature_cosine": 0.837353487979876
+      },
+      "train_mean": {
+        "feature_mse": 0.28294472696774464,
+        "normalized_feature_mse": 1.7252876038433167,
+        "feature_cosine": 0.8605847797194514
+      },
+      "ridge": {
+        "feature_mse": 0.49069029355034716,
+        "normalized_feature_mse": 2.8600832904785447,
+        "feature_cosine": 0.7859016090970462
+      },
+      "shuffled_ridge": {
+        "feature_mse": 2.410536729020711,
+        "normalized_feature_mse": 11.790195152176423,
+        "feature_cosine": 0.4961526633058642
+      },
+      "causal_tcn": {
+        "feature_mse": 0.29072813750448967,
+        "normalized_feature_mse": 1.7626829907337955,
+        "feature_cosine": 0.8579798456490121
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.28630997516265105,
+        "normalized_feature_mse": 1.742520078450865,
+        "feature_cosine": 0.8593435959123858
+      },
+      "initial_tcn": {
+        "feature_mse": 0.2894180379987529,
+        "normalized_feature_mse": 1.7601880694904848,
+        "feature_cosine": 0.8575165870564285
+      }
+    }
+  },
+  {
+    "asset": "garment_test",
+    "horizon_seconds": 0.5,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.20476975992452393,
+        "normalized_feature_mse": 1.7847335122863606,
+        "feature_cosine": 0.8775572929903899
+      },
+      "train_mean": {
+        "feature_mse": 0.1574150078615476,
+        "normalized_feature_mse": 1.3174022784059944,
+        "feature_cosine": 0.8998252902464721
+      },
+      "ridge": {
+        "feature_mse": 0.2771911283827992,
+        "normalized_feature_mse": 2.2363026267418564,
+        "feature_cosine": 0.8172448039591976
+      },
+      "shuffled_ridge": {
+        "feature_mse": 1.1266821283572452,
+        "normalized_feature_mse": 8.765194805296245,
+        "feature_cosine": 0.542290527066916
+      },
+      "causal_tcn": {
+        "feature_mse": 0.15794871223845,
+        "normalized_feature_mse": 1.3247449150725197,
+        "feature_cosine": 0.8996955362974084
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.16210889273974396,
+        "normalized_feature_mse": 1.352417410334889,
+        "feature_cosine": 0.8971868195966244
+      },
+      "initial_tcn": {
+        "feature_mse": 0.16014888290501586,
+        "normalized_feature_mse": 1.3375787469636569,
+        "feature_cosine": 0.8984466273233287
+      }
+    }
+  },
+  {
+    "asset": "garment_test",
+    "horizon_seconds": 2.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.2452638304448493,
+        "normalized_feature_mse": 2.14499485819733,
+        "feature_cosine": 0.8505759698798615
+      },
+      "train_mean": {
+        "feature_mse": 0.15839121117010554,
+        "normalized_feature_mse": 1.3141869982245278,
+        "feature_cosine": 0.8969820575026024
+      },
+      "ridge": {
+        "feature_mse": 0.3258766362102033,
+        "normalized_feature_mse": 2.579724822433944,
+        "feature_cosine": 0.7906755060209095
+      },
+      "shuffled_ridge": {
+        "feature_mse": 0.9320859368997139,
+        "normalized_feature_mse": 6.666010974792799,
+        "feature_cosine": 0.6595006288260817
+      },
+      "causal_tcn": {
+        "feature_mse": 0.15837521495332954,
+        "normalized_feature_mse": 1.32028185587039,
+        "feature_cosine": 0.8968766324799076
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.16330657451463915,
+        "normalized_feature_mse": 1.3419645750594784,
+        "feature_cosine": 0.8948437440599197
+      },
+      "initial_tcn": {
+        "feature_mse": 0.1597415937214457,
+        "normalized_feature_mse": 1.3254848754498618,
+        "feature_cosine": 0.8960946773479285
+      }
+    }
+  },
+  {
+    "asset": "garment_test",
+    "horizon_seconds": 5.0,
+    "models": {
+      "persistence": {
+        "feature_mse": 0.29597563606633037,
+        "normalized_feature_mse": 2.5759473914875017,
+        "feature_cosine": 0.8204230627262054
+      },
+      "train_mean": {
+        "feature_mse": 0.16552242706797338,
+        "normalized_feature_mse": 1.356995208097594,
+        "feature_cosine": 0.8927547480994954
+      },
+      "ridge": {
+        "feature_mse": 0.32665231814447765,
+        "normalized_feature_mse": 2.5866216719800486,
+        "feature_cosine": 0.7964273814114734
+      },
+      "shuffled_ridge": {
+        "feature_mse": 1.4376658470721406,
+        "normalized_feature_mse": 10.567315947933592,
+        "feature_cosine": 0.5690836975968026
+      },
+      "causal_tcn": {
+        "feature_mse": 0.1664464327984931,
+        "normalized_feature_mse": 1.3704951471882152,
+        "feature_cosine": 0.8918288651279089
+      },
+      "shuffled_tcn": {
+        "feature_mse": 0.16827129233051127,
+        "normalized_feature_mse": 1.3754442126044752,
+        "feature_cosine": 0.8910843030797385
+      },
+      "initial_tcn": {
+        "feature_mse": 0.16665380018632084,
+        "normalized_feature_mse": 1.3703035850182517,
+        "feature_cosine": 0.8915507331018616
+      }
+    }
+  }
+]

@@ -1,0 +1,27 @@
+bull_station_02 uploaded 163613047 job c6f7a7ea-6485-40e9-ab09-0513bad041cf
+bull_station_02 encode 13 285
+bull_station_02 encode 29 285
+bull_station_02 encode 47 285
+bull_station_02 encode 67 285
+bull_station_02 encode 88 285
+bull_station_02 sampling_decode 0 None
+bull_station_02 encode 130 285
+bull_station_02 sampling_decode 0 None
+bull_station_02 encode 176 285
+bull_station_02 encode 197 285
+bull_station_02 encode 213 285
+bull_station_02 encode 232 285
+bull_station_02 sampling_decode 0 None
+bull_station_02 encode 281 285
+bull_station_02 succeeded 285 rows 0.9986 coverage
+bull_station_04 uploaded 239003203 job 5821fda3-66af-49d4-93a5-ac785f97ae42
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/scratch/d660ee0ac9d3/jianwei-exploratory/scripts/validate_video_dataset.py", line 149, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/scratch/d660ee0ac9d3/jianwei-exploratory/scripts/validate_video_dataset.py", line 128, in main
+    progress=job.get('progress') or {};stage=progress.get('stage',job['status']);monitor.stage=asset_id+':'+stage
+                                                                  ~~~^^^^^^^^^^
+KeyError: 'status'

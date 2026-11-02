@@ -20,3 +20,11 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m scripts.run_explora
 提取缺失返回2，可加`--wait-for-extraction`有界等待；数值异常保留failure.json，退出1，不调整条件消除失败。输出包括每源A/B报告、实际权重NPZ、完整512维预测数组、源与配置/代码依赖哈希、划分与随机种子。仅数值制品可交付；工业原片或派生画面不随Demo上传。现有前端新增只读“真实视频学习实验”，仅展示实际记录，本机原片须SHA匹配后回查，不上传。
 
 解释时必须同时看Persistence、Ridge、初始TCN、训练均值与打乱目标对照。训练损失下降或胜过Persistence本身不能证明利用了时序关系。正式blocked保持不变；探索性结果即使正向也不是独立科研验收。
+
+## 数值包复放
+
+数值包不包含视频/PDF/帧图，包含features/<source>/{manifest.json,vectors.npy,progress.json}、models/<source>/<A|B>/weights.npz、全部实际数值报告和固定配置。CONTENTS.json逐文件记录SHA和大小。完整预测数组未重复放入ZIP，可由相同缓存与参数重新生成。
+
+在已安装依赖的本分支根目录，把包内features解压复制到artifacts/exploratory/collected，保留知识目录；按包内run-config.json的runtime_config恢复隔离system.yaml，模型/采样/学习参数不得改写。把包内final-experiment.yaml指向该隔离system.yaml和collected，再运行run_exploratory_real_video。重提特征仍需原片和经校验的正式ONNX；仅从已验证缓存重放小模型不重新执行视觉编码器。使用新的输出目录，保留原权重和失败报告。
+
+本次分批CPU提取中工位4、6最终使用extract_exploratory_features.py直接调用同一冻结管线；collect_exploratory_features.py只收集已经完成的清单/缓存，不改变数据或正式分区。记录器首次过频写入期间的超时与SQLite批量接入失败均保留，重试未改变学习/评价条件。各源实际执行路径和版本见交付提取清单。

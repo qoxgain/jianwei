@@ -1,0 +1,77 @@
+{
+  "baseline": "0bf8fbab9b986940eb8d24a92a7435db06f03ea3",
+  "locations": [
+    {
+      "path": "packages/temporal/data.py",
+      "function": "window_refs",
+      "line": 183,
+      "end_line": 213
+    },
+    {
+      "path": "packages/temporal/engine.py",
+      "function": "code_hash",
+      "line": 18,
+      "end_line": 24
+    },
+    {
+      "path": "packages/temporal/engine.py",
+      "function": "validate_windows",
+      "line": 196,
+      "end_line": 202
+    },
+    {
+      "path": "packages/temporal/protocol.py",
+      "function": "_bindings",
+      "line": 20,
+      "end_line": 38
+    },
+    {
+      "path": "packages/temporal/protocol.py",
+      "function": "_assert_features",
+      "line": 168,
+      "end_line": 209
+    },
+    {
+      "path": "packages/temporal/models.py",
+      "function": "tcn_initialize",
+      "line": 77,
+      "end_line": 81
+    },
+    {
+      "path": "packages/temporal/models.py",
+      "function": "tcn_forward",
+      "line": 84,
+      "end_line": 88
+    },
+    {
+      "path": "packages/temporal/models.py",
+      "function": "tcn_fit",
+      "line": 101,
+      "end_line": 120
+    },
+    {
+      "path": "packages/temporal_jobs/service.py",
+      "function": "_process",
+      "line": 220,
+      "end_line": 259
+    },
+    {
+      "path": "packages/temporal_jobs/service.py",
+      "function": "_fail",
+      "line": 260,
+      "end_line": 263
+    },
+    {
+      "path": "packages/temporal_jobs/service.py",
+      "function": "artifact",
+      "line": 264,
+      "end_line": 273
+    },
+    {
+      "path": "scripts/validate_video_dataset.py",
+      "function": "main",
+      "line": 92,
+      "end_line": 146
+    }
+  ]
+}

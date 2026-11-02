@@ -1,0 +1,11 @@
+{
+  "method": "2fps gray 32x24 spatially standardized pixel sequence MSE; screening only",
+  "long_frames": 237,
+  "short_frames": 41,
+  "best_long_offset_seconds": 0.0,
+  "best_sequence_normalized_mse": 1.2107692456555386,
+  "per_frame_nearest_mse_mean": 0.5882814697581005,
+  "exact_sample_matches": 0,
+  "independent_acquisition_verified": false,
+  "conclusion": "No independence asserted; visual/crop/transcode/retime can defeat this limited screen; no cross-video same-domain evaluation authorized from this screen alone"
+}
