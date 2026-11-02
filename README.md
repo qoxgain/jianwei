@@ -1,9 +1,9 @@
 # 见微 · 多模态自学习感知平台
 
-当前实现 **P0.3.4 采样预检与研究准备**，保留 P0.3.3 九段真实录像接入、冻结特征与 SOP 人工复核；新增逐来源时间诊断，真实短片密采样得到37个片段、16个因果窗口，独立学习验收仍 blocked。服装SOP、电子装配、无SOP安全事件、无标签观察使用同一套场景API和页面；动作、状态、事件、流程节点分别定义。产品版本为V3.0，配置与知识契约为3.1。
+当前实现 **P0.3.5 研究协议与独立会话验收**：训练前固定研究协议、完整来源分区和实际特征版本；新增按会话配对区间、双对照门槛及封存测试消费保护。现有九段开发录像和 SOP 保留，真实学习验收仍 blocked。服装SOP、电子装配、无SOP安全事件、无标签观察使用同一套场景API和页面；动作、状态、事件、流程节点分别定义。产品版本为V3.0，配置与知识契约为3.1。
 
-- [后续真实研究任务](docs/plans/P0.3.4-next.md) · [Codex执行指令](docs/plans/P0.3.4-Codex.txt) · [P0.1.1最终任务书](docs/plans/P0.1.1-final.md)
-- [本次交付、测试与边界](docs/delivery/P0.3.4.md) · [P0.3.3历史交付](docs/delivery/P0.3.3.md) · [九视频验收 Demo 下载](docs/demo/p0.3.3/jianwei-p0.3.3-demo.zip) · [P0.3.2 历史交付](docs/delivery/P0.3.2.md) · [P0.3.1 历史交付](docs/delivery/P0.3.1.md)
+- [后续真实研究任务](docs/plans/P0.3.5-next.md) · [Codex执行指令](docs/plans/P0.3.5-Codex.txt) · [P0.1.1最终任务书](docs/plans/P0.1.1-final.md)
+- [本次交付、测试与边界](docs/delivery/P0.3.5.md) · [P0.3.5 Demo 下载](docs/demo/p0.3.5/jianwei-p0.3.5-demo.zip) · [P0.3.4 历史交付](docs/delivery/P0.3.4.md) · [P0.3.3历史交付](docs/delivery/P0.3.3.md) · [九视频验收 Demo 下载](docs/demo/p0.3.3/jianwei-p0.3.3-demo.zip) · [P0.3.2 历史交付](docs/delivery/P0.3.2.md) · [P0.3.1 历史交付](docs/delivery/P0.3.1.md)
 - [研究路线与阶段依赖](docs/ROADMAP.md) · [P0.2衔接契约](docs/P0.2-CONTRACTS.md)
 - [四场景离线演示使用说明](demo/README.md)
 
@@ -42,7 +42,7 @@ git lfs pull --include='datasets/video_samples/**/*.mp4' --exclude=''
 
 ## 数据接入
 
-新增现场素材统一放在 [datasets/video_samples](datasets/video_samples/README.md)。P0.3.3已完成工业接入、显示方向与SOP人工复核；P0.3.4继续对齐采样和研究门槛。按 [后续任务](docs/plans/P0.3.4-next.md) 补齐独立采集与真实学习验收，历史 [素材评估](docs/delivery/P0.3.3-data-review.md) 保留可追溯。
+新增现场素材统一放在 [datasets/video_samples](datasets/video_samples/README.md)。P0.3.3已完成工业接入、显示方向与SOP人工复核；P0.3.4继续对齐采样和研究门槛。按 [后续任务](docs/plans/P0.3.5-next.md) 补齐独立采集与真实学习验收，历史 [素材评估](docs/delivery/P0.3.3-data-review.md) 保留可追溯。
 
 启动后进入“数据接入”，选择场景并点击“运行示例导入”。这是服务端真实执行的确定性合成 NPZ，不代表现场模型效果。上传自己的 MP4 使用 `file_01`，按场景填写上下文与完整周期。预计算特征协议、时钟锚点和来源核验见 [导入说明](docs/INGESTION.md)；冻结模型配置见 [编码器说明](docs/ENCODER.md)。
 
@@ -77,6 +77,14 @@ P0.3.2 的四场景 API/离线浏览器验收、展开预检的手机布局和�
 
 打开无标签观察→时序研究→选中来源→检查选中来源。页面分别显示当前配置网格和已导入的实际时间戳；配置变化不更新旧特征，需重提。训练准入仍要求真实采集审查和独立分区；观察窗口不等于已核验业务周期。详见本次交付报告。
 
+## 研究协议与会话验收
+
+“时序研究”页显示只读协议预览，可导出 JSON；`temporal.research_protocol` 未登记时真实训练阻断。正式研究须匹配已执行的正式冻结编码器、实际采样/预处理/ROI 及完整来源名单；外部特征声明和旧缓存不能代替这些证据。配置字段、冻结过程与边界见 [研究协议说明](docs/RESEARCH-PROTOCOL.md)。
+
+报告新增每会话、每跨度指标和配对会话 bootstrap。会话不足时区间为空；必须同时超过预登记的 persistence / shuffled_ridge 两个对照门槛。合成数据始终标为机制验证，不自动激活模型或准入 P0.4。封存 test 读取后不因失败或改模型释放；修订研究需要新的独立测试录像。
+
+[新 Demo](docs/demo/p0.3.5/jianwei-p0.3.5-demo.zip) 解压打开 `index.html`，切到无标签观察→时序研究，查看已执行的合成会话统计、切换指标并导出报告。当前协议与真实来源检查需本地 API；离线页面会明确提示未核验服务器配置。
+
 ## 兼容与迁移
 
 旧3.0配置可只读加载；新场景接口提供正规化知识，原API保持默认场景兼容并标记deprecated。显式导出新文件：
@@ -87,7 +95,7 @@ python -m scripts.migrate_v30 --config tests/fixtures/v30/config/system.yaml --o
 
 实际使用时把 `--config` 替换为自己的旧配置。命令不覆盖原文件，保留旧场景/动作/来源ID，输出节点映射与新旧hash，并保持原有资源路径的物理指向。已有输出不同则拒绝覆盖。
 
-启动自动迁移至 Alembic `0005_ingestion_progress`，保留研究任务与导入进度表；P0.3.4无新数据库迁移，不改写知识与导入历史。旧SQLite迁移前生成 `.pre-p011.sqlite` 备份；旧版本ID、hash、YAML和JSON不变，新表示写入 `legacy_knowledge_mappings`。不能确定旧租户归属时停止迁移。详情见交付记录。
+启动自动迁移至 Alembic `0005_ingestion_progress`，保留研究任务与导入进度表；P0.3.5无新数据库迁移，不改写知识与导入历史。旧SQLite迁移前生成 `.pre-p011.sqlite` 备份；旧版本ID、hash、YAML和JSON不变，新表示写入 `legacy_knowledge_mappings`。不能确定旧租户归属时停止迁移。详情见交付记录。
 
 ## 验证
 
@@ -122,4 +130,4 @@ site预检缺少现场资源时返回2是预期阻塞，不是假就绪。浏览
 | `contracts/future-openapi.yaml` | 尚未实现的后续API草案 |
 | `reference` | 原始合成机制参考，不代表真实模型效果 |
 
-主线A的顺序为：公共底座 → 视频/特征 → 自监督时序 → 语义与状态记忆 → 少样本抗遗忘 → 主动局部感知。P0.3.4 在研究页面显示来源审查缺口、采样规划和逐源实际因果窗口；独立录像与真实训练/校准/测试仍待验收，尚不进入 P0.4。
+主线A的顺序为：公共底座 → 视频/特征 → 自监督时序 → 语义与状态记忆 → 少样本抗遗忘 → 主动局部感知。P0.3.5 补齐协议冻结、会话不确定性与封存使用保护；独立录像与真实训练/校准/测试仍待验收，尚不进入 P0.4。

@@ -1,0 +1,65 @@
+{
+  "stage": "P0.3.5",
+  "baseline_commit": "4a0f7bbfeba8a4b5032473c346994d61636ca9f0",
+  "backend_commit": "a35732b14d598af83108840becfd1b35a1d6c08f",
+  "ui_commit": "280f6386481ef11c60dcb41065d02ad445582f21",
+  "config_hash": "dd78543c527dd895273d33a085268362797905d41ae6288ed7def83f8c9f442c",
+  "engine_hash": "2a66d1f12facf1dfe20ba04d84ef2d04c17e521f091bbb551f652afc402b6054",
+  "tests": {
+    "backend": {
+      "passed": 516,
+      "skipped": 0
+    },
+    "frontend": {
+      "passed": 93
+    },
+    "reference": {
+      "passed": 29
+    },
+    "production_build": "passed",
+    "offline_build": "passed",
+    "protocol_browser": "passed",
+    "four_scene_api_offline_desktop_mobile": "passed",
+    "migration": "passed",
+    "original_asset_integrity": {
+      "passed": 10,
+      "full_video_decode_rerun": false
+    }
+  },
+  "build_sha256": {
+    "apps/web/dist/index.html": "29bad269dea24341d34c26978c9d48d8a39a2441cf751bb78b7d0770c390f139",
+    "apps/web/dist-demo/index.html": "51ea46d37a19cb3c33e98679ad1df141c4b06e94a817942969c03acfe71f6970"
+  },
+  "demo_build_matches_tested_browser_bytes": true,
+  "real_data": {
+    "unique_source_count": 9,
+    "feature_version_count": 10,
+    "reviewed_capture_session_count": 0,
+    "status": "blocked",
+    "research_effect": "not_evaluated"
+  },
+  "real_feature_values_read_this_stage": false,
+  "real_training_executed_this_stage": false,
+  "real_effect_acceptance": "blocked",
+  "p04_admitted": false,
+  "models_activated": false,
+  "original_config_knowledge_dataset_bytes_unchanged": true,
+  "screenshots": {
+    "mobile-mechanism.png": {
+      "sha256": "8a08a3490d088964c9d8d50bf939590c5e85425e26ba686ce105bce91016340e",
+      "scope": "numeric application UI only; no media frames"
+    },
+    "desktop-insufficient.png": {
+      "sha256": "9bb342cb0a0855b2088646cfb68f0fb7635b39d7cb0cc7b4833398ef421f221c",
+      "scope": "numeric application UI only; no media frames"
+    }
+  },
+  "synthetic_weight_reload": {
+    "passed": true,
+    "scope": "executed synthetic mechanism fixture only",
+    "weights_sha256": "1fcb20368764e93ac086b50e7d86e0a433caeeb7f747a9b3874d7931d150ca84",
+    "model_metadata_sha256": "78bb4642710f363a39f924b18c92fa38219ca89bea5fd723af50da33c0c2b740",
+    "array_count": 18,
+    "real_effect_evidence": false
+  }
+}

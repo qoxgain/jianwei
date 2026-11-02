@@ -1,0 +1,1755 @@
+{
+  "schema_version": "p035-research-metadata-audit-v1",
+  "stage": "P0.3.5",
+  "scene_id": "anonymous_observation",
+  "tenant_id": "tenant_demo",
+  "status": "blocked",
+  "config_hash": "dd78543c527dd895273d33a085268362797905d41ae6288ed7def83f8c9f442c",
+  "protocol_preview": {
+    "stage": "P0.3.5",
+    "scene_id": "anonymous_observation",
+    "status": "blocked",
+    "protocol_hash": null,
+    "protocol": null,
+    "missing_fields": [
+      "temporal.research_protocol",
+      "temporal.dataset_manifest"
+    ],
+    "bindings": {
+      "config_hash": "dd78543c527dd895273d33a085268362797905d41ae6288ed7def83f8c9f442c",
+      "engine_hash": "2a66d1f12facf1dfe20ba04d84ef2d04c17e521f091bbb551f652afc402b6054",
+      "knowledge_hash": "aea39d7f966b366613c885ffa2792b6c0e6b7a01b0e15d0cbeb4e846db7594d6",
+      "dataset_manifest_hash": null,
+      "sampling": {
+        "clip_seconds": 2.0,
+        "stride_seconds": 0.5,
+        "frames_per_clip": 16,
+        "quality_min": 0.8,
+        "missing_frame_fraction_max": 0.05,
+        "reconnect_seconds": 2,
+        "queue_size": 12,
+        "queue_policy": "drop_oldest",
+        "pre_event_seconds": 8.0,
+        "post_event_seconds": 4.0,
+        "allowed_lateness_seconds": 3.0
+      },
+      "learning": {
+        "enabled": true,
+        "auto_train": false,
+        "auto_evaluate": false,
+        "freeze_foundation_models": true,
+        "min_new_episodes": 50,
+        "cooldown_hours": 24.0,
+        "history_windows": 8,
+        "forecast_horizons_seconds": [
+          0.5,
+          2.0,
+          5.0
+        ],
+        "temporal_adapter": "causal_tcn",
+        "hidden_dim": 32,
+        "epochs": 20,
+        "batch_size": 64,
+        "learning_rate": 0.001,
+        "ridge_l2": 1.0,
+        "dirichlet_alpha": 1.0,
+        "pseudo_label_fraction_max": 0.5,
+        "replay_old_fraction": 0.3,
+        "min_independent_cycles_per_action": 20,
+        "min_audited_events_per_action": 100,
+        "pseudo_precision_wilson_lower_min": 0.95,
+        "empirical_prior_weight_max": 0.2,
+        "allow_cross_tenant": false,
+        "train_split": "train",
+        "train_adapters": [
+          "temporal_head",
+          "tsm",
+          "yolo_detector"
+        ],
+        "require_verified_boxes_for_detector": true
+      },
+      "temporal": {
+        "protocol_version": "p03-causal-v1",
+        "seed": 23,
+        "projection_dim": 16,
+        "cluster_count": 4,
+        "cluster_iterations": 20,
+        "min_segment_windows": 3,
+        "change_quantile": 0.8,
+        "target_tolerance_ms": 1000,
+        "max_gap_ms": 2000,
+        "max_rows": 12000,
+        "max_dimension": 1024,
+        "max_feature_values": 8000000,
+        "max_pairs_per_split": 512,
+        "min_pairs_per_split": 8,
+        "min_train_sources": 2,
+        "min_calibration_sources": 1,
+        "min_test_sources": 1,
+        "max_abs_feature": 1000000.0,
+        "gradient_clip_norm": 5.0,
+        "worker_poll_seconds": 0.25
+      },
+      "encoder": {
+        "adapter": "existing_features",
+        "frozen": true,
+        "feature_dim": 512,
+        "weights_sha256": null,
+        "preprocessing_version": "clip16-2s-roi-v1",
+        "pooling": "adapter_defined",
+        "checkpoint_revision": "to_be_pinned_at_integration"
+      },
+      "feature_recipe": {
+        "decode_width": 160,
+        "encoder_input_size": 224,
+        "video_implementation_sha": "ed25cf15d49e8e1af536dfe6014bbe8d5c038b6c5ba578efb4dba555bc9bdfed",
+        "recipe_implementation_sha": "36f75f267db5830c2006035d3a1859d3e5c078553454151699d5aa33eb2eaf3b",
+        "roi_hashes": {
+          "cam_01": "39ca36a4b4907e1713ad91e1eaa1b94bb39085ea46cdce58429ce84c8c912365",
+          "file_01": "c63b794c56cc057af7019e7838203fe0351638471ec6d9d72bdd3da0b5ecd677"
+        }
+      }
+    },
+    "rosters": [],
+    "blockers": [
+      {
+        "code": "TEMPORAL_PROTOCOL_REQUIRED",
+        "message": "真实研究须在 system.yaml 预注册主要指标、双对照、独立会话门槛与改进阈值"
+      },
+      {
+        "code": "TEMPORAL_PROVENANCE_REQUIRED",
+        "message": "请先登记真实采集会话、来源谱系、固定分区与近重复审查"
+      }
+    ],
+    "metadata_only": true,
+    "feature_values_read": false,
+    "training_executed": false,
+    "test_values_read": false,
+    "jobs_created": false
+  },
+  "input_manifest_count": 10,
+  "unique_source_count": 9,
+  "feature_version_count": 10,
+  "reviewed_capture_session_count": 0,
+  "sources": [
+    {
+      "source_hash": "13066d30bedf8aa3c8bd6d19d093c6acd55b655f9a03827f5df2397f131e70e1",
+      "versions": [
+        {
+          "input_file": "manifest.json",
+          "input_file_sha256": "194a7d3fc16cf26e7dc6606d723ec75d153fed1e679b10192b1253e707c416a4",
+          "manifest_hash": "75629086cfab394beace7f42b96cce899010ad3f1f31781681c15b0fa90d19fc",
+          "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+          "feature_space_id": "6950a111fe27492192021dc0c823b417ff1f7ffa0e9e00034d0d331a1133e498",
+          "feature_space": {
+            "contract_version": "3.1",
+            "dimension": 512,
+            "encoder_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141",
+            "pooling": "global_avg_pool",
+            "preprocessing_sha": "453bf6781713eb3bdc69e16cf565bddff4d927c2d65d6b08119744707d710eef",
+            "roi_policy_hash": "85f963f402e9c8dab256aa3fd4e42e65c0ff99f4a8f00ef18b75c532979a8f7f",
+            "sampling_sha": "4db3fbba41dae18dacfcbd9e08f126bbc20e6f6e42c1c4f12137c2cd5b4dd0fc"
+          },
+          "feature_cache_sha256": "67743ba1446fd80dee59bba49d9fac0c2eb4fa6d87c584f68a0852ef91f2dad8",
+          "encoder_evidence": {
+            "artifact_sha_verified": true,
+            "execution": "frozen_onnx_cpu",
+            "vector_production": "executed_from_this_source",
+            "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+          },
+          "source_id": "bull_station_05",
+          "view_id": "8b0afd04ec0444532e45ed2838ceb20255a13b4e2861be3ab74044811106e247",
+          "split": "unassigned",
+          "data_origin": "real_video",
+          "capture_identity": {
+            "physical_camera_id": null,
+            "review_status": "pending",
+            "stable_view_id": null
+          },
+          "acquisition": null,
+          "missing_fields": [
+            "acquisition.capture_session_id",
+            "acquisition.captured_at",
+            "acquisition.review_status",
+            "capture_identity.physical_camera_id",
+            "capture_identity.review_status",
+            "capture_identity.stable_view_id",
+            "dataset_source.camera_id",
+            "dataset_source.capture_session_id",
+            "dataset_source.captured_at",
+            "dataset_source.near_duplicate_review",
+            "dataset_source.provenance_review",
+            "dataset_source.relation",
+            "dataset_source.root_source_sha256",
+            "dataset_source.view_id",
+            "split",
+            "temporal.dataset_manifest.sources[source_hash]",
+            "view_review.complete_reviewed_coverage"
+          ],
+          "provenance": null,
+          "provenance_issue": {
+            "code": "TEMPORAL_CAPTURE_PENDING",
+            "message": "机位、稳定视角或采集会话尚未核实，特征可探索但不可作为独立研究来源",
+            "errors": []
+          },
+          "sampling_status": "development_metadata_only",
+          "sampling": {
+            "schema_version": "p034-sampling-diagnostics-v1",
+            "source_hash": "13066d30bedf8aa3c8bd6d19d093c6acd55b655f9a03827f5df2397f131e70e1",
+            "feature_space_id": "6950a111fe27492192021dc0c823b417ff1f7ffa0e9e00034d0d331a1133e498",
+            "manifest_hash": "75629086cfab394beace7f42b96cce899010ad3f1f31781681c15b0fa90d19fc",
+            "policy": {
+              "history_windows": 8,
+              "horizons_ms": [
+                500,
+                2000,
+                5000
+              ],
+              "target_tolerance_ms": 1000,
+              "max_gap_ms": 2000,
+              "max_pairs_per_split": 512,
+              "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+              "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+            },
+            "status": "no_causal_windows",
+            "eligible_rows": 110,
+            "sequence_count": 4,
+            "short_history_sequences": 0,
+            "candidate_histories": 82,
+            "causal_windows": 0,
+            "uncapped_causal_windows": 0,
+            "rejected_windows": {
+              "target_outside_tolerance": 66,
+              "future_not_available": 16
+            },
+            "horizons": [
+              {
+                "horizon_ms": 500,
+                "uncapped_causal_windows": 0,
+                "rejected_windows": {
+                  "target_outside_tolerance": 74,
+                  "future_not_available": 8
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 16500,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 1500
+                }
+              },
+              {
+                "horizon_ms": 2000,
+                "uncapped_causal_windows": 74,
+                "rejected_windows": {
+                  "future_not_available": 8,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 18000,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 0
+                }
+              },
+              {
+                "horizon_ms": 5000,
+                "uncapped_causal_windows": 66,
+                "rejected_windows": {
+                  "future_not_available": 16,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 21000,
+                  "actual_start_ms": 22000,
+                  "overshoot_ms": 1000
+                }
+              }
+            ],
+            "observed_clip_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observed_start_step_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observation_windows": 4,
+            "verified_business_cycles": 0,
+            "feature_values_read": false,
+            "training_executed": false,
+            "training_admission_checked": false,
+            "messages": [
+              "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+              "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+            ],
+            "report_hash": "4b06b9e31065e266b420c13b639bd187a6233c1a2d0b3b87713a0938e3d08e00"
+          },
+          "sampling_issue": null,
+          "metadata_status": "blocked"
+        }
+      ],
+      "version_count": 1,
+      "metadata_status": "blocked"
+    },
+    {
+      "source_hash": "226bac7752d191d68bcd10676fd33c3f3d391f55527bf088678730adb5ad4341",
+      "versions": [
+        {
+          "input_file": "manifest.json",
+          "input_file_sha256": "616bbe50d83c0adb4cb79286034e08e66130f87706b210a97ee0f2f17b3bc60e",
+          "manifest_hash": "76659d414dc68c587f851ebf4a9b41eb4064ac0ced90dc78150621baa27ad509",
+          "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+          "feature_space_id": "ab0efe5adf0cced1d5d44f8f8c25bd7c8c3fbe7f2b0e5abad80a7edd3ec430ae",
+          "feature_space": {
+            "contract_version": "3.1",
+            "dimension": 512,
+            "encoder_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141",
+            "pooling": "global_avg_pool",
+            "preprocessing_sha": "453bf6781713eb3bdc69e16cf565bddff4d927c2d65d6b08119744707d710eef",
+            "roi_policy_hash": "174448096351c72a6bfd6f2ae11843204e2b50eb3240feebc8c7e4e9385ea3c1",
+            "sampling_sha": "4db3fbba41dae18dacfcbd9e08f126bbc20e6f6e42c1c4f12137c2cd5b4dd0fc"
+          },
+          "feature_cache_sha256": "098dc733327f7b419af9fe8e0efb600a4f4ca32960d88394826c37ffdb487e65",
+          "encoder_evidence": {
+            "artifact_sha_verified": true,
+            "execution": "frozen_onnx_cpu",
+            "vector_production": "executed_from_this_source",
+            "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+          },
+          "source_id": "bull_station_02",
+          "view_id": "700d62f1ee01e86dcb9470d7630174571556dd15408bc0c013ffd5b0ef0461f2",
+          "split": "unassigned",
+          "data_origin": "real_video",
+          "capture_identity": {
+            "physical_camera_id": null,
+            "review_status": "pending",
+            "stable_view_id": null
+          },
+          "acquisition": null,
+          "missing_fields": [
+            "acquisition.capture_session_id",
+            "acquisition.captured_at",
+            "acquisition.review_status",
+            "capture_identity.physical_camera_id",
+            "capture_identity.review_status",
+            "capture_identity.stable_view_id",
+            "dataset_source.camera_id",
+            "dataset_source.capture_session_id",
+            "dataset_source.captured_at",
+            "dataset_source.near_duplicate_review",
+            "dataset_source.provenance_review",
+            "dataset_source.relation",
+            "dataset_source.root_source_sha256",
+            "dataset_source.view_id",
+            "split",
+            "temporal.dataset_manifest.sources[source_hash]",
+            "view_review.complete_reviewed_coverage"
+          ],
+          "provenance": null,
+          "provenance_issue": {
+            "code": "TEMPORAL_CAPTURE_PENDING",
+            "message": "机位、稳定视角或采集会话尚未核实，特征可探索但不可作为独立研究来源",
+            "errors": []
+          },
+          "sampling_status": "development_metadata_only",
+          "sampling": {
+            "schema_version": "p034-sampling-diagnostics-v1",
+            "source_hash": "226bac7752d191d68bcd10676fd33c3f3d391f55527bf088678730adb5ad4341",
+            "feature_space_id": "ab0efe5adf0cced1d5d44f8f8c25bd7c8c3fbe7f2b0e5abad80a7edd3ec430ae",
+            "manifest_hash": "76659d414dc68c587f851ebf4a9b41eb4064ac0ced90dc78150621baa27ad509",
+            "policy": {
+              "history_windows": 8,
+              "horizons_ms": [
+                500,
+                2000,
+                5000
+              ],
+              "target_tolerance_ms": 1000,
+              "max_gap_ms": 2000,
+              "max_pairs_per_split": 512,
+              "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+              "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+            },
+            "status": "no_causal_windows",
+            "eligible_rows": 73,
+            "sequence_count": 3,
+            "short_history_sequences": 0,
+            "candidate_histories": 52,
+            "causal_windows": 0,
+            "uncapped_causal_windows": 0,
+            "rejected_windows": {
+              "target_outside_tolerance": 40,
+              "future_not_available": 12
+            },
+            "horizons": [
+              {
+                "horizon_ms": 500,
+                "uncapped_causal_windows": 0,
+                "rejected_windows": {
+                  "target_outside_tolerance": 46,
+                  "future_not_available": 6
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 16500,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 1500
+                }
+              },
+              {
+                "horizon_ms": 2000,
+                "uncapped_causal_windows": 46,
+                "rejected_windows": {
+                  "future_not_available": 6,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 18000,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 0
+                }
+              },
+              {
+                "horizon_ms": 5000,
+                "uncapped_causal_windows": 40,
+                "rejected_windows": {
+                  "future_not_available": 12,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 21000,
+                  "actual_start_ms": 22000,
+                  "overshoot_ms": 1000
+                }
+              }
+            ],
+            "observed_clip_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observed_start_step_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observation_windows": 3,
+            "verified_business_cycles": 0,
+            "feature_values_read": false,
+            "training_executed": false,
+            "training_admission_checked": false,
+            "messages": [
+              "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+              "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+            ],
+            "report_hash": "948bf6e443261a70241872f4705674f1a9ab90d4f1cc96555750a8d6662613af"
+          },
+          "sampling_issue": null,
+          "metadata_status": "blocked"
+        }
+      ],
+      "version_count": 1,
+      "metadata_status": "blocked"
+    },
+    {
+      "source_hash": "259bf1e24f86128947192825ef759bddcb1b000c9b5b5573aed274adc606f810",
+      "versions": [
+        {
+          "input_file": "manifest.json",
+          "input_file_sha256": "018877c506cb362fa00548aec31fdeba0117590b4262583ae2e329e0d0dfefd6",
+          "manifest_hash": "a5f543b646759da1816e3aa11ffd6e4213bd5c4b93b92a59444fc564fc2de264",
+          "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+          "feature_space_id": "1df54e83f902d1a8fd64abf3afc4ef4c9f24f5640eb3f68f24b933f7ab65e495",
+          "feature_space": {
+            "contract_version": "3.1",
+            "dimension": 512,
+            "encoder_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141",
+            "pooling": "global_avg_pool",
+            "preprocessing_sha": "453bf6781713eb3bdc69e16cf565bddff4d927c2d65d6b08119744707d710eef",
+            "roi_policy_hash": "55e8bf6e95e821eb05a5a70c09ebb58a0f4d80a0d76ff17fdd0fbb96f45479cd",
+            "sampling_sha": "4db3fbba41dae18dacfcbd9e08f126bbc20e6f6e42c1c4f12137c2cd5b4dd0fc"
+          },
+          "feature_cache_sha256": "9a27e9077db1480a5a8b3fbcd20bdd74b2584f5c75a143fd2ba6d8f5700401a2",
+          "encoder_evidence": {
+            "artifact_sha_verified": true,
+            "execution": "frozen_onnx_cpu",
+            "vector_production": "executed_from_this_source",
+            "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+          },
+          "source_id": "bull_station_01",
+          "view_id": "0202e9e570478efefe5bcdff271907aeb4955b8eb2578d394200712ee63e421c",
+          "split": "unassigned",
+          "data_origin": "real_video",
+          "capture_identity": {
+            "physical_camera_id": null,
+            "review_status": "pending",
+            "stable_view_id": null
+          },
+          "acquisition": null,
+          "missing_fields": [
+            "acquisition.capture_session_id",
+            "acquisition.captured_at",
+            "acquisition.review_status",
+            "capture_identity.physical_camera_id",
+            "capture_identity.review_status",
+            "capture_identity.stable_view_id",
+            "dataset_source.camera_id",
+            "dataset_source.capture_session_id",
+            "dataset_source.captured_at",
+            "dataset_source.near_duplicate_review",
+            "dataset_source.provenance_review",
+            "dataset_source.relation",
+            "dataset_source.root_source_sha256",
+            "dataset_source.view_id",
+            "split",
+            "temporal.dataset_manifest.sources[source_hash]",
+            "view_review.complete_reviewed_coverage"
+          ],
+          "provenance": null,
+          "provenance_issue": {
+            "code": "TEMPORAL_CAPTURE_PENDING",
+            "message": "机位、稳定视角或采集会话尚未核实，特征可探索但不可作为独立研究来源",
+            "errors": []
+          },
+          "sampling_status": "development_metadata_only",
+          "sampling": {
+            "schema_version": "p034-sampling-diagnostics-v1",
+            "source_hash": "259bf1e24f86128947192825ef759bddcb1b000c9b5b5573aed274adc606f810",
+            "feature_space_id": "1df54e83f902d1a8fd64abf3afc4ef4c9f24f5640eb3f68f24b933f7ab65e495",
+            "manifest_hash": "a5f543b646759da1816e3aa11ffd6e4213bd5c4b93b92a59444fc564fc2de264",
+            "policy": {
+              "history_windows": 8,
+              "horizons_ms": [
+                500,
+                2000,
+                5000
+              ],
+              "target_tolerance_ms": 1000,
+              "max_gap_ms": 2000,
+              "max_pairs_per_split": 512,
+              "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+              "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+            },
+            "status": "no_causal_windows",
+            "eligible_rows": 98,
+            "sequence_count": 4,
+            "short_history_sequences": 0,
+            "candidate_histories": 70,
+            "causal_windows": 0,
+            "uncapped_causal_windows": 0,
+            "rejected_windows": {
+              "target_outside_tolerance": 57,
+              "future_not_available": 13
+            },
+            "horizons": [
+              {
+                "horizon_ms": 500,
+                "uncapped_causal_windows": 0,
+                "rejected_windows": {
+                  "target_outside_tolerance": 63,
+                  "future_not_available": 7
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 16500,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 1500
+                }
+              },
+              {
+                "horizon_ms": 2000,
+                "uncapped_causal_windows": 63,
+                "rejected_windows": {
+                  "future_not_available": 7,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 18000,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 0
+                }
+              },
+              {
+                "horizon_ms": 5000,
+                "uncapped_causal_windows": 57,
+                "rejected_windows": {
+                  "future_not_available": 13,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 21000,
+                  "actual_start_ms": 22000,
+                  "overshoot_ms": 1000
+                }
+              }
+            ],
+            "observed_clip_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observed_start_step_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observation_windows": 4,
+            "verified_business_cycles": 0,
+            "feature_values_read": false,
+            "training_executed": false,
+            "training_admission_checked": false,
+            "messages": [
+              "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+              "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+            ],
+            "report_hash": "db8cf3b884743c0fb08a16b64feaff79e4b7eabc52605c9c2ad629d5d9f6b08d"
+          },
+          "sampling_issue": null,
+          "metadata_status": "blocked"
+        }
+      ],
+      "version_count": 1,
+      "metadata_status": "blocked"
+    },
+    {
+      "source_hash": "35a7bc1b07c456169f33f09880cb949a054dd7111fd3a60301856bb780bac65d",
+      "versions": [
+        {
+          "input_file": "manifest.json",
+          "input_file_sha256": "763b617aeb2c87c8f108be124a2a1ec72c39ce762fcd32a70661c73a1292dca1",
+          "manifest_hash": "bd0945eb5eaad6ca9688f00210c9d8b2aa18c59616484f7e699b66a7a6f63409",
+          "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+          "feature_space_id": "8af9d61ab2c9364f9c5b367f4be8d5543aa44450b0c6f6f3b48343e3d4012a95",
+          "feature_space": {
+            "contract_version": "3.1",
+            "dimension": 512,
+            "encoder_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141",
+            "pooling": "global_avg_pool",
+            "preprocessing_sha": "453bf6781713eb3bdc69e16cf565bddff4d927c2d65d6b08119744707d710eef",
+            "roi_policy_hash": "28aee34ec55975729709220acf2c46bc077e1e8a85dd8d49da4e94a208730a4a",
+            "sampling_sha": "4db3fbba41dae18dacfcbd9e08f126bbc20e6f6e42c1c4f12137c2cd5b4dd0fc"
+          },
+          "feature_cache_sha256": "ba91c0a34fa19682a7f5c9c37220c6c03cb66f4912b281a1a62edacece95af72",
+          "encoder_evidence": {
+            "artifact_sha_verified": true,
+            "execution": "frozen_onnx_cpu",
+            "vector_production": "executed_from_this_source",
+            "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+          },
+          "source_id": "bull_station_06",
+          "view_id": "514d7827eb113f5c1662a55ae46052e06f54c99493b9829716761cde758a5945",
+          "split": "unassigned",
+          "data_origin": "real_video",
+          "capture_identity": {
+            "physical_camera_id": null,
+            "review_status": "pending",
+            "stable_view_id": null
+          },
+          "acquisition": null,
+          "missing_fields": [
+            "acquisition.capture_session_id",
+            "acquisition.captured_at",
+            "acquisition.review_status",
+            "capture_identity.physical_camera_id",
+            "capture_identity.review_status",
+            "capture_identity.stable_view_id",
+            "dataset_source.camera_id",
+            "dataset_source.capture_session_id",
+            "dataset_source.captured_at",
+            "dataset_source.near_duplicate_review",
+            "dataset_source.provenance_review",
+            "dataset_source.relation",
+            "dataset_source.root_source_sha256",
+            "dataset_source.view_id",
+            "split",
+            "temporal.dataset_manifest.sources[source_hash]",
+            "view_review.complete_reviewed_coverage"
+          ],
+          "provenance": null,
+          "provenance_issue": {
+            "code": "TEMPORAL_CAPTURE_PENDING",
+            "message": "机位、稳定视角或采集会话尚未核实，特征可探索但不可作为独立研究来源",
+            "errors": []
+          },
+          "sampling_status": "development_metadata_only",
+          "sampling": {
+            "schema_version": "p034-sampling-diagnostics-v1",
+            "source_hash": "35a7bc1b07c456169f33f09880cb949a054dd7111fd3a60301856bb780bac65d",
+            "feature_space_id": "8af9d61ab2c9364f9c5b367f4be8d5543aa44450b0c6f6f3b48343e3d4012a95",
+            "manifest_hash": "bd0945eb5eaad6ca9688f00210c9d8b2aa18c59616484f7e699b66a7a6f63409",
+            "policy": {
+              "history_windows": 8,
+              "horizons_ms": [
+                500,
+                2000,
+                5000
+              ],
+              "target_tolerance_ms": 1000,
+              "max_gap_ms": 2000,
+              "max_pairs_per_split": 512,
+              "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+              "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+            },
+            "status": "no_causal_windows",
+            "eligible_rows": 75,
+            "sequence_count": 3,
+            "short_history_sequences": 0,
+            "candidate_histories": 54,
+            "causal_windows": 0,
+            "uncapped_causal_windows": 0,
+            "rejected_windows": {
+              "target_outside_tolerance": 42,
+              "future_not_available": 12
+            },
+            "horizons": [
+              {
+                "horizon_ms": 500,
+                "uncapped_causal_windows": 0,
+                "rejected_windows": {
+                  "target_outside_tolerance": 48,
+                  "future_not_available": 6
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 16500,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 1500
+                }
+              },
+              {
+                "horizon_ms": 2000,
+                "uncapped_causal_windows": 48,
+                "rejected_windows": {
+                  "future_not_available": 6,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 18000,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 0
+                }
+              },
+              {
+                "horizon_ms": 5000,
+                "uncapped_causal_windows": 42,
+                "rejected_windows": {
+                  "future_not_available": 12,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 21000,
+                  "actual_start_ms": 22000,
+                  "overshoot_ms": 1000
+                }
+              }
+            ],
+            "observed_clip_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observed_start_step_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observation_windows": 3,
+            "verified_business_cycles": 0,
+            "feature_values_read": false,
+            "training_executed": false,
+            "training_admission_checked": false,
+            "messages": [
+              "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+              "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+            ],
+            "report_hash": "ec866786bf5754f42f2d49672206216e12f6a087d403d77cbbe10b507576bd0a"
+          },
+          "sampling_issue": null,
+          "metadata_status": "blocked"
+        }
+      ],
+      "version_count": 1,
+      "metadata_status": "blocked"
+    },
+    {
+      "source_hash": "8e4cfa82d5f58e8f5cfeadfdb10e0f17bcb939117122be87aa2a2e20afdf2aca",
+      "versions": [
+        {
+          "input_file": "manifest.json",
+          "input_file_sha256": "2ec7320f2fcb37fdc7cf663b76e567a448056f94f6b882264746dcf29a92814a",
+          "manifest_hash": "ccbbc44f10506bd46e89a868f1c42954932abfd72dbd3a0533bb4a8244047906",
+          "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+          "feature_space_id": "83de04946539a593649dfcd28e2971c6161f90cd2718e4e328ae4d54647f7c4c",
+          "feature_space": {
+            "contract_version": "3.1",
+            "dimension": 512,
+            "encoder_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141",
+            "pooling": "global_avg_pool",
+            "preprocessing_sha": "453bf6781713eb3bdc69e16cf565bddff4d927c2d65d6b08119744707d710eef",
+            "roi_policy_hash": "90e1c2ad99e72a3726444201e95f78f95dfb39df231f35aaa779c548d4c22315",
+            "sampling_sha": "4db3fbba41dae18dacfcbd9e08f126bbc20e6f6e42c1c4f12137c2cd5b4dd0fc"
+          },
+          "feature_cache_sha256": "81ef18f288f1e23df6c9bf7e7e8fb15f71844f7aeed8d69512d422390ea4dfdf",
+          "encoder_evidence": {
+            "artifact_sha_verified": true,
+            "execution": "frozen_onnx_cpu",
+            "vector_production": "executed_from_this_source",
+            "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+          },
+          "source_id": "bull_station_07",
+          "view_id": "1b52247250d518c524e5628eb570cbd477300e286c51c5ce01ca1f6c0d2a90e0",
+          "split": "unassigned",
+          "data_origin": "real_video",
+          "capture_identity": {
+            "physical_camera_id": null,
+            "review_status": "pending",
+            "stable_view_id": null
+          },
+          "acquisition": null,
+          "missing_fields": [
+            "acquisition.capture_session_id",
+            "acquisition.captured_at",
+            "acquisition.review_status",
+            "capture_identity.physical_camera_id",
+            "capture_identity.review_status",
+            "capture_identity.stable_view_id",
+            "dataset_source.camera_id",
+            "dataset_source.capture_session_id",
+            "dataset_source.captured_at",
+            "dataset_source.near_duplicate_review",
+            "dataset_source.provenance_review",
+            "dataset_source.relation",
+            "dataset_source.root_source_sha256",
+            "dataset_source.view_id",
+            "split",
+            "temporal.dataset_manifest.sources[source_hash]",
+            "view_review.complete_reviewed_coverage"
+          ],
+          "provenance": null,
+          "provenance_issue": {
+            "code": "TEMPORAL_CAPTURE_PENDING",
+            "message": "机位、稳定视角或采集会话尚未核实，特征可探索但不可作为独立研究来源",
+            "errors": []
+          },
+          "sampling_status": "development_metadata_only",
+          "sampling": {
+            "schema_version": "p034-sampling-diagnostics-v1",
+            "source_hash": "8e4cfa82d5f58e8f5cfeadfdb10e0f17bcb939117122be87aa2a2e20afdf2aca",
+            "feature_space_id": "83de04946539a593649dfcd28e2971c6161f90cd2718e4e328ae4d54647f7c4c",
+            "manifest_hash": "ccbbc44f10506bd46e89a868f1c42954932abfd72dbd3a0533bb4a8244047906",
+            "policy": {
+              "history_windows": 8,
+              "horizons_ms": [
+                500,
+                2000,
+                5000
+              ],
+              "target_tolerance_ms": 1000,
+              "max_gap_ms": 2000,
+              "max_pairs_per_split": 512,
+              "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+              "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+            },
+            "status": "no_causal_windows",
+            "eligible_rows": 79,
+            "sequence_count": 3,
+            "short_history_sequences": 0,
+            "candidate_histories": 58,
+            "causal_windows": 0,
+            "uncapped_causal_windows": 0,
+            "rejected_windows": {
+              "target_outside_tolerance": 46,
+              "future_not_available": 12
+            },
+            "horizons": [
+              {
+                "horizon_ms": 500,
+                "uncapped_causal_windows": 0,
+                "rejected_windows": {
+                  "target_outside_tolerance": 52,
+                  "future_not_available": 6
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 16500,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 1500
+                }
+              },
+              {
+                "horizon_ms": 2000,
+                "uncapped_causal_windows": 52,
+                "rejected_windows": {
+                  "future_not_available": 6,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 18000,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 0
+                }
+              },
+              {
+                "horizon_ms": 5000,
+                "uncapped_causal_windows": 46,
+                "rejected_windows": {
+                  "future_not_available": 12,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 21000,
+                  "actual_start_ms": 22000,
+                  "overshoot_ms": 1000
+                }
+              }
+            ],
+            "observed_clip_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observed_start_step_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observation_windows": 3,
+            "verified_business_cycles": 0,
+            "feature_values_read": false,
+            "training_executed": false,
+            "training_admission_checked": false,
+            "messages": [
+              "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+              "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+            ],
+            "report_hash": "0b04d012e58f8f0b0fe7bd0e6d23034b0a9c4435d64d4fa48257070512d75355"
+          },
+          "sampling_issue": null,
+          "metadata_status": "blocked"
+        }
+      ],
+      "version_count": 1,
+      "metadata_status": "blocked"
+    },
+    {
+      "source_hash": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+      "versions": [
+        {
+          "input_file": "manifest.json",
+          "input_file_sha256": "fb97d893f8779eea2c8053ca89879acb106ec398dd9fa96208b7cfd12f94bf90",
+          "manifest_hash": "17d3ba37ec32c0a64007e4b09320ce787b1f0c045179b0b9e9960851c5876ff0",
+          "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+          "feature_space_id": "4c0121abc18e31c847baa1c270f656548750513c7202ecfbe03b9f084492824a",
+          "feature_space": {
+            "contract_version": "3.1",
+            "dimension": 512,
+            "encoder_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141",
+            "pooling": "global_avg_pool",
+            "preprocessing_sha": "65308cc6cb7c8fea63cf9f7137c83f8e9d4358adf2e923821ded761ba7fea282",
+            "roi_policy_hash": "6504f1ae41c207a5391b896ff0975f941c9c5037cf34cc17b69ed2b2d746648d",
+            "sampling_sha": "4db3fbba41dae18dacfcbd9e08f126bbc20e6f6e42c1c4f12137c2cd5b4dd0fc"
+          },
+          "feature_cache_sha256": "6b21ef47d128a64183998c74f1b8728c348a09552828326a8d2eb23263bc1376",
+          "encoder_evidence": {
+            "artifact_sha_verified": true,
+            "execution": "frozen_onnx_cpu",
+            "vector_production": "executed_from_this_source",
+            "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+          },
+          "source_id": "garment_test",
+          "view_id": "71a12bb321a2c931b3d3ef303663114b8085d86cf4c016f09ccbfac1892f7bf1",
+          "split": "unassigned",
+          "data_origin": "real_video",
+          "capture_identity": {
+            "physical_camera_id": null,
+            "review_status": "pending",
+            "stable_view_id": null
+          },
+          "acquisition": null,
+          "missing_fields": [
+            "acquisition.capture_session_id",
+            "acquisition.captured_at",
+            "acquisition.review_status",
+            "capture_identity.physical_camera_id",
+            "capture_identity.review_status",
+            "capture_identity.stable_view_id",
+            "dataset_source.camera_id",
+            "dataset_source.capture_session_id",
+            "dataset_source.captured_at",
+            "dataset_source.near_duplicate_review",
+            "dataset_source.provenance_review",
+            "dataset_source.relation",
+            "dataset_source.root_source_sha256",
+            "dataset_source.view_id",
+            "split",
+            "temporal.dataset_manifest.sources[source_hash]",
+            "view_review.complete_reviewed_coverage"
+          ],
+          "provenance": null,
+          "provenance_issue": {
+            "code": "TEMPORAL_CAPTURE_PENDING",
+            "message": "机位、稳定视角或采集会话尚未核实，特征可探索但不可作为独立研究来源",
+            "errors": []
+          },
+          "sampling_status": "development_metadata_only",
+          "sampling": {
+            "schema_version": "p034-sampling-diagnostics-v1",
+            "source_hash": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+            "feature_space_id": "4c0121abc18e31c847baa1c270f656548750513c7202ecfbe03b9f084492824a",
+            "manifest_hash": "17d3ba37ec32c0a64007e4b09320ce787b1f0c045179b0b9e9960851c5876ff0",
+            "policy": {
+              "history_windows": 8,
+              "horizons_ms": [
+                500,
+                2000,
+                5000
+              ],
+              "target_tolerance_ms": 1000,
+              "max_gap_ms": 2000,
+              "max_pairs_per_split": 512,
+              "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+              "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+            },
+            "status": "no_causal_windows",
+            "eligible_rows": 59,
+            "sequence_count": 2,
+            "short_history_sequences": 0,
+            "candidate_histories": 45,
+            "causal_windows": 0,
+            "uncapped_causal_windows": 0,
+            "rejected_windows": {
+              "target_outside_tolerance": 37,
+              "future_not_available": 8
+            },
+            "horizons": [
+              {
+                "horizon_ms": 500,
+                "uncapped_causal_windows": 0,
+                "rejected_windows": {
+                  "target_outside_tolerance": 41,
+                  "future_not_available": 4
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 16500,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 1500
+                }
+              },
+              {
+                "horizon_ms": 2000,
+                "uncapped_causal_windows": 41,
+                "rejected_windows": {
+                  "future_not_available": 4,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 18000,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 0
+                }
+              },
+              {
+                "horizon_ms": 5000,
+                "uncapped_causal_windows": 37,
+                "rejected_windows": {
+                  "future_not_available": 8,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 21000,
+                  "actual_start_ms": 22000,
+                  "overshoot_ms": 1000
+                }
+              }
+            ],
+            "observed_clip_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observed_start_step_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observation_windows": 2,
+            "verified_business_cycles": 0,
+            "feature_values_read": false,
+            "training_executed": false,
+            "training_admission_checked": false,
+            "messages": [
+              "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+              "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+            ],
+            "report_hash": "5ab03f7ae120c57f11bd7f3d8c4dd1ef70a0bfce53634b280ef523af4b864a9f"
+          },
+          "sampling_issue": null,
+          "metadata_status": "blocked"
+        }
+      ],
+      "version_count": 1,
+      "metadata_status": "blocked"
+    },
+    {
+      "source_hash": "a87aaf50cd2155e40ed5d5368d1ff6f9e5de8a9942cf434198ba6d11814e2be0",
+      "versions": [
+        {
+          "input_file": "manifest.json",
+          "input_file_sha256": "6ee8362819d73ecea6db3283983008200ed1889fe4136442f1ac458d4188adc0",
+          "manifest_hash": "5bdb35a0045523d4a8194bdd0ca8210798894abea0b8967a6c4c32621fde0ac3",
+          "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+          "feature_space_id": "5aaef5d20f167ce172d109b43eb822bcd4f4191a2e08155c77dde53741736419",
+          "feature_space": {
+            "contract_version": "3.1",
+            "dimension": 512,
+            "encoder_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141",
+            "pooling": "global_avg_pool",
+            "preprocessing_sha": "453bf6781713eb3bdc69e16cf565bddff4d927c2d65d6b08119744707d710eef",
+            "roi_policy_hash": "ed7c33a03373888e2f9a7966be78f5563ac4aaa6a3dd9c824bb1c703ca39dfa2",
+            "sampling_sha": "4db3fbba41dae18dacfcbd9e08f126bbc20e6f6e42c1c4f12137c2cd5b4dd0fc"
+          },
+          "feature_cache_sha256": "fa2bd4405ccc9859fbb721d3466038dce3dedfe940992c2f09f6d1e9a614502b",
+          "encoder_evidence": {
+            "artifact_sha_verified": true,
+            "execution": "frozen_onnx_cpu",
+            "vector_production": "executed_from_this_source",
+            "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+          },
+          "source_id": "bull_station_03",
+          "view_id": "903c3ca97c94e9348d0dab6a3ef21510a3059ab7805ec8e5075649d7d5a2ec0d",
+          "split": "unassigned",
+          "data_origin": "real_video",
+          "capture_identity": {
+            "physical_camera_id": null,
+            "review_status": "pending",
+            "stable_view_id": null
+          },
+          "acquisition": null,
+          "missing_fields": [
+            "acquisition.capture_session_id",
+            "acquisition.captured_at",
+            "acquisition.review_status",
+            "capture_identity.physical_camera_id",
+            "capture_identity.review_status",
+            "capture_identity.stable_view_id",
+            "dataset_source.camera_id",
+            "dataset_source.capture_session_id",
+            "dataset_source.captured_at",
+            "dataset_source.near_duplicate_review",
+            "dataset_source.provenance_review",
+            "dataset_source.relation",
+            "dataset_source.root_source_sha256",
+            "dataset_source.view_id",
+            "split",
+            "temporal.dataset_manifest.sources[source_hash]",
+            "view_review.complete_reviewed_coverage"
+          ],
+          "provenance": null,
+          "provenance_issue": {
+            "code": "TEMPORAL_CAPTURE_PENDING",
+            "message": "机位、稳定视角或采集会话尚未核实，特征可探索但不可作为独立研究来源",
+            "errors": []
+          },
+          "sampling_status": "development_metadata_only",
+          "sampling": {
+            "schema_version": "p034-sampling-diagnostics-v1",
+            "source_hash": "a87aaf50cd2155e40ed5d5368d1ff6f9e5de8a9942cf434198ba6d11814e2be0",
+            "feature_space_id": "5aaef5d20f167ce172d109b43eb822bcd4f4191a2e08155c77dde53741736419",
+            "manifest_hash": "5bdb35a0045523d4a8194bdd0ca8210798894abea0b8967a6c4c32621fde0ac3",
+            "policy": {
+              "history_windows": 8,
+              "horizons_ms": [
+                500,
+                2000,
+                5000
+              ],
+              "target_tolerance_ms": 1000,
+              "max_gap_ms": 2000,
+              "max_pairs_per_split": 512,
+              "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+              "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+            },
+            "status": "no_causal_windows",
+            "eligible_rows": 106,
+            "sequence_count": 4,
+            "short_history_sequences": 0,
+            "candidate_histories": 78,
+            "causal_windows": 0,
+            "uncapped_causal_windows": 0,
+            "rejected_windows": {
+              "target_outside_tolerance": 62,
+              "future_not_available": 16
+            },
+            "horizons": [
+              {
+                "horizon_ms": 500,
+                "uncapped_causal_windows": 0,
+                "rejected_windows": {
+                  "target_outside_tolerance": 70,
+                  "future_not_available": 8
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 16500,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 1500
+                }
+              },
+              {
+                "horizon_ms": 2000,
+                "uncapped_causal_windows": 70,
+                "rejected_windows": {
+                  "future_not_available": 8,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 18000,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 0
+                }
+              },
+              {
+                "horizon_ms": 5000,
+                "uncapped_causal_windows": 62,
+                "rejected_windows": {
+                  "future_not_available": 16,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 21000,
+                  "actual_start_ms": 22000,
+                  "overshoot_ms": 1000
+                }
+              }
+            ],
+            "observed_clip_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observed_start_step_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observation_windows": 4,
+            "verified_business_cycles": 0,
+            "feature_values_read": false,
+            "training_executed": false,
+            "training_admission_checked": false,
+            "messages": [
+              "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+              "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+            ],
+            "report_hash": "ee4c1ec69bfe44c4974dca5393af36cef7b355aaa5bb6a2d879cf21ff4b78cb2"
+          },
+          "sampling_issue": null,
+          "metadata_status": "blocked"
+        }
+      ],
+      "version_count": 1,
+      "metadata_status": "blocked"
+    },
+    {
+      "source_hash": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+      "versions": [
+        {
+          "input_file": "manifest.json",
+          "input_file_sha256": "7e55e27c30b621792f23a75db8d3c9de25e777a6e54506edb4db2a8601af4c51",
+          "manifest_hash": "2fad07dbe3c03d3c8d9a9c076841c80874bffb02c44be16dc11cd7dd95c91ae3",
+          "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+          "feature_space_id": "f4b6b5c8f823e09d6bc231cc0ae7fd0931e97f8660e1514aa628cb6f8c6619e7",
+          "feature_space": {
+            "contract_version": "3.1",
+            "dimension": 512,
+            "encoder_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141",
+            "pooling": "global_avg_pool",
+            "preprocessing_sha": "460cd22d5a8cb61c1b73d85a94b866ee4921e4bebcad89ef31ff32245bb5db3e",
+            "roi_policy_hash": "7bba09cdb147c6f911a07494cf4ce0702cab5f7a85eef7c3d892da3cf77062c9",
+            "sampling_sha": "4db3fbba41dae18dacfcbd9e08f126bbc20e6f6e42c1c4f12137c2cd5b4dd0fc"
+          },
+          "feature_cache_sha256": "6060b80bf3571c3f9b4ea6b202529c7d88139a02bdaac6c05ee207af3f2f6cfb",
+          "encoder_evidence": {
+            "artifact_sha_verified": true,
+            "execution": "frozen_onnx_cpu",
+            "vector_production": "executed_from_this_source",
+            "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+          },
+          "source_id": "garment_test_short",
+          "view_id": "6a2e53de181ef0b44841b856a28f49f7e6e2d7f750f446dd9761a396a31764bd",
+          "split": "unassigned",
+          "data_origin": "real_video",
+          "capture_identity": {
+            "physical_camera_id": null,
+            "review_status": "pending",
+            "stable_view_id": null
+          },
+          "acquisition": null,
+          "missing_fields": [
+            "acquisition.capture_session_id",
+            "acquisition.captured_at",
+            "acquisition.review_status",
+            "capture_identity.physical_camera_id",
+            "capture_identity.review_status",
+            "capture_identity.stable_view_id",
+            "dataset_source.camera_id",
+            "dataset_source.capture_session_id",
+            "dataset_source.captured_at",
+            "dataset_source.near_duplicate_review",
+            "dataset_source.provenance_review",
+            "dataset_source.relation",
+            "dataset_source.root_source_sha256",
+            "dataset_source.view_id",
+            "split",
+            "temporal.dataset_manifest.sources[source_hash]",
+            "view_review.complete_reviewed_coverage"
+          ],
+          "provenance": null,
+          "provenance_issue": {
+            "code": "TEMPORAL_CAPTURE_PENDING",
+            "message": "机位、稳定视角或采集会话尚未核实，特征可探索但不可作为独立研究来源",
+            "errors": []
+          },
+          "sampling_status": "development_metadata_only",
+          "sampling": {
+            "schema_version": "p034-sampling-diagnostics-v1",
+            "source_hash": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+            "feature_space_id": "f4b6b5c8f823e09d6bc231cc0ae7fd0931e97f8660e1514aa628cb6f8c6619e7",
+            "manifest_hash": "2fad07dbe3c03d3c8d9a9c076841c80874bffb02c44be16dc11cd7dd95c91ae3",
+            "policy": {
+              "history_windows": 8,
+              "horizons_ms": [
+                500,
+                2000,
+                5000
+              ],
+              "target_tolerance_ms": 1000,
+              "max_gap_ms": 2000,
+              "max_pairs_per_split": 512,
+              "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+              "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+            },
+            "status": "no_causal_windows",
+            "eligible_rows": 10,
+            "sequence_count": 1,
+            "short_history_sequences": 0,
+            "candidate_histories": 3,
+            "causal_windows": 0,
+            "uncapped_causal_windows": 0,
+            "rejected_windows": {
+              "future_not_available": 3
+            },
+            "horizons": [
+              {
+                "horizon_ms": 500,
+                "uncapped_causal_windows": 0,
+                "rejected_windows": {
+                  "target_outside_tolerance": 1,
+                  "future_not_available": 2
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 16500,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 1500
+                }
+              },
+              {
+                "horizon_ms": 2000,
+                "uncapped_causal_windows": 1,
+                "rejected_windows": {
+                  "future_not_available": 2,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 18000,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 0
+                }
+              },
+              {
+                "horizon_ms": 5000,
+                "uncapped_causal_windows": 0,
+                "rejected_windows": {
+                  "future_not_available": 3
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 21000,
+                  "actual_start_ms": null,
+                  "overshoot_ms": null
+                }
+              }
+            ],
+            "observed_clip_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observed_start_step_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observation_windows": 1,
+            "verified_business_cycles": 0,
+            "feature_values_read": false,
+            "training_executed": false,
+            "training_admission_checked": false,
+            "messages": [
+              "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+            ],
+            "report_hash": "6f6bcc65185787a37893dc97ed57ef4d7b6d69db31e6264e023acdfc947cbb14"
+          },
+          "sampling_issue": null,
+          "metadata_status": "blocked"
+        },
+        {
+          "input_file": "manifest.json",
+          "input_file_sha256": "1e65e9bd52deb511cf1ba9228d2042c10f4fd59255a998fc631113eb842e6794",
+          "manifest_hash": "8084997d32e372102caa0b682ac9bf7d30429e69e06a123fbed8f5ddcf615239",
+          "config_hash": "44f98044fc779c9b0837603cf585749491cdb8f760bf7583e9192c45ff9372bc",
+          "feature_space_id": "7948ee1b119d75f232385c10f4862397ebbfe055fc949f4c7ac7b4261521c46f",
+          "feature_space": {
+            "contract_version": "3.1",
+            "dimension": 512,
+            "encoder_sha": "2979019509005056778db9f462e9eed212c40f02d5e5bf1d6fc9e06caf2ebab8",
+            "pooling": "global_avg_pool",
+            "preprocessing_sha": "460cd22d5a8cb61c1b73d85a94b866ee4921e4bebcad89ef31ff32245bb5db3e",
+            "roi_policy_hash": "7bba09cdb147c6f911a07494cf4ce0702cab5f7a85eef7c3d892da3cf77062c9",
+            "sampling_sha": "2d4da1381691844a809a27e5ec9b743cb01f7c37a6b5f34b9aff74857666895e"
+          },
+          "feature_cache_sha256": "6eb274d16f16a008d8670bd78c4ea46e7e07b8f3e43efbd21a3df07471d834f4",
+          "encoder_evidence": {
+            "artifact_sha_verified": true,
+            "execution": "frozen_onnx_cpu",
+            "vector_production": "executed_from_this_source",
+            "weights_sha": "2979019509005056778db9f462e9eed212c40f02d5e5bf1d6fc9e06caf2ebab8"
+          },
+          "source_id": "garment_test_short",
+          "view_id": "6a2e53de181ef0b44841b856a28f49f7e6e2d7f750f446dd9761a396a31764bd",
+          "split": "unassigned",
+          "data_origin": "real_video",
+          "capture_identity": {
+            "physical_camera_id": null,
+            "review_status": "pending",
+            "stable_view_id": null
+          },
+          "acquisition": null,
+          "missing_fields": [
+            "acquisition.capture_session_id",
+            "acquisition.captured_at",
+            "acquisition.review_status",
+            "capture_identity.physical_camera_id",
+            "capture_identity.review_status",
+            "capture_identity.stable_view_id",
+            "dataset_source.camera_id",
+            "dataset_source.capture_session_id",
+            "dataset_source.captured_at",
+            "dataset_source.near_duplicate_review",
+            "dataset_source.provenance_review",
+            "dataset_source.relation",
+            "dataset_source.root_source_sha256",
+            "dataset_source.view_id",
+            "split",
+            "temporal.dataset_manifest.sources[source_hash]",
+            "view_review.complete_reviewed_coverage"
+          ],
+          "provenance": null,
+          "provenance_issue": {
+            "code": "TEMPORAL_CAPTURE_PENDING",
+            "message": "机位、稳定视角或采集会话尚未核实，特征可探索但不可作为独立研究来源",
+            "errors": []
+          },
+          "sampling_status": "development_metadata_only",
+          "sampling": {
+            "schema_version": "p034-sampling-diagnostics-v1",
+            "source_hash": "c3bd9a418ddf56e4ef72218efdb8123ab294a6a4bbdd2038313f7fb498fa48e1",
+            "feature_space_id": "7948ee1b119d75f232385c10f4862397ebbfe055fc949f4c7ac7b4261521c46f",
+            "manifest_hash": "8084997d32e372102caa0b682ac9bf7d30429e69e06a123fbed8f5ddcf615239",
+            "policy": {
+              "history_windows": 8,
+              "horizons_ms": [
+                500,
+                2000,
+                5000
+              ],
+              "target_tolerance_ms": 1000,
+              "max_gap_ms": 2000,
+              "max_pairs_per_split": 512,
+              "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+              "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+            },
+            "status": "has_causal_windows",
+            "eligible_rows": 37,
+            "sequence_count": 1,
+            "short_history_sequences": 0,
+            "candidate_histories": 30,
+            "causal_windows": 16,
+            "uncapped_causal_windows": 16,
+            "rejected_windows": {
+              "future_not_available": 14,
+              "resource_subsampled": 0
+            },
+            "horizons": [
+              {
+                "horizon_ms": 500,
+                "uncapped_causal_windows": 25,
+                "rejected_windows": {
+                  "future_not_available": 5,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 5500,
+                  "requested_start_ms": 6000,
+                  "actual_start_ms": 6000,
+                  "overshoot_ms": 0
+                }
+              },
+              {
+                "horizon_ms": 2000,
+                "uncapped_causal_windows": 22,
+                "rejected_windows": {
+                  "future_not_available": 8,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 5500,
+                  "requested_start_ms": 7500,
+                  "actual_start_ms": 7500,
+                  "overshoot_ms": 0
+                }
+              },
+              {
+                "horizon_ms": 5000,
+                "uncapped_causal_windows": 16,
+                "rejected_windows": {
+                  "future_not_available": 14,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 5500,
+                  "requested_start_ms": 10500,
+                  "actual_start_ms": 10500,
+                  "overshoot_ms": 0
+                }
+              }
+            ],
+            "observed_clip_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observed_start_step_ms": {
+              "min": 500,
+              "max": 500,
+              "uniform": true
+            },
+            "observation_windows": 1,
+            "verified_business_cycles": 0,
+            "feature_values_read": false,
+            "training_executed": false,
+            "training_admission_checked": false,
+            "messages": [
+              "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。",
+              "已有因果窗口仅证明时间覆盖；来源、会话、视角和独立分区仍需单独核验。"
+            ],
+            "report_hash": "0ff3a59009a32476954d6f67e74b65ef6ca94864c55e420a75a165b125ae7884"
+          },
+          "sampling_issue": null,
+          "metadata_status": "blocked"
+        }
+      ],
+      "version_count": 2,
+      "metadata_status": "blocked"
+    },
+    {
+      "source_hash": "f59b2cd48aa3a0d79661d856ce733ee910d38e84a3cc774c36959e77b46872f8",
+      "versions": [
+        {
+          "input_file": "manifest.json",
+          "input_file_sha256": "6adb2698c50dd4d812859932753f367dba99611dacaf036a34a9c9f04f5a3612",
+          "manifest_hash": "bdb9f9dd05feca8256891a539627a2ffd6a4bf336492f501589ced6ee3694046",
+          "config_hash": "92e659cea17f39ecb8f3a013eeb3a71e33ae6bfdba503a1e79621ab870b988be",
+          "feature_space_id": "c46a2a8feb45150ad900811807795b49878d231929bf4138d27b108cd818bd76",
+          "feature_space": {
+            "contract_version": "3.1",
+            "dimension": 512,
+            "encoder_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141",
+            "pooling": "global_avg_pool",
+            "preprocessing_sha": "453bf6781713eb3bdc69e16cf565bddff4d927c2d65d6b08119744707d710eef",
+            "roi_policy_hash": "a2b48090246e39c9a87ddaf427beadc58e8763a37164bdb8ce6564e417bbfbec",
+            "sampling_sha": "4db3fbba41dae18dacfcbd9e08f126bbc20e6f6e42c1c4f12137c2cd5b4dd0fc"
+          },
+          "feature_cache_sha256": "7f3f1cb2564867665c8504e8669cebcbd15bdc61dfe85737c5781ac49ee2b911",
+          "encoder_evidence": {
+            "artifact_sha_verified": true,
+            "execution": "frozen_onnx_cpu",
+            "vector_production": "executed_from_this_source",
+            "weights_sha": "36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141"
+          },
+          "source_id": "bull_station_04",
+          "view_id": "61aee1ae3ff4f64013cfebe95e4bbb934694ec7d0b347f2b0e88ae8287047114",
+          "split": "unassigned",
+          "data_origin": "real_video",
+          "capture_identity": {
+            "physical_camera_id": null,
+            "review_status": "pending",
+            "stable_view_id": null
+          },
+          "acquisition": null,
+          "missing_fields": [
+            "acquisition.capture_session_id",
+            "acquisition.captured_at",
+            "acquisition.review_status",
+            "capture_identity.physical_camera_id",
+            "capture_identity.review_status",
+            "capture_identity.stable_view_id",
+            "dataset_source.camera_id",
+            "dataset_source.capture_session_id",
+            "dataset_source.captured_at",
+            "dataset_source.near_duplicate_review",
+            "dataset_source.provenance_review",
+            "dataset_source.relation",
+            "dataset_source.root_source_sha256",
+            "dataset_source.view_id",
+            "split",
+            "temporal.dataset_manifest.sources[source_hash]",
+            "view_review.complete_reviewed_coverage"
+          ],
+          "provenance": null,
+          "provenance_issue": {
+            "code": "TEMPORAL_CAPTURE_PENDING",
+            "message": "机位、稳定视角或采集会话尚未核实，特征可探索但不可作为独立研究来源",
+            "errors": []
+          },
+          "sampling_status": "development_metadata_only",
+          "sampling": {
+            "schema_version": "p034-sampling-diagnostics-v1",
+            "source_hash": "f59b2cd48aa3a0d79661d856ce733ee910d38e84a3cc774c36959e77b46872f8",
+            "feature_space_id": "c46a2a8feb45150ad900811807795b49878d231929bf4138d27b108cd818bd76",
+            "manifest_hash": "bdb9f9dd05feca8256891a539627a2ffd6a4bf336492f501589ced6ee3694046",
+            "policy": {
+              "history_windows": 8,
+              "horizons_ms": [
+                500,
+                2000,
+                5000
+              ],
+              "target_tolerance_ms": 1000,
+              "max_gap_ms": 2000,
+              "max_pairs_per_split": 512,
+              "target_rule": "first_start_at_or_after_history_end_plus_horizon",
+              "policy_hash": "92e69733c0d98e2d84823127eef1f886f9762713ade2490227a40212b31ccfa1"
+            },
+            "status": "no_causal_windows",
+            "eligible_rows": 85,
+            "sequence_count": 3,
+            "short_history_sequences": 0,
+            "candidate_histories": 64,
+            "causal_windows": 0,
+            "uncapped_causal_windows": 0,
+            "rejected_windows": {
+              "target_outside_tolerance": 52,
+              "future_not_available": 12
+            },
+            "horizons": [
+              {
+                "horizon_ms": 500,
+                "uncapped_causal_windows": 0,
+                "rejected_windows": {
+                  "target_outside_tolerance": 58,
+                  "future_not_available": 6
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 16500,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 1500
+                }
+              },
+              {
+                "horizon_ms": 2000,
+                "uncapped_causal_windows": 58,
+                "rejected_windows": {
+                  "future_not_available": 6,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 18000,
+                  "actual_start_ms": 18000,
+                  "overshoot_ms": 0
+                }
+              },
+              {
+                "horizon_ms": 5000,
+                "uncapped_causal_windows": 52,
+                "rejected_windows": {
+                  "future_not_available": 12,
+                  "resource_subsampled": 0
+                },
+                "first_history_example": {
+                  "issued_ms": 16000,
+                  "requested_start_ms": 21000,
+                  "actual_start_ms": 22000,
+                  "overshoot_ms": 1000
+                }
+              }
+            ],
+            "observed_clip_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observed_start_step_ms": {
+              "min": 2000,
+              "max": 2000,
+              "uniform": true
+            },
+            "observation_windows": 3,
+            "verified_business_cycles": 0,
+            "feature_values_read": false,
+            "training_executed": false,
+            "training_admission_checked": false,
+            "messages": [
+              "未来目标超出时间容差；先固定采样与预测跨度，不能靠临时放宽容差通过验收。",
+              "部分历史窗口之后没有足够未来特征，尾部不能补造训练对。"
+            ],
+            "report_hash": "a4ee5afab926b5b0194acdef0b48e7b09959cabdab0e1efd951e90e720763107"
+          },
+          "sampling_issue": null,
+          "metadata_status": "blocked"
+        }
+      ],
+      "version_count": 1,
+      "metadata_status": "blocked"
+    }
+  ],
+  "metadata_only": true,
+  "feature_values_read": false,
+  "training_executed": false,
+  "test_sampling_diagnostics_executed": false,
+  "training_admission_checked": false,
+  "research_effect": "not_evaluated",
+  "p04_admitted": false,
+  "note": "同源重提仅增加特征版本，不增加独立会话。此报告不检查数据库导入准入，也不替代独立研究验收；现有开发录像不能重新声明为新封存测试。",
+  "report_hash": "899c2f728fb41fcdf4ee6a48231e419fbf5b84d103ec5188474d7dcf73780701"
+}
