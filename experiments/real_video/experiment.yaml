@@ -1,0 +1,11 @@
+evidence_class: retrospective_development
+formal_research_access: false
+system_config: artifacts/exploratory/runtime/config/system.yaml
+extraction: artifacts/exploratory/extraction
+output: artifacts/exploratory/learning
+extraction_wait_seconds: 10800
+assets: [garment_test, garment_test_short, bull_station_01, bull_station_02, bull_station_03, bull_station_04, bull_station_05, bull_station_06, bull_station_07]
+options:
+  guard_ms: 2000
+  minimum_windows: 8
+  learning: {}  # All model parameters and seeds remain those in the isolated system.yaml.
