@@ -41,7 +41,8 @@ jobs:
         with:
           name: browser-verification
           path: |
-            artifacts/p032-browser
+            artifacts/p032-browser/research
+            artifacts/p032-browser/video/*.json
             artifacts/p034-browser/sampling/*.json
             artifacts/p034-browser/sampling/*.png
             artifacts/p035-browser/*.json
