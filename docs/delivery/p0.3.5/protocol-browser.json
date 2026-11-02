@@ -1,0 +1,70 @@
+{
+  "scope": "Isolated real HTTP UI checks; configured protocol and training use synthetic mechanism fixtures only",
+  "real_video_read": false,
+  "real_learning_effect_verified": false,
+  "screenshots_contain_media": false,
+  "missing_protocol": [
+    {
+      "scene": "garment_sop",
+      "missing_protocol": true,
+      "read_only": true,
+      "download": true,
+      "desktop_mobile": true
+    },
+    {
+      "scene": "electronics_assembly",
+      "missing_protocol": true,
+      "read_only": true,
+      "download": true,
+      "desktop_mobile": true
+    },
+    {
+      "scene": "workshop_safety",
+      "missing_protocol": true,
+      "read_only": true,
+      "download": true,
+      "desktop_mobile": true
+    },
+    {
+      "scene": "anonymous_observation",
+      "missing_protocol": true,
+      "read_only": true,
+      "download": true,
+      "desktop_mobile": true
+    }
+  ],
+  "configured_minimum_3": {
+    "protocol_id": "browser_mechanism_fixture",
+    "minimum_sessions": 3,
+    "source": "synthetic_features",
+    "calibration_sources": 2,
+    "uncertainty_status": "insufficient_sessions",
+    "sealed_synthetic_evaluation": false,
+    "metric_and_model_display_switching": true,
+    "report_export": true,
+    "desktop_mobile": true,
+    "training_scope": "explicit synthetic mechanism fixture only",
+    "real_effect_verified": false,
+    "auto_activated": false
+  },
+  "configured_minimum_2": {
+    "protocol_id": "browser_mechanism_fixture",
+    "minimum_sessions": 2,
+    "source": "synthetic_features",
+    "calibration_sources": 2,
+    "uncertainty_status": "estimated",
+    "sealed_synthetic_evaluation": true,
+    "metric_and_model_display_switching": true,
+    "report_export": true,
+    "desktop_mobile": true,
+    "training_scope": "explicit synthetic mechanism fixture only",
+    "real_effect_verified": false,
+    "auto_activated": false
+  },
+  "passed": true,
+  "browser": "154.0.8037.57",
+  "page_errors": [],
+  "console_errors": [],
+  "build_sha256": "7e65de86f2f89f500b6f3387761bafcfa2a973a38a849db2b0f4db8d82c4a2e8",
+  "demo_fixture_written": true
+}

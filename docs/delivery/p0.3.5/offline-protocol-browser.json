@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "source": "committed executed synthetic mechanism fixture",
+  "desktop_mobile": true,
+  "metric_switching": true,
+  "exact_report_export": true,
+  "api_or_remote_requests": 0,
+  "static_document_requests": 1,
+  "real_effect_verified": false,
+  "page_errors": [],
+  "demo_build_sha256": "51ea46d37a19cb3c33e98679ad1df141c4b06e94a817942969c03acfe71f6970",
+  "browser": "154.0.8037.57"
+}

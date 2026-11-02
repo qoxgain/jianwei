@@ -1,0 +1,16 @@
+
+> @jianwei/web@0.1.0 build:demo
+> tsc --noEmit && vite build --mode demo
+
+vite v8.3.4 building client environment for demo...
+transforming...
+✓ 2118 modules transformed.
+rendering chunks...
+[plugin vite:singlefile] 
+
+[plugin vite:singlefile] Inlining: index-CleW4qjo.js
+[plugin vite:singlefile] Inlining: style-Bdo1_gkJ.css
+computing gzip size...
+dist-demo/index.html  1,885.21 kB │ gzip: 300.13 kB
+
+✓ built in 321ms

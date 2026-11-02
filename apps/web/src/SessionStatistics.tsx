@@ -1,0 +1,27 @@
+import {useState} from 'react';
+import type {Interval,MetricName,SessionStatistics as Statistics} from './researchTypes';
+
+const models:Record<string,string>={persistence:'持久性',empirical:'经验转移',ridge:'Ridge',causal_tcn:'因果 TCN',shuffled_ridge:'打乱目标对照'};
+const metrics:Record<MetricName,string>={normalized_feature_mse:'MSE',original_feature_cosine:'原空间余弦',anonymous_state_nll:'匿名状态 NLL',anonymous_state_brier:'匿名状态 Brier'};
+const statuses:Record<string,string>={passed:'达到预注册门槛',failed:'未达到预注册门槛',blocked:'不足以评估',not_final:'校准结果 · 尚非最终评估',mechanism_only:'合成机制验证 · 真实效果未验收'};
+const reasons:Record<string,string>={synthetic_data_not_real_effect_evidence:'合成来源不构成真实学习效果证据。',protocol_not_registered:'研究协议尚未登记，不估计置信区间。',calibration_not_final_test:'校准数据用于选模；最终效果须在独立封存数据上评估。',insufficient_independent_sessions:'独立会话数不足，不能估计置信区间。',undefined_control_baseline:'对照误差为零或接近零，相对改善未定义。',pre_registered_control_threshold_not_met:'至少一项对照的改善区间未达到预先固定的门槛。'};
+const number=(value:number|null|undefined)=>typeof value==='number'&&Number.isFinite(value)?value.toFixed(4):'—';
+const percent=(value:number|null|undefined)=>typeof value==='number'&&Number.isFinite(value)?`${(value*100).toFixed(1)}%`:'未定义';
+function interval(value:Interval|null,percentage=false){const format=percentage?percent:number;return value?`[${format(value.lower)}, ${format(value.upper)}]`:'不足以估计';}
+
+export default function SessionStatistics({statistics}:{statistics:Statistics}){
+ const [selected,setSelected]=useState(statistics.selected_model),[metric,setMetric]=useState<MetricName>('normalized_feature_mse');
+ const data=statistics,synthetic=data.data_origin==='synthetic_features',available=Object.keys(data.session_macro_metrics),model=available.includes(selected)?selected:data.selected_model;
+ const values=data.session_macro_metrics[model]?.[metric],horizons=values?.mean.map((_,i)=>data.horizons_seconds?.[i]!==undefined?`${data.horizons_seconds[i]} 秒`:`跨度 ${i+1}`)??[];
+ return <section className="session-statistics" aria-label="独立会话与研究门槛">
+  <h3>独立会话与研究门槛</h3><div className={`session-gate ${data.gate.status==='passed'?'gate-passed':''}`}><strong>{statuses[data.gate.status]??data.gate.status}</strong>{data.gate.reasons.map(reason=><p key={reason}>{reasons[reason]??reason}</p>)}</div>
+  <p>{synthetic?`${data.resampling_units} 个合成来源用于机制计算；已核验真实采集会话 0 个。`:`${data.independent_sessions} 个已核验独立会话，${data.source_files} 个源文件。`}{data.uncertainty.minimum_sessions!==null?`区间估计至少需要 ${data.uncertainty.minimum_sessions} 个独立会话。`:''}</p>
+  {data.uncertainty.status!=='estimated'&&<p className="ingest-note">{data.uncertainty.status==='insufficient_sessions'?'独立会话数不足，不输出置信区间。':'协议未登记，不输出置信区间。'}</p>}
+  <p className="ingest-note">{data.uncertainty.confidence_level!==null?`${(data.uncertainty.confidence_level*100).toFixed(1)}% 区间；`:''}按整个会话配对重采样，每个会话权重相同。重叠窗口不增加独立样本数，增加窗口也不能补足会话数。</p>
+  <div className="ingest-table-wrap"><table><caption>固定候选 {models[data.selected_model]??data.selected_model} 对照检验 · 主要指标：按会话平均 MSE</caption><thead><tr><th>对照</th><th>相对改善</th><th>改善区间</th><th>结果</th></tr></thead><tbody>{Object.entries(data.comparisons).map(([name,comparison])=><tr key={name}><th>{models[name]??name}</th><td>{percent(comparison.relative_improvement)}</td><td>{comparison.status==='undefined_baseline'?'相对改善未定义':interval(comparison.confidence_interval,true)}</td><td>{comparison.status==='passed'?'达到门槛':comparison.status==='failed'?'未达到门槛':comparison.status==='undefined_baseline'?'对照接近零':'不足以评估'}</td></tr>)}</tbody></table></div>
+  <p className="ingest-note">{data.gate.minimum_relative_improvement!==null?`两项对照的区间下界均须严格大于 ${percent(data.gate.minimum_relative_improvement)}。`:''}候选由校准集选定；下方切换模型只改变显示，不改变候选或研究结论。</p>
+  <div className="session-selectors"><label className="field"><span>查看模型指标</span><select aria-label="查看模型指标" value={model} onChange={event=>setSelected(event.target.value)}>{available.map(name=><option key={name} value={name}>{models[name]??name}</option>)}</select></label><label className="field"><span>查看指标</span><select aria-label="查看指标" value={metric} onChange={event=>setMetric(event.target.value as MetricName)}>{Object.entries(metrics).map(([key,name])=><option value={key} key={key}>{name}</option>)}</select></label></div>
+  {values&&<div className="ingest-table-wrap"><table><caption>逐{synthetic?'合成来源':'独立会话'} · {metrics[metric]} · {metric==='original_feature_cosine'?'越高越好':'越低越好'}</caption><thead><tr><th>{synthetic?'合成来源':'采集会话'}</th>{horizons.map((h,i)=><th key={i}>{h}</th>)}</tr></thead><tbody><tr className="session-average"><th>会话等权平均</th>{values.mean.map((value,i)=><td key={i}>{number(value)}<small>{values.confidence_interval?`[${number(values.confidence_interval.lower[i])}, ${number(values.confidence_interval.upper[i])}]`:'区间未估计'}</small></td>)}</tr>{data.per_session.map(row=><tr key={row.resampling_unit}><th><span>{row.capture_session_id??`合成源 ${row.source_hash.slice(0,12)}`}</span><small title={row.source_hash}>{row.source_hash.slice(0,16)}</small></th>{row.metrics[model]?.[metric].map((value,i)=><td key={i}>{number(value)}</td>)}</tr>)}</tbody></table></div>}
+  <details><summary>统计方法与适用范围</summary><p>配对会话百分位 bootstrap；{data.uncertainty.bootstrap_replicates??'未登记'} 次重采样，随机种子 {data.uncertainty.bootstrap_seed??'未登记'}。主要指标对所有固定跨度等权平均，不事后挑选最好跨度。</p>{data.limitations.map(text=><p className="ingest-note" key={text}>{text}</p>)}<p className="ingest-note">当前报告不自动激活模型，也不自动进入 P0.4。</p></details>
+ </section>;
+}

@@ -1,9 +1,13 @@
 import {isDemo} from './sceneService';
 import evidence from './temporalExample.json';
+import researchEvidence from './researchExample.json';
 import readinessEvidence from './readinessExample.json';
 import type {ReadinessReport,DatasetDraft} from './readinessTypes';
 import type {TemporalExample,TemporalInput,TemporalRun} from './temporalTypes';
-const references=evidence as {scenes:Record<string,TemporalRun[]>};
+import type {ProtocolPreview} from './researchTypes';
+const historical=evidence as {scenes:Record<string,TemporalRun[]>};
+const research=researchEvidence as {scenes:Record<string,TemporalRun[]>};
+const references={scenes:Object.fromEntries(Object.entries(historical.scenes).map(([scene,rows])=>[scene,[...(research.scenes[scene]??[]),...rows]]))};
 const path=(scene:string)=>`scenes/${encodeURIComponent(scene)}/temporal`;
 async function request<T>(url:string,data?:unknown):Promise<T>{
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
@@ -24,3 +28,7 @@ export async function checkReadiness(scene:string,import_ids:string[],model_run_
  return request(path(scene)+'/readiness',{import_ids,...(model_run_id?{model_run_id}:{})});
 }
 export async function datasetTemplate(scene:string,import_ids:string[]):Promise<DatasetDraft>{requireAPI();return request(path(scene)+'/dataset-template',{import_ids});}
+export async function researchProtocol(scene:string):Promise<ProtocolPreview>{
+ if(isDemo)return {stage:'P0.3.5',scene_id:scene,status:'blocked',protocol:null,protocol_hash:null,missing_fields:[],bindings:{},rosters:[],blockers:[],metadata_only:true,feature_values_read:false,test_values_read:false,training_executed:false,jobs_created:false,offline:true};
+ return request(path(scene)+'/protocol');
+}

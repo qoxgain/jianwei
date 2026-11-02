@@ -6,6 +6,8 @@ import {partitionSelection} from './temporalTypes';
 import type {TemporalInput,TemporalReport,TemporalRun} from './temporalTypes';
 import {createTemporalExample,evaluateTemporal,retryTemporal,temporalArtifact,temporalInputs,temporalRun,temporalRuns,trainTemporal} from './temporalService';
 import ReadinessPanel from './ReadinessPanel';
+import ResearchProtocolPanel from './ResearchProtocolPanel';
+import SessionStatistics from './SessionStatistics';
 const names:Record<string,string>={persistence:'持久性',empirical:'经验转移',ridge:'Ridge',causal_tcn:'因果 TCN',shuffled_ridge:'打乱目标对照'};
 const statuses={queued:'排队中',running:'研究中',succeeded:'完成 · 未激活',blocked:'条件未满足',failed:'执行失败'};
 const average=(values:number[])=>values.reduce((a,b)=>a+b,0)/values.length;
@@ -17,10 +19,11 @@ function Result({report}:{report:TemporalReport}){
   <div className="ingest-metrics"><div><strong>{metrics?.independent_sources??0}</strong><span>{report.test?'封存测试':'校准'}独立源</span></div><div><strong>{metrics?.windows??0}</strong><span>相关时序窗口</span></div><div><strong>{selected?names[selected]: '—'}</strong><span>校准集选择</span></div><div><strong>未验证</strong><span>业务动作准确率</span></div></div>
   {metrics&&<div className="ingest-table-wrap"><table><caption>{report.test?'封存测试结果':'校准比较'} · 特征误差越小越好</caption><thead><tr><th>模型</th><th>按源平均 MSE</th><th>原空间余弦</th><th>匿名状态 NLL</th></tr></thead><tbody>{Object.entries(metrics.metrics).map(([name,m])=><tr key={name}><td>{names[name]??name}{name===selected?' · 已选择':''}</td><td>{number(metrics.source_macro_mse[name])}</td><td>{number(average(m.original_feature_cosine))}</td><td>{number(average(m.anonymous_state_nll))}</td></tr>)}</tbody></table></div>}
   <p className="ingest-note">窗口来自同一视频时并不独立。选模只用校准数据；test结果不会改变候选选择。匿名状态指标不是事件识别率。</p>
+  {report.session_statistics?<SessionStatistics key={report.snapshot.hash} statistics={report.session_statistics}/>:<p className="ingest-note">历史报告未记录独立会话区间与预注册门槛，不能据此判定真实学习效果。</p>}
   {report.training&&<p>TCN 训练损失：{number(report.training.initial_loss)} → {number(report.training.epoch_losses.at(-1))}；参数实际变化 {number(report.training.parameter_delta_l2)}。</p>}
   {report.projection&&<p>PCA {report.projection.dimension} 维，训练集保留方差 {(report.projection.explained_variance_ratio*100).toFixed(1)}%。视觉编码器保持冻结。</p>}
   <div className="temporal-facts"><p>变化点候选分段 <strong>{report.anonymous_discovery.segments.length}</strong>；均匀分段对照 <strong>{report.anonymous_discovery.uniform_segments.length}</strong>。没有边界真值，不计算分段准确率。</p><p>下一不同匿名簇：{report.next_anonymous_state.observed_transitions} 个可观察转移，{report.next_anonymous_state.censored_windows} 个窗口未观察到后续变化；NLL {number(report.next_anonymous_state.nll)}。</p></div>
-  <dl className="ingest-facts"><div><dt>数据快照</dt><dd><code className="ingest-hash">{report.snapshot.hash}</code></dd></div>{report.model&&<><div><dt>实际权重 SHA256</dt><dd><code className="ingest-hash">{report.model.weights_sha256}</code></dd></div><div><dt>匿名簇版本</dt><dd><code className="ingest-hash">{report.model.cluster_version}</code></dd></div></>}</dl>
+  <dl className="ingest-facts"><div><dt>数据快照</dt><dd><code className="ingest-hash">{report.snapshot.hash}</code></dd></div>{report.model&&<><div><dt>实际权重 SHA256</dt><dd><code className="ingest-hash">{report.model.weights_sha256}</code></dd></div><div><dt>匿名簇版本</dt><dd><code className="ingest-hash">{report.model.cluster_version}</code></dd></div>{report.model.research_protocol&&<div><dt>训练前冻结协议</dt><dd><code className="ingest-hash">{report.model.research_protocol.hash}</code></dd></div>}</>}</dl>
  </div>;
 }
 export default function TemporalPanel({scene}:{scene:string}){
@@ -40,6 +43,7 @@ export default function TemporalPanel({scene}:{scene:string}){
  return <div className="temporal-workspace">
   <section className="panel ingest-start"><div className="ingest-start-icon"><FlaskConical size={27}/></div><div><h2>先验证时序是否可学习</h2><p>{isDemo?'查看随附的实际合成研究记录。浏览器不执行训练或测试。':'从已接入的独立视频特征开始；无需动作标签或 SOP。'}</p><small>冻结编码器 · 训练与封存测试分开 · 候选不自动激活</small></div>{!isDemo&&<button className="button primary" onClick={example} disabled={!!busy}>准备合成研究示例</button>}</section>
   {error&&<div className="ingest-alert" role="alert"><TriangleAlert size={18}/>{error}</div>}{notice&&<p className="ingest-feedback" role="status">{notice}</p>}
+  <ResearchProtocolPanel scene={scene}/>
   <div className="temporal-grid">
    <section className="panel"><div className="panel-heading"><h2>{isDemo?'研究记录':'选择研究数据'}</h2><button className="icon-button" aria-label="刷新研究任务" onClick={()=>void refresh()}><RefreshCw size={17}/></button></div><div className="jw-fields">
     {!isDemo&&<><p className="ingest-note">上传真实数据时，在“数据接入”选择整个原始视频的分区。未分配或未核验来源不能参加训练。</p><div className="temporal-inputs">{inputs.map(row=><label key={row.id} className="temporal-input"><input type="checkbox" disabled={!!busy} checked={(row.split==='test'?testIds:ids).includes(row.id)} onChange={()=>toggle(row.id,row.split==='test')}/><span><strong>{row.split} · {row.eligible_rows} 行</strong><small>{row.data_origin==='synthetic_features'?'合成源':'上传来源'} · {row.source_hash.slice(0,12)}</small></span></label>)}</div>{!inputs.length&&<p>尚无成功导入；可以先准备合成示例。</p>}
@@ -55,7 +59,7 @@ export default function TemporalPanel({scene}:{scene:string}){
    <section className="panel"><div className="panel-heading"><h2>{detail?.kind==='evaluate'?'独立测试报告':'候选研究报告'}</h2>{detail?.report&&<button className="button secondary small" onClick={()=>downloadText(`${detail.id}.research.json`,JSON.stringify(detail.report,null,2))}><Download size={14}/>导出报告</button>}</div><div className="jw-fields">
     {detail?.error&&<div className="ingest-alert"><div><strong>{detail.error.message}</strong><p>{detail.error.code}</p>{!isDemo&&<button className="button secondary" onClick={()=>void perform('重试研究',async()=>{await retryTemporal(scene,detail.id);})}>重试</button>}</div></div>}
     {detail?.status==='running'||detail?.status==='queued'?<p role="status">服务器正在处理，刷新页面可恢复任务记录。</p>:null}
-    {detail?.report?<><Result report={detail.report}/>{!isDemo&&<div className="button-row"><a className="button secondary" href={temporalArtifact(scene,detail.id,'report.json')}>完整报告</a>{detail.kind==='train'&&<a className="button secondary" href={temporalArtifact(scene,detail.id,'weights.npz')}>下载候选权重</a>}<a className="button secondary" href={temporalArtifact(scene,detail.id,`${detail.kind==='train'?'calibration':'test'}-predictions.jsonl`)}>预测与观测记录</a></div>}</>:!detail?.error&&<div className="jw-empty"><FlaskConical size={32}/><h2>从证据开始研究</h2><p>结果将保留独立源数、实际权重、各基线表现与失败原因。</p></div>}
+    {detail?.report?<><Result report={detail.report}/>{!isDemo&&<div className="button-row"><a className="button secondary" href={temporalArtifact(scene,detail.id,'report.json')}>完整报告</a>{detail.kind==='train'&&<a className="button secondary" href={temporalArtifact(scene,detail.id,'weights.npz')}>下载候选权重</a>}{detail.kind==='train'&&detail.report.model?.research_protocol&&<a className="button secondary" href={temporalArtifact(scene,detail.id,'protocol.json')}>冻结研究协议</a>}<a className="button secondary" href={temporalArtifact(scene,detail.id,`${detail.kind==='train'?'calibration':'test'}-predictions.jsonl`)}>预测与观测记录</a></div>}</>:!detail?.error&&<div className="jw-empty"><FlaskConical size={32}/><h2>从证据开始研究</h2><p>结果将保留独立源数、实际权重、各基线表现与失败原因。</p></div>}
    </div></section>
   </div>
  </div>;

@@ -151,7 +151,7 @@ def exercise(page, address, mode, directory, data_root, downloads):
             expect(page.get_by_role('button', name='准备合成研究示例', exact=True)).to_have_count(0)
             readiness(page, mode, scene, downloads, 'offline')
             screenshot(page, directory/f'{prefix}-readiness.png')
-            page.get_by_role('button', name='独立封存评估', exact=False).click()
+            page.get_by_role('button', name='独立封存评估', exact=False).first.click()
             expect(page.locator('.temporal-result')).to_be_visible()
         report = json.loads(download(page, page.get_by_role('button', name='导出报告', exact=True), downloads / f'{prefix}-test.json'))
         assert report['test']['independent_sources'] == 2
@@ -167,7 +167,7 @@ def exercise(page, address, mode, directory, data_root, downloads):
         # API selects the newest run after refresh; the standalone demo keeps its
         # supplied train/evaluation records and permits selecting either again.
         if mode == 'offline':
-            page.get_by_role('button', name='独立封存评估', exact=False).click()
+            page.get_by_role('button', name='独立封存评估', exact=False).first.click()
         expect(page.get_by_role('heading', name='独立测试报告', exact=True)).to_be_visible()
         restored = json.loads(download(page, page.get_by_role('button', name='导出报告', exact=True), downloads / f'{prefix}-reloaded.json'))
         assert restored == report
