@@ -1,0 +1,1327 @@
+{
+  "passed": true,
+  "scope": "generated test-registered video only",
+  "requests_checked": 216,
+  "denials": [
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": true,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "range": false,
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": true,
+      "status": 403
+    }
+  ],
+  "legal_static_asset_loads": true,
+  "normal_react_workbench_loads": true,
+  "builds": {
+    "production": {
+      "members": [
+        "index.html",
+        "build-members.json",
+        "static/brand-mark.svg"
+      ],
+      "protected_bytes_present": false
+    },
+    "demo": {
+      "members": [
+        "index.html",
+        "build-members.json",
+        "static/brand-mark.svg"
+      ],
+      "protected_bytes_present": false
+    }
+  },
+  "listed_asset_link_rejected": true,
+  "poisoned_build_rejected": true,
+  "preview_post_build_alias_denied": true,
+  "protected_cache_bytes_present": false
+}

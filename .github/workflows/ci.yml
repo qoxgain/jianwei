@@ -40,6 +40,12 @@ jobs:
         run: .venv/bin/python tests/browser_p037_a.py --chromium "$(command -v google-chrome)" --output artifacts/p037-a-browser
       - name: P0.3.7-A shipped offline evidence and pending user acceptance
         run: .venv/bin/python tests/browser_p037_a_offline.py --chromium "$(command -v google-chrome)" --output artifacts/p037-a-offline
+      - name: A.1 reviewed publication, hardlink variants, builds, preview and cache bytes
+        run: .venv/bin/python -m tests.check_p037_a1_static --chromium "$(command -v google-chrome)" --output artifacts/p037-a1-static
+      - name: A.1 five-state real HTTP interaction on two I/O tokens
+        run: .venv/bin/python tests/browser_p037_a1.py --chromium "$(command -v google-chrome)" --output artifacts/p037-a1-browser
+      - name: A.1 media-free offline evidence filters and export
+        run: .venv/bin/python tests/browser_p037_a1_offline.py --chromium "$(command -v google-chrome)" --output artifacts/p037-a1-offline
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -53,6 +59,9 @@ jobs:
             artifacts/p037-a-browser/results.json
             artifacts/p037-a-browser/*-http-results.json
             artifacts/p037-a-offline/results.json
+            artifacts/p037-a1-static/results.json
+            artifacts/p037-a1-browser/results.json
+            artifacts/p037-a1-offline/results.json
             artifacts/p031-browser-work/**/api.log
             artifacts/p031-browser-work/**/static.log
   foundation:
@@ -86,10 +95,10 @@ jobs:
         working-directory: apps/web
       - run: npm run build:demo
         working-directory: apps/web
-      - name: Verify the committed media-free Demo matches the current tested build
-        run: |
-          python -m scripts.package_p036_demo --output artifacts/p036-demo-rebuilt
-          cmp docs/demo/p0.3.6/jianwei-p0.3.6-demo.zip artifacts/p036-demo-rebuilt/jianwei-p0.3.6-demo.zip
+      - name: Preserve P0.3.6 archive against its original manifest and browser hash
+        run: python -m scripts.verify_historical_demo
+      - name: Verify A.1 archive integrity and publication boundary
+        run: python -m scripts.package_p037_a1_demo --verify-only
       - name: Verify Stage-A archive integrity and publication boundary
         run: python -m scripts.package_p037_a_demo --verify-only
   pretrained-encoder:

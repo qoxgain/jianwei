@@ -1,0 +1,38 @@
+{
+  "baseline": "b029f783689de2bf94f0a8e1c5dd743516ddf5af",
+  "scope": "generated pattern and disposable databases only",
+  "RELEASE[s]": {
+    "fault_persisted_before_actual_release": true,
+    "committed_rows": 1
+  },
+  "RELEASE\"s\"": {
+    "fault_persisted_before_actual_release": true,
+    "committed_rows": 1
+  },
+  "backup": {
+    "wrote_faulted_target": true
+  },
+  "tool_disappears": {
+    "status": "unavailable"
+  },
+  "tool_probe_error": {
+    "status": "unavailable"
+  },
+  "pending_cancel": {
+    "pending_status": 422,
+    "after_cancel": 422,
+    "source_split": "unassigned"
+  },
+  "threads_2": {
+    "state": "timed_out",
+    "tokens": 2,
+    "borrowed": 2,
+    "owner_first_chunk": true
+  },
+  "threads_4": {
+    "state": "completed",
+    "tokens": 4,
+    "borrowed": 2,
+    "owner_first_chunk": true
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "archive_sha256": "c2a529f1c32ce12bbe281bb0871d8bfdd8d6f4788ea87955bfd07e4d19f30f59",
+  "files": {
+    "index.html": {
+      "bytes": 30330,
+      "sha256": "9e0ccd063c66893d41521396b9876cf4a2a71f9541ebc1b0843ddbb70326a5c7"
+    },
+    "evidence.json": {
+      "bytes": 40826,
+      "sha256": "95d305695891c0e078a91f5ded663e0ba369dcfd8a548981756a07dbfe30d55b"
+    },
+    "backend-junit.xml": {
+      "bytes": 88512,
+      "sha256": "837a7853d4ff247ea35c0db6e7c148274f7adc8ad33fd87eedea8d908536c0f8"
+    },
+    "使用说明.txt": {
+      "bytes": 173,
+      "sha256": "00b0013fcb52ae8abfab752b0729c1b2ff214e6f29ccc273d074207423d137c0"
+    }
+  }
+}

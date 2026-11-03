@@ -1,0 +1,122 @@
+{
+  "passed": true,
+  "browser": "154.0.8037.57",
+  "cases": [
+    {
+      "source": "bull_station_01",
+      "all_seeds_checked": 5,
+      "cohorts_checked": [
+        "8",
+        "16",
+        "32"
+      ],
+      "blocked_without_fabrication": false,
+      "scalar_table_matches_executed_json": true
+    },
+    {
+      "source": "bull_station_02",
+      "all_seeds_checked": 5,
+      "cohorts_checked": [
+        "8",
+        "16",
+        "32"
+      ],
+      "blocked_without_fabrication": false,
+      "scalar_table_matches_executed_json": true
+    },
+    {
+      "source": "bull_station_03",
+      "all_seeds_checked": 5,
+      "cohorts_checked": [
+        "8",
+        "16",
+        "32"
+      ],
+      "blocked_without_fabrication": false,
+      "scalar_table_matches_executed_json": true
+    },
+    {
+      "source": "bull_station_04",
+      "all_seeds_checked": 5,
+      "cohorts_checked": [
+        "8",
+        "16",
+        "32"
+      ],
+      "blocked_without_fabrication": false,
+      "scalar_table_matches_executed_json": true
+    },
+    {
+      "source": "bull_station_05",
+      "all_seeds_checked": 5,
+      "cohorts_checked": [
+        "8",
+        "16",
+        "32"
+      ],
+      "blocked_without_fabrication": false,
+      "scalar_table_matches_executed_json": true
+    },
+    {
+      "source": "bull_station_06",
+      "all_seeds_checked": 5,
+      "cohorts_checked": [
+        "8",
+        "16",
+        "32"
+      ],
+      "blocked_without_fabrication": false,
+      "scalar_table_matches_executed_json": true
+    },
+    {
+      "source": "bull_station_07",
+      "all_seeds_checked": 5,
+      "cohorts_checked": [
+        "8",
+        "16",
+        "32"
+      ],
+      "blocked_without_fabrication": false,
+      "scalar_table_matches_executed_json": true
+    },
+    {
+      "source": "garment_test",
+      "all_seeds_checked": 5,
+      "cohorts_checked": [
+        "8",
+        "16",
+        "32"
+      ],
+      "blocked_without_fabrication": false,
+      "scalar_table_matches_executed_json": true
+    },
+    {
+      "source": "garment_test_short",
+      "all_seeds_checked": 0,
+      "cohorts_checked": [
+        "8",
+        "16",
+        "32"
+      ],
+      "blocked_without_fabrication": true,
+      "scalar_table_matches_executed_json": true
+    }
+  ],
+  "desktop_mobile": true,
+  "exact_report_export": true,
+  "local_video": {
+    "executed": true,
+    "original_sha_matched": true,
+    "wrong_sha_rejected": true,
+    "metadata_loaded": true,
+    "future_clip_seek": true,
+    "frames_screenshotted": false
+  },
+  "api_or_remote_requests": 0,
+  "page_errors": [],
+  "console_errors": [],
+  "screenshots_contain_media_frames": false,
+  "formal_research_passed": false,
+  "build_sha256": "2bce0185b979d4d62b4769b4ee9c05aa88f58db64e57f0e44b19898784d567a5",
+  "statistics_sha256": "3514ab2cd24d387526197048eccd98727f3a4cccd6dca634b486a3958bf5566c"
+}

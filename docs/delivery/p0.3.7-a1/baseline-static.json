@@ -1,0 +1,11 @@
+{
+  "scope": "generated test-registered MP4, renamed hardlink",
+  "source_sha256": "5ebc017f59bca117529ec97325cca90eca1fb5bf4a23f6bd5524cbfa1fd9bda3",
+  "nlink": 2,
+  "get": 200,
+  "range": 206,
+  "full_bytes_equal": true,
+  "range_bytes_equal": true,
+  "build_production_copied_protected_bytes": true,
+  "build_demo_copied_protected_bytes": true
+}
