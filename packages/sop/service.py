@@ -28,6 +28,8 @@ class SopService:
         self.bundle, self.database = bundle, database
         self.settings = getattr(bundle.config, 'sop_review', None)
         self.tenant = bundle.profile.tenant_id
+        from packages.media.access import MediaAccess
+        self.access=MediaAccess(bundle,database)
         self._lock, self._cache, self._verified = RLock(), None, {}
 
     def check_scene(self, scene):
@@ -87,6 +89,9 @@ class SopService:
         return pages, f'{extractor};layout;UTF-8;unix;unicode-codepoint-offsets-v1'
 
     def _load(self, scene):
+        with self.access.gate.hold():return self._load_locked(scene)
+
+    def _load_locked(self, scene):
         self.check_scene(scene)
         with self._lock:
             catalog_path = self._path(self.settings.catalog_path)
@@ -95,6 +100,7 @@ class SopService:
             catalog, outline, mapping = (self._json(p) for p in (catalog_path, outline_path, mapping_path))
             try:
                 source_path = self._path(outline['source']['path'])
+                self.access.check(scene,source_path,outline['source']['sha256'])
                 stamp = tuple(fingerprint(p) for p in (catalog_path, outline_path, mapping_path, source_path))
                 if self._cache and self._cache['stamp'] == stamp:
                     return self._cache
@@ -254,6 +260,14 @@ class SopService:
         payload['evidence_policy'] = 'No instrument authentication, automatic compliance decision or training-label promotion'
 
     def media(self, scene, identifier):
+        with self.access.gate.hold():return self._media_locked(scene,identifier)
+
+    def _media_locked(self, scene, identifier):
+        self.check_scene(scene)
+        catalog=self._json(self._path(self.settings.catalog_path))
+        candidate=next((a for a in catalog['assets'] if a['asset_id']==identifier),None)
+        if candidate is None:fail('SOP_ASSET_NOT_FOUND','当前场景没有注册此媒体资产')
+        self.access.check(scene,self._path(candidate['path']),candidate['sha256'])
         loaded = self._load(scene)
         asset = loaded['assets'].get(identifier)
         if asset is None:

@@ -9,8 +9,13 @@ class ImportInspection:
     def __init__(self, imports):
         self.imports=imports
         self.verified={}
+        from packages.media.access import MediaAccess
+        self.access=MediaAccess(imports.bundle,imports.database)
 
     def media(self, scene, identifier):
+        with self.access.gate.hold():return self._media(scene,identifier)
+
+    def _media(self, scene, identifier):
         service=self.imports;service.check_scene(scene)
         with service.database.session() as session:
             row=service._job(session,scene,identifier)
@@ -21,6 +26,8 @@ class ImportInspection:
             if not video_id:raise ContractError('IMPORT_MEDIA_UNAVAILABLE','该导入未上传原始视频')
             artifact=service._artifact(session,video_id,'mp4');path=service._path(artifact)
             digest,size=artifact.sha256,artifact.size_bytes
+            split=(json.loads(row.manifest_json).get("split") if row.manifest_json else request.get("requested_split"))
+        self.access.check(scene,path,digest,split=split)
         try:
             stat=path.stat();stamp=(path,stat.st_size,stat.st_mtime_ns,stat.st_ctime_ns,stat.st_ino)
             if stat.st_size!=size:raise OSError
@@ -34,6 +41,9 @@ class ImportInspection:
         return path,digest
 
     def report(self, scene, identifier):
+        with self.access.gate.hold():return self._report(scene,identifier)
+
+    def _report(self, scene, identifier):
         job=self.imports.get(scene,identifier);manifest=job['manifest']
         if manifest is None:raise ContractError('IMPORT_MANIFEST_UNAVAILABLE','任务尚未生成可探索清单')
         # Admission precedes media fingerprinting: a sealed source must not be
@@ -56,6 +66,9 @@ class ImportInspection:
         return result
 
     def preview(self,scene,identifier):
+        with self.access.gate.hold():return self._preview(scene,identifier)
+
+    def _preview(self,scene,identifier):
         path,digest=self.media(scene,identifier)
         bundle=self.imports.bundle;settings=getattr(bundle.config,'sop_review',None)
         if settings is None:raise ContractError('PREVIEW_DISABLED','当前配置尚未启用本地兼容预览')

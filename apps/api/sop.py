@@ -32,6 +32,7 @@ def evidence(scene_id: str, body: EvidenceRecord, request: Request):
 def media(scene_id: str, asset_id: str, request: Request):
     service = request.app.state.sop
     path, asset = service.media(scene_id, asset_id)
+    def guarded(response):return service.access.response(response,scene_id,path,asset['sha256'])
     size = asset['bytes']
     headers = {'Accept-Ranges': 'bytes', 'ETag': f'"{asset["sha256"]}"', 'Cache-Control': 'private, no-cache',
                'X-Content-Type-Options': 'nosniff'}
@@ -49,12 +50,12 @@ def media(scene_id: str, asset_id: str, request: Request):
         else:
             start = size
         if start >= size or end < start:
-            return Response(status_code=416, headers={**headers, 'Content-Range': f'bytes */{size}'})
+            return guarded(Response(status_code=416, headers={**headers, 'Content-Range': f'bytes */{size}'}))
         status = 206
         headers['Content-Range'] = f'bytes {start}-{end}/{size}'
     headers['Content-Length'] = str(end-start+1)
     if request.method == 'HEAD':
-        return Response(status_code=status, headers=headers, media_type=mime)
+        return guarded(Response(status_code=status, headers=headers, media_type=mime))
 
     def chunks():
         with path.open('rb') as source:
@@ -66,7 +67,7 @@ def media(scene_id: str, asset_id: str, request: Request):
                     break
                 yield chunk
                 remaining -= len(chunk)
-    return StreamingResponse(chunks(), status_code=status, headers=headers, media_type=mime)
+    return guarded(StreamingResponse(chunks(), status_code=status, headers=headers, media_type=mime))
 
 
 @router.get('/media/{asset_id}/preview')
@@ -78,8 +79,10 @@ def preview(scene_id: str, asset_id: str, request: Request):
     path,asset=service.media(scene_id,asset_id)
     if asset['kind']!='video':
         raise ContractError('PREVIEW_MEDIA_KIND','兼容预览仅支持已登记的视频')
-    result,metadata=preview_video(path,asset['sha256'],service.bundle,service.settings)
-    return FileResponse(result,media_type='video/mp4',headers={
+    with service.access.gate.hold():
+        service.access.check(scene_id,path,asset['sha256'])
+        result,metadata=preview_video(path,asset['sha256'],service.bundle,service.settings)
+    return service.access.response(FileResponse(result,media_type='video/mp4',headers={
         'ETag':f'"{metadata["preview_sha256"]}"','Cache-Control':'private, no-cache',
         'X-Original-SHA256':metadata['source_sha256'],
-        'X-Media-Lineage':'derived-for-local-viewing-only'})
+        'X-Media-Lineage':'derived-for-local-viewing-only'}),scene_id,path,asset['sha256'],derived=result)

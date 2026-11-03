@@ -279,13 +279,14 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
     @application.head('/api/scenes/{scene_id}/imports/{import_id}/media', include_in_schema=False)
     def import_media(scene_id: str, import_id: str):
         path, digest = application.state.inspection.media(scene_id, import_id)
-        return FileResponse(path, media_type='video/mp4', headers={'ETag': f'"{digest}"', 'Cache-Control': 'private, no-cache'})
+        return application.state.inspection.access.response(FileResponse(path, media_type='video/mp4', headers={'ETag': f'"{digest}"', 'Cache-Control': 'private, no-cache'}),scene_id,path,digest)
 
     @application.get('/api/scenes/{scene_id}/imports/{import_id}/media/preview')
     @application.head('/api/scenes/{scene_id}/imports/{import_id}/media/preview', include_in_schema=False)
     def import_preview(scene_id: str, import_id: str):
-        path, _metadata = application.state.inspection.preview(scene_id, import_id)
-        return FileResponse(path, media_type='video/mp4', headers={'Cache-Control': 'private, no-cache'})
+        path, metadata = application.state.inspection.preview(scene_id, import_id)
+        original,digest=application.state.inspection.media(scene_id,import_id)
+        return application.state.inspection.access.response(FileResponse(path, media_type='video/mp4', headers={'Cache-Control': 'private, no-cache'}),scene_id,original,digest,derived=path)
 
     @application.post('/api/scenes/{scene_id}/imports/{import_id}/cancel', status_code=202)
     def cancel_import(scene_id: str, import_id: str):
