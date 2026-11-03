@@ -1,0 +1,9 @@
+# R02-2 收敛原生备份目标能力
+
+基线已证实：源原生sqlite3.Connection.backup可直接写入已获取且随后标故障的受管理目标，跳过目标authorizer及Python方法。因此继续继承sqlite3.Connection不能封闭该入口。
+
+整改为组合式DBAPI外观，不对支持的driver_connection/raw cursor.connection/execute返回值/context暴露原生SQLite连接类型；原生backup将其作为目标时类型检查即拒绝，目标字节不变。受管理backup方法也明确拒绝；仅Database.backup持内部能力、核查源隔离并独占创建新文件，经integrity校验后返回。旧迁移备份复用该批准路径，没有增加恢复或解除故障标记的接口。
+
+46项backup、保存点、事务、可靠性和迁移回归通过；包含健康/故障目标与四种句柄、合法新备份及禁止覆盖，源库隔离重启不清除。历史database disk image is malformed根因仍未确认。
+
+边界是受支持DBAPI接口，不是对持有任意Python反射、文件写入或非受管SQLite进程权限者的沙箱；私有实现对象和外部恢复不是支持接口。任意外部复制/删隔离标记仍须离线对账，不能把消费过的资料重新封存。真实工业原库及研究记录未触碰。

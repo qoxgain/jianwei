@@ -10,7 +10,7 @@ import hashlib
 import json
 from functools import partial
 from infra.file_gate import file_gate
-from infra.sqlite_guard import GuardedConnection
+from infra.sqlite_connection import ManagedConnection, _backup_to_new_file
 from sqlalchemy.exc import DisconnectionError
 from packages.contracts.database import SQLiteSettings
 from packages.config.errors import ContractError
@@ -40,7 +40,7 @@ class Database:
         options = {"pool_pre_ping": True}
         if url.get_backend_name() == "sqlite":
             options["connect_args"] = {"check_same_thread": False, "timeout": self.sqlite_settings.busy_timeout_ms/1000,
-                "factory":partial(GuardedConnection,_owner=self),"cached_statements":0}
+                "factory":partial(ManagedConnection,_owner=self),"cached_statements":0}
             if url.database in (None, "", ":memory:"):
                 # Reuse the same connection when a test or local app selects memory.
                 options["poolclass"] = StaticPool
@@ -86,8 +86,7 @@ class Database:
                 import sqlite3
                 backup_path = Path(db_path + '.pre-p011.sqlite')
                 if not backup_path.exists():
-                    with sqlite3.connect(db_path) as source, sqlite3.connect(backup_path) as target:
-                        source.backup(target)
+                    self.backup(backup_path)
             with self.engine.begin() as connection:
                 configuration.attributes.update(connection=connection, tenant_id=tenant_id, scene_id=scene_id)
                 command.upgrade(configuration, "head")
@@ -200,7 +199,7 @@ class Database:
         with target.open('xb'):pass
         try:
             with self.engine.connect() as connection, sqlite3.connect(target) as output:
-                connection.connection.driver_connection.backup(output)
+                _backup_to_new_file(connection.connection.driver_connection,output)
                 if output.execute('PRAGMA integrity_check').fetchall()!=[('ok',)]:raise ValueError
             with target.open('rb') as stream:sha=hashlib.file_digest(stream,'sha256').hexdigest()
             return {'status':'ok','sha256':sha,'bytes':target.stat().st_size,'original_overwritten':False}
