@@ -1,5 +1,4 @@
 """Versioned production dependency closure; no source pixels or feature values."""
-from functools import lru_cache
 import hashlib
 from importlib import metadata
 from pathlib import Path
@@ -9,7 +8,7 @@ import subprocess
 
 from packages.knowledge.service import content_hash
 
-VERSION = 'p036-feature-production-v2'
+VERSION = 'p037-feature-production-v3'
 ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -25,12 +24,16 @@ def source_snapshot():
     return {str(p.relative_to(ROOT)): digest(p) for p in paths}
 
 
-@lru_cache(maxsize=16)
 def _tool(path, size, modified_ns):
     # The executable comes from the configured runtime PATH, never an upload.
+    before=digest(path)
     output = subprocess.run([path,'-version'],capture_output=True,text=True,timeout=5,check=True).stdout
+    after=digest(path)
+    if before!=after:
+        from packages.config.errors import ContractError
+        raise ContractError('FEATURE_TOOL_CHANGED','工具在版本核验期间发生变化，停止生产/缓存复用')
     lines = output.splitlines()
-    return {'executable_sha256':digest(path), 'version':lines[0],
+    return {'executable_sha256':after, 'version':lines[0],
             'libraries':[line.strip() for line in lines if line.lstrip().startswith('lib')]}
 
 
