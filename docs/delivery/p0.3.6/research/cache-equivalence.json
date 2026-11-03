@@ -1,0 +1,59 @@
+{
+  "assets": [
+    {
+      "asset_id": "garment_test",
+      "rows": 231,
+      "cache_sha256": "e35470849539db47fa677160b6301713309066d951dfc8f12c52035dddc4f856",
+      "matches_historical_cache_bytes": true
+    },
+    {
+      "asset_id": "garment_test_short",
+      "rows": 37,
+      "cache_sha256": "6eb274d16f16a008d8670bd78c4ea46e7e07b8f3e43efbd21a3df07471d834f4",
+      "matches_historical_cache_bytes": true
+    },
+    {
+      "asset_id": "bull_station_01",
+      "rows": 380,
+      "cache_sha256": "8ef90d66b68f47b83634d3776cfd2e4e8f36cc237537b4639f0721fbde7ae07d",
+      "matches_historical_cache_bytes": true
+    },
+    {
+      "asset_id": "bull_station_02",
+      "rows": 285,
+      "cache_sha256": "425824124164214c16db546dcc4199d98007088d78921f316c434c341097a161",
+      "matches_historical_cache_bytes": true
+    },
+    {
+      "asset_id": "bull_station_03",
+      "rows": 413,
+      "cache_sha256": "be5e21595269e2192d362a4edbf452ad7de2a783336a8be4415884b45e1b8cb8",
+      "matches_historical_cache_bytes": true
+    },
+    {
+      "asset_id": "bull_station_04",
+      "rows": 331,
+      "cache_sha256": "c8d5213fcd930617ff83cedb5d655a8bc4e8ce8740d931c94259e1b81cb0ceaa",
+      "matches_historical_cache_bytes": true
+    },
+    {
+      "asset_id": "bull_station_05",
+      "rows": 431,
+      "cache_sha256": "a1519d7d803727f13a3bd4423f677286bb76751fc4c61f06197190c793d3129c",
+      "matches_historical_cache_bytes": true
+    },
+    {
+      "asset_id": "bull_station_06",
+      "rows": 294,
+      "cache_sha256": "2efa0327b346a62d0e84ff286bcb1da4ea9d6c3f55aee3c070c9919c4c0630d7",
+      "matches_historical_cache_bytes": true
+    },
+    {
+      "asset_id": "bull_station_07",
+      "rows": 308,
+      "cache_sha256": "0d6a6b20595d7e4883ae4bfc40583b0bc4895c9f78436a479cb53457803e8deb",
+      "matches_historical_cache_bytes": true
+    }
+  ],
+  "originals_overwritten": false
+}

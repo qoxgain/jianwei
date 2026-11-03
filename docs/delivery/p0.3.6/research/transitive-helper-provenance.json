@@ -1,0 +1,22 @@
+{
+  "execution_code_head": "2694a9504015f15569c9d18568b20330441963c7",
+  "helpers": {
+    "packages/knowledge/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "matches_execution_code_head": true
+    },
+    "packages/knowledge/service.py": {
+      "sha256": "b8b89a554813f971a6180d5f25d645b03e54152fd8e324ae0c07361e542a69d1",
+      "matches_execution_code_head": true
+    },
+    "packages/migrations/__init__.py": {
+      "sha256": "04d42505cb5c1d8eaf3d1c96969a42f9287dccda79f5c11519783678315da823",
+      "matches_execution_code_head": true
+    },
+    "packages/migrations/legacy_v3.py": {
+      "sha256": "0e83476213470153c7c9175bae95e25c1607fbad4e634d2658c717fc15ec22db",
+      "matches_execution_code_head": true
+    }
+  },
+  "original_manifests_modified": false
+}
