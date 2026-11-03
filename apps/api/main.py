@@ -11,7 +11,7 @@ from typing import Literal
 from fastapi import FastAPI, Request, Response
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, FileResponse
-from fastapi.staticfiles import StaticFiles
+from apps.api.static import ReviewedStaticFiles
 from pydantic import Field
 from sqlalchemy import select, text
 from sqlalchemy.dialects.sqlite import insert
@@ -456,7 +456,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
     def audit_history(): return scene_audit(scope()[1])
 
     static_dir = PROJECT_ROOT / 'apps/web/dist'
-    if static_dir.is_dir(): application.mount('/',StaticFiles(directory=static_dir,html=True),name='web')
+    if static_dir.is_dir(): application.mount('/',ReviewedStaticFiles(directory=static_dir),name='web')
     return application
 
 app = create_app()

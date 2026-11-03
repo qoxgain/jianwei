@@ -58,7 +58,7 @@ def main():
    with (out/('build-'+mode+'.log')).open('w') as stream:
     subprocess.run(['node','node_modules/vite/bin/vite.js','build','--mode',mode,'--outDir',str(dest)],cwd=WEB,stdout=stream,stderr=subprocess.STDOUT,check=True)
    files=[p for p in dest.rglob('*') if p.is_file()]
-   assert {str(p.relative_to(dest)) for p in files}=={'index.html','static/brand-mark.svg'}
+   assert {str(p.relative_to(dest)) for p in files}=={'index.html','static/brand-mark.svg','build-members.json'}
    assert not any(data in f.read_bytes() or base64.b64encode(data) in f.read_bytes() for f in files)
    builds[mode]={'members':[str(f.relative_to(dest)) for f in files],'protected_bytes_present':False}
   # A known, listed asset replaced by a link must also fail before hashing/loading.

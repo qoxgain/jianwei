@@ -1,6 +1,6 @@
 import type {Plugin} from 'vite';
 import {createHash} from 'node:crypto';
-import {lstatSync,readFileSync,realpathSync,readdirSync} from 'node:fs';
+import {lstatSync,readFileSync,realpathSync,readdirSync,writeFileSync} from 'node:fs';
 import {isAbsolute,relative,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const repo=fileURLToPath(new URL('../../',import.meta.url));
@@ -59,13 +59,17 @@ export function reviewedAssets():Plugin{return {
  },
  writeBundle(options){
   const out=resolve(options.dir??resolve(web,'dist'));
+  const members:Record<string,string>={};
   const scan=(dir:string)=>{for(const entry of readdirSync(dir,{withFileTypes:true})){
    const path=resolve(dir,entry.name);if(entry.isDirectory()){scan(path);continue;}
    const name=relative(out,path).replaceAll('\\','/');const stat=lstatSync(path);
    if(stat.isSymbolicLink()||stat.nlink!==1)throw new Error('Forbidden build member link');
+   if(name==='build-members.json')continue;
+   members[name]=digest(readFileSync(path));
    if(name==='index.html')continue;
    const source=manifest.assets[name];
    if(!source||digest(readFileSync(path))!==manifest.files[source])throw new Error('Unknown build member: '+name);
   }};scan(out);
+  writeFileSync(resolve(out,'build-members.json'),JSON.stringify({version:'reviewed-web-build-v1',files:members},null,2)+'\n');
  }
 };}
