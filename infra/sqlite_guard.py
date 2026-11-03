@@ -13,7 +13,7 @@ WRITE_ACTIONS={getattr(sqlite3,n) for n in ('SQLITE_INSERT','SQLITE_UPDATE','SQL
 class GuardedConnection(sqlite3.Connection):
     def __init__(self,*args,_owner,**kwargs):
         super().__init__(*args,**kwargs);self.owner=_owner;self.authorization_error=None
-        self.set_authorizer(self._authorize)
+        super().set_authorizer(self._authorize)
     def __setattr__(self,name,value):
         if name in {'isolation_level','autocommit'} and hasattr(self,'owner'):
             # CPython setters can COMMIT natively, bypassing commit().
@@ -24,8 +24,17 @@ class GuardedConnection(sqlite3.Connection):
         return super().__setattr__(name,value)
     def blobopen(self,*args,**kwargs):
         raise ContractError('DATABASE_POLICY_UNAVAILABLE','受管理连接不支持绕过SQL事务的blob写入')
+    def set_authorizer(self,*args):
+        raise ContractError('DATABASE_POLICY_UNAVAILABLE','受管理事务authorizer不可替换')
     def _authorize(self,action,arg1,arg2,db,trigger):
         try:
+            if action in {sqlite3.SQLITE_TRANSACTION,sqlite3.SQLITE_SAVEPOINT}:
+                operation=(arg1 or '').upper()
+                if operation in {'COMMIT','RELEASE'}:
+                    if not self.owner.commit_gate.held():
+                        raise ContractError('DATABASE_POLICY_UNAVAILABLE','SQLite确认的提交操作未持有提交闸门')
+                    self.owner._assert_healthy()
+                elif operation=='BEGIN':self.owner._assert_healthy()
             if action in WRITE_ACTIONS or (action==sqlite3.SQLITE_PRAGMA and arg2 is not None and arg1.lower() in
                 {'journal_mode','wal_checkpoint','auto_vacuum','page_size','user_version','schema_version','application_id'}):
                 self.owner._check_space()
@@ -63,7 +72,8 @@ class GuardedCursor(sqlite3.Cursor):
         # SQLite transaction control cannot hide behind CTEs; strip comments so
         # direct SQL COMMIT/END/RELEASE cannot evade the same commit ordering.
         sql=re.sub(r'/\*.*?\*/|--[^\n]*',' ',args[0],flags=re.S).lstrip('\ufeff \t\r\n;')
-        first=sql.split(None,1)[0].upper().rstrip(';') if sql else ''
+        keyword=re.match(r'[A-Za-z]+',sql)
+        first=keyword[0].upper() if keyword else ''
         controls={'BEGIN','COMMIT','END','ROLLBACK','SAVEPOINT','RELEASE','PRAGMA','VACUUM'}
         def checked():
             try:c.owner._assert_healthy()
