@@ -468,10 +468,8 @@ class ImportService:
 
     @staticmethod
     def implementation_hash():
-        from packages.ingestion.pipeline import file_hash
-        from packages.config.loader import PROJECT_ROOT
-        paths = sorted((PROJECT_ROOT/'packages/ingestion').glob('*.py')) + sorted((PROJECT_ROOT/'packages/encoders').glob('*.py'))
-        return content_hash({str(p.relative_to(PROJECT_ROOT)):file_hash(p) for p in paths})
+        from packages.ingestion.recipe import production_snapshot
+        return production_snapshot()['sha256']
 
     def cancel(self, scene_id, identifier):
         self.check_scene(scene_id)

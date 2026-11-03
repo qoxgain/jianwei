@@ -238,6 +238,8 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
         raise ContractError('SOURCE_HASH_MISMATCH', '原视频实际 SHA 与来源声明不一致')
     verification = 'synthetic' if request.data_origin == 'synthetic_features' else 'verified'
     manifest = _base(bundle, scene_id, request, source, artifact_hash, source_hash, verification)
+    from .recipe import production_snapshot
+    production = production_snapshot()
     manifest['input_format'] = 'mp4'
     with tempfile.TemporaryDirectory(prefix='decode-', dir=output_dir) as work, ExitStack() as frames_cleanup:
         pixels, frame_pts, frame_durations, frame_scores, quality, video_info = decode_video(input_path, Path(work), settings, **({'progress': progress} if progress else {}))
@@ -333,6 +335,13 @@ def process_import(bundle, scene_id: str, request: ImportRequest, input_path: Pa
             recipe_implementation_sha=file_hash(Path(pretrained.__file__)),
             resize='bounded_bilinear_decode_then_roi_float_bilinear_128x171_center112',
             normalization='official_mean_std_embedded_in_onnx')
+    if production_snapshot() != production:
+        raise ContractError('IMPORT_PRODUCTION_CHANGED','特征生产代码或运行依赖在执行期间变化，停止发布缓存；请建立新任务')
+    preprocessing['production_dependencies'] = production
+    manifest['production_recipe'] = {'dependencies':production, 'video':bundle.config.video.model_dump(mode='json'),
+        'encoder':bundle.config.encoder.model_dump(mode='json'), 'ingestion':settings.model_dump(mode='json'),
+        'episode_policy':spec.episode_policy.model_dump(mode='json'), 'roi_xyxy':source.roi_xyxy,
+        'request':request.model_dump(mode='json')}
     manifest['preprocessing'] = preprocessing
     space = FeatureSpace(contract_version='3.1', encoder_sha=encoder.weights_sha,
         preprocessing_sha=content_hash(preprocessing), sampling_sha=content_hash({

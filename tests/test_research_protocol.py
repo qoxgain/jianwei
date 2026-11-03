@@ -114,6 +114,7 @@ def study(tmp_path):
     recorded=json.loads((ROOT/'docs/delivery/p0.3.4/garment_test_short/manifest.json').read_text())
     bindings=_bindings(b,SCENE)
     prep=deepcopy(recorded['preprocessing'])
+    prep['production_dependencies']=bindings['feature_recipe']['production_dependencies']
     prep['implementation_sha']=bindings['feature_recipe']['video_implementation_sha']
     prep['recipe_implementation_sha']=bindings['feature_recipe']['recipe_implementation_sha']
     sampling=content_hash({'clip_ms':round(b.config.video.clip_seconds*1000),

@@ -15,6 +15,7 @@ from packages.temporal.provenance import source_provenance
 from packages.ingestion.capture import roi_identity
 from packages.ingestion.pipeline import file_hash
 from packages.encoders import pretrained
+from packages.ingestion.recipe import production_snapshot
 
 
 def _bindings(bundle, scene):
@@ -30,7 +31,7 @@ def _bindings(bundle, scene):
         'learning': config.learning.model_dump(mode='json'),
         'temporal': config.temporal.model_dump(mode='json', exclude={'dataset_manifest', 'research_protocol'}),
         'encoder': config.encoder.model_dump(mode='json'),
-        'feature_recipe': {'decode_width': config.ingestion.decode_width,
+        'feature_recipe': {'production_dependencies': production_snapshot(), 'decode_width': config.ingestion.decode_width,
             'encoder_input_size': config.ingestion.encoder_input_size,
             'video_implementation_sha': file_hash(Path(__file__).resolve().parents[1]/'ingestion/video.py'),
             'recipe_implementation_sha': file_hash(Path(pretrained.__file__)),
@@ -188,6 +189,8 @@ def _assert_features(snapshot, bindings):
             fail('TEMPORAL_CAPTURE_REQUIRED', '预注册真实研究需要经过核验的物理机位、稳定视角、采集会话及完整视角区间；历史清单须按新契约核验后重新导入')
         space, preprocessing, evidence = (entry.get('feature_space') or {},
             entry.get('preprocessing') or {}, entry.get('encoder_evidence') or {})
+        if preprocessing.get('production_dependencies') != recipe['production_dependencies']:
+            fail('TEMPORAL_PRODUCTION_RECIPE_REQUIRED','实际特征缺少当前完整生产依赖快照或版本已变化；旧缓存保留可读，须按新配方重新提取后开展新研究')
         if (evidence.get('artifact_sha_verified') is not True
                 or evidence.get('execution') != 'frozen_onnx_cpu'
                 or evidence.get('vector_production') != 'executed_from_this_source'
