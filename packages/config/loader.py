@@ -161,6 +161,7 @@ def load_bundle(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", p
     excluded = {'knowledge_file', 'session'} if isinstance(config, SceneConfig) else set()
     if isinstance(config, SceneConfig) and config.temporal is None: excluded.add('temporal')
     snapshot = _redact(config.model_dump(exclude=excluded))
+    if snapshot.get('exploratory') is None: snapshot.pop('exploratory', None)
     if snapshot.get('sqlite') is None: snapshot.pop('sqlite', None)
     if snapshot.get('sop_review') is None: snapshot.pop('sop_review', None)
     # Viewing derivatives do not invalidate existing feature configuration when

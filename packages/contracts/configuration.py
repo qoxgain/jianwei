@@ -8,6 +8,7 @@ from .temporal import TemporalSettings
 from .capture import CaptureIdentity
 from .sop import SopSettings
 from .database import SQLiteSettings
+from .exploratory import ExploratorySettings
 
 class SourceBinding(Strict):
     id: Identifier
@@ -25,6 +26,7 @@ class SceneEncoder(Encoder):
 
 class SceneConfig(SystemConfig):
     config_version: Literal['3.1']
+    exploratory: ExploratorySettings | None = None
     sqlite: SQLiteSettings | None = None
     ingestion: IngestionSettings | None = None
     temporal: TemporalSettings | None = None

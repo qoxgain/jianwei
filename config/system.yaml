@@ -409,3 +409,16 @@ sop_review:
   mapping_path: datasets/video_samples/bull_new_energy/sop/station-mapping.draft.json
   media_chunk_bytes: 1048576
   text_timeout_seconds: 30
+
+# Retrospective development only. Explicit isolated configuration enables runs.
+exploratory:
+  enabled: false
+  evidence_class: retrospective_development
+  formal_research_access: false
+  seeds: [11, 23, 47, 71, 101]
+  history_lengths: [8, 16, 32]
+  guard_ms: 2000
+  minimum_windows: 8
+  dilations: [1, 2, 4]
+  motion_quantile: 0.5
+  trace_limit: 80

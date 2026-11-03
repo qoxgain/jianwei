@@ -490,6 +490,90 @@
       "title": "Evaluation",
       "type": "object"
     },
+    "ExploratorySettings": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "evidence_class": {
+          "const": "retrospective_development",
+          "default": "retrospective_development",
+          "title": "Evidence Class",
+          "type": "string"
+        },
+        "formal_research_access": {
+          "const": false,
+          "default": false,
+          "title": "Formal Research Access",
+          "type": "boolean"
+        },
+        "seeds": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 10,
+          "minItems": 3,
+          "title": "Seeds",
+          "type": "array"
+        },
+        "history_lengths": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "History Lengths",
+          "type": "array"
+        },
+        "guard_ms": {
+          "maximum": 60000,
+          "minimum": 2000,
+          "title": "Guard Ms",
+          "type": "integer"
+        },
+        "minimum_windows": {
+          "maximum": 512,
+          "minimum": 8,
+          "title": "Minimum Windows",
+          "type": "integer"
+        },
+        "dilations": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Dilations",
+          "type": "array"
+        },
+        "motion_quantile": {
+          "exclusiveMaximum": 1,
+          "exclusiveMinimum": 0,
+          "title": "Motion Quantile",
+          "type": "number"
+        },
+        "trace_limit": {
+          "maximum": 300,
+          "minimum": 10,
+          "title": "Trace Limit",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "seeds",
+        "history_lengths",
+        "guard_ms",
+        "minimum_windows",
+        "dilations",
+        "motion_quantile",
+        "trace_limit"
+      ],
+      "title": "ExploratorySettings",
+      "type": "object"
+    },
     "GarmentExtension": {
       "additionalProperties": false,
       "properties": {
@@ -2203,6 +2287,17 @@
     },
     "demo": {
       "$ref": "#/$defs/Demo"
+    },
+    "exploratory": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ExploratorySettings"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "sqlite": {
       "anyOf": [

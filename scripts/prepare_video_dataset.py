@@ -6,10 +6,10 @@ from packages.config.loader import PROJECT_ROOT, load_bundle
 from packages.ingestion.pipeline import file_hash
 
 
-def prepare(output, *, research=False, encoder_report=None):
+def prepare(output, *, research=False, encoder_report=None, encoder_model=None):
     output=output.resolve()
     config=yaml.safe_load((PROJECT_ROOT/'config/system.yaml').read_text())
-    model=PROJECT_ROOT/'artifacts/models/r3d18-kinetics400-v1.onnx'
+    model=Path(encoder_model or PROJECT_ROOT/'artifacts/models/r3d18-kinetics400-v1.onnx').resolve()
     from packages.encoders.pretrained import CHECKPOINT_SHA256, PREPROCESSING_VERSION
     from packages.contracts.configuration import SceneConfig
     from packages.temporal_jobs.sampling import grid_plan
@@ -68,5 +68,6 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--output-dir',type=Path,default=PROJECT_ROOT/'artifacts/p033-runtime')
     parser.add_argument('--research',action='store_true',help='Use system.yaml sampling and forecast policy; no automatic tuning')
     parser.add_argument('--encoder-report',type=Path,help='Passed export evidence matching the local frozen ONNX bytes')
+    parser.add_argument('--encoder-model',type=Path,help='Verified frozen model matching the explicit export report')
     args=parser.parse_args()
-    print(prepare(args.output_dir,research=args.research,encoder_report=args.encoder_report))
+    print(prepare(args.output_dir,research=args.research,encoder_report=args.encoder_report,encoder_model=args.encoder_model))
