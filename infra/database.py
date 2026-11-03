@@ -7,6 +7,10 @@ import os
 import shutil
 import sqlite3
 import hashlib
+import json
+from functools import partial
+from infra.file_gate import file_gate
+from infra.sqlite_guard import GuardedConnection
 from sqlalchemy.exc import DisconnectionError
 from packages.contracts.database import SQLiteSettings
 from packages.config.errors import ContractError
@@ -28,11 +32,15 @@ class Database:
     def __init__(self, database_url: str, sqlite_settings=None):
         self.sqlite_settings = sqlite_settings or SQLiteSettings()
         self.last_integrity_check = None
-        self.fault = None
+        self._fault = None
         url = make_url(database_url)
+        local_path=Path(url.database).expanduser().resolve() if url.get_backend_name()=='sqlite' and url.database not in (None,'',':memory:') else None
+        self.quarantine_path=Path(str(local_path)+'.fault.json') if local_path else None
+        self.commit_gate=file_gate(str(local_path)+'.commit.lock' if local_path else None)
         options = {"pool_pre_ping": True}
         if url.get_backend_name() == "sqlite":
-            options["connect_args"] = {"check_same_thread": False, "timeout": self.sqlite_settings.busy_timeout_ms/1000}
+            options["connect_args"] = {"check_same_thread": False, "timeout": self.sqlite_settings.busy_timeout_ms/1000,
+                "factory":partial(GuardedConnection,_owner=self),"cached_statements":0}
             if url.database in (None, "", ":memory:"):
                 # Reuse the same connection when a test or local app selects memory.
                 options["poolclass"] = StaticPool
@@ -89,8 +97,7 @@ class Database:
     @contextmanager
     def session(self) -> Iterator[Session]:
         """Commit all writes together; roll back the unit of work on any error."""
-        if self.fault is not None:
-            raise ContractError('DATABASE_UNAVAILABLE','数据库故障已记录，暂停任务；保留原库并核对副本/备份，不自动恢复')
+        with self.commit_gate.hold():self._assert_healthy()
         with self._sessions() as session:
             try:
                 yield session
@@ -101,11 +108,41 @@ class Database:
                 session.rollback()
                 raise
 
-    def _record_fault(self, context):
-        error = context.original_exception
-        name = getattr(error,'sqlite_errorname','')
+    @property
+    def fault(self):
+        if self._fault is None and self.quarantine_path is not None and self.quarantine_path.exists():
+            try:self._fault=json.loads(self.quarantine_path.read_text())
+            except (OSError,ValueError):self._fault={'code':'DATABASE_UNAVAILABLE','root_cause':'invalid_quarantine_marker'}
+        return self._fault
+
+    @fault.setter
+    def fault(self,value):
+        with self.commit_gate.hold():
+            if value is None:
+                if self.fault is not None:raise ContractError('DATABASE_UNAVAILABLE','故障隔离不可由运行进程清除或自动恢复')
+                return
+            self._fault=value
+            if self.quarantine_path is not None and not self.quarantine_path.exists():
+                # Create the irreversible marker first. A crash during writing
+                # leaves a partial marker, which every other process treats as
+                # quarantine too; no rename gap can silently clear the fault.
+                with self.quarantine_path.open('x') as stream:
+                    json.dump(value,stream);stream.flush();os.fsync(stream.fileno())
+                fd=os.open(self.quarantine_path.parent,os.O_RDONLY)
+                try:os.fsync(fd)
+                finally:os.close(fd)
+
+    def _assert_healthy(self):
+        if self.fault is not None:
+            raise ContractError('DATABASE_UNAVAILABLE','数据库已隔离；所有在途事务停止提交，保留原库及消费记录，不自动恢复')
+
+    def _record_sqlite_fault(self,error):
+        name=getattr(error,'sqlite_errorname','')
         if name.startswith(('SQLITE_CORRUPT','SQLITE_NOTADB','SQLITE_IOERR','SQLITE_FULL')):
             self.fault={'code':'DATABASE_UNAVAILABLE','sqlite_errorname':name,'root_cause':'not_established'}
+
+    def _record_fault(self, context):
+        self._record_sqlite_fault(context.original_exception)
 
     def _before_write(self, connection, cursor, statement, parameters, context, executemany):
         if statement.lstrip().split(None,1)[0].upper() in {'INSERT','UPDATE','DELETE','CREATE','ALTER','DROP','REPLACE','VACUUM','REINDEX'}:
