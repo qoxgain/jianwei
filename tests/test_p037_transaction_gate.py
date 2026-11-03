@@ -20,7 +20,7 @@ def rows(path):
     with sqlite3.connect(path) as c:return c.execute('SELECT COUNT(*) FROM probe').fetchone()[0]
 
 
-@pytest.mark.parametrize('route',['core','orm','engine','raw','raw_context','sql_commit'])
+@pytest.mark.parametrize('route',['core','orm','engine','raw','raw_context','sql_commit','raw_isolation','raw_autocommit'])
 def test_recorded_fault_precedes_commit_so_every_managed_route_rolls_back(tmp_path,route):
     path=tmp_path/'fault.sqlite';db=make(path)
     with pytest.raises(ContractError) as e:
@@ -40,7 +40,9 @@ def test_recorded_fault_precedes_commit_so_every_managed_route_rolls_back(tmp_pa
                 else:
                     raw.cursor().execute('INSERT INTO probe VALUES(1)');inject(db)
                     if route=='raw':raw.commit()
-                    else:raw.cursor().execute('/* prefix */ COMMIT')
+                    elif route=='raw_isolation':raw.driver_connection.isolation_level=None
+                    elif route=='raw_autocommit':raw.driver_connection.autocommit=True
+                    else:raw.cursor().execute('\ufeff; /* prefix */ COMMIT')
             finally:raw.rollback();raw.close()
     assert e.value.code=='DATABASE_UNAVAILABLE' and rows(path)==0
     with sqlite3.connect(path) as c:assert c.execute('SELECT COUNT(*) FROM audit_events').fetchone()[0]==0

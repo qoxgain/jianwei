@@ -14,6 +14,16 @@ class GuardedConnection(sqlite3.Connection):
     def __init__(self,*args,_owner,**kwargs):
         super().__init__(*args,**kwargs);self.owner=_owner;self.authorization_error=None
         self.set_authorizer(self._authorize)
+    def __setattr__(self,name,value):
+        if name in {'isolation_level','autocommit'} and hasattr(self,'owner'):
+            # CPython setters can COMMIT natively, bypassing commit().
+            with self.owner.commit_gate.hold():
+                try:self.owner._assert_healthy()
+                except ContractError:self.rollback();raise
+                return super().__setattr__(name,value)
+        return super().__setattr__(name,value)
+    def blobopen(self,*args,**kwargs):
+        raise ContractError('DATABASE_POLICY_UNAVAILABLE','受管理连接不支持绕过SQL事务的blob写入')
     def _authorize(self,action,arg1,arg2,db,trigger):
         try:
             if action in WRITE_ACTIONS or (action==sqlite3.SQLITE_PRAGMA and arg2 is not None and arg1.lower() in
@@ -52,7 +62,7 @@ class GuardedCursor(sqlite3.Cursor):
         c=self.connection
         # SQLite transaction control cannot hide behind CTEs; strip comments so
         # direct SQL COMMIT/END/RELEASE cannot evade the same commit ordering.
-        sql=re.sub(r'/\*.*?\*/|--[^\n]*',' ',args[0],flags=re.S).strip()
+        sql=re.sub(r'/\*.*?\*/|--[^\n]*',' ',args[0],flags=re.S).lstrip('\ufeff \t\r\n;')
         first=sql.split(None,1)[0].upper().rstrip(';') if sql else ''
         controls={'BEGIN','COMMIT','END','ROLLBACK','SAVEPOINT','RELEASE','PRAGMA','VACUUM'}
         def checked():
