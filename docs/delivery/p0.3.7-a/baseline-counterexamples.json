@@ -1,0 +1,14 @@
+{
+  "R01": {
+    "exploration": 422,
+    "range": 206,
+    "preview": 200
+  },
+  "R02": {
+    "committed_rows_after_fault": 1
+  },
+  "R03": {
+    "returned_old_sha": true,
+    "actual_sha_changed": true
+  }
+}

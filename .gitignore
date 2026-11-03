@@ -24,3 +24,9 @@ apps/web/dist-demo/
 *.pt
 *.sqlite-wal
 *.sqlite-shm
+
+# P0.3.7-A: runtime quarantine and coordination evidence stays local.
+*.fault.json
+*.commit.lock
+*.migrate.lock
+.ordinary-media.lock

@@ -1,0 +1,409 @@
+{
+  "stage": "P0.3.7-A",
+  "scope": "generated engineering fixtures, not real learning or formal sealed data",
+  "baseline": "6a3b3c74887f44c495aea6a9c14351f8994227f9",
+  "code_head": "1eba95b088d0c8eb3b97b67a8e03c28243c7e17d",
+  "user_acceptance": "pending",
+  "stage_b_started": false,
+  "p04_admitted": false,
+  "formal_research_status": "blocked",
+  "baseline_counterexamples": {
+    "R01": {
+      "exploration": 422,
+      "range": 206,
+      "preview": 200
+    },
+    "R02": {
+      "committed_rows_after_fault": 1
+    },
+    "R03": {
+      "returned_old_sha": true,
+      "actual_sha_changed": true
+    }
+  },
+  "backend": {
+    "tests": 595,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "frontend_passed": 99,
+  "reference_passed": 29,
+  "builds": [
+    "production",
+    "demo"
+  ],
+  "demo_html_sha256": "dfc166540a2beb4adafb82154cc6488b17b773f2c9b8a7e9cff1678b39dba8d8",
+  "counterexample_tests": [
+    {
+      "name": "test_sealed_original_and_preview_rejected_before_any_content_io",
+      "module": "tests.test_p037_media_access",
+      "seconds": 1.311,
+      "status": "passed"
+    },
+    {
+      "name": "test_current_partition_overrides_old_unassigned_manifest_and_parallel_cache",
+      "module": "tests.test_p037_media_access",
+      "seconds": 1.463,
+      "status": "passed"
+    },
+    {
+      "name": "test_registered_symlink_and_hardlink_aliases_rejected",
+      "module": "tests.test_p037_media_access",
+      "seconds": 1.411,
+      "status": "passed"
+    },
+    {
+      "name": "test_original_root_alias_and_deferred_response_rechecked",
+      "module": "tests.test_p037_media_access",
+      "seconds": 1.421,
+      "status": "passed"
+    },
+    {
+      "name": "test_sop_catalog_alias_blocked_before_verification_preview_or_cached_pdf",
+      "module": "tests.test_p037_media_access",
+      "seconds": 0.656,
+      "status": "passed"
+    },
+    {
+      "name": "test_stream_lease_serializes_sealing_against_already_authorized_delivery",
+      "module": "tests.test_p037_media_access",
+      "seconds": 1.5,
+      "status": "passed"
+    },
+    {
+      "name": "test_same_path_size_mtime_content_replacement_invalidates_recipe_and_cache[ffmpeg]",
+      "module": "tests.test_p037_tool_fingerprint",
+      "seconds": 0.323,
+      "status": "passed"
+    },
+    {
+      "name": "test_same_path_size_mtime_content_replacement_invalidates_recipe_and_cache[ffprobe]",
+      "module": "tests.test_p037_tool_fingerprint",
+      "seconds": 0.327,
+      "status": "passed"
+    },
+    {
+      "name": "test_replacement_during_version_probe_fails_closed",
+      "module": "tests.test_p037_tool_fingerprint",
+      "seconds": 0.001,
+      "status": "passed"
+    },
+    {
+      "name": "test_recorded_fault_precedes_commit_so_every_managed_route_rolls_back[core]",
+      "module": "tests.test_p037_transaction_gate",
+      "seconds": 0.04,
+      "status": "passed"
+    },
+    {
+      "name": "test_recorded_fault_precedes_commit_so_every_managed_route_rolls_back[orm]",
+      "module": "tests.test_p037_transaction_gate",
+      "seconds": 0.036,
+      "status": "passed"
+    },
+    {
+      "name": "test_recorded_fault_precedes_commit_so_every_managed_route_rolls_back[engine]",
+      "module": "tests.test_p037_transaction_gate",
+      "seconds": 0.03,
+      "status": "passed"
+    },
+    {
+      "name": "test_recorded_fault_precedes_commit_so_every_managed_route_rolls_back[raw]",
+      "module": "tests.test_p037_transaction_gate",
+      "seconds": 0.033,
+      "status": "passed"
+    },
+    {
+      "name": "test_recorded_fault_precedes_commit_so_every_managed_route_rolls_back[raw_context]",
+      "module": "tests.test_p037_transaction_gate",
+      "seconds": 0.031,
+      "status": "passed"
+    },
+    {
+      "name": "test_recorded_fault_precedes_commit_so_every_managed_route_rolls_back[sql_commit]",
+      "module": "tests.test_p037_transaction_gate",
+      "seconds": 0.042,
+      "status": "passed"
+    },
+    {
+      "name": "test_recorded_fault_precedes_commit_so_every_managed_route_rolls_back[raw_isolation]",
+      "module": "tests.test_p037_transaction_gate",
+      "seconds": 0.031,
+      "status": "passed"
+    },
+    {
+      "name": "test_recorded_fault_precedes_commit_so_every_managed_route_rolls_back[raw_autocommit]",
+      "module": "tests.test_p037_transaction_gate",
+      "seconds": 0.038,
+      "status": "passed"
+    },
+    {
+      "name": "test_core_cte_and_comment_writes_check_disk_capacity",
+      "module": "tests.test_p037_transaction_gate",
+      "seconds": 0.033,
+      "status": "passed"
+    },
+    {
+      "name": "test_cross_process_fault_quarantines_inflight_transaction_and_survives_restart_restore",
+      "module": "tests.test_p037_transaction_gate",
+      "seconds": 1.082,
+      "status": "passed"
+    },
+    {
+      "name": "test_commit_linearizes_before_fault_and_completed_rows_stay_committed",
+      "module": "tests.test_p037_transaction_gate",
+      "seconds": 0.133,
+      "status": "passed"
+    },
+    {
+      "name": "test_second_instance_observes_marker_and_rollback_remains_available",
+      "module": "tests.test_p037_transaction_gate",
+      "seconds": 0.037,
+      "status": "passed"
+    },
+    {
+      "name": "test_async_worker_fault_stops_without_claiming_success_or_writing_terminal_state",
+      "module": "tests.test_p037_transaction_gate",
+      "seconds": 0.744,
+      "status": "passed"
+    }
+  ],
+  "browser": {
+    "passed": true,
+    "browser": "154.0.8037.57",
+    "scope": "generated test pattern and temporary DB only",
+    "stage": "P0.3.7-A",
+    "stage_b_started": false,
+    "user_acceptance": "pending",
+    "displays": [
+      {
+        "mode": "desktop",
+        "checks": [
+          {
+            "case": "开发原片 Range",
+            "method": "GET",
+            "status": 206,
+            "code": null,
+            "passed": true
+          },
+          {
+            "case": "开发原片 HEAD",
+            "method": "HEAD",
+            "status": 200,
+            "code": null,
+            "passed": true
+          },
+          {
+            "case": "封存原片",
+            "method": "GET",
+            "status": 422,
+            "code": "MEDIA_SEALED_FORBIDDEN",
+            "passed": true
+          },
+          {
+            "case": "封存 Range",
+            "method": "GET",
+            "status": 422,
+            "code": "MEDIA_SEALED_FORBIDDEN",
+            "passed": true
+          },
+          {
+            "case": "封存 HEAD",
+            "method": "HEAD",
+            "status": 422,
+            "code": null,
+            "passed": true
+          },
+          {
+            "case": "封存异常 Range",
+            "method": "GET",
+            "status": 422,
+            "code": "MEDIA_SEALED_FORBIDDEN",
+            "passed": true
+          },
+          {
+            "case": "封存兼容预览",
+            "method": "GET",
+            "status": 422,
+            "code": "MEDIA_SEALED_FORBIDDEN",
+            "passed": true
+          },
+          {
+            "case": "封存预览 HEAD",
+            "method": "HEAD",
+            "status": 422,
+            "code": null,
+            "passed": true
+          }
+        ],
+        "playback_advanced": true,
+        "seek_seconds": 1.5,
+        "export_exact": true
+      },
+      {
+        "mode": "mobile",
+        "checks": [
+          {
+            "case": "开发原片 Range",
+            "method": "GET",
+            "status": 206,
+            "code": null,
+            "passed": true
+          },
+          {
+            "case": "开发原片 HEAD",
+            "method": "HEAD",
+            "status": 200,
+            "code": null,
+            "passed": true
+          },
+          {
+            "case": "封存原片",
+            "method": "GET",
+            "status": 422,
+            "code": "MEDIA_SEALED_FORBIDDEN",
+            "passed": true
+          },
+          {
+            "case": "封存 Range",
+            "method": "GET",
+            "status": 422,
+            "code": "MEDIA_SEALED_FORBIDDEN",
+            "passed": true
+          },
+          {
+            "case": "封存 HEAD",
+            "method": "HEAD",
+            "status": 422,
+            "code": null,
+            "passed": true
+          },
+          {
+            "case": "封存异常 Range",
+            "method": "GET",
+            "status": 422,
+            "code": "MEDIA_SEALED_FORBIDDEN",
+            "passed": true
+          },
+          {
+            "case": "封存兼容预览",
+            "method": "GET",
+            "status": 422,
+            "code": "MEDIA_SEALED_FORBIDDEN",
+            "passed": true
+          },
+          {
+            "case": "封存预览 HEAD",
+            "method": "HEAD",
+            "status": 422,
+            "code": null,
+            "passed": true
+          }
+        ],
+        "playback_advanced": true,
+        "seek_seconds": 1.5,
+        "export_exact": true
+      }
+    ],
+    "preview_derivatives_created": 0,
+    "vite_private_file_denials": [
+      {
+        "method": "GET",
+        "query": "",
+        "status": 403
+      },
+      {
+        "method": "HEAD",
+        "query": "",
+        "status": 403
+      },
+      {
+        "method": "GET",
+        "query": "?raw",
+        "status": 403
+      },
+      {
+        "method": "HEAD",
+        "query": "?raw",
+        "status": 403
+      },
+      {
+        "method": "GET",
+        "query": "?url",
+        "status": 403
+      },
+      {
+        "method": "HEAD",
+        "query": "?url",
+        "status": 403
+      },
+      {
+        "method": "GET",
+        "query": "?import",
+        "status": 403
+      },
+      {
+        "method": "HEAD",
+        "query": "?import",
+        "status": 403
+      }
+    ],
+    "vite_normal_workbench_loaded": true,
+    "page_errors": [],
+    "unexpected_console_errors": [],
+    "screenshots_contain_media_frames": false,
+    "template_sha256": "3f379c1128c6a31f95d7ff2986ca5c4ea22460fd0d5c363c18fab2336f27ccc0"
+  },
+  "regressions": [
+    {
+      "name": "four_scenes",
+      "passed": true,
+      "sha256": "93949bedebdeb64c25c57ff84e4369702a3e2cce2d3285029580bf6aa7d4356b",
+      "scope": "isolated mechanism fixtures / historical development display only"
+    },
+    {
+      "name": "sampling",
+      "passed": true,
+      "sha256": "ac584aaee1bfa0155951ffb2b9304da9fea6ac95f6b2ad6f858841f4c541a0f0",
+      "scope": "isolated mechanism fixtures / historical development display only"
+    },
+    {
+      "name": "protocol",
+      "passed": true,
+      "sha256": "4a386cd1b986eef42fb6194c0db6ad009a6e549b056e89fbf82190e330193260",
+      "scope": "isolated mechanism fixtures / historical development display only"
+    },
+    {
+      "name": "p036",
+      "passed": true,
+      "sha256": "bd7328bf3d4598a8e4197a59e861204be2abb0250dc9092eea35a135b623ccba",
+      "scope": "isolated mechanism fixtures / historical development display only"
+    }
+  ],
+  "source_sha256": {
+    "infra/database.py": "f7b717294bfde62663f85f552f5cdf1d6f4c291fad07878f3b7e75fb75d4b9c7",
+    "infra/sqlite_guard.py": "e359f61bfabaf616b6541484d140027ec8166f4a2809d6d6b57fc97d8a8d1524",
+    "infra/file_gate.py": "2261801f0e12ac651b113302a6464db0e03e342d919bd35b52008968156508a7",
+    "packages/media/access.py": "b03f22676b33a9c0cd36d2b81c0e8bf1496a1d6175ff9c059cc99af90eaaf58e",
+    "packages/ingestion/recipe.py": "a574a8a884de6b6c01da7e93b24802c0dc6911d94514ea9054d36ba5bb7202f0",
+    "packages/ingest_jobs/inspection.py": "676e6940cb3d4b1ba3e633859725009a3152c8254e29cedc7d14b30cccfab98a",
+    "packages/ingest_jobs/service.py": "37c03169841e4bf916c3309dc32ee305c6bac380d2440dbd993126f743302c4b",
+    "packages/sop/service.py": "a15c0287ba2531162c4658642dbaef0c92ef065843dcadd19db392134e3d382a",
+    "apps/api/main.py": "28aa5c5f0a5a568948bf9dac07baa1e393c57379e30b031fe7c794f49f416fd9",
+    "apps/api/sop.py": "b2038218726f1a67c68e020182f96563b8bf1768efdcf632d0bda277db533839",
+    "apps/web/vite.config.ts": "4adad93cac32af0cba2c6c0172a46a577f84c89a66a76100541710b339793f51",
+    "scripts/serve_p037_a_demo.py": "2a05cd09abe32d85bb2061009c9b1487008702928c2d4b7676ad8655bf3966bf",
+    "demo/stage-a-live.html": "3f379c1128c6a31f95d7ff2986ca5c4ea22460fd0d5c363c18fab2336f27ccc0",
+    "tests/browser_p037_a.py": "a33e4e0ad6cf1f194fd624be69875d791432facce10438d5566bae61559291f2",
+    "tests/test_p037_media_access.py": "22d9af63b78f35f980f33f58a0096322d21c9bc644d8838b29fa88c2c3808e67",
+    "tests/test_p037_transaction_gate.py": "920220772722d778df6c4ab4e41fb90d9246676b4ec01e069fa9ccab653feeda",
+    "tests/test_p037_tool_fingerprint.py": "a2c446861dc2f8fd6e0356652f435c7efffe8a13390022dce0c80afe4d3845de"
+  },
+  "sqlite_historical_corruption_root_cause": "not_established",
+  "limits": [
+    "single-host supported local file locks",
+    "external unguarded writers and administrator changes not covered",
+    "quarantine durability depends on functioning filesystem",
+    "shared-library hot replacement is not an immutable deployment proof"
+  ]
+}

@@ -38,6 +38,8 @@ jobs:
         run: .venv/bin/python tests/browser_p036.py --chromium "$(command -v google-chrome)" --output artifacts/p036-browser
       - name: P0.3.7-A generated-media admission and Vite access boundaries on desktop and mobile
         run: .venv/bin/python tests/browser_p037_a.py --chromium "$(command -v google-chrome)" --output artifacts/p037-a-browser
+      - name: P0.3.7-A shipped offline evidence and pending user acceptance
+        run: .venv/bin/python tests/browser_p037_a_offline.py --chromium "$(command -v google-chrome)" --output artifacts/p037-a-offline
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -50,6 +52,7 @@ jobs:
             artifacts/p036-browser/browser-results.json
             artifacts/p037-a-browser/results.json
             artifacts/p037-a-browser/*-http-results.json
+            artifacts/p037-a-offline/results.json
             artifacts/p031-browser-work/**/api.log
             artifacts/p031-browser-work/**/static.log
   foundation:
@@ -87,6 +90,8 @@ jobs:
         run: |
           python -m scripts.package_p036_demo --output artifacts/p036-demo-rebuilt
           cmp docs/demo/p0.3.6/jianwei-p0.3.6-demo.zip artifacts/p036-demo-rebuilt/jianwei-p0.3.6-demo.zip
+      - name: Verify Stage-A archive integrity and publication boundary
+        run: python -m scripts.package_p037_a_demo --verify-only
   pretrained-encoder:
     runs-on: ubuntu-24.04
     steps:

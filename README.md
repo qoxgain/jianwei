@@ -1,6 +1,8 @@
 # 见微 · 多模态自学习感知平台
 
-当前实现 **P0.3.6 工程可靠性与真实时序学习研究**：来源/episode覆盖、实际特征依赖配方及SQLite故障保护已加固；九视频重提2710片段，完成五种子、18模型与时序消融，并提供真实结果页面。残差/多尺度尚未稳定超过简单基线，原SQLite故障根因未确认；独立科研验收及P0.4仍 blocked。P0.3.5研究协议、原接口和四场景保留。产品版本V3.0，配置与知识契约3.1。
+本分支已完成 **P0.3.7-A 工程修复**，等待用户测试确认，B–E未开始：[专项交付与测试步骤](docs/delivery/P0.3.7-A.md) · [阶段A Demo](docs/demo/p0.3.7-a/jianwei-p0.3.7-a-demo.zip) · [范围冻结](docs/plans/P0.3.7-A.md)。封存媒体统一门控、SQLite实际提交闸门与持久隔离、工具内容重哈希已实现；历史SQLite损坏根因仍未确认。正式P0.4继续blocked。
+
+算法基线 **P0.3.6 工程可靠性与真实时序学习研究**：来源/episode覆盖、实际特征依赖配方及SQLite故障保护已加固；九视频重提2710片段，完成五种子、18模型与时序消融，并提供真实结果页面。残差/多尺度尚未稳定超过简单基线，原SQLite故障根因未确认；独立科研验收及P0.4仍 blocked。P0.3.5研究协议、原接口和四场景保留。产品版本V3.0，配置与知识契约3.1。
 
 - [P0.3.6交付与测试](docs/delivery/P0.3.6.md) · [真实实验完整结果](docs/delivery/p0.3.6/research/RESULTS.md) · [P0.3.6 Demo下载](docs/demo/p0.3.6/jianwei-p0.3.6-demo.zip) · [后续独立数据任务](docs/plans/P0.3.6-next.md)
 - [历史后续真实研究任务](docs/plans/P0.3.5-next.md) · [Codex执行指令](docs/plans/P0.3.5-Codex.txt) · [P0.1.1最终任务书](docs/plans/P0.1.1-final.md)

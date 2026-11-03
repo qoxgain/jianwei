@@ -1,0 +1,24 @@
+{
+  "archive_sha256": "3a26b22f2b51908421cdea38b8c1ec07da77f53e5ab04e463106fc80a9cd528e",
+  "archive_bytes": 22719,
+  "stage": "P0.3.7-A",
+  "media_features_weights_databases_included": false,
+  "files": {
+    "index.html": {
+      "bytes": 13202,
+      "sha256": "e49329956cda0178324e338f0cc570741d5c48e3d665543229028a32aaf581be"
+    },
+    "evidence.json": {
+      "bytes": 12963,
+      "sha256": "476a5a7199c3ed4ce6c57b93ad4700068c690aea0c2b0a805b0ea24a1bc43d6c"
+    },
+    "backend-junit.xml": {
+      "bytes": 83142,
+      "sha256": "85eea632355ad75cf6b2ee5c70d7bbb24d70449ea0c9a2ac4494803983160c1f"
+    },
+    "使用说明.txt": {
+      "bytes": 188,
+      "sha256": "c440509ca150b26898c0998c7819a15848928e038586feaf8acf5a2a0a9bce22"
+    }
+  }
+}
