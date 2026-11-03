@@ -23,6 +23,7 @@ from packages.config.errors import ContractError
 from packages.config.loader import PROJECT_ROOT, assert_demo_service, database_url, load_bundle, profile_status
 from packages.contracts.models import Strict, Knowledge
 from packages.contracts.ingestion import ImportRequest
+from packages.contracts.media import MediaAdmission
 from packages.ingest_jobs.service import ImportService
 from packages.ingest_jobs.inspection import ImportInspection
 from packages.sop.service import SopService
@@ -151,7 +152,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
 
     @application.exception_handler(ContractError)
     async def contract_error(_request, error):
-        status = (503 if error.code.startswith('DATABASE_') else 404 if error.code in {'PROFILE_NOT_FOUND','VERSION_NOT_FOUND','SCENE_NOT_FOUND','UPLOAD_NOT_FOUND','IMPORT_NOT_FOUND','TEMPORAL_RUN_NOT_FOUND','TEMPORAL_ARTIFACT_NOT_FOUND'}
+        status = (503 if error.code.startswith('DATABASE_') or error.code=='MEDIA_LEASE_TIMEOUT' else 404 if error.code in {'PROFILE_NOT_FOUND','VERSION_NOT_FOUND','SCENE_NOT_FOUND','UPLOAD_NOT_FOUND','IMPORT_NOT_FOUND','TEMPORAL_RUN_NOT_FOUND','TEMPORAL_ARTIFACT_NOT_FOUND'}
                   else 409 if error.code in {'BASE_HASH_CONFLICT','SOURCE_SPLIT_CONFLICT','IMPORT_CONFIG_CHANGED','IMPORT_MANIFEST_UNAVAILABLE'}
                   else 413 if error.code == 'UPLOAD_TOO_LARGE' else 422)
         return JSONResponse({'detail':error.detail()}, status_code=status)
@@ -271,22 +272,42 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
     def get_import(scene_id: str, import_id: str):
         return application.state.imports.get(scene_id, import_id)
 
+    @application.get('/api/scenes/{scene_id}/imports/{import_id}/media-admission',response_model=MediaAdmission)
+    async def media_admission(scene_id: str, import_id: str):
+        import anyio
+        from functools import partial
+        return await anyio.to_thread.run_sync(partial(application.state.inspection.admission,scene_id,import_id))
+
+    async def require_media_admission(scene_id,import_id):
+        result=await media_admission(scene_id,import_id)
+        if not result['ordinary_media_allowed']:
+            raise ContractError('MEDIA_SEALED_FORBIDDEN','封存或待封存来源禁止普通媒体访问')
+
     @application.get('/api/scenes/{scene_id}/imports/{import_id}/exploration')
-    def explore_import(scene_id: str, import_id: str):
-        return application.state.inspection.report(scene_id, import_id)
+    async def explore_import(scene_id: str, import_id: str):
+        inspection=application.state.inspection
+        return await inspection.access.gate.run_sync(inspection.report,scene_id,import_id)
 
     @application.get('/api/scenes/{scene_id}/imports/{import_id}/media')
     @application.head('/api/scenes/{scene_id}/imports/{import_id}/media', include_in_schema=False)
-    def import_media(scene_id: str, import_id: str):
-        path, digest = application.state.inspection.media(scene_id, import_id)
-        return application.state.inspection.access.response(FileResponse(path, media_type='video/mp4', headers={'ETag': f'"{digest}"', 'Cache-Control': 'private, no-cache'}),scene_id,path,digest)
+    async def import_media(scene_id: str, import_id: str):
+        await require_media_admission(scene_id,import_id)
+        inspection=application.state.inspection
+        def resolve():
+            path,digest=inspection.media(scene_id,import_id)
+            return inspection.access.response(FileResponse(path,media_type='video/mp4',headers={'ETag':f'"{digest}"','Cache-Control':'private, no-cache'}),scene_id,path,digest)
+        return await inspection.access.gate.run_sync(resolve)
 
     @application.get('/api/scenes/{scene_id}/imports/{import_id}/media/preview')
     @application.head('/api/scenes/{scene_id}/imports/{import_id}/media/preview', include_in_schema=False)
-    def import_preview(scene_id: str, import_id: str):
-        path, metadata = application.state.inspection.preview(scene_id, import_id)
-        original,digest=application.state.inspection.media(scene_id,import_id)
-        return application.state.inspection.access.response(FileResponse(path, media_type='video/mp4', headers={'Cache-Control': 'private, no-cache'}),scene_id,original,digest,derived=path)
+    async def import_preview(scene_id: str, import_id: str):
+        await require_media_admission(scene_id,import_id)
+        inspection=application.state.inspection
+        def resolve():
+            path,metadata=inspection.preview(scene_id,import_id)
+            original,digest=inspection.media(scene_id,import_id)
+            return inspection.access.response(FileResponse(path,media_type='video/mp4',headers={'Cache-Control':'private, no-cache'}),scene_id,original,digest,derived=path)
+        return await inspection.access.gate.run_sync(resolve)
 
     @application.post('/api/scenes/{scene_id}/imports/{import_id}/cancel', status_code=202)
     def cancel_import(scene_id: str, import_id: str):

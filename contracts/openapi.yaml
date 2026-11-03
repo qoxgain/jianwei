@@ -379,6 +379,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HTTPValidationError'
+  /api/scenes/{scene_id}/imports/{import_id}/media-admission:
+    get:
+      summary: Media Admission
+      operationId: media_admission_api_scenes__scene_id__imports__import_id__media_admission_get
+      parameters:
+      - name: scene_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scene Id
+      - name: import_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Import Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaAdmission'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
   /api/scenes/{scene_id}/imports/{import_id}/exploration:
     get:
       summary: Explore Import
@@ -1486,6 +1516,31 @@ components:
       - asset_id
       - section_ids
       title: MappingEntry
+    MediaAdmission:
+      properties:
+        state:
+          type: string
+          enum:
+          - development
+          - pending_seal
+          - sealed
+          - seal_failed
+          - cancelled
+          title: State
+        ordinary_media_allowed:
+          type: boolean
+          title: Ordinary Media Allowed
+        existing_grant_policy:
+          type: string
+          const: finish_authorized_stream_before_formal_seal_commit
+          title: Existing Grant Policy
+      additionalProperties: false
+      type: object
+      required:
+      - state
+      - ordinary_media_allowed
+      - existing_grant_policy
+      title: MediaAdmission
     PreviewRequest:
       properties:
         yaml:

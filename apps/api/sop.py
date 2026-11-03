@@ -1,34 +1,48 @@
 """Registered original media and immutable SOP review routes."""
 import re
+from functools import wraps
 from fastapi import APIRouter, Request, Response
 from fastapi.responses import StreamingResponse, FileResponse
 from packages.contracts.sop import RevisionRequest, DecisionRequest, EvidenceRecord
+
+def media_operation(function):
+    @wraps(function)
+    async def operation(*args,**kwargs):
+        request=kwargs.get('request')
+        return await request.app.state.sop.access.gate.run_sync(function,*args,**kwargs)
+    return operation
+
 
 router = APIRouter(prefix='/api/scenes/{scene_id}/sop', tags=['sop-review'])
 
 
 @router.get('')
+@media_operation
 def get_review(scene_id: str, request: Request):
     return request.app.state.sop.get(scene_id)
 
 
 @router.post('/revisions', status_code=201)
+@media_operation
 def revise(scene_id: str, body: RevisionRequest, request: Request):
     return request.app.state.sop.revise(scene_id, body)
 
 
 @router.post('/decisions')
+@media_operation
 def decide(scene_id: str, body: DecisionRequest, request: Request):
     return request.app.state.sop.decide(scene_id, body)
 
 
 @router.post('/evidence', status_code=201)
+@media_operation
 def evidence(scene_id: str, body: EvidenceRecord, request: Request):
     return request.app.state.sop.record_evidence(scene_id, body)
 
 
 @router.get('/media/{asset_id}')
 @router.head('/media/{asset_id}', include_in_schema=False)
+@media_operation
 def media(scene_id: str, asset_id: str, request: Request):
     service = request.app.state.sop
     path, asset = service.media(scene_id, asset_id)
@@ -72,6 +86,7 @@ def media(scene_id: str, asset_id: str, request: Request):
 
 @router.get('/media/{asset_id}/preview')
 @router.head('/media/{asset_id}/preview', include_in_schema=False)
+@media_operation
 def preview(scene_id: str, asset_id: str, request: Request):
     from packages.sop.preview import preview_video
     from packages.config.errors import ContractError

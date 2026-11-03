@@ -15,7 +15,7 @@ class ImportInspection:
     def media(self, scene, identifier):
         with self.access.gate.hold():return self._media(scene,identifier)
 
-    def _media(self, scene, identifier):
+    def _resource(self, scene, identifier):
         service=self.imports;service.check_scene(scene)
         with service.database.session() as session:
             row=service._job(session,scene,identifier)
@@ -26,7 +26,15 @@ class ImportInspection:
             if not video_id:raise ContractError('IMPORT_MEDIA_UNAVAILABLE','该导入未上传原始视频')
             artifact=service._artifact(session,video_id,'mp4');path=service._path(artifact)
             digest,size=artifact.sha256,artifact.size_bytes
-            split=(json.loads(row.manifest_json).get("split") if row.manifest_json else request.get("requested_split"))
+            split=(json.loads(row.manifest_json).get("split") if row.manifest_json else None)
+        return path,digest,size,split
+
+    def admission(self,scene,identifier):
+        path,digest,size,split=self._resource(scene,identifier)
+        return self.access.state(scene,path,digest,split=split)
+
+    def _media(self,scene,identifier):
+        path,digest,size,split=self._resource(scene,identifier)
         self.access.check(scene,path,digest,split=split)
         try:
             stat=path.stat();stamp=(path,stat.st_size,stat.st_mtime_ns,stat.st_ctime_ns,stat.st_ino)

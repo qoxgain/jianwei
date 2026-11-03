@@ -8,6 +8,7 @@ from .temporal import TemporalSettings
 from .capture import CaptureIdentity
 from .sop import SopSettings
 from .database import SQLiteSettings
+from .media import MediaAccessSettings
 from .exploratory import ExploratorySettings
 
 class SourceBinding(Strict):
@@ -28,6 +29,7 @@ class SceneConfig(SystemConfig):
     config_version: Literal['3.1']
     exploratory: ExploratorySettings | None = None
     sqlite: SQLiteSettings | None = None
+    media_access: MediaAccessSettings | None = None
     ingestion: IngestionSettings | None = None
     temporal: TemporalSettings | None = None
     sop_review: SopSettings | None = None

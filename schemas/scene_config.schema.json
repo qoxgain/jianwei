@@ -955,6 +955,34 @@
       "title": "Media",
       "type": "object"
     },
+    "MediaAccessSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "wait_timeout_seconds": {
+          "default": 5,
+          "maximum": 120,
+          "minimum": 0.05,
+          "title": "Wait Timeout Seconds",
+          "type": "number"
+        },
+        "sealing_wait_seconds": {
+          "default": 30,
+          "maximum": 600,
+          "minimum": 0.05,
+          "title": "Sealing Wait Seconds",
+          "type": "number"
+        },
+        "poll_seconds": {
+          "default": 0.01,
+          "maximum": 0.1,
+          "minimum": 0.001,
+          "title": "Poll Seconds",
+          "type": "number"
+        }
+      },
+      "title": "MediaAccessSettings",
+      "type": "object"
+    },
     "Paths": {
       "additionalProperties": false,
       "properties": {
@@ -2303,6 +2331,17 @@
       "anyOf": [
         {
           "$ref": "#/$defs/SQLiteSettings"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "media_access": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/MediaAccessSettings"
         },
         {
           "type": "null"

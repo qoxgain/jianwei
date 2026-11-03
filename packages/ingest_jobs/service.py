@@ -441,8 +441,8 @@ class ImportService:
             manifest = process_import(self.bundle, scene_id, request, input_path,
                 encoder_artifact_path=encoder_path, source_path=source_path, output_dir=output, progress=progress)
             progress('commit')
-            from packages.media.access import media_gate
-            with media_gate(self.bundle).hold(), self.database.session() as session:
+            from packages.media.access import media_gate,media_settings
+            with media_gate(self.bundle).hold(timeout=media_settings(self.bundle).sealing_wait_seconds), self.database.session() as session:
                 # Acquire the SQLite write reservation before checking the source group.
                 session.execute(text('BEGIN IMMEDIATE'))
                 row = session.get(ImportJob, identifier)
