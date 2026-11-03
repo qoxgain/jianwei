@@ -333,6 +333,9 @@ class ImportService:
 
     def _run(self):
         while not self.stop_event.is_set():
+            if self.database.fault is not None:
+                logger.error('Database fault recorded; worker paused without automatic restore')
+                return
             try:
                 with self.database.session() as session:
                     session.execute(text('BEGIN IMMEDIATE'))

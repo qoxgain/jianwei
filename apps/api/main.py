@@ -99,7 +99,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
     async def lifespan(application):
         bundle = load_bundle(config_path, profile)
         assert_demo_service(bundle)
-        database = Database(database_url(bundle))
+        database = Database(database_url(bundle), sqlite_settings=getattr(bundle.config,'sqlite',None))
         database.migrate(bundle.profile.tenant_id, bundle.config.active_scene)
         application.state.bundle, application.state.database = bundle, database
         imports = ImportService(bundle, database)
@@ -151,7 +151,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
 
     @application.exception_handler(ContractError)
     async def contract_error(_request, error):
-        status = (404 if error.code in {'PROFILE_NOT_FOUND','VERSION_NOT_FOUND','SCENE_NOT_FOUND','UPLOAD_NOT_FOUND','IMPORT_NOT_FOUND','TEMPORAL_RUN_NOT_FOUND','TEMPORAL_ARTIFACT_NOT_FOUND'}
+        status = (503 if error.code.startswith('DATABASE_') else 404 if error.code in {'PROFILE_NOT_FOUND','VERSION_NOT_FOUND','SCENE_NOT_FOUND','UPLOAD_NOT_FOUND','IMPORT_NOT_FOUND','TEMPORAL_RUN_NOT_FOUND','TEMPORAL_ARTIFACT_NOT_FOUND'}
                   else 409 if error.code in {'BASE_HASH_CONFLICT','SOURCE_SPLIT_CONFLICT','IMPORT_CONFIG_CHANGED','IMPORT_MANIFEST_UNAVAILABLE'}
                   else 413 if error.code == 'UPLOAD_TOO_LARGE' else 422)
         return JSONResponse({'detail':error.detail()}, status_code=status)
@@ -163,7 +163,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
 
     @application.exception_handler(SQLAlchemyError)
     async def database_error(_request, _error):
-        return JSONResponse({'detail':{'code':'DATABASE_ERROR','message':'数据库操作失败，事务已回滚'}},status_code=503)
+        return JSONResponse({'detail':{'code':'DATABASE_ERROR','message':'数据库操作失败，提交未获确认；请保留故障现场并核对数据库'}},status_code=503)
 
     def baseline(scene_id=None, normalized=False):
         tenant, scene_id = scope(scene_id)
@@ -202,10 +202,12 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
 
     @application.get('/api/health')
     def health():
+        if application.state.database.fault is not None:
+            raise ContractError('DATABASE_UNAVAILABLE','数据库故障已记录；服务暂停任务，不自动恢复原库')
         with application.state.database.session() as session:
             session.execute(text('SELECT 1'))
             revision = session.execute(text('SELECT version_num FROM alembic_version')).scalar_one()
-        return {'status':'ok','stage':'P0.3.2','database':'ok','schema_version':revision,
+        return {'status':'ok','stage':'P0.3.2','database':'ok','integrity_check':application.state.database.last_integrity_check,'schema_version':revision,
                 'active_profile':application.state.bundle.config.active_profile}
 
     @application.get('/api/scenes')

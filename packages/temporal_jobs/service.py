@@ -229,6 +229,9 @@ class TemporalService:
         if self.worker_lock:self.worker_lock.close();self.worker_lock=None
     def _loop(self):
         while not self.stop_event.is_set():
+            if self.database.fault is not None:
+                logger.error('Database fault recorded; worker paused without automatic restore')
+                return
             try:
                 with self.database.session() as session:
                     session.execute(text('BEGIN IMMEDIATE'))

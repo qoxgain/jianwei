@@ -7,6 +7,7 @@ from .ingestion import IngestionSettings
 from .temporal import TemporalSettings
 from .capture import CaptureIdentity
 from .sop import SopSettings
+from .database import SQLiteSettings
 
 class SourceBinding(Strict):
     id: Identifier
@@ -24,6 +25,7 @@ class SceneEncoder(Encoder):
 
 class SceneConfig(SystemConfig):
     config_version: Literal['3.1']
+    sqlite: SQLiteSettings | None = None
     ingestion: IngestionSettings | None = None
     temporal: TemporalSettings | None = None
     sop_review: SopSettings | None = None

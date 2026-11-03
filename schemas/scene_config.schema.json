@@ -1234,6 +1234,50 @@
       "title": "Retention",
       "type": "object"
     },
+    "SQLiteSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "journal_mode": {
+          "default": "DELETE",
+          "enum": [
+            "DELETE",
+            "WAL"
+          ],
+          "title": "Journal Mode",
+          "type": "string"
+        },
+        "synchronous": {
+          "default": "FULL",
+          "enum": [
+            "FULL",
+            "EXTRA"
+          ],
+          "title": "Synchronous",
+          "type": "string"
+        },
+        "busy_timeout_ms": {
+          "default": 10000,
+          "maximum": 120000,
+          "minimum": 100,
+          "title": "Busy Timeout Ms",
+          "type": "integer"
+        },
+        "integrity_check_on_start": {
+          "default": true,
+          "title": "Integrity Check On Start",
+          "type": "boolean"
+        },
+        "min_free_bytes": {
+          "default": 16777216,
+          "maximum": 10737418240,
+          "minimum": 0,
+          "title": "Min Free Bytes",
+          "type": "integer"
+        }
+      },
+      "title": "SQLiteSettings",
+      "type": "object"
+    },
     "SceneEncoder": {
       "additionalProperties": false,
       "properties": {
@@ -2159,6 +2203,17 @@
     },
     "demo": {
       "$ref": "#/$defs/Demo"
+    },
+    "sqlite": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SQLiteSettings"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     },
     "ingestion": {
       "anyOf": [

@@ -16,3 +16,11 @@ artifacts/
 !.env.example
 .cache/
 apps/web/dist-demo/
+# P0.3.6: new feature/model/database numerical artifacts stay private/local.
+*.npy
+*.npz
+*.onnx
+*.pth
+*.pt
+*.sqlite-wal
+*.sqlite-shm

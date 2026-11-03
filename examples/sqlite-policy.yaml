@@ -1,0 +1,8 @@
+# Optional fragment to review and place in system.yaml.
+# WAL requires a supported local filesystem. It is not a corruption repair.
+sqlite:
+  journal_mode: WAL
+  synchronous: FULL
+  busy_timeout_ms: 10000
+  integrity_check_on_start: true
+  min_free_bytes: 16777216

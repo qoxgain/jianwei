@@ -39,9 +39,9 @@ jobs:
         with:
           name: browser-verification
           path: |
-            artifacts/p032-browser
+            artifacts/p032-browser/research/*.json
+            artifacts/p032-browser/video/*.json
             artifacts/p034-browser/sampling/*.json
-            artifacts/p034-browser/sampling/*.png
             artifacts/p035-browser/*.json
             artifacts/p031-browser-work/**/api.log
             artifacts/p031-browser-work/**/static.log
