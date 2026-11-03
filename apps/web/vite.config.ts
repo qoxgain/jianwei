@@ -9,5 +9,6 @@ export default defineConfig(({mode})=>({
  define:{__DEMO_BUILD__:JSON.stringify(mode==='demo')},
  server:{host:'127.0.0.1',port:5173,proxy:{'/api':'http://127.0.0.1:8000'},
   fs:{strict:true,allow:[local('./'),local('../../knowledge'),local('../../schemas'),local('../../config/system.yaml'),local('../../tests/fixtures')] }},
+ preview:{host:'127.0.0.1'},
  build:{outDir:mode==='demo'?'dist-demo':'dist',target:'es2022'},
 }));

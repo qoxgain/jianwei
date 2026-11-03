@@ -1,14 +1,29 @@
 import type {Plugin} from 'vite';
 import {createHash} from 'node:crypto';
-import {lstatSync,readFileSync,realpathSync,readdirSync,writeFileSync} from 'node:fs';
+import {lstatSync,readFileSync,realpathSync,readdirSync,writeFileSync,existsSync} from 'node:fs';
 import {isAbsolute,relative,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const repo=fileURLToPath(new URL('../../',import.meta.url));
 const web=resolve(repo,'apps/web');
-const manifest=JSON.parse(readFileSync(resolve(web,'browser-files.json'),'utf8')) as {files:Record<string,string>;assets:Record<string,string>};
+const manifest=JSON.parse(readFileSync(resolve(web,'browser-files.json'),'utf8')) as {files:Record<string,string>;assets:Record<string,string>;dependencies:Record<string,string>;package_lock_sha256:string};
 const digest=(data:Buffer|string)=>createHash('sha256').update(data).digest('hex');
 const within=(root:string,file:string)=>{const p=relative(root,file);return !isAbsolute(p)&&p!=='..'&&!p.startsWith('../')&&!p.startsWith('..\\');};
 const deps=realpathSync(resolve(web,'node_modules'));
+if(digest(readFileSync(resolve(web,'package-lock.json')))!==manifest.package_lock_sha256)throw new Error('Dependency lock changed; review browser dependency snapshot');
+for(const [key,expected] of Object.entries(manifest.dependencies)){
+ const path=resolve(repo,key);if(!existsSync(path))continue;const stat=lstatSync(path);
+ if(!stat.isFile()||stat.isSymbolicLink()||stat.nlink!==1||digest(readFileSync(path))!==expected)throw new Error('Pinned dependency changed: '+key);
+}
+function optimizedMember(path:string){
+ const cache=resolve(deps,'.vite/deps');if(!within(cache,path))return false;
+ try{
+  const metadata=resolve(cache,'_metadata.json'),info=lstatSync(metadata);if(info.isSymbolicLink()||info.nlink!==1)return false;
+  const data=JSON.parse(readFileSync(metadata,'utf8')) as {optimized:Record<string,{src:string;file:string}>;chunks:Record<string,{file:string}>};
+  const entries=Object.values(data.optimized);
+  if(!entries.length||!entries.every(e=>{const source=resolve(cache,e.src),key=relative(repo,source).replaceAll('\\','/');return Object.hasOwn(manifest.dependencies,key)&&digest(readFileSync(source))===manifest.dependencies[key];}))return false;
+  return [...entries,...Object.values(data.chunks)].some(e=>resolve(cache,e.file)===path||resolve(cache,e.file)+'.map'===path);
+ }catch{return false;}
+}
 function clean(id:string){return id.split('?')[0].split('#')[0];}
 function inspect(file:string){
  const path=resolve(file),stat=lstatSync(path);
@@ -20,8 +35,8 @@ function inspect(file:string){
   if(digest(readFileSync(path))!==manifest.files[key])throw new Error('Reviewed browser input changed; explicit manifest review required');
   return;
  }
- // Installed, lockfile-pinned executable dependencies are not a public asset root.
- if(within(deps,actual)&&/\.(?:[cm]?js|json|map|css|wasm)$/.test(actual))return;
+ if(Object.hasOwn(manifest.dependencies,key)&&digest(readFileSync(path))===manifest.dependencies[key])return;
+ if(optimizedMember(actual))return;
  throw new Error('File is outside the reviewed browser manifest');
 }
 function projectInput(id:string){
@@ -52,6 +67,21 @@ export function reviewedAssets():Plugin{return {
   const file=path.startsWith('/@fs/')?path.slice(5):resolve(web,'.'+(path==='/'?'/index.html':path));
   try{inspect(isAbsolute(file)?file:'/'+file);next();}catch{res.statusCode=403;res.end('Resource is not in the reviewed browser manifest');}
  });},
+ configurePreviewServer(server){
+  const out=realpathSync(resolve(server.config.root,server.config.build.outDir));
+  const publication=JSON.parse(readFileSync(resolve(out,'build-members.json'),'utf8')) as {version:string;files:Record<string,string>};
+  if(publication.version!=='reviewed-web-build-v1')throw new Error('Unreviewed preview build');
+  server.middlewares.use((req,res,next)=>{
+   let path:string;try{path=decodeURIComponent(new URL(req.url??'/','http://localhost').pathname);}catch{res.statusCode=400;res.end('Invalid path');return;}
+   if(path.startsWith('/api/'))return next();
+   const name=path==='/'?'index.html':path.slice(1),file=resolve(out,name);
+   try{
+    const stat=lstatSync(file);
+    if(!Object.hasOwn(publication.files,name)||!within(out,file)||!stat.isFile()||stat.isSymbolicLink()||stat.nlink!==1||realpathSync(file)!==file||digest(readFileSync(file))!==publication.files[name])throw new Error('not reviewed');
+    next();
+   }catch{res.statusCode=404;res.end('Not a reviewed build member');}
+  });
+ },
  generateBundle(){
   for(const [name,file] of Object.entries(manifest.assets)){
    inspect(resolve(repo,file));this.emitFile({type:'asset',fileName:name,source:readFileSync(resolve(repo,file))});

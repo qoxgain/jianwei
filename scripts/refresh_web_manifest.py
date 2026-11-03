@@ -11,6 +11,11 @@ def main():
         file=ROOT/path;stat=file.lstat()
         if file.is_symlink() or stat.st_nlink!=1 or not file.is_file():raise ValueError('Not an independent reviewed regular file: '+path)
         manifest['files'][path]=hashlib.sha256(file.read_bytes()).hexdigest()
+    manifest['package_lock_sha256']=hashlib.sha256((ROOT/'apps/web/package-lock.json').read_bytes()).hexdigest()
+    for path in manifest.get('dependencies',{}):
+        file=ROOT/path
+        if file.exists() and not file.is_symlink() and file.stat().st_nlink==1:
+            manifest['dependencies'][path]=hashlib.sha256(file.read_bytes()).hexdigest()
     TARGET.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
     print('Refreshed explicit reviewed list; review this manifest diff before publishing')
 

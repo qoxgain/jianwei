@@ -7,7 +7,7 @@ ROOT=Path(__file__).resolve().parents[1];WEB=ROOT/'apps/web'
 
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);args=p.parse_args();out=args.output.resolve()
+ p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--chromium',default='/usr/bin/chromium');args=p.parse_args();out=args.output.resolve()
  assert out.is_relative_to(ROOT/'artifacts');out.mkdir(parents=True,exist_ok=False)
  source=out/'generated-test.mp4';subprocess.run(['ffmpeg','-v','error','-f','lavfi','-i','testsrc2=size=64x48:rate=16:duration=1','-c:v','mpeg4','-threads','1',str(source)],check=True)
  data=source.read_bytes()
@@ -17,7 +17,7 @@ def main():
  with db.session() as s:s.add(SourceSplit(id='f'*64,tenant_id='tenant_demo',source_hash=hashlib.sha256(data).hexdigest(),split='test'))
  public=WEB/'public';public.mkdir(exist_ok=True);aliases=[];asset=WEB/'static/brand-mark.svg';original=asset.read_bytes()
  with socket.socket() as s:s.bind(('127.0.0.1',0));port=s.getsockname()[1]
- log=(out/'vite.log').open('w');server=None
+ log=(out/'vite.log').open('w');server=None;preview=None;preview_log=None;preview_alias=None
  try:
   for kind,extension in [('hard','.txt'),('hard','.js'),('sym','.yaml'),('copy','.unknown')]:
    alias=public/(uuid.uuid4().hex+extension)
@@ -26,6 +26,11 @@ def main():
    else:shutil.copyfile(source,alias)
    aliases.append(alias)
   extra=WEB/'src'/('unreviewed-'+uuid.uuid4().hex+'.json');os.link(source,extra);aliases.append(extra)
+  for kind in ('hard','copy'):
+   alias=WEB/'node_modules'/('unreviewed-'+uuid.uuid4().hex+'.js')
+   if kind=='hard':os.link(source,alias)
+   else:shutil.copyfile(source,alias)
+   aliases.append(alias)
   server=subprocess.Popen(['npm','run','dev','--','--mode','demo','--host','127.0.0.1','--port',str(port)],cwd=WEB,stdout=log,stderr=log,start_new_session=True)
   base=f'http://127.0.0.1:{port}'
   for _ in range(200):
@@ -40,7 +45,8 @@ def main():
   for alias in aliases:
    urls=['/@fs'+str(alias)]
    if alias.parent==public:urls+=[('/'+alias.name),('/public/'+alias.name)]
-   else:urls+=['/src/'+alias.name]
+   elif alias.parent==WEB/'src':urls+=['/src/'+alias.name]
+   else:urls+=['/node_modules/'+alias.name]
    for path in urls:
     for query in ('','?raw','?url','?import'):
      for method,headers in [('GET',{}),('HEAD',{}),('GET',{'Range':'bytes=0-15'})]:
@@ -50,7 +56,7 @@ def main():
   status,body=request('/static/brand-mark.svg');assert status==200 and body==original
   from playwright.sync_api import sync_playwright,expect
   with sync_playwright() as pw:
-   browser=pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
+   browser=pw.chromium.launch(executable_path=args.chromium,args=['--no-sandbox'])
    page=browser.new_page();page.goto(base);expect(page.get_by_role('button',name='知识工作台',exact=True)).to_be_visible(timeout=30000);browser.close()
   builds={}
   for mode in ('production','demo'):
@@ -61,6 +67,24 @@ def main():
    assert {str(p.relative_to(dest)) for p in files}=={'index.html','static/brand-mark.svg','build-members.json'}
    assert not any(data in f.read_bytes() or base64.b64encode(data) in f.read_bytes() for f in files)
    builds[mode]={'members':[str(f.relative_to(dest)) for f in files],'protected_bytes_present':False}
+  # Preview is a separate server, and must reject post-build aliases too.
+  preview_alias=out/'production'/(uuid.uuid4().hex+'.txt');os.link(source,preview_alias)
+  with socket.socket() as sock:sock.bind(('127.0.0.1',0));preview_port=sock.getsockname()[1]
+  preview_log=(out/'preview.log').open('w')
+  preview=subprocess.Popen(['npm','run','preview','--','--host','127.0.0.1','--port',str(preview_port),'--outDir',str(out/'production')],cwd=WEB,stdout=preview_log,stderr=preview_log,start_new_session=True)
+  preview_base=f'http://127.0.0.1:{preview_port}'
+  for _ in range(200):
+   try:
+    with urlopen(preview_base,timeout=1) as response:assert response.status==200
+    break
+   except URLError:time.sleep(.1)
+  for query in ('','?raw','?url','?import'):
+   for method in ('GET','HEAD'):
+    try:
+     with urlopen(Request(preview_base+'/'+preview_alias.name+query,method=method,headers={'Range':'bytes=0-15'}),timeout=10) as response:status=response.status
+    except HTTPError as error:status=error.code
+    assert status==404
+  preview_alias.unlink();preview_alias=None
   # A known, listed asset replaced by a link must also fail before hashing/loading.
   asset.unlink();os.link(source,asset)
   status,_=request('/static/brand-mark.svg?import');assert status==403
@@ -71,13 +95,18 @@ def main():
   assert not any(data in f.read_bytes() or base64.b64encode(data) in f.read_bytes() for f in cache.rglob('*') if f.is_file())
   result={'passed':True,'scope':'generated test-registered video only','requests_checked':len(checked),'denials':checked,
    'legal_static_asset_loads':True,'normal_react_workbench_loads':True,'builds':builds,'listed_asset_link_rejected':True,
-   'poisoned_build_rejected':True,'protected_cache_bytes_present':False}
+   'poisoned_build_rejected':True,'preview_post_build_alias_denied':True,'protected_cache_bytes_present':False}
   (out/'results.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items() if k!='denials'}))
  finally:
   if asset.is_symlink() or (asset.exists() and asset.stat().st_nlink>1):asset.unlink();asset.write_bytes(original)
   for alias in aliases:alias.unlink(missing_ok=True)
   try:public.rmdir()
   except OSError:pass
+  if preview_alias is not None:preview_alias.unlink(missing_ok=True)
+  if preview is not None:
+   import signal
+   os.killpg(preview.pid,signal.SIGTERM);preview.wait(10)
+  if preview_log:preview_log.close()
   if server:
    import signal
    os.killpg(server.pid,signal.SIGTERM);server.wait(10)
