@@ -15,14 +15,15 @@ def test_dependency_closure_contains_sampling_encoder_time_roi_and_contracts():
     paths=set(snapshot['source_files'])
     for path in ('packages/ingestion/pipeline.py','packages/ingestion/video.py',
         'packages/ingestion/time.py','packages/ingestion/capture.py','packages/encoders/onnx_cpu.py',
-        'packages/encoders/pretrained.py','packages/config/loader.py','packages/contracts/ingestion.py'):
+        'packages/encoders/pretrained.py','packages/config/loader.py','packages/contracts/ingestion.py',
+        'packages/knowledge/service.py','packages/migrations/legacy_v3.py'):
         assert path in paths
     assert snapshot['sha256']==content_hash({k:v for k,v in snapshot.items() if k!='sha256'})
     assert set(snapshot['runtime']['tools'])=={'ffmpeg','ffprobe'}
     assert 'numpy' in snapshot['runtime']['packages']
 
 
-@pytest.mark.parametrize('name',['pipeline.py','onnx_cpu.py','time.py','capture.py'])
+@pytest.mark.parametrize('name',['pipeline.py','onnx_cpu.py','time.py','capture.py','service.py','legacy_v3.py'])
 def test_changed_source_invalidates_producer_protocol_and_engine(study,monkeypatch,name):
     service,train,test=study
     before=recipe.production_snapshot();key=ImportService.implementation_hash()

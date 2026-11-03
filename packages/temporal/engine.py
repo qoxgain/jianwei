@@ -19,7 +19,7 @@ def code_hash():
     # Admission/consumption and schema changes alter the experiment just as
     # numerical code does. Bind those rules as well as the forecast engine.
     root=Path(__file__).resolve().parents[2]
-    paths=sorted(p for package in ('temporal','temporal_jobs','contracts','ingestion','encoders','config')
+    paths=sorted(p for package in ('temporal','temporal_jobs','contracts','ingestion','encoders','config','knowledge','migrations')
                  for p in (root/'packages'/package).glob('*.py'))
     return content_hash({str(p.relative_to(root)):file_hash(p) for p in paths})
 

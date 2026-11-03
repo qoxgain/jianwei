@@ -9,7 +9,7 @@ import subprocess
 
 from packages.knowledge.service import content_hash
 
-VERSION = 'p036-feature-production-v1'
+VERSION = 'p036-feature-production-v2'
 ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -19,7 +19,7 @@ def digest(path):
 
 
 def source_snapshot():
-    paths = sorted(p for package in ('ingestion','encoders','contracts','config')
+    paths = sorted(p for package in ('ingestion','encoders','contracts','config','knowledge','migrations')
                    for p in (ROOT/'packages'/package).glob('*.py'))
     paths += [ROOT/'requirements.lock', ROOT/'requirements-encoder.txt']
     return {str(p.relative_to(ROOT)): digest(p) for p in paths}
