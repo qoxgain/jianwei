@@ -79,6 +79,10 @@ jobs:
         working-directory: apps/web
       - run: npm run build:demo
         working-directory: apps/web
+      - name: Verify the committed media-free Demo matches the current tested build
+        run: |
+          python -m scripts.package_p036_demo --output artifacts/p036-demo-rebuilt
+          cmp docs/demo/p0.3.6/jianwei-p0.3.6-demo.zip artifacts/p036-demo-rebuilt/jianwei-p0.3.6-demo.zip
   pretrained-encoder:
     runs-on: ubuntu-24.04
     steps:

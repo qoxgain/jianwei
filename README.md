@@ -1,8 +1,9 @@
 # 见微 · 多模态自学习感知平台
 
-当前实现 **P0.3.5 研究协议与独立会话验收**：训练前固定研究协议、完整来源分区和实际特征版本；新增按会话配对区间、双对照门槛及封存测试消费保护。现有九段开发录像和 SOP 保留，真实学习验收仍 blocked。服装SOP、电子装配、无SOP安全事件、无标签观察使用同一套场景API和页面；动作、状态、事件、流程节点分别定义。产品版本为V3.0，配置与知识契约为3.1。
+当前实现 **P0.3.6 工程可靠性与真实时序学习研究**：来源/episode覆盖、实际特征依赖配方及SQLite故障保护已加固；九视频重提2710片段，完成五种子、18模型与时序消融，并提供真实结果页面。残差/多尺度尚未稳定超过简单基线，原SQLite故障根因未确认；独立科研验收及P0.4仍 blocked。P0.3.5研究协议、原接口和四场景保留。产品版本V3.0，配置与知识契约3.1。
 
-- [后续真实研究任务](docs/plans/P0.3.5-next.md) · [Codex执行指令](docs/plans/P0.3.5-Codex.txt) · [P0.1.1最终任务书](docs/plans/P0.1.1-final.md)
+- [P0.3.6交付与测试](docs/delivery/P0.3.6.md) · [真实实验完整结果](docs/delivery/p0.3.6/research/RESULTS.md) · [P0.3.6 Demo下载](docs/demo/p0.3.6/jianwei-p0.3.6-demo.zip) · [后续独立数据任务](docs/plans/P0.3.6-next.md)
+- [历史后续真实研究任务](docs/plans/P0.3.5-next.md) · [Codex执行指令](docs/plans/P0.3.5-Codex.txt) · [P0.1.1最终任务书](docs/plans/P0.1.1-final.md)
 - [本次交付、测试与边界](docs/delivery/P0.3.5.md) · [P0.3.5 Demo 下载](docs/demo/p0.3.5/jianwei-p0.3.5-demo.zip) · [P0.3.4 历史交付](docs/delivery/P0.3.4.md) · [P0.3.3历史交付](docs/delivery/P0.3.3.md) · [九视频验收 Demo 下载](docs/demo/p0.3.3/jianwei-p0.3.3-demo.zip) · [P0.3.2 历史交付](docs/delivery/P0.3.2.md) · [P0.3.1 历史交付](docs/delivery/P0.3.1.md)
 - [研究路线与阶段依赖](docs/ROADMAP.md) · [P0.2衔接契约](docs/P0.2-CONTRACTS.md)
 - [四场景离线演示使用说明](demo/README.md)
@@ -131,3 +132,9 @@ site预检缺少现场资源时返回2是预期阻塞，不是假就绪。浏览
 | `reference` | 原始合成机制参考，不代表真实模型效果 |
 
 主线A的顺序为：公共底座 → 视频/特征 → 自监督时序 → 语义与状态记忆 → 少样本抗遗忘 → 主动局部感知。P0.3.5 补齐协议冻结、会话不确定性与封存使用保护；独立录像与真实训练/校准/测试仍待验收，尚不进入 P0.4。
+
+## P0.3.6 真实视频学习实验
+
+打开“真实视频学习实验”切换视频、种子、历史队列、模型、预测跨度和评价分区，查看实际损失与PTS误差、训练前后、简单基线和低/高变化量统计。页面只读取已执行标量，不会自动训练；可在本机选择原片，SHA匹配后回查时刻，不上传。离线Demo不含工业特征、权重或视频。
+
+[SQLite调查](docs/delivery/p0.3.6/SQLITE-RELIABILITY.md) · [完整生产配方](docs/delivery/p0.3.6/AUD-02.md) · [独立采集准备](docs/delivery/p0.3.6/COLLECTION-PREPARATION.md) · [复现实验](experiments/real_video/README.md)。新增sqlite/exploratory为可选统一配置，旧配置加载兼容；根配置默认关闭探索训练。

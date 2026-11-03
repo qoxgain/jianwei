@@ -1,0 +1,51 @@
+{
+  "path": "docs/demo/p0.3.6/jianwei-p0.3.6-demo.zip",
+  "bytes": 7199968,
+  "sha256": "9802f89e54d52f9daa02f9f54ade9dcfbb14f081cdc54bbfd0209e57cfe7d8e2",
+  "index_html_sha256": "dfc166540a2beb4adafb82154cc6488b17b773f2c9b8a7e9cff1678b39dba8d8",
+  "archive_integrity_verified": true,
+  "matches_browser_tested_build": true,
+  "media_features_weights_database_included": false,
+  "contents": {
+    "stage": "P0.3.6",
+    "media_included": false,
+    "feature_values_included": false,
+    "weight_values_included": false,
+    "formal_research_status": "blocked",
+    "p04_admitted": false,
+    "files": {
+      "evidence/browser/results.json": {
+        "sha256": "bd7328bf3d4598a8e4197a59e861204be2abb0250dc9092eea35a135b623ccba",
+        "bytes": 2885
+      },
+      "evidence/research/RESULTS.md": {
+        "sha256": "e9f18605b81db4745caa60c407a6c5774585f2126df36751a599dc7f5d663b68",
+        "bytes": 17096
+      },
+      "evidence/research/cache-equivalence.json": {
+        "sha256": "2ce9a94d132b3edf7691a8ba924ab6c277cddd07d7b81f6efab38e3938687aed",
+        "bytes": 1890
+      },
+      "evidence/research/execution-provenance.json": {
+        "sha256": "8677010ee179c081de561c253e901a65e5783128570e9367432c2e6b470e9a4f",
+        "bytes": 4676
+      },
+      "evidence/research/per-horizon.csv": {
+        "sha256": "fbe28968f2bd7838667df2d90d143491f78da65d108f019084c35defaabd2bdf",
+        "bytes": 1814996
+      },
+      "evidence/research/summary.json": {
+        "sha256": "6a25938e7ab215b3d201c9e0517ad9982c6576d1bad8ecdee3f3d57bcd240f47",
+        "bytes": 93398
+      },
+      "index.html": {
+        "sha256": "dfc166540a2beb4adafb82154cc6488b17b773f2c9b8a7e9cff1678b39dba8d8",
+        "bytes": 23771798
+      },
+      "使用说明.txt": {
+        "sha256": "463bfc7acf6990f79db213b12bc9f8b4779b44cf6fd22f279345f5345fa23182",
+        "bytes": 1252
+      }
+    }
+  }
+}

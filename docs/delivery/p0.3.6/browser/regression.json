@@ -1,0 +1,43 @@
+{
+  "cases": [
+    {
+      "case": "four_scenes",
+      "passed": true,
+      "evidence_sha256": "62a848f96d0f581d51ad3cc0c892572250934c028e24d5df3fce5889bd5ac118",
+      "browser": "Chromium 154.0.8037.57 built on Debian GNU/Linux 13 (trixie)",
+      "scope": "Eight independent synthetic sources reused across scenes; no field accuracy claim.",
+      "page_errors": [],
+      "formal_research_passed": false
+    },
+    {
+      "case": "sampling",
+      "passed": true,
+      "evidence_sha256": "ac584aaee1bfa0155951ffb2b9304da9fea6ac95f6b2ad6f858841f4c541a0f0",
+      "browser": "154.0.8037.57",
+      "scope": "Recorded metadata fixtures through real HTTP API; no new video extraction or model fitting",
+      "page_errors": [],
+      "formal_research_passed": false
+    },
+    {
+      "case": "protocol",
+      "passed": true,
+      "evidence_sha256": "4a386cd1b986eef42fb6194c0db6ad009a6e549b056e89fbf82190e330193260",
+      "browser": "154.0.8037.57",
+      "scope": "Isolated real HTTP UI checks; configured protocol and training use synthetic mechanism fixtures only",
+      "page_errors": [],
+      "formal_research_passed": false
+    },
+    {
+      "case": "original_video",
+      "passed": true,
+      "evidence_sha256": "2815540f11a43f7bc142e1c111f0dd21948272facce28f189c6fae50849e8dd2",
+      "browser": "154.0.8037.57",
+      "scope": "original user video, local SHA/playback/seek/export only",
+      "page_errors": [],
+      "formal_research_passed": false
+    }
+  ],
+  "all_passed": true,
+  "raw_evidence_local": "artifacts/p036/regression",
+  "no_media_frames_published": true
+}

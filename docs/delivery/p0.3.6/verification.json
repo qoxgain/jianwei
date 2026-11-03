@@ -1,0 +1,136 @@
+{
+  "stage": "P0.3.6",
+  "verified_utc_date": "2026-11-03",
+  "code_head": "79cf85bb7fa6d3840bbb603a713ee93744fb8c59",
+  "backend": {
+    "command": ".venv/bin/python -m pytest tests -q",
+    "passed": 573,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 2,
+    "warning_notes": [
+      "Starlette TestClient deprecation",
+      "Intentional fork-in-multithreaded-process failure injection; not a production process recommendation"
+    ]
+  },
+  "frontend": {
+    "command": "npm --prefix apps/web test",
+    "passed": 99,
+    "failed": 0
+  },
+  "reference": {
+    "command": ".venv/bin/python -m unittest discover -s reference/tests -v",
+    "passed": 29
+  },
+  "builds": {
+    "production": "passed",
+    "demo": "passed",
+    "demo_html_sha256": "dfc166540a2beb4adafb82154cc6488b17b773f2c9b8a7e9cff1678b39dba8d8"
+  },
+  "browser": {
+    "new_page": "passed",
+    "regressions": [
+      {
+        "case": "four_scenes",
+        "passed": true,
+        "evidence_sha256": "62a848f96d0f581d51ad3cc0c892572250934c028e24d5df3fce5889bd5ac118",
+        "browser": "Chromium 154.0.8037.57 built on Debian GNU/Linux 13 (trixie)",
+        "scope": "Eight independent synthetic sources reused across scenes; no field accuracy claim.",
+        "page_errors": [],
+        "formal_research_passed": false
+      },
+      {
+        "case": "sampling",
+        "passed": true,
+        "evidence_sha256": "ac584aaee1bfa0155951ffb2b9304da9fea6ac95f6b2ad6f858841f4c541a0f0",
+        "browser": "154.0.8037.57",
+        "scope": "Recorded metadata fixtures through real HTTP API; no new video extraction or model fitting",
+        "page_errors": [],
+        "formal_research_passed": false
+      },
+      {
+        "case": "protocol",
+        "passed": true,
+        "evidence_sha256": "4a386cd1b986eef42fb6194c0db6ad009a6e549b056e89fbf82190e330193260",
+        "browser": "154.0.8037.57",
+        "scope": "Isolated real HTTP UI checks; configured protocol and training use synthetic mechanism fixtures only",
+        "page_errors": [],
+        "formal_research_passed": false
+      },
+      {
+        "case": "original_video",
+        "passed": true,
+        "evidence_sha256": "2815540f11a43f7bc142e1c111f0dd21948272facce28f189c6fae50849e8dd2",
+        "browser": "154.0.8037.57",
+        "scope": "original user video, local SHA/playback/seek/export only",
+        "page_errors": [],
+        "formal_research_passed": false
+      }
+    ],
+    "real_original_sha_decode_seek": "passed",
+    "raw_video_frames_published": false
+  },
+  "experiment": {
+    "sources": 9,
+    "feature_rows": 2710,
+    "long_sources": 8,
+    "primary_seeds_per_source": 5,
+    "history_cohorts_executed": 21,
+    "seed_cohort_runs": 105,
+    "trained_tcn_fits": 1050,
+    "models_per_run": 18,
+    "weights_reloaded": true,
+    "blocked_sources": [
+      "garment_test_short"
+    ],
+    "formal_research_status": "blocked",
+    "independent_sessions_verified": 0,
+    "p04_admitted": false
+  },
+  "sqlite_original_corruption_root_cause": "not_established",
+  "formal_database_accessed": false,
+  "publication": {
+    "new_feature_weight_database_source_packages": false,
+    "statistics_only": true,
+    "privacy_guard": "passed"
+  },
+  "logs": {
+    "backend.log": {
+      "sha256": "297400564c856aeba6816b0d7fe0468785995202a786c63aa8cde83ca2ee65a9"
+    },
+    "frontend.log": {
+      "sha256": "11ee0fa3a22e2c061e42d84354f98c7551ea1baffd046a2b8a6721ae738678d7"
+    },
+    "build.log": {
+      "sha256": "11ceba6cef5668b7915a190d16d069a7aa8a706dae7b586067285ab35f54f57f"
+    },
+    "demo-build.log": {
+      "sha256": "611d835e411e855a0cc3be2a3c30988bbc1220b801aedd2e9a2b37172dedc187"
+    },
+    "reference.log": {
+      "sha256": "8d8ea38dca5530771105f3ac528356763fb6cd904cf21286da44279fb53d0371"
+    },
+    "weight-replay.log": {
+      "sha256": "3e4a74f037322633a33845edd3d0f9567cc4d9d45a057a8424e17efbfa2d85f4"
+    }
+  },
+  "ci": {
+    "engineering": {
+      "run_id": 41570259454,
+      "conclusion": "success"
+    },
+    "full_code": {
+      "run_id": 41577018968,
+      "status": "completed",
+      "conclusion": "success",
+      "head": "79cf85bb7fa6d3840bbb603a713ee93744fb8c59",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41577018968",
+      "jobs": [
+        "foundation",
+        "browser",
+        "pretrained-encoder"
+      ]
+    },
+    "final_delivery": "see final branch HEAD CI; do not infer completion from this recording"
+  }
+}

@@ -21,4 +21,6 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m scripts.extract_p03
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m scripts.run_p036_robustness --config artifacts/p036/runtime/config/system.yaml --features artifacts/p036/features --output artifacts/p036/learning
 ```
 
-输出目录必须新建；每源报告、每种子实际权重、配置/代码/来源/队列SHA和选择记录均存本地artifacts。脚本只接受catalog九段unassigned真实来源，不导入或打开正式数据库。仅经过审查的标量统计可以另行生成公开Demo；特征、权重、预测向量和数据库均禁止公开提交。本轮还在执行阶段，最终结果见后续P0.3.6交付，不能把算法实现测试写成真实收益验收。
+输出目录必须新建；每源报告、每种子实际权重、配置/代码/来源/队列SHA和选择记录均存本地artifacts。脚本只接受catalog九段unassigned真实来源，不导入或打开正式数据库。仅经过审查的标量统计可以另行生成公开Demo；特征、权重、预测向量和数据库均禁止公开提交。本轮实际数值运行已全部完成，见 [完整结果](../../docs/delivery/p0.3.6/research/RESULTS.md) 和 [阶段交付](../../docs/delivery/P0.3.6.md)。原SQLite根因未确认，残差/多尺度没有稳健收益，不把算法实现测试写成正式科研通过。实际提取为v1，实验结束后补全间接依赖为v2；新提取必须用新目录，不重新标注历史产物。
+
+公开标量导出：`python -m scripts.publish_p036_statistics --runs <每个互斥来源批次> ...`，必须包含全部九来源和完整种子矩阵。公开前运行 `python -m scripts.check_public_research_artifacts`。完整512维预测只用 `python -m scripts.replay_p036_weights --help` 在私有artifacts新目录重放，不打包公开。Demo只用 `python -m scripts.package_p036_demo`（不使用旧版包含权重的打包器），且要求HTML与当前浏览器证据哈希一致。
