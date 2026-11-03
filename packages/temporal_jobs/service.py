@@ -9,7 +9,9 @@ from packages.config.errors import ContractError
 from packages.knowledge.service import content_hash
 from packages.ingest_jobs.service import encode
 from packages.temporal import engine
-from packages.temporal.data import snapshot_imports, load_sequences, fail
+from packages.temporal.data import snapshot_imports, load_sequences, metadata_sequences, window_refs, fail
+from packages.contracts.models import Learning
+from packages.contracts.temporal import TemporalSettings
 from packages.temporal.provenance import assert_evaluation_independent
 from packages.temporal.protocol import freeze_protocol, preview_protocol, assert_frozen_protocol, heldout_identity
 
@@ -99,6 +101,27 @@ class TemporalService:
             self._audit(session,row,'temporal.test_consumed',{
                 **heldout_identity(binding['snapshot']['roster']),'protocol_hash':binding['hash']})
 
+    def _window_preflight(self, scene, snapshot, expected=None):
+        """All requested sources must be covered before reserving/consuming test."""
+        learning = Learning.model_validate(expected['learning']) if expected else self.bundle.config.learning
+        limits = TemporalSettings.model_validate(expected['settings']) if expected else self.settings
+        sequences = []
+        with self.database.session() as session:
+            for entry in snapshot['entries']:
+                row = session.scalar(select(ImportJob).where(ImportJob.id==entry['import_id'],
+                    ImportJob.tenant_id==self.tenant, ImportJob.scene_id==scene))
+                if row is None or row.status!='succeeded':
+                    fail('TEMPORAL_SNAPSHOT_CHANGED','窗口预检来源已不可用')
+                manifest = json.loads(row.manifest_json)
+                if content_hash(manifest)!=entry['manifest_hash']:
+                    fail('TEMPORAL_SNAPSHOT_CHANGED','窗口预检清单已变化')
+                sequences.extend(metadata_sequences(manifest, limits))
+        coverage = {}
+        windows, _ = window_refs(sequences, learning, limits, coverage=coverage)
+        engine.validate_windows(sequences, windows, limits,
+            {'test'} if expected else {'train','calibration'}, snapshot['entries'])
+        return coverage
+
     def enqueue(self,scene,request,kind='train'):
         self.check_scene(scene)
         snapshot=snapshot_imports(self.bundle,self.database,scene,request.import_ids,
@@ -114,6 +137,7 @@ class TemporalService:
                 assert_evaluation_independent(snapshot, model_snapshot)
                 binding=expected.get('research_protocol')
                 assert_frozen_protocol(binding,snapshot,self.bundle,scene)
+        self._window_preflight(scene,snapshot,expected if kind=='evaluate' else None)
         body=request.model_dump();body['import_ids']=sorted(body['import_ids'])
         if binding is not None:body['_research_protocol']=binding
         knowledge=self._knowledge_hash(scene);code=engine.code_hash()
@@ -233,6 +257,7 @@ class TemporalService:
             current=snapshot_imports(self.bundle,self.database,scene,request['import_ids'],{'train','calibration'} if kind=='train' else {'test'})
             if current!=snapshot:fail('TEMPORAL_SNAPSHOT_CHANGED','执行时数据快照已变化')
             binding=request.get('_research_protocol')
+            self._window_preflight(scene,snapshot,expected if kind=='evaluate' else None)
             if kind=='train':
                 if freeze_protocol(self.bundle,scene,snapshot)!=binding:
                     fail('TEMPORAL_PROTOCOL_CHANGED','排队后研究协议或来源发生变化，停止读取特征')

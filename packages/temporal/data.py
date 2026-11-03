@@ -180,36 +180,36 @@ def has_barrier(seq, left, right, settings):
                for d in seq.manifest.get('discarded_clips', []))
 
 
-def window_refs(sequences, learning, settings):
+def window_refs(sequences, learning, settings, *, coverage=None):
     windows, rejected = [], Counter()
+    diagnostics = []
     horizons = [round(h*1000) for h in learning.forecast_horizons_seconds]
     for si, seq in enumerate(sequences):
+        reasons = Counter(); before = len(windows)
         starts = np.array([b.pts_start_ms for b in seq.batches])
         for end in range(learning.history_windows-1,len(starts)):
             history = tuple(range(end-learning.history_windows+1,end+1))
             issued = max(seq.batches[i].pts_end_ms for i in history)
             targets = tuple(int(np.searchsorted(starts,issued+h)) for h in horizons)
-            if any(t>=len(starts) for t in targets): rejected['future_not_available']+=1; continue
+            if any(t>=len(starts) for t in targets): reasons['future_not_available']+=1; continue
             if any(starts[t]-(issued+h)>settings.target_tolerance_ms for t,h in zip(targets,horizons)):
-                rejected['target_outside_tolerance']+=1; continue
+                reasons['target_outside_tolerance']+=1; continue
             if has_barrier(seq, history[0], max(targets), settings):
-                rejected['quality_or_continuity_gap']+=1; continue
+                reasons['quality_or_continuity_gap']+=1; continue
             if any(not issued < seq.batches[t].pts_start_ms < seq.batches[t].pts_end_ms for t in targets):
                 fail('TEMPORAL_CAUSALITY', '目标区间与已见历史重叠')
             windows.append(Window(si,history,targets,issued,seq.batches[0].split))
-    # Deterministic even sampling per sequence avoids silently taking only the
-    # first source. Never move windows between preassigned partitions.
-    selected=[]
-    for split in sorted({w.split for w in windows}):
-        by_sequence=defaultdict(list)
-        for w in windows:
-            if w.split==split: by_sequence[w.sequence].append(w)
-        candidates=[]
-        for group in by_sequence.values():
-            quota=max(1,settings.max_pairs_per_split//len(by_sequence))
-            candidates.extend(group[i] for i in np.linspace(0,len(group)-1,min(len(group),quota),dtype=int))
-        selected.extend(candidates[:settings.max_pairs_per_split])
-        rejected['resource_subsampled']+=sum(map(len,by_sequence.values()))-len(candidates[:settings.max_pairs_per_split])
+        rejected.update(reasons)
+        diagnostics.append({'source_hash': seq.manifest['source_hash'],
+            'episode_id': getattr(seq.batches[0], 'episode_id', None) if seq.batches else None,
+            'time_domain_id': getattr(seq.batches[0], 'time_domain_id', None) if seq.batches else None,
+            'candidate_histories': max(0,len(starts)-learning.history_windows+1),
+            'valid_windows': len(windows)-before, 'excluded': dict(reasons)})
+    from .sampling import sample
+    details = {} if coverage is None else coverage
+    details['sequences'] = diagnostics
+    selected = sample(windows, sequences, settings.max_pairs_per_split, details)
+    if windows: rejected['resource_subsampled'] += len(windows)-len(selected)
     return selected, dict(rejected)
 
 

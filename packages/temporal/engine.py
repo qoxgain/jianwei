@@ -193,11 +193,16 @@ def next_cluster_replay(sequences,arrays,settings,directory,split):
             'log_sha256':file_hash(directory/f'{split}-next-cluster.jsonl')}
 
 
-def validate_windows(sequences,windows,settings,splits):
+def validate_windows(sequences,windows,settings,splits,expected_sources=None):
     for split in splits:
         selected=[w for w in windows if w.split==split]
         if len(selected)<settings.min_pairs_per_split:fail('TEMPORAL_INSUFFICIENT_PAIRS',f'{split}没有足够因果窗口')
         sources={sequences[w.sequence].manifest['source_hash'] for w in selected}
+        required = ({e['source_hash'] for e in expected_sources if e['split']==split}
+                    if expected_sources is not None else
+                    {s.manifest['source_hash'] for s in sequences if s.batches and s.batches[0].split==split})
+        if sources != required:
+            fail('TEMPORAL_SOURCE_COVERAGE',f'{split}请求来源未全部产生有效窗口；不能静默省略来源')
         minimum=getattr(settings,'min_'+('calibration' if split=='calibration' else split)+'_sources')
         if len(sources)<minimum:fail('TEMPORAL_INSUFFICIENT_SOURCES',f'{split}有效窗口来源不足')
 
@@ -226,7 +231,8 @@ def train(sequences,snapshot,learning,settings,directory,config_hash,knowledge_h
     if research_protocol is not None:
         directory.mkdir(parents=True,exist_ok=True)
         atomic_json(directory/'protocol.json',research_protocol)
-    windows,rejected=window_refs(sequences,learning,settings);validate_windows(sequences,windows,settings,{'train','calibration'})
+    coverage={}
+    windows,rejected=window_refs(sequences,learning,settings,coverage=coverage);validate_windows(sequences,windows,settings,{'train','calibration'},snapshot.get('entries'))
     train_windows=[w for w in windows if w.split=='train'];cal=[w for w in windows if w.split=='calibration']
     raw=np.concatenate([values(s,range(len(s.rows))) for s in sequences if s.batches[0].split=='train'])
     if not np.any(raw.std(0)>1e-6):fail('TEMPORAL_CONSTANT_FEATURES','训练特征没有可学习变化，请检查编码器或采集')
@@ -272,7 +278,7 @@ def train(sequences,snapshot,learning,settings,directory,config_hash,knowledge_h
              'numpy_version':np.__version__,'models':list(MODELS),'encoder_training':False}
     model=save_model(directory,payload,arrays)
     return {'stage':'P0.3','kind':'train','data_origin':snapshot['data_origin'],'snapshot':snapshot,'model':model,
-            'calibration':calibration,'session_statistics':statistics,'training':training,'train_pairs':len(train_windows),'rejected_windows':rejected,
+            'calibration':calibration,'session_statistics':statistics,'training':training,'train_pairs':len(train_windows),'rejected_windows':rejected,'window_sampling':coverage,
             'used_training_sources':len({sequences[w.sequence].manifest['source_hash'] for w in train_windows}),
             'used_training_episodes':len({(sequences[w.sequence].manifest['source_hash'],sequences[w.sequence].batches[0].episode_id,sequences[w.sequence].batches[0].time_domain_id) for w in train_windows}),
             'projection':{'fit_split':'train','dimension':z.shape[1],'explained_variance_ratio':explained,
@@ -295,7 +301,8 @@ def evaluate(sequences,snapshot,model_directory,expected_model,directory):
     from .protocol import assert_frozen_protocol
     assert_frozen_protocol(model.get('research_protocol'),snapshot)
     learning=Learning.model_validate(model['learning']);settings=TemporalSettings.model_validate(model['settings'])
-    windows,rejected=window_refs(sequences,learning,settings);validate_windows(sequences,windows,settings,{'test'})
+    coverage={}
+    windows,rejected=window_refs(sequences,learning,settings,coverage=coverage);validate_windows(sequences,windows,settings,{'test'},snapshot.get('entries'))
     if any(w.split!='test' for w in windows):fail('TEMPORAL_SPLIT_FORBIDDEN','独立评估只能读取test')
     directory.mkdir(parents=True,exist_ok=True)
     result=replay(sequences,windows,arrays,learning,directory,'test')
@@ -306,6 +313,6 @@ def evaluate(sequences,snapshot,model_directory,expected_model,directory):
     statistics['horizons_seconds']=list(learning.forecast_horizons_seconds)
     return {'stage':'P0.3','kind':'evaluate','data_origin':snapshot['data_origin'],'snapshot':snapshot,
             'model_hash':expected_model['weights_sha256'],'selected_model':model['selected_model'],'selection_split':'calibration',
-            'test':result,'research_protocol':binding,'session_statistics':statistics,'rejected_windows':rejected,'anonymous_discovery':discovery(sequences,arrays,settings,'test'),
+            'test':result,'research_protocol':binding,'session_statistics':statistics,'rejected_windows':rejected,'window_sampling':coverage,'anonymous_discovery':discovery(sequences,arrays,settings,'test'),
             'next_anonymous_state':next_cluster_replay(sequences,arrays,settings,directory,'test'),
             'semantic_accuracy':None,'real_world_evidence':False,'auto_activated':False,'refit_on_test':False}

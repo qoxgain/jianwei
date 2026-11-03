@@ -96,7 +96,7 @@ def check(service, scene, request):
     for name, splits in [('train', {'train', 'calibration'}), ('evaluation', {'test'})]:
         chosen = [r for r in records if r['split'] in splits]
         gate = {'status': 'blocked', 'import_ids': [r['import_id'] for r in chosen],
-                'snapshot_hash': None, 'blockers': [], 'rejected_windows': {}, 'windows_checked': False}
+                'snapshot_hash': None, 'blockers': [], 'rejected_windows': {}, 'windows_checked': False, 'window_sampling': {}}
         gates[name] = gate
         blockers = gate['blockers']
         for record in chosen:
@@ -160,12 +160,12 @@ def check(service, scene, request):
                               for sequence in metadata_sequences(job['manifest'], limits)]
                 else:
                     subset = [s for s in sequences if s.batches[0].split in splits]
-                windows, rejected = window_refs(subset, learning, limits)
+                windows, rejected = window_refs(subset, learning, limits, coverage=gate['window_sampling'])
                 gate['windows_checked'] = True
                 gate['rejected_windows'] = rejected
                 for window in windows:
                     windows_by_split[window.split].append(subset[window.sequence].manifest['source_hash'])
-                engine.validate_windows(subset, windows, limits, sorted(splits))
+                engine.validate_windows(subset, windows, limits, sorted(splits), snapshot['entries'] if snapshot else None)
             except ContractError as error:
                 blockers.append(_issue(error))
         # Repeated per-source reasons are shown once at the gate, individually above.
