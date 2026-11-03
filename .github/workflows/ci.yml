@@ -23,7 +23,7 @@ jobs:
           cache-dependency-path: apps/web/package-lock.json
       - run: python -m venv .venv
       - run: .venv/bin/python -m pip install -r requirements-encoder.txt -r requirements-browser.txt
-      - run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
+      - run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk ffmpeg
       - run: npm ci && npm run build && npm run build:demo
         working-directory: apps/web
       - name: Four scenes, metadata checks, training, sealed evaluation and downloads
@@ -36,6 +36,8 @@ jobs:
         run: .venv/bin/python tests/browser_research_protocol.py --chromium "$(command -v google-chrome)" --output artifacts/p035-browser
       - name: Actual P0.3.6 scalar statistics, all seeds, mobile and local original-video association
         run: .venv/bin/python tests/browser_p036.py --chromium "$(command -v google-chrome)" --output artifacts/p036-browser
+      - name: P0.3.7-A generated-media admission and Vite access boundaries on desktop and mobile
+        run: .venv/bin/python tests/browser_p037_a.py --chromium "$(command -v google-chrome)" --output artifacts/p037-a-browser
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -46,6 +48,8 @@ jobs:
             artifacts/p034-browser/sampling/*.json
             artifacts/p035-browser/*.json
             artifacts/p036-browser/browser-results.json
+            artifacts/p037-a-browser/results.json
+            artifacts/p037-a-browser/*-http-results.json
             artifacts/p031-browser-work/**/api.log
             artifacts/p031-browser-work/**/static.log
   foundation:
