@@ -1,0 +1,120 @@
+........FFFF..                                                           [100%]
+=================================== FAILURES ===================================
+___ test_native_backup_cannot_write_managed_target[connection_factory-False] ___
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-0/test_native_backup_cannot_writ8')
+faulted = False, handle = 'connection_factory'
+
+    @pytest.mark.parametrize('faulted',[False,True])
+    @pytest.mark.parametrize('handle',['driver','cursor','execute','context','connection_factory','cursor_factory'])
+    def test_native_backup_cannot_write_managed_target(tmp_path,faulted,handle):
+     path=tmp_path/'target.sqlite';db=Database('sqlite:///'+str(path));db.migrate()
+     with db.session() as s:s.execute(text('CREATE TABLE probe(id INTEGER)'));s.execute(text('INSERT INTO probe VALUES(7)'))
+     raw=db.engine.raw_connection();c=raw.driver_connection
+     if handle=='cursor':target=c.cursor().connection
+     elif handle=='execute':target=c.execute('SELECT 1').connection
+     elif handle=='context':target=c.__enter__()
+     elif handle=='connection_factory':
+      c.row_factory=lambda cursor,row:cursor.connection
+      target=c.execute('SELECT 1').fetchone()
+     elif handle=='cursor_factory':
+      cursor=c.cursor();cursor.row_factory=lambda cursor,row:cursor.connection
+      target=cursor.execute('SELECT 1').fetchone()
+     else:target=c
+     if faulted:db._record_fault(N(original_exception=N(sqlite_errorname='SQLITE_IOERR')))
+>    assert not isinstance(target,sqlite3.Connection)
+E    AssertionError: assert not True
+E     +  where True = isinstance(<infra.sqlite_guard.GuardedConnection object at 0x7fe3e5159950>, <class 'sqlite3.Connection'>)
+E     +    where <class 'sqlite3.Connection'> = sqlite3.Connection
+
+tests/test_p037_a1_backup.py:27: AssertionError
+___ test_native_backup_cannot_write_managed_target[connection_factory-True] ____
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-0/test_native_backup_cannot_writ9')
+faulted = True, handle = 'connection_factory'
+
+    @pytest.mark.parametrize('faulted',[False,True])
+    @pytest.mark.parametrize('handle',['driver','cursor','execute','context','connection_factory','cursor_factory'])
+    def test_native_backup_cannot_write_managed_target(tmp_path,faulted,handle):
+     path=tmp_path/'target.sqlite';db=Database('sqlite:///'+str(path));db.migrate()
+     with db.session() as s:s.execute(text('CREATE TABLE probe(id INTEGER)'));s.execute(text('INSERT INTO probe VALUES(7)'))
+     raw=db.engine.raw_connection();c=raw.driver_connection
+     if handle=='cursor':target=c.cursor().connection
+     elif handle=='execute':target=c.execute('SELECT 1').connection
+     elif handle=='context':target=c.__enter__()
+     elif handle=='connection_factory':
+      c.row_factory=lambda cursor,row:cursor.connection
+      target=c.execute('SELECT 1').fetchone()
+     elif handle=='cursor_factory':
+      cursor=c.cursor();cursor.row_factory=lambda cursor,row:cursor.connection
+      target=cursor.execute('SELECT 1').fetchone()
+     else:target=c
+     if faulted:db._record_fault(N(original_exception=N(sqlite_errorname='SQLITE_IOERR')))
+>    assert not isinstance(target,sqlite3.Connection)
+E    AssertionError: assert not True
+E     +  where True = isinstance(<infra.sqlite_guard.GuardedConnection object at 0x7fe3e4fee850>, <class 'sqlite3.Connection'>)
+E     +    where <class 'sqlite3.Connection'> = sqlite3.Connection
+
+tests/test_p037_a1_backup.py:27: AssertionError
+_____ test_native_backup_cannot_write_managed_target[cursor_factory-False] _____
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-0/test_native_backup_cannot_writ10')
+faulted = False, handle = 'cursor_factory'
+
+    @pytest.mark.parametrize('faulted',[False,True])
+    @pytest.mark.parametrize('handle',['driver','cursor','execute','context','connection_factory','cursor_factory'])
+    def test_native_backup_cannot_write_managed_target(tmp_path,faulted,handle):
+     path=tmp_path/'target.sqlite';db=Database('sqlite:///'+str(path));db.migrate()
+     with db.session() as s:s.execute(text('CREATE TABLE probe(id INTEGER)'));s.execute(text('INSERT INTO probe VALUES(7)'))
+     raw=db.engine.raw_connection();c=raw.driver_connection
+     if handle=='cursor':target=c.cursor().connection
+     elif handle=='execute':target=c.execute('SELECT 1').connection
+     elif handle=='context':target=c.__enter__()
+     elif handle=='connection_factory':
+      c.row_factory=lambda cursor,row:cursor.connection
+      target=c.execute('SELECT 1').fetchone()
+     elif handle=='cursor_factory':
+      cursor=c.cursor();cursor.row_factory=lambda cursor,row:cursor.connection
+      target=cursor.execute('SELECT 1').fetchone()
+     else:target=c
+     if faulted:db._record_fault(N(original_exception=N(sqlite_errorname='SQLITE_IOERR')))
+>    assert not isinstance(target,sqlite3.Connection)
+E    AssertionError: assert not True
+E     +  where True = isinstance(<infra.sqlite_guard.GuardedConnection object at 0x7fe3e515b750>, <class 'sqlite3.Connection'>)
+E     +    where <class 'sqlite3.Connection'> = sqlite3.Connection
+
+tests/test_p037_a1_backup.py:27: AssertionError
+_____ test_native_backup_cannot_write_managed_target[cursor_factory-True] ______
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-0/test_native_backup_cannot_writ11')
+faulted = True, handle = 'cursor_factory'
+
+    @pytest.mark.parametrize('faulted',[False,True])
+    @pytest.mark.parametrize('handle',['driver','cursor','execute','context','connection_factory','cursor_factory'])
+    def test_native_backup_cannot_write_managed_target(tmp_path,faulted,handle):
+     path=tmp_path/'target.sqlite';db=Database('sqlite:///'+str(path));db.migrate()
+     with db.session() as s:s.execute(text('CREATE TABLE probe(id INTEGER)'));s.execute(text('INSERT INTO probe VALUES(7)'))
+     raw=db.engine.raw_connection();c=raw.driver_connection
+     if handle=='cursor':target=c.cursor().connection
+     elif handle=='execute':target=c.execute('SELECT 1').connection
+     elif handle=='context':target=c.__enter__()
+     elif handle=='connection_factory':
+      c.row_factory=lambda cursor,row:cursor.connection
+      target=c.execute('SELECT 1').fetchone()
+     elif handle=='cursor_factory':
+      cursor=c.cursor();cursor.row_factory=lambda cursor,row:cursor.connection
+      target=cursor.execute('SELECT 1').fetchone()
+     else:target=c
+     if faulted:db._record_fault(N(original_exception=N(sqlite_errorname='SQLITE_IOERR')))
+>    assert not isinstance(target,sqlite3.Connection)
+E    AssertionError: assert not True
+E     +  where True = isinstance(<infra.sqlite_guard.GuardedConnection object at 0x7fe3e51e4b50>, <class 'sqlite3.Connection'>)
+E     +    where <class 'sqlite3.Connection'> = sqlite3.Connection
+
+tests/test_p037_a1_backup.py:27: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_p037_a1_backup.py::test_native_backup_cannot_write_managed_target[connection_factory-False]
+FAILED tests/test_p037_a1_backup.py::test_native_backup_cannot_write_managed_target[connection_factory-True]
+FAILED tests/test_p037_a1_backup.py::test_native_backup_cannot_write_managed_target[cursor_factory-False]
+FAILED tests/test_p037_a1_backup.py::test_native_backup_cannot_write_managed_target[cursor_factory-True]
+4 failed, 10 passed in 0.82s

@@ -1,0 +1,14 @@
+[
+  {
+    "mode": "connection_factory",
+    "native_target_exposed": true,
+    "fault_persisted": true,
+    "backup_wrote_faulted_target": true
+  },
+  {
+    "mode": "cursor_factory",
+    "native_target_exposed": true,
+    "fault_persisted": true,
+    "backup_wrote_faulted_target": true
+  }
+]

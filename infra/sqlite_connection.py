@@ -1,20 +1,34 @@
 """A DBAPI facade, deliberately not sqlite3.Connection: no native backup target."""
+import sqlite3
 from .sqlite_guard import GuardedConnection
 from packages.config.errors import ContractError
 
 
+def _row_factory(connection,factory):
+    # SQLite passes its native cursor to callbacks. Expose the supported facade
+    # instead, so cursor.connection cannot become a native backup target.
+    if factory is None or factory is sqlite3.Row:return factory
+    def guarded(cursor,row):return factory(ManagedCursor(connection,cursor,factory),row)
+    return guarded
+
+
 class ManagedConnection:
-    __slots__=('__native',)
+    __slots__=('__native','__row_factory')
     _properties={'isolation_level','autocommit','in_transaction','total_changes','row_factory','text_factory'}
     def __init__(self,*args,_owner,**kwargs):
         object.__setattr__(self,'_ManagedConnection__native',GuardedConnection(*args,_owner=_owner,**kwargs))
+        object.__setattr__(self,'_ManagedConnection__row_factory',None)
     def __getattr__(self,name):
+        if name=='row_factory':return self.__row_factory
         if name in self._properties:return getattr(self.__native,name)
         raise AttributeError('Unsupported managed SQLite attribute: '+name)
     def __setattr__(self,name,value):
         if name not in self._properties:raise AttributeError('Unsupported managed SQLite attribute: '+name)
+        if name=='row_factory':
+            self.__native.row_factory=_row_factory(self,value)
+            object.__setattr__(self,'_ManagedConnection__row_factory',value);return
         setattr(self.__native,name,value)
-    def cursor(self,*args,**kwargs):return ManagedCursor(self,self.__native.cursor(*args,**kwargs))
+    def cursor(self,*args,**kwargs):return ManagedCursor(self,self.__native.cursor(*args,**kwargs),self.__row_factory)
     def execute(self,*args,**kwargs):return self.cursor().execute(*args,**kwargs)
     def executemany(self,*args,**kwargs):return self.cursor().executemany(*args,**kwargs)
     def executescript(self,*args,**kwargs):return self.__native.executescript(*args,**kwargs)
@@ -33,17 +47,22 @@ class ManagedConnection:
 
 
 class ManagedCursor:
-    __slots__=('__cursor','__connection')
+    __slots__=('__cursor','__connection','__row_factory')
     _properties={'description','rowcount','lastrowid','arraysize','row_factory'}
-    def __init__(self,connection,cursor):
+    def __init__(self,connection,cursor,row_factory=None):
         object.__setattr__(self,'_ManagedCursor__cursor',cursor);object.__setattr__(self,'_ManagedCursor__connection',connection)
+        object.__setattr__(self,'_ManagedCursor__row_factory',row_factory)
     @property
     def connection(self):return self.__connection
     def __getattr__(self,name):
+        if name=='row_factory':return self.__row_factory
         if name in self._properties:return getattr(self.__cursor,name)
         raise AttributeError('Unsupported managed SQLite cursor attribute: '+name)
     def __setattr__(self,name,value):
         if name not in self._properties:raise AttributeError('Unsupported managed SQLite cursor attribute: '+name)
+        if name=='row_factory':
+            self.__cursor.row_factory=_row_factory(self.__connection,value)
+            object.__setattr__(self,'_ManagedCursor__row_factory',value);return
         setattr(self.__cursor,name,value)
     def execute(self,*args,**kwargs):self.__cursor.execute(*args,**kwargs);return self
     def executemany(self,*args,**kwargs):self.__cursor.executemany(*args,**kwargs);return self
