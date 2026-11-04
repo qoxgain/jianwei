@@ -52,7 +52,9 @@ def main():
     assert not any(r['unverified_content_returned'] for r in results)
     assert all(r['status'] in (403,404,416) for r in results)
    member.write_bytes(original)
-   page.reload();expect(page.get_by_role('button',name='知识工作台',exact=True)).to_be_visible(timeout=30000)
+   connections_before_reload=connected();page.reload()
+   expect(page.get_by_role('button',name='知识工作台',exact=True)).to_be_visible(timeout=30000)
+   wait_connected(connections_before_reload)
    assert not errors
    # Initial legitimate optimized modules and debugging maps must remain usable.
    status,body,_=get('/node_modules/.vite/deps/'+member.name);assert status==200
