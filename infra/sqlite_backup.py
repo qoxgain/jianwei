@@ -20,7 +20,7 @@ def source_connection(owner):
             yield _backup_native_source(connection.connection.driver_connection)
 
 
-def backup(owner,target,*,cancel_event=None,progress=None):
+def backup(owner,target,*,cancel_event=None,progress=None,phase_observer=None):
     target=Path(target).absolute();target.parent.mkdir(parents=True,exist_ok=True)
     if target.exists() or target.is_symlink():raise FileExistsError(target)
     operation=uuid.uuid4().hex
@@ -65,27 +65,54 @@ def backup(owner,target,*,cancel_event=None,progress=None):
         if progress is not None:progress(status,remaining,total)
         check()
 
+    def phase(name):
+        state['phase']=name;record()
+        # Observers run with no SQLite connection/commit gate held.
+        if phase_observer is not None:phase_observer(name,dict(state))
+        check()
+
+    def source_check(name):
+        while True:
+            check()
+            try:
+                result=owner.check_integrity(timeout_seconds=max(.001,deadline-time.monotonic()),
+                    busy_timeout_ms=0,foreign_keys=False,cancel_event=cancel_event)
+            except ContractError as error:
+                if error.code not in {'DATABASE_INTEGRITY_BUSY','DATABASE_INTEGRITY_LOCKED'}:raise
+                status=sqlite3.SQLITE_BUSY if error.code.endswith('BUSY') else sqlite3.SQLITE_LOCKED
+                if progress is not None:progress(status,0,0)
+                check();time.sleep(settings.retry_seconds)
+            else:
+                state.setdefault('source_integrity',[]).append({'phase':name,'status':result['status'],
+                    'category':result['category'],'checked_ns':result.get('checked_ns')})
+                return
+
     try:
         record()
         with boundary():check()
+        source_check('before_copy')
         descriptor=os.open(staging,os.O_CREAT|os.O_EXCL|os.O_RDWR,0o600);os.close(descriptor)
         state['state']='copying';record()
+        phase('before_copy')
         with source_connection(owner) as source:
             output=sqlite3.connect(staging,timeout=0)
             try:
                 source.backup(output,pages=settings.pages_per_step,progress=step,sleep=settings.retry_seconds)
-                check();state['state']='validating';record()
-                output.set_progress_handler(lambda: int(time.monotonic()>=deadline or owner._backup_shutdown.is_set() or
-                    (cancel_event is not None and cancel_event.is_set())),1000)
-                if output.execute('PRAGMA integrity_check').fetchall()!=[('ok',)] or output.execute('PRAGMA foreign_key_check').fetchone() is not None:
-                    raise ContractError('DATABASE_BACKUP_INTEGRITY_FAILED','备份副本完整性校验失败')
             finally:output.close()
+        phase('after_copy');state['state']='validating';record()
+        from infra.sqlite_health import inspect_file
+        validation=inspect_file(staging,timeout_seconds=max(.001,deadline-time.monotonic()),
+            busy_timeout_ms=0,foreign_keys=True,cancel_event=cancel_event)
+        phase('after_validation');source_check('after_validation')
+        if validation['status']!='ok':
+            raise ContractError('DATABASE_BACKUP_INTEGRITY_FAILED','备份副本完整性校验失败，源库状态已独立复核')
         check()
         digest=hashlib.sha256()
         with staging.open('rb') as stream:
             while chunk:=stream.read(1024*1024):check();digest.update(chunk)
             os.fsync(stream.fileno())
         state.update(sha256=digest.hexdigest(),bytes=staging.stat().st_size)
+        source_check('before_publish');phase('before_publish')
         with boundary():
             check()
             # Atomic no-replace publication. Only the small final state transition
@@ -96,6 +123,12 @@ def backup(owner,target,*,cancel_event=None,progress=None):
         return {'status':'ok','sha256':state['sha256'],'bytes':state['bytes'],
             'original_overwritten':False,'receipt':str(receipt),'operation_id':operation}
     except BaseException as error:
+        # A corrupt copy alone does not prove a corrupt source. Confirm source
+        # separately after SQLite resources have unwound, never under commit_gate.
+        if isinstance(error,sqlite3.DatabaseError):
+            state['copy_exception_type']=type(error).__name__
+            try:source_check('after_copy_error')
+            except ContractError as diagnosed:error=diagnosed
         # Undo only this operation's link if final receipt failed. Existing files
         # and earlier valid backups are never overwritten or removed.
         if published and staging.exists() and target.exists() and target.stat().st_ino==staging.stat().st_ino:target.unlink()
@@ -106,7 +139,7 @@ def backup(owner,target,*,cancel_event=None,progress=None):
             try:check()
             except ContractError as controlled:code=controlled.code
         code=code or 'DATABASE_BACKUP_FAILED'
-        state.update(state='invalidated' if code=='DATABASE_UNAVAILABLE' else 'cancelled' if code=='DATABASE_BACKUP_CANCELLED'
+        state.update(state='invalidated' if owner.fault is not None or code=='DATABASE_UNAVAILABLE' else 'cancelled' if code=='DATABASE_BACKUP_CANCELLED'
             else 'timeout' if code=='DATABASE_BACKUP_TIMEOUT' else 'failed',error_code=code,
             exception_type=type(error).__name__,completed_ns=time.time_ns())
         try:record()

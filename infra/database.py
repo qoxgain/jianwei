@@ -217,7 +217,12 @@ class Database:
             if not stat.S_ISREG(info.st_mode) or info.st_nlink!=1:
                 raise ContractError('DATABASE_IDENTITY_UNSAFE','SQLite必须使用独立普通文件，禁止硬链接别名绕过隔离')
             identity=(info.st_dev,info.st_ino)
-            if self._file_identity is None:self._file_identity=identity
+            if self._file_identity is None:
+                # Published archives and their in-progress targets are not an
+                # approved writable restore path. Native read-only inspection is separate.
+                if any(self.local_path.parent.glob(self.local_path.name+'.backup-*.json')):
+                    raise ContractError('DATABASE_RESTORE_REVIEW_REQUIRED','备份不能直接作为可写业务库；必须离线核对封存消费台账')
+                self._file_identity=identity
             elif identity!=self._file_identity:
                 raise ContractError('DATABASE_IDENTITY_CHANGED','数据库文件身份已变化；禁止继续使用旧连接，需离线核对封存消费记录')
 
@@ -297,12 +302,12 @@ class Database:
             foreign_keys=foreign_keys,cancel_event=cancel_event)
         return self._apply_integrity(result)
 
-    def backup(self, target, *, cancel_event=None, progress=None):
+    def backup(self, target, *, cancel_event=None, progress=None,phase_observer=None):
         """Consistent SQLite online backup to a NEW file; never restore in place."""
         if self.engine.dialect.name!='sqlite':
             raise ContractError('DATABASE_BACKUP_UNAVAILABLE','该备份实现仅支持 SQLite')
         from infra.sqlite_backup import backup
-        return backup(self,target,cancel_event=cancel_event,progress=progress)
+        return backup(self,target,cancel_event=cancel_event,progress=progress,phase_observer=phase_observer)
 
     def close(self) -> None:
         self._backup_shutdown.set()
