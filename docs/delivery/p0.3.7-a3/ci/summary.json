@@ -1,0 +1,132 @@
+{
+  "run_id": 41804872121,
+  "url": "https://github.com/qoxgain/jianwei/actions/runs/41804872121",
+  "tested_commit": "fb69646336eb6346ea3cec498a08856a80a34e60",
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "browser",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41804872121/job/126489290492"
+    },
+    {
+      "name": "foundation",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41804872121/job/126489290761"
+    },
+    {
+      "name": "pretrained-encoder",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41804872121/job/126489291004"
+    }
+  ],
+  "foundation_backend": {
+    "tests": 710,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 3
+  },
+  "foundation_passed": 707,
+  "skips": [
+    {
+      "module": "tests.test_pretrained_encoder",
+      "test": "test_numpy_preprocessing_matches_pinned_official_transform[shape0-roi0]",
+      "reason": "could not import 'torch': No module named 'torch'"
+    },
+    {
+      "module": "tests.test_pretrained_encoder",
+      "test": "test_numpy_preprocessing_matches_pinned_official_transform[shape1-roi1]",
+      "reason": "could not import 'torch': No module named 'torch'"
+    },
+    {
+      "module": "tests.test_pretrained_encoder",
+      "test": "test_numpy_preprocessing_matches_pinned_official_transform[shape2-roi2]",
+      "reason": "could not import 'torch': No module named 'torch'"
+    }
+  ],
+  "a3_new_tests_passed": 28,
+  "official_encoder": {
+    "tests": 9,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "frontend_passed": 99,
+  "reference_passed": 29,
+  "builds": [
+    "production",
+    "demo"
+  ],
+  "workload": {
+    "runs": 4,
+    "passed": 4,
+    "failed": 0,
+    "structural_damage_observed": 0
+  },
+  "environment": {
+    "python": "3.12.15",
+    "sqlite": "3.45.1",
+    "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+  },
+  "browser": {
+    "p032-browser/research/results.json": {
+      "passed": true,
+      "sha256": "64f4d2430407960de31f9610520fec9e8bbcee84dd54b761971bd04ee7dbdca3"
+    },
+    "p032-browser/video/browser.json": {
+      "passed": true,
+      "sha256": "d3a9d7afa608d772ab8a0cb6164e7f0c0e0c722e0c4d8f6f827f05039feb1ffc"
+    },
+    "p034-browser/sampling/results.json": {
+      "passed": true,
+      "sha256": "51b07d589709f3bb65471f897ec94bf7ad2599ec1913f25d00c7a24cb50424c6"
+    },
+    "p035-browser/protocol-browser.json": {
+      "passed": true,
+      "sha256": "3a1b889f9ba1262f98e5d716ed222cb030830a94e57e4981b45ce2ffe2e2998f"
+    },
+    "p036-browser/browser-results.json": {
+      "passed": true,
+      "sha256": "c986d8529f49607d57a5ec1850c524637eeb0f4768c32bfe6c70341d4b84f370"
+    },
+    "p037-a-browser/results.json": {
+      "passed": true,
+      "sha256": "96a62747fc1140914402f53debb72ba2ac35549f5535fc6ac39d09a619b276b2"
+    },
+    "p037-a-offline/results.json": {
+      "passed": true,
+      "sha256": "4ff6051d548dc6d92185495fd68a2f2aa40b39e0a6eeea799427f09208d900dd"
+    },
+    "p037-a1-static/results.json": {
+      "passed": true,
+      "sha256": "4afac51adbda23bb9c1a3c76b5be1e5404766a7f675919089237f2999c941f92"
+    },
+    "p037-a1-browser/results.json": {
+      "passed": true,
+      "sha256": "37292d144dc081d1abb19f5981f600d17873eb4e60e5d932f15fba69365f4200"
+    },
+    "p037-a1-offline/results.json": {
+      "passed": true,
+      "sha256": "7de2b861b20ac0ac50e0e71eaaace23cb9066f879059f1e9ce1d05ab7c937724"
+    },
+    "p037-a2-optimizer/results.json": {
+      "passed": true,
+      "sha256": "5ebb693ee0446fc6312db10fbc2db0b393944d0eb10bc8d3d946f447e7b90b40"
+    },
+    "p037-a2-offline/results.json": {
+      "passed": true,
+      "sha256": "e4cdfcb09690a468c9668e402423f72efb3c7b468cc7a95d636485df4108bfaa"
+    },
+    "p037-a3-offline/results.json": {
+      "passed": true,
+      "sha256": "84ad452907567b9ae9c0fec5a760af57c1b8f35974acdfa1dc96b1cf3cd3e80c"
+    }
+  },
+  "independent_corrupt_copy": "blocked_not_available",
+  "original_root_cause": "root_cause_not_established",
+  "stage_b_started": false
+}

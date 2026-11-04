@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "expected_vulnerable_baseline": false,
+  "scope": "inert text marker only; original media/Base64 case not rerun",
+  "browser": "156.0.8078.47",
+  "member_regular_independent": true,
+  "metadata_lock_manifest_unchanged": true,
+  "requests": [
+    {
+      "method": "GET",
+      "query": "",
+      "range": false,
+      "status": 403,
+      "unverified_content_returned": false
+    },
+    {
+      "method": "GET",
+      "query": "",
+      "range": true,
+      "status": 403,
+      "unverified_content_returned": false
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "range": false,
+      "status": 403,
+      "unverified_content_returned": false
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "range": false,
+      "status": 403,
+      "unverified_content_returned": false
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "range": false,
+      "status": 403,
+      "unverified_content_returned": false
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "range": false,
+      "status": 403,
+      "unverified_content_returned": false
+    }
+  ],
+  "normal_react_before_after": true,
+  "restored_response_contains_marker": false,
+  "reviewed_hmr_and_debug_map": true,
+  "metadata_alone_cannot_authorize": true,
+  "page_errors": [],
+  "stage_b_started": false
+}

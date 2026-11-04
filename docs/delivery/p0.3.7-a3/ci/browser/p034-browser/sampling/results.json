@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "browser": "156.0.8078.47",
+  "scope": "Recorded metadata fixtures through real HTTP API; no new video extraction or model fitting",
+  "sources": [
+    "garment_test",
+    "garment_test_short"
+  ],
+  "desktop_mobile": true,
+  "report_export": true,
+  "zero_pairs_explained": true,
+  "training_remains_blocked": true,
+  "jobs_created": false,
+  "page_errors": []
+}

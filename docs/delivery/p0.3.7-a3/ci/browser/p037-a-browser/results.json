@@ -1,0 +1,186 @@
+{
+  "passed": true,
+  "browser": "156.0.8078.47",
+  "scope": "generated test pattern and temporary DB only",
+  "stage": "P0.3.7-A",
+  "stage_b_started": false,
+  "user_acceptance": "pending",
+  "displays": [
+    {
+      "mode": "desktop",
+      "checks": [
+        {
+          "case": "开发原片 Range",
+          "method": "GET",
+          "status": 206,
+          "code": null,
+          "passed": true
+        },
+        {
+          "case": "开发原片 HEAD",
+          "method": "HEAD",
+          "status": 200,
+          "code": null,
+          "passed": true
+        },
+        {
+          "case": "封存原片",
+          "method": "GET",
+          "status": 422,
+          "code": "MEDIA_SEALED_FORBIDDEN",
+          "passed": true
+        },
+        {
+          "case": "封存 Range",
+          "method": "GET",
+          "status": 422,
+          "code": "MEDIA_SEALED_FORBIDDEN",
+          "passed": true
+        },
+        {
+          "case": "封存 HEAD",
+          "method": "HEAD",
+          "status": 422,
+          "code": null,
+          "passed": true
+        },
+        {
+          "case": "封存异常 Range",
+          "method": "GET",
+          "status": 422,
+          "code": "MEDIA_SEALED_FORBIDDEN",
+          "passed": true
+        },
+        {
+          "case": "封存兼容预览",
+          "method": "GET",
+          "status": 422,
+          "code": "MEDIA_SEALED_FORBIDDEN",
+          "passed": true
+        },
+        {
+          "case": "封存预览 HEAD",
+          "method": "HEAD",
+          "status": 422,
+          "code": null,
+          "passed": true
+        }
+      ],
+      "playback_advanced": true,
+      "seek_seconds": 1.5,
+      "export_exact": true
+    },
+    {
+      "mode": "mobile",
+      "checks": [
+        {
+          "case": "开发原片 Range",
+          "method": "GET",
+          "status": 206,
+          "code": null,
+          "passed": true
+        },
+        {
+          "case": "开发原片 HEAD",
+          "method": "HEAD",
+          "status": 200,
+          "code": null,
+          "passed": true
+        },
+        {
+          "case": "封存原片",
+          "method": "GET",
+          "status": 422,
+          "code": "MEDIA_SEALED_FORBIDDEN",
+          "passed": true
+        },
+        {
+          "case": "封存 Range",
+          "method": "GET",
+          "status": 422,
+          "code": "MEDIA_SEALED_FORBIDDEN",
+          "passed": true
+        },
+        {
+          "case": "封存 HEAD",
+          "method": "HEAD",
+          "status": 422,
+          "code": null,
+          "passed": true
+        },
+        {
+          "case": "封存异常 Range",
+          "method": "GET",
+          "status": 422,
+          "code": "MEDIA_SEALED_FORBIDDEN",
+          "passed": true
+        },
+        {
+          "case": "封存兼容预览",
+          "method": "GET",
+          "status": 422,
+          "code": "MEDIA_SEALED_FORBIDDEN",
+          "passed": true
+        },
+        {
+          "case": "封存预览 HEAD",
+          "method": "HEAD",
+          "status": 422,
+          "code": null,
+          "passed": true
+        }
+      ],
+      "playback_advanced": true,
+      "seek_seconds": 1.5,
+      "export_exact": true
+    }
+  ],
+  "preview_derivatives_created": 0,
+  "vite_private_file_denials": [
+    {
+      "method": "GET",
+      "query": "",
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?raw",
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?raw",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?url",
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?url",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "query": "?import",
+      "status": 403
+    },
+    {
+      "method": "HEAD",
+      "query": "?import",
+      "status": 403
+    }
+  ],
+  "vite_normal_workbench_loaded": true,
+  "page_errors": [],
+  "unexpected_console_errors": [],
+  "screenshots_contain_media_frames": false,
+  "template_sha256": "3f379c1128c6a31f95d7ff2986ca5c4ea22460fd0d5c363c18fab2336f27ccc0"
+}
