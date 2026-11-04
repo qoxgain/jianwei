@@ -25,7 +25,7 @@ sequenceDiagram
     B-->>G: 释放
 ```
 
-文件源使用私有、只读SQLite连接，避免engine新连接PRAGMA在EXCLUSIVE下也带入提交闸门。内存库保留私有源能力。源连接绝不作为受支持备份目标公开，六种未经批准目标和row_factory防线保留。backup不再等待SQLite锁时持有全局闸门，故障标记可以在复制时及时持久化；进度检查和最终闸门检查共同阻止故障后的有效发布。
+文件源使用私有、只读SQLite连接，避免engine新连接PRAGMA在EXCLUSIVE下也带入提交闸门。内存库仅单连接、无并发写入时保留私有源能力。源连接绝不作为受支持备份目标公开，六种未经批准目标和row_factory防线保留。backup不再等待SQLite锁时持有全局闸门，故障标记可以在复制时及时持久化；进度检查和最终闸门检查共同阻止故障后的有效发布。
 
 唯一新副本先写独占partial文件；执行完整性和外键检查、文件fsync与SHA，再在最终闸门内以link原子创建新目标并写published回执。并发同名发布只能有一个成功，现有目标/备份及符号链接不被覆盖。失败副本与独立operation回执保留，标为failed/timeout/cancelled/invalidated，不以目标路径发布；不自动恢复、清故障或改消费记录。已完成发布之后才发生故障，历史published回执保留，仍不得据此解除原库隔离。
 

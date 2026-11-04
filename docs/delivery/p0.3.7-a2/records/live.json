@@ -1,0 +1,125 @@
+{
+  "passed": true,
+  "browser": "154.0.8037.57",
+  "desktop_mobile": true,
+  "scope": "generated fixture HTTP only",
+  "io_pool_tokens": 2,
+  "displays": [
+    {
+      "stage": "P0.3.7-A.1",
+      "scope": "generated engineering fixtures only; worker paused for pending-state inspection",
+      "io_pool_tokens": 2,
+      "stage_b_started": false,
+      "independent_acceptance": "pending",
+      "cases": [
+        {
+          "source": "development",
+          "state": "development",
+          "allowed": true,
+          "range": 206,
+          "head": 200,
+          "preview": null,
+          "passed": true
+        },
+        {
+          "source": "sealed",
+          "state": "sealed",
+          "allowed": false,
+          "range": 422,
+          "head": 422,
+          "preview": 422,
+          "passed": true
+        },
+        {
+          "source": "pending",
+          "state": "pending_seal",
+          "allowed": false,
+          "range": 422,
+          "head": 422,
+          "preview": 422,
+          "passed": true
+        },
+        {
+          "source": "failed",
+          "state": "seal_failed",
+          "allowed": true,
+          "range": 206,
+          "head": 200,
+          "preview": null,
+          "passed": true
+        },
+        {
+          "source": "cancelled",
+          "state": "cancelled",
+          "allowed": true,
+          "range": 206,
+          "head": 200,
+          "preview": null,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "stage": "P0.3.7-A.1",
+      "scope": "generated engineering fixtures only; worker paused for pending-state inspection",
+      "io_pool_tokens": 2,
+      "stage_b_started": false,
+      "independent_acceptance": "pending",
+      "cases": [
+        {
+          "source": "development",
+          "state": "development",
+          "allowed": true,
+          "range": 206,
+          "head": 200,
+          "preview": null,
+          "passed": true
+        },
+        {
+          "source": "sealed",
+          "state": "sealed",
+          "allowed": false,
+          "range": 422,
+          "head": 422,
+          "preview": 422,
+          "passed": true
+        },
+        {
+          "source": "pending",
+          "state": "pending_seal",
+          "allowed": false,
+          "range": 422,
+          "head": 422,
+          "preview": 422,
+          "passed": true
+        },
+        {
+          "source": "failed",
+          "state": "seal_failed",
+          "allowed": true,
+          "range": 206,
+          "head": 200,
+          "preview": null,
+          "passed": true
+        },
+        {
+          "source": "cancelled",
+          "state": "cancelled",
+          "allowed": true,
+          "range": 206,
+          "head": 200,
+          "preview": null,
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "playback_and_seek": true,
+  "export_exact": true,
+  "page_errors": [],
+  "forbidden_preview_cache_members": 0,
+  "screenshots_contain_media": false,
+  "independent_acceptance": "pending",
+  "stage_b_started": false,
+  "template_sha256": "83603de65a3f88b1c78e0565608a862557ab973b19bdd04c97ff01e485e411aa"
+}

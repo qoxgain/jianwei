@@ -46,6 +46,10 @@ jobs:
         run: .venv/bin/python tests/browser_p037_a1.py --chromium "$(command -v google-chrome)" --output artifacts/p037-a1-browser
       - name: A.1 media-free offline evidence filters and export
         run: .venv/bin/python tests/browser_p037_a1_offline.py --chromium "$(command -v google-chrome)" --output artifacts/p037-a1-offline
+      - name: A.2 inert-text optimizer integrity, real HMR and source-map regression
+        run: .venv/bin/python -m tests.check_p037_a2_optimizer --chromium "$(command -v google-chrome)" --output artifacts/p037-a2-optimizer
+      - name: A.2 offline evidence, accurate pending scope and downloads
+        run: .venv/bin/python tests/browser_p037_a2_offline.py --chromium "$(command -v google-chrome)" --output artifacts/p037-a2-offline
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -62,6 +66,8 @@ jobs:
             artifacts/p037-a1-static/results.json
             artifacts/p037-a1-browser/results.json
             artifacts/p037-a1-offline/results.json
+            artifacts/p037-a2-optimizer/results.json
+            artifacts/p037-a2-offline/results.json
             artifacts/p031-browser-work/**/api.log
             artifacts/p031-browser-work/**/static.log
   foundation:
@@ -87,7 +93,7 @@ jobs:
       - run: python -m pip install -r requirements-encoder.txt
       - run: npm ci
         working-directory: apps/web
-      - run: python -m pytest tests -q --junitxml=artifacts/p037-a1-ci/backend-junit.xml
+      - run: python -m pytest tests -q --junitxml=artifacts/p037-a2-ci/backend-junit.xml
       - run: python -m unittest discover -s reference/tests -v
       - run: npm test
         working-directory: apps/web
@@ -97,6 +103,8 @@ jobs:
         working-directory: apps/web
       - name: Preserve P0.3.6 archive against its original manifest and browser hash
         run: python -m scripts.verify_historical_demo
+      - name: Verify A.2 sanitized evidence and pending original-media scope
+        run: python -m scripts.package_p037_a2_demo --verify-only
       - name: Verify A.1 archive integrity and publication boundary
         run: python -m scripts.package_p037_a1_demo --verify-only
       - name: Verify Stage-A archive integrity and publication boundary
@@ -104,8 +112,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: a1-backend-junit
-          path: artifacts/p037-a1-ci/backend-junit.xml
+          name: a2-backend-junit
+          path: artifacts/p037-a2-ci/backend-junit.xml
   pretrained-encoder:
     runs-on: ubuntu-24.04
     steps:

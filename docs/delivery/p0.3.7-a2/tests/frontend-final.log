@@ -1,0 +1,19 @@
+
+> @jianwei/web@0.1.0 test
+> vitest run
+
+
+⎯⎯⎯⎯⎯⎯⎯ Startup Error ⎯⎯⎯⎯⎯⎯⎯⎯
+Error: Optimizer output attestation did not run
+    at Object.ready (file:///workspace/jianwei/apps/web/node_modules/.vite-temp/vite.config.ts.timestamp-1793772125028-168238502c729.mjs:68:33)
+    at BasicMinimalPluginContext.configureServer (file:///workspace/jianwei/apps/web/node_modules/.vite-temp/vite.config.ts.timestamp-1793772125028-168238502c729.mjs:177:17)
+    at async _createServer (file:///workspace/jianwei/apps/web/node_modules/vitest/node_modules/vite/dist/node/chunks/config.js:25853:86)
+    at async createViteServer (file:///workspace/jianwei/apps/web/node_modules/vitest/dist/chunks/cli-api.B7PN_QUv.js:9870:17)
+    at async createVitest (file:///workspace/jianwei/apps/web/node_modules/vitest/dist/chunks/cli-api.B7PN_QUv.js:13186:17)
+    at async prepareVitest (file:///workspace/jianwei/apps/web/node_modules/vitest/dist/chunks/cli-api.B7PN_QUv.js:13548:14)
+    at async startVitest (file:///workspace/jianwei/apps/web/node_modules/vitest/dist/chunks/cli-api.B7PN_QUv.js:13494:14)
+    at async start (file:///workspace/jianwei/apps/web/node_modules/vitest/dist/chunks/cac.DVeoLl0M.js:1360:15)
+    at async CAC.run (file:///workspace/jianwei/apps/web/node_modules/vitest/dist/chunks/cac.DVeoLl0M.js:1338:2)
+
+
+
