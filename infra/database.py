@@ -10,11 +10,11 @@ import hashlib
 import json
 from functools import partial
 from infra.file_gate import file_gate
-from infra.sqlite_connection import ManagedConnection, _backup_to_new_file
+from infra.sqlite_connection import ManagedConnection
 from sqlalchemy.exc import DisconnectionError
 from packages.contracts.database import SQLiteSettings
 from packages.config.errors import ContractError
-from threading import Lock
+from threading import Lock, Event
 
 from alembic import command
 from alembic.config import Config
@@ -33,6 +33,7 @@ class Database:
         self.sqlite_settings = sqlite_settings or SQLiteSettings()
         self.last_integrity_check = None
         self._fault = None
+        self._backup_shutdown = Event()
         url = make_url(database_url)
         local_path=Path(url.database).expanduser().resolve() if url.get_backend_name()=='sqlite' and url.database not in (None,'',':memory:') else None
         self.quarantine_path=Path(str(local_path)+'.fault.json') if local_path else None
@@ -190,22 +191,13 @@ class Database:
         self.last_integrity_check={'status':'ok','check':'quick_check_and_foreign_keys'}
         return self.last_integrity_check
 
-    def backup(self, target):
+    def backup(self, target, *, cancel_event=None, progress=None):
         """Consistent SQLite online backup to a NEW file; never restore in place."""
         if self.engine.dialect.name!='sqlite':
             raise ContractError('DATABASE_BACKUP_UNAVAILABLE','该备份实现仅支持 SQLite')
-        target=Path(target);target.parent.mkdir(parents=True,exist_ok=True)
-        # Reserve exclusively; an existing backup or database is never replaced.
-        with target.open('xb'):pass
-        try:
-            with self.engine.connect() as connection, sqlite3.connect(target) as output:
-                _backup_to_new_file(connection.connection.driver_connection,output)
-                if output.execute('PRAGMA integrity_check').fetchall()!=[('ok',)]:raise ValueError
-            with target.open('rb') as stream:sha=hashlib.file_digest(stream,'sha256').hexdigest()
-            return {'status':'ok','sha256':sha,'bytes':target.stat().st_size,'original_overwritten':False}
-        except Exception:
-            # Retain the failed backup for investigation; never retry over it.
-            raise ContractError('DATABASE_BACKUP_FAILED','备份未通过校验；保留失败输出及原库，不自动覆盖或恢复') from None
+        from infra.sqlite_backup import backup
+        return backup(self,target,cancel_event=cancel_event,progress=progress)
 
     def close(self) -> None:
+        self._backup_shutdown.set()
         self.engine.dispose()

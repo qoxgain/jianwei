@@ -1346,6 +1346,34 @@
       "title": "Retention",
       "type": "object"
     },
+    "SQLiteBackupSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "timeout_seconds": {
+          "default": 10,
+          "maximum": 600,
+          "minimum": 0.05,
+          "title": "Timeout Seconds",
+          "type": "number"
+        },
+        "pages_per_step": {
+          "default": 64,
+          "maximum": 4096,
+          "minimum": 1,
+          "title": "Pages Per Step",
+          "type": "integer"
+        },
+        "retry_seconds": {
+          "default": 0.01,
+          "maximum": 0.1,
+          "minimum": 0.001,
+          "title": "Retry Seconds",
+          "type": "number"
+        }
+      },
+      "title": "SQLiteBackupSettings",
+      "type": "object"
+    },
     "SQLiteSettings": {
       "additionalProperties": false,
       "properties": {
@@ -1385,6 +1413,9 @@
           "minimum": 0,
           "title": "Min Free Bytes",
           "type": "integer"
+        },
+        "backup": {
+          "$ref": "#/$defs/SQLiteBackupSettings"
         }
       },
       "title": "SQLiteSettings",

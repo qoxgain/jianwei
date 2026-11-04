@@ -72,7 +72,7 @@
     "schemas/observation.schema.json": "76dcc6faff7449c17516d1b328412c912bcd14d8e7f5888478e8ab1357233579",
     "schemas/prediction.schema.json": "5498f0a78581ffc41f7f850d7a1536d1fb22bfe18bbdaa774c84f48506789df8",
     "schemas/research_protocol.schema.json": "1b03c5b811d71e73220b620209a53901b0773f70b83ccd531912d62656ea57de",
-    "schemas/scene_config.schema.json": "ebfd6933719dd6e66174ea0dc56b907a1d6c60011534090954d3ae28c3cb9ac9",
+    "schemas/scene_config.schema.json": "18c78491576a5b3f50ad93b3ccca60e994ea613938f9e32135ec0c6b95ae75ea",
     "schemas/scene_knowledge.schema.json": "127f77a8faa85ad24924e62775b098db272e689f98efe46d91633f045653988f",
     "schemas/sop_decision_request.schema.json": "c5f2e8c4937038231231d6e036e147fc4052f6e1aba7289cfbe2a358177e837f",
     "schemas/sop_evidence_record.schema.json": "59c36e2cabdcf4bb832576ef3c1cc36d51fec39518cb2882414dc2f39fc892e1",

@@ -163,6 +163,7 @@ def load_bundle(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", p
     snapshot = _redact(config.model_dump(exclude=excluded))
     if snapshot.get('exploratory') is None: snapshot.pop('exploratory', None)
     if snapshot.get('sqlite') is None: snapshot.pop('sqlite', None)
+    elif 'backup' not in config.sqlite.model_fields_set: snapshot['sqlite'].pop('backup',None)
     if snapshot.get('media_access') is None: snapshot.pop('media_access', None)
     if snapshot.get('sop_review') is None: snapshot.pop('sop_review', None)
     # Viewing derivatives do not invalidate existing feature configuration when

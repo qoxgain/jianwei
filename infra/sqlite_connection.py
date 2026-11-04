@@ -77,8 +77,6 @@ class ManagedCursor:
     def __next__(self):return next(self.__cursor)
 
 
-def _backup_to_new_file(connection,target):
-    """Internal capability only used after Database.backup exclusively reserves target."""
-    native=object.__getattribute__(connection,'_ManagedConnection__native')
-    with native.owner.commit_gate.hold():
-        native.owner._assert_healthy();native.backup(target)
+def _backup_native_source(connection):
+    """Private source capability for in-memory backup; never a supported target."""
+    return object.__getattribute__(connection,'_ManagedConnection__native')
