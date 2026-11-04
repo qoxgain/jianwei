@@ -9,7 +9,7 @@
 <tr><td>R02-2 原生backup</td><td>写入故障目标库</td><td>受管目标无原生备份能力；批准的新文件备份正常</td></tr>
 <tr><td>R03 工具探测</td><td>消失/执行异常降级unavailable</td><td>明确生产失败，阻止缓存身份计算；历史v1/v2/v3不改写</td></tr>
 </tbody></table></div></section>
-<section><h2>新增回归测试</h2><label for="filter">专项</label> <select id="filter" aria-label="专项"><option value="all">全部38项</option><option value="static">R01 静态发布</option><option value="media">R01 媒体与状态</option><option value="savepoints">R02 保存点</option><option value="backup">R02 备份</option><option value="tool_probe">R03 工具</option></select><div class="scroll"><table><thead><tr><th>实际测试</th><th>结果</th></tr></thead><tbody id="rows"></tbody></table></div></section>
+<section><h2>新增回归测试</h2><label for="filter">专项</label> <select id="filter" aria-label="专项"><option value="all">全部43项</option><option value="static">R01 静态发布</option><option value="media">R01 媒体与状态</option><option value="savepoints">R02 保存点</option><option value="backup">R02 备份</option><option value="tool_probe">R03 工具</option></select><div class="scroll"><table><thead><tr><th>实际测试</th><th>结果</th></tr></thead><tbody id="rows"></tbody></table></div></section>
 <section><h2>独立复验</h2><p>项目根目录、安装依赖与FFmpeg后运行。输出必须为新的artifacts目录，服务只监听本机。</p><pre>.venv/bin/python -m scripts.serve_p037_a1_demo --root artifacts/a1-my-review --port 18738</pre><p>打开 http://127.0.0.1:18738/stage-a1-check，运行五状态实际检查、正常播放定位并导出结果。pending状态演示显式暂停隔离任务队列。</p><pre>.venv/bin/python -m pytest tests/test_p037_a1_*.py -q
 .venv/bin/python -m tests.check_p037_a1_static --output artifacts/a1-static-review
 .venv/bin/python tests/browser_p037_a1.py --output artifacts/a1-browser-review</pre><p>范围：支持的单机受管API与可信安装/清单。外部数据库写者、管理员修改及私有Python反射不属于支持接口。原始SQLite损坏根因未确认；跨节点、断电及客户网络尚未验证。未使用正式封存数据，不声明科研或独立验收通过。</p></section>

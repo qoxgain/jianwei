@@ -29,6 +29,6 @@ test_teacher_only_is_quarantined (test_learning_contracts.MemoryTests.test_teach
 test_uncertainty_breaks_transition_chain (test_learning_contracts.MemoryTests.test_uncertainty_breaks_transition_chain) ... ok
 
 ----------------------------------------------------------------------
-Ran 29 tests in 0.241s
+Ran 29 tests in 0.288s
 
 OK

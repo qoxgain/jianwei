@@ -18,4 +18,4 @@ computing gzip size...
 dist/static/brand-mark.svg       0.26 kB │ gzip:     0.16 kB
 dist/index.html             23,799.72 kB │ gzip: 6,824.31 kB
 
-✓ built in 2.33s
+✓ built in 2.64s

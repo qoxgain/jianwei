@@ -87,7 +87,7 @@ jobs:
       - run: python -m pip install -r requirements-encoder.txt
       - run: npm ci
         working-directory: apps/web
-      - run: python -m pytest tests -q
+      - run: python -m pytest tests -q --junitxml=artifacts/p037-a1-ci/backend-junit.xml
       - run: python -m unittest discover -s reference/tests -v
       - run: npm test
         working-directory: apps/web
@@ -101,6 +101,11 @@ jobs:
         run: python -m scripts.package_p037_a1_demo --verify-only
       - name: Verify Stage-A archive integrity and publication boundary
         run: python -m scripts.package_p037_a_demo --verify-only
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: a1-backend-junit
+          path: artifacts/p037-a1-ci/backend-junit.xml
   pretrained-encoder:
     runs-on: ubuntu-24.04
     steps:
@@ -113,9 +118,11 @@ jobs:
           python-version: '3.12'
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg poppler-utils
       - run: python -m pip install -r requirements-pretrained.txt --extra-index-url https://download.pytorch.org/whl/cpu
-      - run: python -m pytest tests/test_pretrained_encoder.py -q
+      - run: python -m pytest tests/test_pretrained_encoder.py -q --junitxml=artifacts/encoder-junit.xml
       - run: python scripts/export_pretrained_encoder.py --download --report artifacts/encoder-export.json
       - uses: actions/upload-artifact@v4
         with:
           name: official-encoder-verification
-          path: artifacts/encoder-export.json
+          path: |
+            artifacts/encoder-export.json
+            artifacts/encoder-junit.xml

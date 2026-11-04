@@ -1,14 +1,14 @@
 {
   "stage": "P0.3.7-A.1",
   "baseline": "b029f783689de2bf94f0a8e1c5dd743516ddf5af",
-  "tested_code_head": "f91751c5a0a97cc4354cd27f934582d9bce43455",
+  "tested_code_head": "e688ba12ee10e8571e626e65c9d374cd83f55623",
   "scope": "generated engineering fixtures; historical development playback regression only; no formal sealed data",
   "independent_acceptance": "pending",
   "stage_b_started": false,
   "p04_admitted": false,
   "formal_research_status": "blocked",
   "backend": {
-    "tests": 633,
+    "tests": 638,
     "failures": 0,
     "errors": 0,
     "skipped": 0
@@ -57,6 +57,20 @@
       "owner_first_chunk": true
     }
   },
+  "callback_baseline": [
+    {
+      "mode": "connection_factory",
+      "native_target_exposed": true,
+      "fault_persisted": true,
+      "backup_wrote_faulted_target": true
+    },
+    {
+      "mode": "cursor_factory",
+      "native_target_exposed": true,
+      "fault_persisted": true,
+      "backup_wrote_faulted_target": true
+    }
+  ],
   "baseline_static": {
     "scope": "generated test-registered MP4, renamed hardlink",
     "source_sha256": "5ebc017f59bca117529ec97325cca90eca1fb5bf4a23f6bd5524cbfa1fd9bda3",
@@ -107,6 +121,31 @@
     {
       "module": "tests.test_p037_a1_backup",
       "name": "test_native_backup_cannot_write_managed_target[context-True]",
+      "status": "passed"
+    },
+    {
+      "module": "tests.test_p037_a1_backup",
+      "name": "test_native_backup_cannot_write_managed_target[connection_factory-False]",
+      "status": "passed"
+    },
+    {
+      "module": "tests.test_p037_a1_backup",
+      "name": "test_native_backup_cannot_write_managed_target[connection_factory-True]",
+      "status": "passed"
+    },
+    {
+      "module": "tests.test_p037_a1_backup",
+      "name": "test_native_backup_cannot_write_managed_target[cursor_factory-False]",
+      "status": "passed"
+    },
+    {
+      "module": "tests.test_p037_a1_backup",
+      "name": "test_native_backup_cannot_write_managed_target[cursor_factory-True]",
+      "status": "passed"
+    },
+    {
+      "module": "tests.test_p037_a1_backup",
+      "name": "test_row_factories_keep_standard_rows_and_supported_callbacks",
       "status": "passed"
     },
     {
@@ -1716,7 +1755,7 @@
     {
       "name": "four_scenes",
       "passed": true,
-      "evidence_sha256": "315ea72323998594874bf72f5300ffc0170ae3ec7b96d2a10524b4088523dd97"
+      "evidence_sha256": "fc82490b50fbc2abfba0f06600bf4d806324a42f9cf18bd619bd8dc849d3ff33"
     },
     {
       "name": "sampling",
@@ -1741,12 +1780,12 @@
     {
       "name": "original_development_video",
       "passed": true,
-      "evidence_sha256": "b484162ed641a1f2932afb67a12c09d018eafd9556e5616b45cbb9cc5f029ac3"
+      "evidence_sha256": "56d2e7de8141e103c63d2576d17d435660fc8cf70c44b034977ffae3b845263d"
     }
   ],
   "source_sha256": {
     "infra/sqlite_guard.py": "e92e7a83e51e23b02fd3e97a14cd829c8925effdee0a76245bbdb6e9a09b9538",
-    "infra/sqlite_connection.py": "11b42d5c999d5e0627d8d08f8ba132a29924a6d6e43037dd31b307733e483dde",
+    "infra/sqlite_connection.py": "da2e3f86099da7099cfb97c775a2087403d1549904034ef7fd469f5d2def562a",
     "infra/file_gate.py": "ff5a44a3fdc39835054896a5a74a1d8e8cd998a498e775e06d147c2c477a271d",
     "infra/database.py": "3f9eb4f733efd67aae2b84423932e2ec9ed68edb73156315af2dccd5a011e4bc",
     "packages/media/access.py": "e62a8b8d0e4fd6de3dc7448cf3f8d66cb20e23e581e060e059bb7219697712dd",
@@ -1763,7 +1802,12 @@
     "demo/stage-a1-live.html": "83603de65a3f88b1c78e0565608a862557ab973b19bdd04c97ff01e485e411aa",
     "scripts/serve_p037_a1_demo.py": "825c61a24c41c8a68f0b375ad9ac43e317c9708508bb63c6f45a062c3b0c6f25",
     "tests/browser_p037_a1.py": "6942e9ec287477aa91a4f31f4a0c5478fdd691dc786d81b1fba9e7c5ef0086f5",
-    "tests/check_p037_a1_static.py": "1746494fd6cab162126840d27a0eb2932a4bfa98259a897e17cda9b2ecf99d1e"
+    "tests/check_p037_a1_static.py": "1746494fd6cab162126840d27a0eb2932a4bfa98259a897e17cda9b2ecf99d1e",
+    "tests/test_p037_a1_backup.py": "b8fcda529f1064cc8f85547138c6e0337297407a13ad76f54292ae4a1c69d4cb",
+    "tests/test_p037_a1_media.py": "d2f87a2febd498c3658c64dde47e06b06bbdfc9f5e63581ee59129fe3506b66b",
+    "tests/test_p037_a1_savepoints.py": "248a4ac21eda98c5ed59ff2b07c8245d3b799e6c1b17f2011e1d8a656a7bde30",
+    "tests/test_p037_a1_static_output.py": "e582f226b89ce4bf7f5d947ba50153c43a5b382e5314c592f321a6e6b5e856d3",
+    "tests/test_p037_a1_tool_probe.py": "b3d68c4d35e7fae500ef8a5969765103460aae9a5ddd8204e120d52388cb2c22"
   },
   "conditions": {
     "A": "implemented_and_locally_tested; independent_review_pending",

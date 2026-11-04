@@ -23,9 +23,9 @@ def main():
             for mode,size in [('desktop',{'width':1440,'height':1000}),('mobile',{'width':390,'height':844})]:
                 page.set_viewport_size(size);page.goto(url)
                 expect(page.locator('h1')).to_have_text('见微 P0.3.7-A.1 验收整改')
-                expect(page.locator('#summary')).to_contain_text('633')
+                expect(page.locator('#summary')).to_contain_text('638')
                 expect(page.locator('.notice')).to_contain_text('待独立审核方复验')
-                for group,count in [('all',38),('static',2),('media',9),('savepoints',11),('backup',9),('tool_probe',7)]:
+                for group,count in [('all',43),('static',2),('media',9),('savepoints',11),('backup',14),('tool_probe',7)]:
                     page.get_by_label('专项',exact=True).select_option(group)
                     expect(page.locator('#rows tr')).to_have_count(count)
                 with page.expect_download() as pending:page.get_by_role('button',name='下载完整执行证据',exact=True).click()

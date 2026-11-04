@@ -41,8 +41,8 @@ def main():
     cases=[{'module':t.get('classname'),'name':t.get('name'),
             'status':'skipped' if t.find('skipped') is not None else 'passed'}
            for t in tree.findall('.//testcase') if t.get('classname','').startswith('tests.test_p037_a1_')]
-    assert len(cases)==38 and all(t['status']=='passed' for t in cases)
-    browser=json.loads((e/'browser-live/results.json').read_text())
+    assert len(cases)==43 and all(t['status']=='passed' for t in cases)
+    browser=json.loads((e/'browser-callback-final/results.json').read_text())
     static=json.loads((e/'static-release-final/results.json').read_text())
     assert browser['passed'] and not browser['stage_b_started'] and static['passed']
     assert browser['template_sha256']==sha(ROOT/'demo/stage-a1-live.html')
@@ -61,7 +61,9 @@ def main():
         'packages/ingest_jobs/service.py','packages/ingest_jobs/inspection.py','apps/api/static.py',
         'apps/api/main.py','apps/api/sop.py','apps/web/vite.config.ts','apps/web/reviewedAssets.ts',
         'apps/web/browser-files.json','demo/stage-a1-live.html','scripts/serve_p037_a1_demo.py',
-        'tests/browser_p037_a1.py','tests/check_p037_a1_static.py']
+        'tests/browser_p037_a1.py','tests/check_p037_a1_static.py',
+        'tests/test_p037_a1_backup.py','tests/test_p037_a1_media.py','tests/test_p037_a1_savepoints.py',
+        'tests/test_p037_a1_static_output.py','tests/test_p037_a1_tool_probe.py']
     payload={'stage':'P0.3.7-A.1','baseline':'b029f783689de2bf94f0a8e1c5dd743516ddf5af',
         'tested_code_head':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
         'scope':'generated engineering fixtures; historical development playback regression only; no formal sealed data',
@@ -69,6 +71,7 @@ def main():
         'formal_research_status':'blocked','backend':totals,'frontend_passed':int(front[1]),
         'reference_passed':int(reference[1]),'builds':['production','demo'],
         'baseline_counterexamples':json.loads((e/'baseline/backend-counterexamples.json').read_text()),
+        'callback_baseline':json.loads((e/'callback-baseline.json').read_text()),
         'baseline_static':json.loads((e/'baseline-vite/counterexamples.json').read_text()),
         'counterexample_tests':cases,'live_browser':browser,'static_publication':static,'regressions':regressions,
         'source_sha256':{file:sha(ROOT/file) for file in source},
@@ -82,13 +85,14 @@ def main():
     save(OUT/'verification.json',payload)
     for name,path in [('baseline-backend.json',e/'baseline/backend-counterexamples.json'),
                       ('baseline-static.json',e/'baseline-vite/counterexamples.json'),
+                      ('baseline-callback.json',e/'callback-baseline.json'),
                       ('backend-junit.xml',e/'backend-junit.xml')]:
         (OUT/name).write_bytes(path.read_bytes())
     for name in ['backend-final.log','frontend-release.log','reference-final.log','build-release.log',
-                 'demo-build-release.log','R012-final.log','R021-tests.log','R022-tests.log','R03-tests.log']:
+                 'demo-build-release.log','R022-callbacks.log','R012-final.log','R021-tests.log','R022-tests.log','R03-tests.log']:
         dest=OUT/'tests'/name;dest.parent.mkdir(exist_ok=True);dest.write_bytes((e/name).read_bytes())
     for name in ['results.json','desktop.png','mobile.png']:
-        dest=OUT/'browser'/name;dest.parent.mkdir(exist_ok=True);dest.write_bytes((e/'browser-live'/name).read_bytes())
+        dest=OUT/'browser'/name;dest.parent.mkdir(exist_ok=True);dest.write_bytes((e/'browser-callback-final'/name).read_bytes())
     # Only scalar/status evidence and media-free screenshots are published.
     html=(ROOT/'demo/stage-a1-evidence.html').read_text().replace('__DATA__',json.dumps(payload,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c'))
     files={'index.html':html.encode(),'evidence.json':(OUT/'verification.json').read_bytes(),

@@ -1,21 +1,21 @@
 ........................................................................ [ 11%]
 ........................................................................ [ 22%]
-........................................................................ [ 34%]
+........................................................................ [ 33%]
 ........................................................................ [ 45%]
 ........................................................................ [ 56%]
-........................................................................ [ 68%]
-........................................................................ [ 79%]
+........................................................................ [ 67%]
+........................................................................ [ 78%]
 ........................................................................ [ 90%]
-.........................................................                [100%]
+..............................................................           [100%]
 =============================== warnings summary ===============================
 .venv/lib/python3.12/site-packages/starlette/testclient.py:37
   /workspace/jianwei/.venv/lib/python3.12/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
     _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
 
 tests/test_sqlite_reliability.py::test_fork_rejects_parent_connection_and_parent_remains_usable
-  /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=390054) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=58908) is multi-threaded, use of fork() may lead to deadlocks in the child.
     self.pid = os.fork()
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 -- generated xml file: /workspace/jianwei/artifacts/p037-a1/backend-junit.xml --
-633 passed, 2 warnings in 167.53s (0:02:47)
+638 passed, 2 warnings in 163.75s (0:02:43)
