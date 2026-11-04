@@ -1,5 +1,5 @@
 """Refresh hashes of explicitly reviewed browser inputs; never discover uploads."""
-import hashlib,json
+import hashlib,json,os
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 TARGET=ROOT/'apps/web/browser-files.json'
@@ -16,7 +16,9 @@ def main():
         file=ROOT/path
         if file.exists() and not file.is_symlink() and file.stat().st_nlink==1:
             manifest['dependencies'][path]=hashlib.sha256(file.read_bytes()).hexdigest()
-    TARGET.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+    # Watchers must see a complete old/new approval, never a partially written JSON.
+    temp=TARGET.with_suffix('.review.tmp')
+    temp.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n');os.replace(temp,TARGET)
     print('Refreshed explicit reviewed list; review this manifest diff before publishing')
 
 

@@ -3,9 +3,11 @@ import {createHash} from 'node:crypto';
 import {lstatSync,readFileSync,realpathSync,readdirSync,writeFileSync,existsSync} from 'node:fs';
 import {isAbsolute,relative,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {optimizerIntegrity,reviewedImports} from './optimizerIntegrity.ts';
 const repo=fileURLToPath(new URL('../../',import.meta.url));
 const web=resolve(repo,'apps/web');
-const manifest=JSON.parse(readFileSync(resolve(web,'browser-files.json'),'utf8')) as {files:Record<string,string>;assets:Record<string,string>;dependencies:Record<string,string>;package_lock_sha256:string};
+const manifestPath=resolve(web,'browser-files.json');
+let manifest=JSON.parse(readFileSync(manifestPath,'utf8')) as {files:Record<string,string>;assets:Record<string,string>;dependencies:Record<string,string>;package_lock_sha256:string};
 const digest=(data:Buffer|string)=>createHash('sha256').update(data).digest('hex');
 const within=(root:string,file:string)=>{const p=relative(root,file);return !isAbsolute(p)&&p!=='..'&&!p.startsWith('../')&&!p.startsWith('..\\');};
 const deps=realpathSync(resolve(web,'node_modules'));
@@ -14,16 +16,7 @@ for(const [key,expected] of Object.entries(manifest.dependencies)){
  const path=resolve(repo,key);if(!existsSync(path))continue;const stat=lstatSync(path);
  if(!stat.isFile()||stat.isSymbolicLink()||stat.nlink!==1||digest(readFileSync(path))!==expected)throw new Error('Pinned dependency changed: '+key);
 }
-function optimizedMember(path:string){
- const cache=resolve(deps,'.vite/deps');if(!within(cache,path))return false;
- try{
-  const metadata=resolve(cache,'_metadata.json'),info=lstatSync(metadata);if(info.isSymbolicLink()||info.nlink!==1)return false;
-  const data=JSON.parse(readFileSync(metadata,'utf8')) as {optimized:Record<string,{src:string;file:string}>;chunks:Record<string,{file:string}>};
-  const entries=Object.values(data.optimized);
-  if(!entries.length||!entries.every(e=>{const source=resolve(cache,e.src),key=relative(repo,source).replaceAll('\\','/');return Object.hasOwn(manifest.dependencies,key)&&digest(readFileSync(source))===manifest.dependencies[key];}))return false;
-  return [...entries,...Object.values(data.chunks)].some(e=>resolve(cache,e.file)===path||resolve(cache,e.file)+'.map'===path);
- }catch{return false;}
-}
+const optimized=optimizerIntegrity(resolve(deps,'.vite/deps'));
 function clean(id:string){return id.split('?')[0].split('#')[0];}
 function inspect(file:string){
  const path=resolve(file),stat=lstatSync(path);
@@ -36,7 +29,7 @@ function inspect(file:string){
   return;
  }
  if(Object.hasOwn(manifest.dependencies,key)&&digest(readFileSync(path))===manifest.dependencies[key])return;
- if(optimizedMember(actual))return;
+ if(optimized.contains(actual)){optimized.checked(actual);return;}
  throw new Error('File is outside the reviewed browser manifest');
 }
 function projectInput(id:string){
@@ -48,6 +41,9 @@ function projectInput(id:string){
 }
 export function reviewedAssets():Plugin{return {
  name:'jianwei-reviewed-browser-inputs',enforce:'pre',
+ config(){return {optimizeDeps:{force:true,noDiscovery:true,include:reviewedImports,
+  rolldownOptions:{plugins:[optimized.plugin]}}};},
+ handleHotUpdate(context){try{inspect(context.file);}catch{return [];}},
  buildStart(){for(const file of Object.keys(manifest.files))inspect(resolve(repo,file));},
  resolveId(source,importer){
   if(source.startsWith('\0'))return;
@@ -60,11 +56,29 @@ export function reviewedAssets():Plugin{return {
  },
  load(id){projectInput(id);return null;},
  transformIndexHtml:{order:'pre',handler(html,ctx){inspect(ctx.filename);return html;}},
- configureServer(server){server.middlewares.use((req,res,next)=>{
+ async configureServer(server){
+  // Vitest's pinned SSR runner has no browser optimizer output. An empty
+  // attestation map remains closed to cache HTTP requests; tests need no bypass.
+  await server.environments.client.depsOptimizer?.init();
+  // Developer edits remain explicitly reviewed. A refreshed trusted manifest
+  // can reload approved source without disabling HMR or trusting cache metadata.
+  server.watcher.add(manifestPath);
+  const reload=async (file:string)=>{
+   if(resolve(file)!==manifestPath)return;
+   try{
+    const candidate=JSON.parse(readFileSync(manifestPath,'utf8')) as typeof manifest;
+    if(digest(readFileSync(resolve(web,'package-lock.json')))!==candidate.package_lock_sha256)throw new Error('Reviewed lock mismatch');
+    if(JSON.stringify(candidate.dependencies)!==JSON.stringify(manifest.dependencies))await server.restart();
+    else {manifest=candidate;server.environments.client.moduleGraph.invalidateAll();server.ws.send({type:'full-reload'});}
+   }catch(error){server.config.logger.error('Reviewed manifest reload rejected: '+String(error));}
+  };
+  server.watcher.on('change',reload);server.watcher.on('add',reload);
+  server.middlewares.use((req,res,next)=>{
   let path:string;
   try{path=decodeURIComponent(new URL(req.url??'/','http://localhost').pathname);}catch{res.statusCode=400;res.end('Invalid path');return;}
   if(path.startsWith('/api/')||path.startsWith('/@vite/')||path.startsWith('/@id/')||path==='/@react-refresh')return next();
   const file=path.startsWith('/@fs/')?path.slice(5):resolve(web,'.'+(path==='/'?'/index.html':path));
+  if(optimized.contains(file))return optimized.serve(req,res,file);
   try{inspect(isAbsolute(file)?file:'/'+file);next();}catch{res.statusCode=403;res.end('Resource is not in the reviewed browser manifest');}
  });},
  configurePreviewServer(server){

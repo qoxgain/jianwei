@@ -2,7 +2,7 @@ import {defineConfig} from 'vite';
 import {fileURLToPath} from 'node:url';
 import react from '@vitejs/plugin-react';
 import {viteSingleFile} from 'vite-plugin-singlefile';
-import {reviewedAssets} from './reviewedAssets';
+import {reviewedAssets} from './reviewedAssets.ts';
 const local=(path:string)=>fileURLToPath(new URL(path,import.meta.url));
 export default defineConfig(({mode})=>({
  plugins:[reviewedAssets(),react(),viteSingleFile()],base:'./',publicDir:false,
