@@ -32,4 +32,4 @@ def test_initial_missing_tools_remain_legal_snapshot_for_nonvideo_inputs(monkeyp
  monkeypatch.setattr(recipe.shutil,'which',lambda _:None)
  x=recipe.production_snapshot()
  assert x['runtime']['tools']=={'ffmpeg':{'status':'unavailable'},'ffprobe':{'status':'unavailable'}}
- assert x['version']=='p037-a1-feature-production-v4'
+ assert x['version']==recipe.VERSION

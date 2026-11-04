@@ -3,12 +3,13 @@ import hashlib
 from importlib import metadata
 from pathlib import Path
 import platform
+import re
 import shutil
 import subprocess
 
 from packages.knowledge.service import content_hash
 
-VERSION = 'p037-a1-feature-production-v4'
+VERSION = 'p037-a2-feature-production-v5'
 ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -24,7 +25,7 @@ def source_snapshot():
     return {str(p.relative_to(ROOT)): digest(p) for p in paths}
 
 
-def _tool(path, size, modified_ns):
+def _tool(path, size, modified_ns, *, tool_name=None):
     # The executable comes from the configured runtime PATH, never an upload.
     before=digest(path)
     try:
@@ -37,11 +38,14 @@ def _tool(path, size, modified_ns):
     if before!=after:
         from packages.config.errors import ContractError
         raise ContractError('FEATURE_TOOL_CHANGED','工具在版本核验期间发生变化，停止生产/缓存复用')
-    lines = output.splitlines()
-    if not lines:
+    name=tool_name or Path(path).name
+    lines = [line.strip() for line in output.splitlines() if line.strip()]
+    version=next((line for line in lines if name in {'ffmpeg','ffprobe'} and
+        re.fullmatch(re.escape(name)+r' version [A-Za-z0-9][A-Za-z0-9._+~:\-]*(?: [^\x00-\x1f\x7f]*)?',line)),None)
+    if version is None:
         from packages.config.errors import ContractError
-        raise ContractError('FEATURE_TOOL_PROBE_FAILED','工具版本探测未返回有效记录')
-    return {'executable_sha256':after, 'version':lines[0],
+        raise ContractError('FEATURE_TOOL_PROBE_FAILED','工具版本探测未返回匹配工具名称的有效非空版本记录')
+    return {'executable_sha256':after, 'version':version,
             'libraries':[line.strip() for line in lines if line.lstrip().startswith('lib')]}
 
 
@@ -51,7 +55,7 @@ def runtime_snapshot():
         path = shutil.which(name)
         try:
             stat = Path(path).stat() if path else None
-            tools[name] = _tool(path,stat.st_size,stat.st_mtime_ns) if stat else {'status':'unavailable'}
+            tools[name] = _tool(path,stat.st_size,stat.st_mtime_ns,tool_name=name) if stat else {'status':'unavailable'}
         except (OSError,subprocess.SubprocessError) as error:
             from packages.config.errors import ContractError
             raise ContractError('FEATURE_TOOL_PROBE_FAILED','工具已定位但核验失败，不能按初始缺失复用缓存',
