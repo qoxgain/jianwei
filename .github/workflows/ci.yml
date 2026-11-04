@@ -93,7 +93,9 @@ jobs:
       - run: python -m pip install -r requirements-encoder.txt
       - run: npm ci
         working-directory: apps/web
-      - run: python -m pytest tests -q --junitxml=artifacts/p037-a2-ci/backend-junit.xml
+      - run: python -m pytest tests -q --junitxml=artifacts/p037-a3-ci/backend-junit.xml
+      - name: A.3 generated DELETE/WAL API, concurrent commits, backup and abrupt-exit repetition
+        run: python -m scripts.investigate_sqlite_workload --output artifacts/p037-a3-ci/workload --seeds 0 1
       - run: python -m unittest discover -s reference/tests -v
       - run: npm test
         working-directory: apps/web
@@ -112,8 +114,13 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: a2-backend-junit
-          path: artifacts/p037-a2-ci/backend-junit.xml
+          name: a3-sqlite-verification
+          path: |
+            artifacts/p037-a3-ci/backend-junit.xml
+            artifacts/p037-a3-ci/workload/results.json
+            artifacts/p037-a3-ci/workload/*.log
+            artifacts/p037-a3-ci/workload/*/results.json
+            artifacts/p037-a3-ci/workload/*/*.jsonl
   pretrained-encoder:
     runs-on: ubuntu-24.04
     steps:
