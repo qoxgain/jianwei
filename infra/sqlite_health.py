@@ -25,6 +25,10 @@ def inspect_native(native,*,timeout_seconds,busy_timeout_ms,foreign_keys=True,ca
     result={'status':'failed','check':'integrity_check_and_foreign_keys' if foreign_keys else 'integrity_check',
         'category':'check_error','checked_ns':time.time_ns()}
     cursor=sqlite3.Connection.cursor(native,factory=sqlite3.Cursor)
+    # A native Cursor still inherits connection result conversion. Application
+    # row/text factories must neither mask corrupt diagnostics as "ok" nor run
+    # arbitrary callbacks inside the commit health boundary. Restore afterwards.
+    cursor.row_factory=None;previous_text_factory=native.text_factory;native.text_factory=str
     native.set_progress_handler(stop,1000)
     try:
         cursor.execute('PRAGMA busy_timeout = '+str(max(0,min(busy_timeout_ms,int(timeout_seconds*1000)))))
@@ -46,7 +50,7 @@ def inspect_native(native,*,timeout_seconds,busy_timeout_ms,foreign_keys=True,ca
         return {**result,'category':category,'exception_type':type(error).__name__,
             'sqlite_errorname':getattr(error,'sqlite_errorname',None)}
     finally:
-        native.set_progress_handler(None,0);cursor.close()
+        native.set_progress_handler(None,0);native.text_factory=previous_text_factory;cursor.close()
 
 
 def inspect_file(path,**kwargs):

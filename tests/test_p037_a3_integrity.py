@@ -224,3 +224,27 @@ def test_commit_already_in_gate_finishes_before_later_fault_persistence(tmp_path
         with pytest.raises(ContractError):health.result(3)
     assert count(path)==1 and detector.quarantine_path.exists()
     c.set_trace_callback(None);raw.close();db.close();detector.close()
+
+
+@pytest.mark.parametrize('factory',['row_factory','text_factory'])
+def test_app_result_factory_cannot_hide_real_structural_check_rows(tmp_path,factory):
+    from infra.sqlite_connection import _backup_native_source
+    fixture=generated_corrupt_index(tmp_path/'raw');path=tmp_path/'working.sqlite';shutil.copyfile(fixture['clean'],path)
+    db=Database('sqlite:///'+str(path));raw=db.engine.raw_connection();c=raw.driver_connection
+    # Ordinary application factories remain supported, but must not alter the
+    # private native check used by connection validation and commit protection.
+    setattr(c,factory,(lambda *_:('ok',)) if factory=='row_factory' else (lambda *_:'ok'))
+    inject(path)
+    with pytest.raises(ContractError) as e:db._validate_native(_backup_native_source(c))
+    assert e.value.code=='DATABASE_INTEGRITY_FAILED' and db.quarantine_path.exists()
+    assert getattr(c,factory) is not None;raw.close();db.close()
+
+
+def test_healthy_private_check_does_not_call_application_factories(tmp_path):
+    from infra.sqlite_connection import _backup_native_source
+    db=Database('sqlite:///'+str(tmp_path/'healthy.sqlite'));db.migrate();raw=db.engine.raw_connection();c=raw.driver_connection
+    def application_factory(*_):raise AssertionError('application callback entered private health check')
+    c.row_factory=c.text_factory=application_factory
+    assert db._validate_native(_backup_native_source(c))['status']=='ok'
+    assert c.row_factory is application_factory and c.text_factory is application_factory
+    c.row_factory=None;c.text_factory=str;raw.close();db.close()
