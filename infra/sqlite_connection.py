@@ -80,3 +80,15 @@ class ManagedCursor:
 def _backup_native_source(connection):
     """Private source capability for in-memory backup; never a supported target."""
     return object.__getattribute__(connection,'_ManagedConnection__native')
+
+
+def _configure_connection(connection,owner):
+    """Private connection-local PRAGMAs; never wait on schema under commit_gate."""
+    native=_backup_native_source(connection);owner._assert_healthy()
+    cursor=sqlite3.Connection.cursor(native,factory=sqlite3.Cursor)
+    try:
+        cursor.execute('PRAGMA foreign_keys = ON')
+        cursor.execute('PRAGMA busy_timeout = '+str(owner.sqlite_settings.busy_timeout_ms))
+        cursor.execute('PRAGMA synchronous = '+owner.sqlite_settings.synchronous)
+    finally:cursor.close()
+    owner._assert_healthy()

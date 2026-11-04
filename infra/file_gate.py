@@ -1,7 +1,7 @@
 """Reentrant local file leases; async waiters never occupy I/O worker threads."""
 from contextlib import contextmanager,asynccontextmanager
 from contextvars import ContextVar
-import fcntl,os,time
+import fcntl,os,time,stat
 from pathlib import Path
 from threading import RLock,Lock,local,get_ident
 from functools import partial
@@ -17,7 +17,9 @@ def _execution_owner():
 
 
 class _Resource:
-    def __init__(self,release):self.release,self.mutex,self.references,self.closed=release,Lock(),0,False
+    def __init__(self,release,descriptor=None):
+        self.release,self.mutex,self.references,self.closed=release,Lock(),0,False
+        self.descriptor=descriptor
     def grant(self,lease,parent):
         with self.mutex:
             if self.closed or (parent is not None and not parent.active):
@@ -51,7 +53,41 @@ class FileGate:
     def held(self):return self._current() is not None
     def _open(self):
         self.path.parent.mkdir(parents=True,exist_ok=True)
-        return os.open(self.path,os.O_CREAT|os.O_RDWR,0o600)
+        try:info=self.path.lstat()
+        except FileNotFoundError:pass
+        else:
+            if not stat.S_ISREG(info.st_mode) or info.st_nlink!=1:
+                raise ContractError('RESOURCE_LOCK_IDENTITY_UNSAFE','协调文件必须为独立普通文件')
+            if (info.st_mode&0o600)!=0o600:
+                raise ContractError('RESOURCE_LOCK_QUARANTINED','协调文件已关闭访问，必须离线处置')
+        return os.open(self.path,os.O_CREAT|os.O_RDWR|os.O_NOFOLLOW,0o600)
+    def _write_fault_intent(self,payload):
+        lease=self._current()
+        if lease is None or lease.resource.descriptor is None:raise RuntimeError('A file-backed held gate is required')
+        fd=lease.resource.descriptor
+        if os.fstat(fd).st_size:return
+        position=0
+        while position<len(payload):
+            written=os.pwrite(fd,payload[position:],position)
+            if written<=0:raise OSError('Fault intent write made no progress')
+            position+=written
+        os.fsync(fd)
+        directory=os.open(self.path.parent,os.O_RDONLY)
+        try:os.fsync(directory)
+        finally:os.close(directory)
+    def _retain_failure_lock(self):
+        lease=self._current()
+        if lease is None:raise RuntimeError('Cannot retain an unheld isolation gate')
+        return _Lease(self,parent=lease)
+    def _disable_fault_access(self):
+        lease=self._current()
+        if lease is None or lease.resource.descriptor is None:raise RuntimeError('Held file gate required')
+        # A final metadata latch does not require allocating content blocks.
+        # No application path re-enables these permissions.
+        fd=lease.resource.descriptor;os.fchmod(fd,0);os.fsync(fd)
+        directory=os.open(self.path.parent,os.O_RDONLY)
+        try:os.fsync(directory)
+        finally:os.close(directory)
     def try_acquire_raw(self):
         fd=self._open()
         try:fcntl.flock(fd,fcntl.LOCK_EX|fcntl.LOCK_NB);return fd
@@ -86,7 +122,7 @@ class FileGate:
             finally:self.local.lease=previous;lease.revoke()
             return
         fd=self.acquire_raw(timeout);previous=getattr(self.local,'lease',None)
-        lease=self.local.lease=_Lease(self,resource=_Resource(lambda:self.release_raw(fd)))
+        lease=self.local.lease=_Lease(self,resource=_Resource(lambda:self.release_raw(fd),fd))
         try:yield
         finally:self.local.lease=previous;lease.revoke()
     @asynccontextmanager
@@ -99,7 +135,7 @@ class FileGate:
                 fd=self.try_acquire_raw()
                 if fd is not None:break
                 self._expired(start,timeout);await anyio.sleep(self.poll_seconds)
-            lease=_Lease(self,resource=_Resource(lambda:self.release_raw(fd)));token=_borrowed.set((*_borrowed.get(),lease))
+            lease=_Lease(self,resource=_Resource(lambda:self.release_raw(fd),fd));token=_borrowed.set((*_borrowed.get(),lease))
             try:yield
             finally:_borrowed.reset(token)
         finally:

@@ -1,5 +1,6 @@
 """SQLite DBAPI transaction gate: shared quarantine and commit ordering on one host."""
 import re,sqlite3
+from contextlib import contextmanager,nullcontext
 from packages.config.errors import ContractError
 
 WRITE_ACTIONS={getattr(sqlite3,n) for n in ('SQLITE_INSERT','SQLITE_UPDATE','SQLITE_DELETE',
@@ -13,13 +14,18 @@ WRITE_ACTIONS={getattr(sqlite3,n) for n in ('SQLITE_INSERT','SQLITE_UPDATE','SQL
 class GuardedConnection(sqlite3.Connection):
     def __init__(self,*args,_owner,**kwargs):
         super().__init__(*args,**kwargs);self.owner=_owner;self.authorization_error=None
+        self._write_pending=False;self._statement_writes=False
         super().set_authorizer(self._authorize)
+        # Even a new instance that bypasses migrate must validate an existing
+        # database before receiving a supported writable connection.
+        self.owner._validate_native(self)
     def __setattr__(self,name,value):
         if name in {'isolation_level','autocommit'} and hasattr(self,'owner'):
             # CPython setters can COMMIT natively, bypassing commit().
-            with self.owner.commit_gate.hold():
+            with self._healthy_boundary():
                 try:self.owner._assert_healthy()
                 except ContractError:self.rollback();raise
+                self._before_commit()
                 return super().__setattr__(name,value)
         return super().__setattr__(name,value)
     def blobopen(self,*args,**kwargs):
@@ -37,6 +43,7 @@ class GuardedConnection(sqlite3.Connection):
                 elif operation=='BEGIN':self.owner._assert_healthy()
             if action in WRITE_ACTIONS or (action==sqlite3.SQLITE_PRAGMA and arg2 is not None and arg1.lower() in
                 {'journal_mode','wal_checkpoint','auto_vacuum','page_size','user_version','schema_version','application_id'}):
+                self._statement_writes=True
                 self.owner._check_space()
             if action==sqlite3.SQLITE_ATTACH:
                 # VACUUM uses an internal attachment (empty name); no arbitrary managed cross-DB writes.
@@ -51,14 +58,27 @@ class GuardedConnection(sqlite3.Connection):
     def executescript(self,script):
         raise ContractError('DATABASE_POLICY_UNAVAILABLE','受管理连接禁止隐式提交的executescript；使用显式事务')
     def commit(self):
-        with self.owner.commit_gate.hold():
+        with self._healthy_boundary():
             try:
-                self.owner._assert_healthy();return super().commit()
+                self._before_commit();result=super().commit();self._write_pending=False;return result
             except BaseException as error:
                 super().rollback();self.owner._record_sqlite_fault(error);raise
-    def rollback(self):return super().rollback()
+    def _before_commit(self):
+        self.owner._assert_healthy()
+        if self.in_transaction and self._write_pending:
+            # This connection already owns SQLite's writer lock. No new SQLite
+            # connection or external reader waits inside the app commit gate.
+            self.owner._validate_native(self)
+    @contextmanager
+    def _healthy_boundary(self):
+        try:
+            with self.owner._commit_boundary():yield
+        except ContractError:
+            self.rollback();raise
+    def rollback(self):
+        result=super().rollback();self._write_pending=False;return result
     def __enter__(self):
-        with self.owner.commit_gate.hold():self.owner._assert_healthy()
+        with self._healthy_boundary():pass
         return self
     def __exit__(self,kind,value,traceback):
         if kind is None:self.commit()
@@ -79,17 +99,25 @@ class GuardedCursor(sqlite3.Cursor):
             try:c.owner._assert_healthy()
             except ContractError:c.rollback();raise
         def execute():
-            c.authorization_error=None
-            try:return method(*args)
+            c.authorization_error=None;c._statement_writes=False;changes=c.total_changes
+            try:
+                result=method(*args)
+                if c._statement_writes:c._write_pending=True
+                if not c.in_transaction:c._write_pending=False
+                return result
             except BaseException as error:
+                if c.total_changes>changes:c._write_pending=True
                 c.owner._record_sqlite_fault(error)
                 if c.authorization_error is not None:raise c.authorization_error from None
                 raise
         if first in controls and first!='BEGIN':
-            with c.owner.commit_gate.hold():
+            # ROLLBACK must remain possible after isolation to release SQLite locks.
+            boundary=nullcontext if first=='ROLLBACK' else c._healthy_boundary
+            with boundary():
                 if first!='ROLLBACK':checked()
+                if first in {'COMMIT','END','RELEASE'}:c._before_commit()
                 return execute()
-        with c.owner.commit_gate.hold():
+        with c._healthy_boundary():
             checked()
             # Include DDL and autocommit-mode callers in explicit transactions.
             # Never hold the process gate while waiting for another SQLite writer:
