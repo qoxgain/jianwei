@@ -1,0 +1,81 @@
+{
+  "scope": "Isolated real HTTP UI checks; configured protocol and training use synthetic mechanism fixtures only",
+  "real_video_read": false,
+  "real_learning_effect_verified": false,
+  "screenshots_contain_media": false,
+  "missing_protocol": [
+    {
+      "scene": "garment_sop",
+      "missing_protocol": true,
+      "read_only": true,
+      "download": true,
+      "desktop_mobile": true
+    },
+    {
+      "scene": "electronics_assembly",
+      "missing_protocol": true,
+      "read_only": true,
+      "download": true,
+      "desktop_mobile": true
+    },
+    {
+      "scene": "workshop_safety",
+      "missing_protocol": true,
+      "read_only": true,
+      "download": true,
+      "desktop_mobile": true
+    },
+    {
+      "scene": "anonymous_observation",
+      "missing_protocol": true,
+      "read_only": true,
+      "download": true,
+      "desktop_mobile": true
+    }
+  ],
+  "configured_minimum_3": {
+    "protocol_id": "browser_mechanism_fixture",
+    "minimum_sessions": 3,
+    "source": "synthetic_features",
+    "calibration_sources": 2,
+    "uncertainty_status": "insufficient_sessions",
+    "sealed_synthetic_evaluation": false,
+    "metric_and_model_display_switching": true,
+    "report_export": true,
+    "desktop_mobile": true,
+    "training_scope": "explicit synthetic mechanism fixture only",
+    "real_effect_verified": false,
+    "auto_activated": false
+  },
+  "configured_minimum_2": {
+    "protocol_id": "browser_mechanism_fixture",
+    "minimum_sessions": 2,
+    "source": "synthetic_features",
+    "calibration_sources": 2,
+    "uncertainty_status": "estimated",
+    "sealed_synthetic_evaluation": true,
+    "metric_and_model_display_switching": true,
+    "report_export": true,
+    "desktop_mobile": true,
+    "training_scope": "explicit synthetic mechanism fixture only",
+    "real_effect_verified": false,
+    "auto_activated": false
+  },
+  "offline": {
+    "passed": true,
+    "source": "committed executed synthetic mechanism fixture",
+    "desktop_mobile": true,
+    "metric_switching": true,
+    "exact_report_export": true,
+    "api_or_remote_requests": 0,
+    "static_document_requests": 1,
+    "real_effect_verified": false,
+    "page_errors": [],
+    "demo_build_sha256": "c1c2f1e9e28be07f89b5317636951405bbb4c26cbd36ac3e5a592aaf0c213817"
+  },
+  "passed": true,
+  "browser": "154.0.8037.57",
+  "page_errors": [],
+  "console_errors": [],
+  "build_sha256": "c0e0dea2a0c3a67d2ebc5ce0964f5250826f09e02de747176969f6428a156255"
+}

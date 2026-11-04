@@ -1,0 +1,1 @@
+{"baseline": "6429844", "fixture_kind": "generated_freelist_count_mismatch", "native_quick_check_rows": [["*** in database main ***\nFreelist: size is 0 but should be 1"]], "check": "DATABASE_INTEGRITY_FAILED", "persistent_marker_exists": false, "fault_state": null, "independent_rows_after_commit": 1}

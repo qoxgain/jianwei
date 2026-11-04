@@ -1,0 +1,22 @@
+{
+  "generated_only": true,
+  "sqlite_version": "3.53.1",
+  "python_version": "3.12.14",
+  "caller_pid": 41384,
+  "before": {
+    "stage": "before_forensics",
+    "result": "SQLITE_BUSY",
+    "pid": 41386
+  },
+  "after": {
+    "stage": "after_forensics",
+    "result": "acquired",
+    "pid": 41386
+  },
+  "source_integrity_after_close": "ok",
+  "source_bytes_unchanged": true,
+  "forensic_worker_pid": 41384,
+  "rollback_error": null,
+  "original_incident_root_cause": "root_cause_not_established",
+  "expected_lock_state": "released"
+}

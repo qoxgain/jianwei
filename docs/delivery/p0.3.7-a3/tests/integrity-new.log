@@ -1,0 +1,30 @@
+........F...                                                             [100%]
+=================================== FAILURES ===================================
+____ test_all_marker_writes_fail_process_stops_and_keeps_coordination_lock _____
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-8/test_all_marker_writes_fail_pr0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f433d072810>
+
+    def test_all_marker_writes_fail_process_stops_and_keeps_coordination_lock(tmp_path,monkeypatch):
+        path,_=damaged(tmp_path);db=Database('sqlite:///'+str(path),SQLiteSettings(busy_timeout_ms=100));original=Path.open
+        def fail_primary(self,*args,**kwargs):
+            if self==db.quarantine_path and args and args[0]=='x':raise OSError('generated storage failure')
+            return original(self,*args,**kwargs)
+        monkeypatch.setattr(Path,'open',fail_primary)
+        monkeypatch.setattr(FileGate,'_write_fault_intent',lambda *_:(_ for _ in ()).throw(OSError('generated latch failure')))
+        with pytest.raises(ContractError) as e:db.check_integrity()
+        assert e.value.code=='DATABASE_ISOLATION_PERSISTENCE_FAILED' and db.commit_gate.try_acquire_raw() is None
+        with pytest.raises(ContractError):
+            with db.session():pytest.fail('storage failure resumed writes')
+        ctx=multiprocessing.get_context('spawn');q=ctx.Queue();p=ctx.Process(target=child_attempt,args=(path,q));p.start();p.join(10)
+>       assert p.exitcode==0 and q.get(timeout=2)=='DATABASE_ISOLATION_PERSISTENCE_FAILED' and count(path)==0
+E       AssertionError: assert (0 == 0 and 'DATABASE_COO...N_UNAVAILABLE' == 'DATABASE_ISO...STENCE_FAILED'
+E        +  where 0 = <SpawnProcess name='SpawnProcess-8' pid=37540 parent=37528 stopped exitcode=0>.exitcode
+E
+E         - DATABASE_ISOLATION_PERSISTENCE_FAILED
+E         + DATABASE_COORDINATION_UNAVAILABLE)
+
+tests/test_p037_a3_integrity.py:123: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_p037_a3_integrity.py::test_all_marker_writes_fail_process_stops_and_keeps_coordination_lock
+1 failed, 11 passed in 5.59s

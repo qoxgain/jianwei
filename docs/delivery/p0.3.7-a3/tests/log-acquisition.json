@@ -1,0 +1,87 @@
+{
+  "backend-junit.xml": {
+    "original_sha256": "dfe03da720e9d738ed5afef822a910f77c717af79a01e4703d3e5790f006c232",
+    "published_sha256": "dfe03da720e9d738ed5afef822a910f77c717af79a01e4703d3e5790f006c232",
+    "normalization": "none"
+  },
+  "backend-full.log": {
+    "original_sha256": "596c6a6a21a00cb7bbd14464d7d579ca01791611189aa34fc835e914aeef3ebb",
+    "published_sha256": "596c6a6a21a00cb7bbd14464d7d579ca01791611189aa34fc835e914aeef3ebb",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "frontend.log": {
+    "original_sha256": "dd6d84d072c541179f9a9c4b08b0cd6f69dbe758bdc7be15fec3bd6caeee6a40",
+    "published_sha256": "a6f606ead9b9acdb07da30f6f7cbbff008d854fa98fa691bef4c692063a8787c",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "reference.log": {
+    "original_sha256": "726a88ed81c0e2b16d9caf8a0bc3fd259fa787c0219806e9af50f95c6144bc7a",
+    "published_sha256": "726a88ed81c0e2b16d9caf8a0bc3fd259fa787c0219806e9af50f95c6144bc7a",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "build.log": {
+    "original_sha256": "be0b6eba795a7a04684cde97f5cd7e5d7e696996b70c535279ec2b6e5ee43e25",
+    "published_sha256": "004c2e7b118e18225e3e7a719f88289c83c6538072b79063aad98e3a1ab80020",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "build-demo.log": {
+    "original_sha256": "51631eb1d334619f81e36b221a2fb3888c0d81db1708db0509045ad1f4293377",
+    "published_sha256": "892d646e1dc362f9110b2d046759e5f86ea137b4b646c9e7cb0a8e9e93d4a8ac",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "initial-regression.log": {
+    "original_sha256": "1c63c539d11209895ab464a376bbe7c9808ebcab62100d49e028209d38ca1a04",
+    "published_sha256": "1c63c539d11209895ab464a376bbe7c9808ebcab62100d49e028209d38ca1a04",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "integrity-new.log": {
+    "original_sha256": "94ecb9f0d29df71c60309b9055691d13242e711af72386fa6dc1fa2e5f7be73f",
+    "published_sha256": "91279d47f270fadf6af11e88f5a8828324a78947bb586c4b0b854a0d49a9453b",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "integrity-expanded.log": {
+    "original_sha256": "c7f535a80635e6e10325a7c5125a22dd4ecfbb2b73f639b1639e806f1da3d0c2",
+    "published_sha256": "c7f535a80635e6e10325a7c5125a22dd4ecfbb2b73f639b1639e806f1da3d0c2",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "integrity-final-protocol.log": {
+    "original_sha256": "dbd7034b416a6a8613c094a8e004577b0aef16f23774774127f382df82a4fe6f",
+    "published_sha256": "dbd7034b416a6a8613c094a8e004577b0aef16f23774774127f382df82a4fe6f",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "backup-regression.log": {
+    "original_sha256": "b311ce4b34b576d6094b6922333a4218882e936a0650a0772dc03da0f5e67519",
+    "published_sha256": "b311ce4b34b576d6094b6922333a4218882e936a0650a0772dc03da0f5e67519",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "forensic-final.log": {
+    "original_sha256": "103cc1fe4e5d276d6967f4d8574d14cfa64c1976ddee2357c43c7e5946a8fd5f",
+    "published_sha256": "103cc1fe4e5d276d6967f4d8574d14cfa64c1976ddee2357c43c7e5946a8fd5f",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "baseline.log": {
+    "original_sha256": "0d947be05ad0a65aebef93602ae33459a4c514fa41a32fa9be7e5db4c32442be",
+    "published_sha256": "0d947be05ad0a65aebef93602ae33459a4c514fa41a32fa9be7e5db4c32442be",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "baseline-structure.log": {
+    "original_sha256": "e555b937b36fad7c9a2d79f84dd621dc8a35a6f6bae709a129b37bbb34c3702e",
+    "published_sha256": "e555b937b36fad7c9a2d79f84dd621dc8a35a6f6bae709a129b37bbb34c3702e",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "factory-before.log": {
+    "original_sha256": "efe1bc2f76c321f9a195bda770634a4c92910cd70f27f1567a3ba3b20147cbfb",
+    "published_sha256": "5fa6b50800fddf2bcba2ce82a9090a814b470e48c41f0b19a3c2d5dbd47b021d",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "factory-after.log": {
+    "original_sha256": "a36da72e2753ed61a6669a4a9d1efa3fc63981973752e7ddee851bdc12eb0291",
+    "published_sha256": "a36da72e2753ed61a6669a4a9d1efa3fc63981973752e7ddee851bdc12eb0291",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "backend-before-factory.log": {
+    "original_sha256": "e996c8e087cae67c9349bb2293a45bc7f0b2a8f9794a39f2d783001f56e4686e",
+    "published_sha256": "e996c8e087cae67c9349bb2293a45bc7f0b2a8f9794a39f2d783001f56e4686e",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  }
+}

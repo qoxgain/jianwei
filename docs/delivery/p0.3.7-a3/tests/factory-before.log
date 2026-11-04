@@ -1,0 +1,68 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_ test_app_result_factory_cannot_hide_real_structural_check_rows[row_factory] __
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-18/test_app_result_factory_cannot0')
+factory = 'row_factory'
+
+    @pytest.mark.parametrize('factory',['row_factory','text_factory'])
+    def test_app_result_factory_cannot_hide_real_structural_check_rows(tmp_path,factory):
+        from infra.sqlite_connection import _backup_native_source
+        fixture=generated_corrupt_index(tmp_path/'raw');path=tmp_path/'working.sqlite';shutil.copyfile(fixture['clean'],path)
+        db=Database('sqlite:///'+str(path));raw=db.engine.raw_connection();c=raw.driver_connection
+        # Ordinary application factories remain supported, but must not alter the
+        # private native check used by connection validation and commit protection.
+        setattr(c,factory,(lambda *_:('ok',)) if factory=='row_factory' else (lambda *_:'ok'))
+        inject(path)
+>       with pytest.raises(ContractError) as e:db._validate_native(_backup_native_source(c))
+E       Failed: DID NOT RAISE <class 'packages.config.errors.ContractError'>
+
+tests/test_p037_a3_integrity.py:238: Failed
+_ test_app_result_factory_cannot_hide_real_structural_check_rows[text_factory] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-18/test_app_result_factory_cannot1')
+factory = 'text_factory'
+
+    @pytest.mark.parametrize('factory',['row_factory','text_factory'])
+    def test_app_result_factory_cannot_hide_real_structural_check_rows(tmp_path,factory):
+        from infra.sqlite_connection import _backup_native_source
+        fixture=generated_corrupt_index(tmp_path/'raw');path=tmp_path/'working.sqlite';shutil.copyfile(fixture['clean'],path)
+        db=Database('sqlite:///'+str(path));raw=db.engine.raw_connection();c=raw.driver_connection
+        # Ordinary application factories remain supported, but must not alter the
+        # private native check used by connection validation and commit protection.
+        setattr(c,factory,(lambda *_:('ok',)) if factory=='row_factory' else (lambda *_:'ok'))
+        inject(path)
+>       with pytest.raises(ContractError) as e:db._validate_native(_backup_native_source(c))
+E       Failed: DID NOT RAISE <class 'packages.config.errors.ContractError'>
+
+tests/test_p037_a3_integrity.py:238: Failed
+________ test_healthy_private_check_does_not_call_application_factories ________
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-18/test_healthy_private_check_doe0')
+
+    def test_healthy_private_check_does_not_call_application_factories(tmp_path):
+        from infra.sqlite_connection import _backup_native_source
+        db=Database('sqlite:///'+str(tmp_path/'healthy.sqlite'));db.migrate();raw=db.engine.raw_connection();c=raw.driver_connection
+        def application_factory(*_):raise AssertionError('application callback entered private health check')
+        c.row_factory=c.text_factory=application_factory
+>       assert db._validate_native(_backup_native_source(c))['status']=='ok'
+
+tests/test_p037_a3_integrity.py:248:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+infra/database.py:288: in _validate_native
+    return self._apply_integrity(inspect_native(native,timeout_seconds=self.sqlite_settings.busy_timeout_ms/1000,
+infra/sqlite_health.py:32: in inspect_native
+    rows=[r[0] for r in cursor.execute('PRAGMA integrity_check').fetchall()]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+_ = (b'ok',)
+
+>   def application_factory(*_):raise AssertionError('application callback entered private health check')
+E   AssertionError: application callback entered private health check
+
+tests/test_p037_a3_integrity.py:246: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_p037_a3_integrity.py::test_app_result_factory_cannot_hide_real_structural_check_rows[row_factory]
+FAILED tests/test_p037_a3_integrity.py::test_app_result_factory_cannot_hide_real_structural_check_rows[text_factory]
+FAILED tests/test_p037_a3_integrity.py::test_healthy_private_check_does_not_call_application_factories
+3 failed, 16 deselected in 2.16s

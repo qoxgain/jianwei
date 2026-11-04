@@ -140,3 +140,10 @@ site预检缺少现场资源时返回2是预期阻塞，不是假就绪。浏览
 打开“真实视频学习实验”切换视频、种子、历史队列、模型、预测跨度和评价分区，查看实际损失与PTS误差、训练前后、简单基线和低/高变化量统计。页面只读取已执行标量，不会自动训练；可在本机选择原片，SHA匹配后回查时刻，不上传。离线Demo不含工业特征、权重或视频。
 
 [SQLite调查](docs/delivery/p0.3.6/SQLITE-RELIABILITY.md) · [完整生产配方](docs/delivery/p0.3.6/AUD-02.md) · [独立采集准备](docs/delivery/p0.3.6/COLLECTION-PREPARATION.md) · [复现实验](experiments/real_video/README.md)。新增sqlite/exploratory为可选统一配置，旧配置加载兼容；根配置默认关闭探索训练。
+
+
+## P0.3.7-A.3 SQLite完整性隔离与调查
+
+A.2独立复验为C：确认结构损坏后未持久隔离，后续仍可提交。A.3增加统一检查分类、持久故障意图/隔离标记、在途与跨进程提交保护、源完整性备份边界，以及独立进程取证。生成数据本地后端710项、前端99项、参考29项通过；A.2基线及A.3初次/最终版本各22次并发/API/备份/中断重复运行未观察到损坏。原11次脚本及两份独立损坏库未取得，**root_cause_not_established；原件复验blocked**。
+
+[完整整改与调查报告](docs/delivery/P0.3.7-A.3.md) · [可下载离线证据Demo](docs/demo/p0.3.7-a3/jianwei-p0.3.7-a3-demo.zip) · [全部66次记录](docs/delivery/p0.3.7-a3/workload-results.json)。Demo解压打开index.html，查看28项新增测试和所有重复运行，导出真实证据；不含数据库、视频、特征或权重。支持单机Linux可靠本地文件系统，取证须先停写；不提供自动修复、恢复或清隔离接口。提交后等待独立复验，不进入B/C/D或正式P0.4。

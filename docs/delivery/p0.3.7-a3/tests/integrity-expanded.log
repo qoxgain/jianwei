@@ -1,0 +1,44 @@
+............FF..                                                         [100%]
+=================================== FAILURES ===================================
+__________ test_real_shared_cache_locked_is_not_permanent_corruption ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-10/test_real_shared_cache_locked_0')
+
+    def test_real_shared_cache_locked_is_not_permanent_corruption(tmp_path):
+        fixture=generated_corrupt_index(tmp_path/'raw');path=tmp_path/'working.sqlite';shutil.copyfile(fixture['clean'],path)
+        ctx=multiprocessing.get_context('spawn');q=ctx.Queue();p=ctx.Process(target=shared_cache_locked,args=(path,q));p.start();p.join(10)
+>       assert p.exitcode==0;result=q.get(timeout=2)
+E       AssertionError: assert 1 == 0
+E        +  where 1 = <SpawnProcess name='SpawnProcess-9' pid=38085 parent=38071 stopped exitcode=1>.exitcode
+
+tests/test_p037_a3_integrity.py:177: AssertionError
+----------------------------- Captured stderr call -----------------------------
+Process SpawnProcess-9:
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/workspace/jianwei/tests/test_p037_a3_integrity.py", line 165, in shared_cache_locked
+    warnings.simplefilter('ignore',DeprecationWarning);sqlite3.enable_shared_cache(True)
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/sqlite3/__init__.py", line 70, in __getattr__
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+AttributeError: module 'sqlite3' has no attribute 'enable_shared_cache'
+_______ test_logical_check_constraint_failure_is_not_physical_corruption _______
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-10/test_logical_check_constraint_0')
+
+    def test_logical_check_constraint_failure_is_not_physical_corruption(tmp_path):
+        path=tmp_path/'logical.sqlite'
+        with sqlite3.connect(path) as c:
+            c.execute('CREATE TABLE probe(id CHECK(id>0))');c.execute('PRAGMA ignore_check_constraints=ON');c.execute('INSERT INTO probe VALUES(-1)')
+        db=Database('sqlite:///'+str(path))
+>       with pytest.raises(ContractError) as e:db.check_integrity()
+E       Failed: DID NOT RAISE <class 'packages.config.errors.ContractError'>
+
+tests/test_p037_a3_integrity.py:186: Failed
+=========================== short test summary info ============================
+FAILED tests/test_p037_a3_integrity.py::test_real_shared_cache_locked_is_not_permanent_corruption
+FAILED tests/test_p037_a3_integrity.py::test_logical_check_constraint_failure_is_not_physical_corruption
+2 failed, 14 passed in 6.93s
