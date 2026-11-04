@@ -1,0 +1,58 @@
+{
+  "code_commit": "5f150e7daf982c3cb0c9066691f25e7b34961bc8",
+  "url": "https://github.com/qoxgain/jianwei/actions/runs/41753446076",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "foundation",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41753446076/job/126323819245"
+    },
+    {
+      "name": "pretrained-encoder",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41753446076/job/126323819606"
+    },
+    {
+      "name": "browser",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41753446076/job/126323819845"
+    }
+  ],
+  "foundation": {
+    "tests": 638,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 3,
+    "passed": 635,
+    "skips": [
+      {
+        "module": "tests.test_pretrained_encoder",
+        "test": "test_numpy_preprocessing_matches_pinned_official_transform[shape0-roi0]",
+        "reason": "could not import 'torch': No module named 'torch'"
+      },
+      {
+        "module": "tests.test_pretrained_encoder",
+        "test": "test_numpy_preprocessing_matches_pinned_official_transform[shape1-roi1]",
+        "reason": "could not import 'torch': No module named 'torch'"
+      },
+      {
+        "module": "tests.test_pretrained_encoder",
+        "test": "test_numpy_preprocessing_matches_pinned_official_transform[shape2-roi2]",
+        "reason": "could not import 'torch': No module named 'torch'"
+      }
+    ]
+  },
+  "official_encoder": {
+    "tests": 9,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 9,
+    "skips": []
+  },
+  "frontend_passed": 99,
+  "reference_passed": 29,
+  "independent_acceptance": "pending",
+  "stage_b_started": false
+}

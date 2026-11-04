@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "browser": "156.0.8078.47",
+  "desktop_mobile": true,
+  "exact_report_export": true,
+  "all_counterexample_filters": true,
+  "api_or_remote_requests": 0,
+  "page_errors": [],
+  "independent_acceptance": "pending",
+  "stage_b_started": false,
+  "html_sha256": "430c1017abda3ee2e5de49e653a81bd60dce2ca8d944841928a99daad93e2524"
+}
