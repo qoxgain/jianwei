@@ -1,0 +1,11 @@
+# CI端到端预算与取消分离
+
+候选提交e7cb801的真实[CI 41962734839](https://github.com/qoxgain/jianwei/actions/runs/41962734839)不是通过：foundation后端762通过、3项缺Torch跳过，但其后生成端到端4次中3通过、WAL种子0失败。所有该轮源库最终完整检查ok，没有观察到结构损坏；browser及pretrained-encoder作业通过。失败结果及JUnit原样保存在[ci/failed-e7cb801](ci/failed-e7cb801)，没有删除或改写为通过。
+
+事件日志显示after_exclusive_backup正常，其后在bounded/cancel验证阶段捕获空消息AssertionError。旧脚本把DELETE超时及WAL回调取消共用50ms总预算；在WAL取消回调尚未到达前，持久回执或准入I/O也可能耗尽预算，得到非CANCELLED结果。原失败日志未记录具体ContractError码或栈，所以不能反推该次一定是TIMEOUT，也不能据此宣称已经查明历史结构损坏根因。
+
+本次只修验证调度和诊断：DELETE仍用50ms强制真实写锁截止；WAL保留正常2秒预算并要求回调取消，不接受任意其他错误码。增加bounded_backup_result精确码/期望码及失败traceback，后续若重现仍明确失败。未延长生产busy_timeout或修改SQLite提交、健康检查、复制及发布逻辑。
+
+新增2个真实SQLite用例，在WAL已有EXCLUSIVE写者时引入100ms复制前阶段延迟：50ms预算安全超时且未到取消回调；正常2秒预算实际到回调并取消。两种情况均不得发布目标、不得隔离健康源库，原写事务随后正常提交，独立连接读取一行且integrity_check=ok。另47项相关回归通过；新目录DELETE/WAL各6种子共12次端到端全部通过，源完整性均ok。完整记录见[workload-budget-repetition.json](workload-budget-repetition.json)及tests日志。
+
+此验证暴露的是测试预算耦合和诊断信息缺失，不能把新的12次成功作为原2/11结构损坏已解决的证据。实际CI修复后作业结果另记[CI.md](CI.md)。性能主体核心4c13aeb未修改，不重复或改写三版性能矩阵。新增用例计入最终57项A.4回归与全量后端，Demo保留此前CI失败统计及新重复结果。

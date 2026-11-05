@@ -1,0 +1,27 @@
+{
+  "run_id": 41962734839,
+  "url": "https://github.com/qoxgain/jianwei/actions/runs/41962734839",
+  "head_sha": "e7cb80129d1b3d851b3f67b06a9b634876b3c9dd",
+  "status": "completed",
+  "conclusion": "failure",
+  "jobs": [
+    {
+      "name": "pretrained-encoder",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41962734839/job/127032632912"
+    },
+    {
+      "name": "browser",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41962734839/job/127032633244"
+    },
+    {
+      "name": "foundation",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41962734839/job/127032633415"
+    }
+  ]
+}

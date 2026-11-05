@@ -22,6 +22,7 @@ import subprocess
 import sys
 from threading import Event, Lock, get_ident
 import time
+import traceback
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -154,7 +155,11 @@ def run_case(output,mode,seed):
 
             # Separate owner deadline expires safely; writer continues and rolls back.
             timeout_owner=Database('sqlite:///'+str(path),settings(mode))
-            timeout_owner.sqlite_settings.backup.timeout_seconds=.05
+            # DELETE deliberately waits on an EXCLUSIVE writer until the short
+            # deadline. WAL tests callback cancellation instead: keep the normal
+            # budget so durable preflight/receipt I/O cannot consume a 50ms
+            # deadline before that callback is reached on a loaded CI runner.
+            if mode=='DELETE':timeout_owner.sqlite_settings.backup.timeout_seconds=.05
             raw=db.engine.raw_connection();c=raw.driver_connection;c.execute('BEGIN EXCLUSIVE')
             c.execute('INSERT INTO a3_probe VALUES(2,?)',('timeout-rollback',))
             cancel=Event()
@@ -162,11 +167,15 @@ def run_case(output,mode,seed):
                 # In WAL a reader can legally finish; force cancellation in callback there.
                 if mode=='WAL':
                     try:timeout_owner.backup(output/'bounded.sqlite',cancel_event=cancel,progress=lambda *_:cancel.set())
-                    except ContractError as e:assert e.code=='DATABASE_BACKUP_CANCELLED'
+                    except ContractError as e:
+                        trace('bounded_backup_result',code=e.code,expected='DATABASE_BACKUP_CANCELLED')
+                        assert e.code=='DATABASE_BACKUP_CANCELLED',(mode,e.code)
                     else:raise AssertionError('cancel ignored')
                 else:
                     try:timeout_owner.backup(output/'bounded.sqlite')
-                    except ContractError as e:assert e.code=='DATABASE_BACKUP_TIMEOUT'
+                    except ContractError as e:
+                        trace('bounded_backup_result',code=e.code,expected='DATABASE_BACKUP_TIMEOUT')
+                        assert e.code=='DATABASE_BACKUP_TIMEOUT',(mode,e.code)
                     else:raise AssertionError('timeout ignored')
                 trace('bounded_wait_finished',c)
             finally:c.rollback();raw.close();timeout_owner.close()
@@ -191,7 +200,8 @@ def run_case(output,mode,seed):
             result['independent_expected_rows']=27
         result['status']='passed'
     except BaseException as e:
-        result['status']='failed';result['failures'].append({'type':type(e).__name__,'code':getattr(e,'code',None),'message':str(e)[:500]})
+        result['status']='failed';result['failures'].append({'type':type(e).__name__,'code':getattr(e,'code',None),'message':str(e)[:500],
+            'traceback':traceback.format_exc()})
         trace('failed',error_type=type(e).__name__,error_code=getattr(e,'code',None))
     finally:
         if db is not None:db.close()
