@@ -1407,6 +1407,22 @@
           "title": "Integrity Check On Start",
           "type": "boolean"
         },
+        "commit_integrity_check": {
+          "default": "full",
+          "enum": [
+            "full",
+            "fault_state"
+          ],
+          "title": "Commit Integrity Check",
+          "type": "string"
+        },
+        "integrity_check_interval_seconds": {
+          "default": 0,
+          "maximum": 86400,
+          "minimum": 0,
+          "title": "Integrity Check Interval Seconds",
+          "type": "number"
+        },
         "min_free_bytes": {
           "default": 16777216,
           "maximum": 10737418240,
