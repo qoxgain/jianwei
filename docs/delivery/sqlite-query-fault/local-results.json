@@ -1,0 +1,60 @@
+{
+  "backend": {
+    "tests": 867,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_tests": 100,
+  "classifier_synthetic_unit_cases": 8,
+  "related_passed": 138,
+  "frontend_passed": 99,
+  "reference_passed": 29,
+  "builds": [
+    "production",
+    "demo"
+  ],
+  "generated_workload": {
+    "runs": 4,
+    "passed": 4,
+    "failed": 0,
+    "structural_damage_observed": 0
+  },
+  "artifacts": {
+    "backend-junit.xml": {
+      "raw_sha256": "866c1f0d6e3a4aa4fcdff9b4b45e93b9a4f09b4106d1132bd2c0b15f7c6502c6",
+      "published_sha256": "866c1f0d6e3a4aa4fcdff9b4b45e93b9a4f09b4106d1132bd2c0b15f7c6502c6",
+      "normalization": "none"
+    },
+    "backend-full.log": {
+      "raw_sha256": "95f0d9549d55f9129ed3ff5b32415e70a70bfe3ab3a838283d75d0234e32de6d",
+      "published_sha256": "95f0d9549d55f9129ed3ff5b32415e70a70bfe3ab3a838283d75d0234e32de6d",
+      "normalization": "ANSI_and_trailing_whitespace_only"
+    },
+    "frontend.log": {
+      "raw_sha256": "61dfb735540f67de917134a61a716817429c87045737959562f33c1b8acaf89e",
+      "published_sha256": "6c6c9f16d1f7630e822d3cced2e3451a93e74fa3ef77b3a8826efa4fcc210a64",
+      "normalization": "ANSI_and_trailing_whitespace_only"
+    },
+    "reference.log": {
+      "raw_sha256": "0da2892226953813cf5e2d11a7ee4bcc5f47fc6f2c70fdc8576db96226b8c222",
+      "published_sha256": "0da2892226953813cf5e2d11a7ee4bcc5f47fc6f2c70fdc8576db96226b8c222",
+      "normalization": "ANSI_and_trailing_whitespace_only"
+    },
+    "build.log": {
+      "raw_sha256": "4ac5a1e7b29da28858d1f63a201474b36a0dd2aac7ab4cb1f7a75d71b7eac126",
+      "published_sha256": "5c6fe98595335e6b27ad5f9f6bdf6b0089d7b48c9367668360d75b98372ac518",
+      "normalization": "ANSI_and_trailing_whitespace_only"
+    },
+    "build-demo.log": {
+      "raw_sha256": "3429ea71da604ac1507d6eb5c6dec1d8db362b805f7ade613a6ce52bcf72d2aa",
+      "published_sha256": "dea5bf1503e30f6bcecbd08d1f7f716d07875297f4cbb7216d330cba62456b94",
+      "normalization": "ANSI_and_trailing_whitespace_only"
+    },
+    "workload.log": {
+      "raw_sha256": "91c0e5a661026ba1e9e32b7a393b4498323c8af42e275301641c8deb8b709924",
+      "published_sha256": "91c0e5a661026ba1e9e32b7a393b4498323c8af42e275301641c8deb8b709924",
+      "normalization": "ANSI_and_trailing_whitespace_only"
+    }
+  }
+}

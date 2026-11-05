@@ -1,0 +1,112 @@
+........................................................................ [ 52%]
+............FF..................................................         [100%]
+=================================== FAILURES ===================================
+_ test_busy_isolation_gate_keeps_original_corrupt_error_and_durable_pending_intent[full] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-39/test_busy_isolation_gate_keeps0')
+strategy = 'full'
+
+    @pytest.mark.parametrize('strategy',['full','fault_state'])
+    def test_busy_isolation_gate_keeps_original_corrupt_error_and_durable_pending_intent(tmp_path,strategy):
+        db,path,reader,writer=generated_query_case(tmp_path/'case',strategy);held,release=Event(),Event()
+        def holder():
+            with db.commit_gate.hold():held.set();assert release.wait(3)
+        try:
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                holding=pool.submit(holder);assert held.wait(1)
+                try:
+>                   with pytest.raises(sqlite3.DatabaseError) as caught:consume(reader.driver_connection,'fetchall',[])
+
+tests/test_sqlite_query_fault.py:226:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests/sqlite_query_fixture.py:54: in consume
+    cursor=connection.execute('SELECT id,value FROM query_payload ORDER BY id');stage.append('executed')
+infra/sqlite_connection.py:33: in execute
+    def execute(self,*args,**kwargs):return self.cursor().execute(*args,**kwargs)
+infra/sqlite_connection.py:68: in execute
+    def execute(self,*args,**kwargs):self.__cursor.execute(*args,**kwargs);return self
+infra/sqlite_guard.py:155: in execute
+    def execute(self,*args):return self._run(super().execute,*args)
+infra/sqlite_guard.py:148: in _run
+    with c._healthy_boundary():
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+infra/sqlite_guard.py:104: in _healthy_boundary
+    with self.owner._commit_boundary():yield
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <infra.database.Database object at 0x7f047bbdc5f0>
+
+    @contextmanager
+    def _commit_boundary(self):
+        self._assert_healthy()
+        try:
+            with self.commit_gate.hold():self._assert_healthy();yield
+        except ContractError as error:
+            if error.code=='RESOURCE_LOCK_TIMEOUT':
+>               raise ContractError('DATABASE_COORDINATION_UNAVAILABLE','数据库协调租约不可用，事务未提交') from None
+E               packages.config.errors.ContractError: 数据库协调租约不可用，事务未提交
+
+infra/database.py:240: ContractError
+_ test_busy_isolation_gate_keeps_original_corrupt_error_and_durable_pending_intent[fault_state] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-39/test_busy_isolation_gate_keeps1')
+strategy = 'fault_state'
+
+    @pytest.mark.parametrize('strategy',['full','fault_state'])
+    def test_busy_isolation_gate_keeps_original_corrupt_error_and_durable_pending_intent(tmp_path,strategy):
+        db,path,reader,writer=generated_query_case(tmp_path/'case',strategy);held,release=Event(),Event()
+        def holder():
+            with db.commit_gate.hold():held.set();assert release.wait(3)
+        try:
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                holding=pool.submit(holder);assert held.wait(1)
+                try:
+>                   with pytest.raises(sqlite3.DatabaseError) as caught:consume(reader.driver_connection,'fetchall',[])
+
+tests/test_sqlite_query_fault.py:226:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests/sqlite_query_fixture.py:54: in consume
+    cursor=connection.execute('SELECT id,value FROM query_payload ORDER BY id');stage.append('executed')
+infra/sqlite_connection.py:33: in execute
+    def execute(self,*args,**kwargs):return self.cursor().execute(*args,**kwargs)
+infra/sqlite_connection.py:68: in execute
+    def execute(self,*args,**kwargs):self.__cursor.execute(*args,**kwargs);return self
+infra/sqlite_guard.py:155: in execute
+    def execute(self,*args):return self._run(super().execute,*args)
+infra/sqlite_guard.py:148: in _run
+    with c._healthy_boundary():
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+infra/sqlite_guard.py:104: in _healthy_boundary
+    with self.owner._commit_boundary():yield
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/contextlib.py:137: in __enter__
+    return next(self.gen)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <infra.database.Database object at 0x7f048cf54c20>
+
+    @contextmanager
+    def _commit_boundary(self):
+        self._assert_healthy()
+        try:
+            with self.commit_gate.hold():self._assert_healthy();yield
+        except ContractError as error:
+            if error.code=='RESOURCE_LOCK_TIMEOUT':
+>               raise ContractError('DATABASE_COORDINATION_UNAVAILABLE','数据库协调租约不可用，事务未提交') from None
+E               packages.config.errors.ContractError: 数据库协调租约不可用，事务未提交
+
+infra/database.py:240: ContractError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/starlette/testclient.py:37
+  /workspace/jianwei/.venv/lib/python3.12/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /workspace/jianwei/artifacts/p037-query-fault/related-junit.xml -
+=========================== short test summary info ============================
+FAILED tests/test_sqlite_query_fault.py::test_busy_isolation_gate_keeps_original_corrupt_error_and_durable_pending_intent[full]
+FAILED tests/test_sqlite_query_fault.py::test_busy_isolation_gate_keeps_original_corrupt_error_and_durable_pending_intent[fault_state]
+2 failed, 134 passed, 1 warning in 18.07s

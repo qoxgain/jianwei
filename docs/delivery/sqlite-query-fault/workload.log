@@ -1,0 +1,5 @@
+{"mode": "DELETE", "seed": 0, "status": "passed", "integrity": "ok"}
+{"mode": "DELETE", "seed": 1, "status": "passed", "integrity": "ok"}
+{"mode": "WAL", "seed": 0, "status": "passed", "integrity": "ok"}
+{"mode": "WAL", "seed": 1, "status": "passed", "integrity": "ok"}
+{"runs": 4, "passed": 4, "failed": 0, "structural_damage_observed": 0}

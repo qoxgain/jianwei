@@ -1,0 +1,22 @@
+
+> @jianwei/web@0.1.0 build:demo
+> tsc --noEmit && vite build --mode demo
+
+vite v8.3.4 building client environment for demo...
+transforming...
+✓ 2122 modules transformed.
+rendering chunks...
+[plugin vite:singlefile]
+
+[plugin vite:singlefile] Inlining: index-Cyoli9wR.js
+[plugin vite:singlefile] Inlining: style-CgNn8oZZ.css
+[plugin vite:singlefile] NOTE: asset not inlined: static/brand-mark.svg
+computing gzip size...
+dist-demo/static/brand-mark.svg       0.26 kB │ gzip:     0.16 kB
+dist-demo/index.html             23,773.05 kB │ gzip: 6,815.50 kB
+
+✓ built in 3.19s
+[PLUGIN_TIMINGS] JavaScript callbacks ran for 1.5s of this 3.2s build (48%).
+1 callback is listed without a time. Its calls overlapped, so the time inside one call includes work from other calls. To find its cost, profile the build with `node --cpu-prof`:
+  - plugin vite:asset load (9 calls)
+See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.

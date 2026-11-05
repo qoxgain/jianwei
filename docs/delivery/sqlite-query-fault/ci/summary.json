@@ -1,0 +1,180 @@
+{
+  "run_id": 41989486262,
+  "url": "https://github.com/qoxgain/jianwei/actions/runs/41989486262",
+  "head_sha": "8d7fbe7a9e7699df531b620f183fe45643186e5f",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "pretrained-encoder",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41989486262/job/127118028945",
+      "started_at": "2026-11-05T07:45:40Z",
+      "completed_at": "2026-11-05T07:47:03Z"
+    },
+    {
+      "name": "foundation",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41989486262/job/127118029419",
+      "started_at": "2026-11-05T07:45:40Z",
+      "completed_at": "2026-11-05T07:52:07Z"
+    },
+    {
+      "name": "browser",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41989486262/job/127118029456",
+      "started_at": "2026-11-05T07:45:40Z",
+      "completed_at": "2026-11-05T07:50:53Z"
+    }
+  ],
+  "python": "3.12.15",
+  "sqlite": "3.45.1",
+  "fixed_baseline": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+  "baseline": {
+    "cases": 32,
+    "query_isolated": 16,
+    "illegal_writes": 8,
+    "independent_illegal_rows": 8
+  },
+  "fixed": {
+    "cases": 32,
+    "query_isolated": 32,
+    "illegal_writes": 0,
+    "independent_illegal_rows": 0
+  },
+  "backend": {
+    "collected": 867,
+    "passed": 864,
+    "skipped": [
+      {
+        "module": "tests.test_pretrained_encoder",
+        "name": "test_numpy_preprocessing_matches_pinned_official_transform[shape0-roi0]",
+        "reason": "could not import 'torch': No module named 'torch'",
+        "covered_in_encoder_job": true
+      },
+      {
+        "module": "tests.test_pretrained_encoder",
+        "name": "test_numpy_preprocessing_matches_pinned_official_transform[shape1-roi1]",
+        "reason": "could not import 'torch': No module named 'torch'",
+        "covered_in_encoder_job": true
+      },
+      {
+        "module": "tests.test_pretrained_encoder",
+        "name": "test_numpy_preprocessing_matches_pinned_official_transform[shape2-roi2]",
+        "reason": "could not import 'torch': No module named 'torch'",
+        "covered_in_encoder_job": true
+      }
+    ],
+    "new_query_passed": 100,
+    "failures": 0,
+    "errors": 0
+  },
+  "official_encoder": {
+    "passed": 9,
+    "skipped": 0,
+    "overlaps_backend": true
+  },
+  "frontend_passed": 99,
+  "reference_passed": 29,
+  "builds": [
+    "production",
+    "demo"
+  ],
+  "browser_reports": [
+    {
+      "path": "p032-browser/research/results.json",
+      "passed": true,
+      "browser": "Google Chrome 156.0.8078.79",
+      "sha256": "613be6e4ce56209b5297097a40bf5c34648433bbc3bc0cbfed7238f21d2b31da"
+    },
+    {
+      "path": "p032-browser/video/browser.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "536877a17d35cbd21ee548fd67219083d0138af46b69cd871e725bc84f0dd92c"
+    },
+    {
+      "path": "p034-browser/sampling/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "cdba3b11c4127742ef739ea24213c3db3efaf369dd99c5d55c02f971651dbce6"
+    },
+    {
+      "path": "p035-browser/protocol-browser.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "ff9d64ef5b7be0ec2f136d2258da5654f650c57da7cfbab540ebaeb0579c8643"
+    },
+    {
+      "path": "p036-browser/browser-results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "c49ace0bf04eb13f6917dda2969774952e842d7efbacebabbf364e68173de0c4"
+    },
+    {
+      "path": "p037-a-browser/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "1498d2a8a65176aefa3cec6d42faf92b02edaac0b9e8d80c74d20e2942f213cd"
+    },
+    {
+      "path": "p037-a-offline/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "b98c6925d50998a05486b14ee9bc4c10f9e2979f80564eda7e3e047f5d92b00c"
+    },
+    {
+      "path": "p037-a1-static/results.json",
+      "passed": true,
+      "browser": null,
+      "sha256": "4afac51adbda23bb9c1a3c76b5be1e5404766a7f675919089237f2999c941f92"
+    },
+    {
+      "path": "p037-a1-browser/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "0122ce7a6b3ad87a380833aee9c2aeed50e4aa90185f21a75fc677fdccfb2b45"
+    },
+    {
+      "path": "p037-a1-offline/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "53eb16a7903abd8e252d86f476b633bfba628ed8302ddcf1828acc3e69f25848"
+    },
+    {
+      "path": "p037-a2-optimizer/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "222fe83d0cee193967a5cb52181960928a68083ec01438be50248cd11d13d3c8"
+    },
+    {
+      "path": "p037-a2-offline/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "5d40d8a5ed61e9b615b8520eaa8f35371d0ee133a125d6c2eebdf8a63b3d4b76"
+    },
+    {
+      "path": "p037-a3-offline/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "64131a2518f0dddcdca473e36dfebf2ecca4069603186a02ad43019385b7169f"
+    },
+    {
+      "path": "p037-a4-offline/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "4b6b3eb1791417c7269aac00a0a18ab4ec4779098cc7529bdb1a5d477c6261c8"
+    }
+  ],
+  "local_other_sqlite_version": "3.53.1",
+  "original_samples": "blocked_user_confirmed_unavailable",
+  "root_cause": "root_cause_not_established",
+  "stage_b_started": false,
+  "full_fault_state_detection_differences_retained": true,
+  "raw_ci_log_sha256": "d79442b1b47dbf43f1d9eb0925a7ca76d0d2abd098ef28f5abd4e6a314cb969e",
+  "artifact_sha256": {
+    "backend-junit.xml": "38b343202f10b3b71bbb21e20b94ad19f3f2bd80ce486519a7b0c38612b4e3c6",
+    "before.json": "044841889285c769652fadb584d67dce9e9cdae7e2ab48db6050b7bed703e73f",
+    "after.json": "c2d8952101f2bd864e9eac082a17473a95e91fc6db003844702bacc9157f5a0d",
+    "encoder-junit.xml": "a70e2a51314a001fe4edf7ed8a3467ce241b689e9df10a738ad4fd702b5b4be8"
+  }
+}

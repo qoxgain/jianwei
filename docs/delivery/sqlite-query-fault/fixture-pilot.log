@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/jianwei/scripts/reproduce_sqlite_query_fault.py", line 56, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/jianwei/scripts/reproduce_sqlite_query_fault.py", line 44, in main
+    result=case(a.output/f'{strategy}-{journal}-{route}',strategy,journal,route);report['runs'].append(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/jianwei/scripts/reproduce_sqlite_query_fault.py", line 29, in case
+    assert record.get('sqlite_errorcode',0)&255==sqlite3.SQLITE_CORRUPT,record
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'strategy': 'full', 'journal': 'DELETE', 'route': 'execute', 'generated_only': True, 'fault_after_query': False, 'intent_after_query': False, 'write_after_query': 'DATABASE_INTEGRITY_FAILED', 'independent_rows': 0}
