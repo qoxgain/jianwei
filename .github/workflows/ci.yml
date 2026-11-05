@@ -52,6 +52,8 @@ jobs:
         run: .venv/bin/python tests/browser_p037_a2_offline.py --chromium "$(command -v google-chrome)" --output artifacts/p037-a2-offline
       - name: A.3 SQLite evidence, all repeated runs, accurate blocked status and exports
         run: .venv/bin/python tests/browser_p037_a3_offline.py --chromium "$(command -v google-chrome)" --output artifacts/p037-a3-offline
+      - name: A.4 isolation, all performance failures, policy limits and exact exports
+        run: .venv/bin/python tests/browser_p037_a4_offline.py --chromium "$(command -v google-chrome)" --output artifacts/p037-a4-offline
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -71,6 +73,7 @@ jobs:
             artifacts/p037-a2-optimizer/results.json
             artifacts/p037-a2-offline/results.json
             artifacts/p037-a3-offline/results.json
+            artifacts/p037-a4-offline/results.json
             artifacts/p031-browser-work/**/api.log
             artifacts/p031-browser-work/**/static.log
   foundation:
@@ -96,9 +99,11 @@ jobs:
       - run: python -m pip install -r requirements-encoder.txt
       - run: npm ci
         working-directory: apps/web
-      - run: python -m pytest tests -q --junitxml=artifacts/p037-a3-ci/backend-junit.xml
+      - run: python -m pytest tests -q --junitxml=artifacts/p037-a4-ci/backend-junit.xml
       - name: A.3 generated DELETE/WAL API, concurrent commits, backup and abrupt-exit repetition
-        run: python -m scripts.investigate_sqlite_workload --output artifacts/p037-a3-ci/workload --seeds 0 1
+        run: python -m scripts.investigate_sqlite_workload --output artifacts/p037-a4-ci/workload --seeds 0 1
+      - name: A.4 generated performance instrumentation smoke, not a large-database acceptance result
+        run: python -m scripts.benchmark_sqlite_a4 --smoke --output artifacts/p037-a4-ci/performance
       - run: python -m unittest discover -s reference/tests -v
       - run: npm test
         working-directory: apps/web
@@ -112,6 +117,8 @@ jobs:
         run: python -m scripts.package_p037_a2_demo --verify-only
       - name: Verify A.3 SQLite evidence without databases or numerical packages
         run: python -m scripts.package_p037_a3_demo --verify-only
+      - name: Verify A.4 generated-data evidence and every failed measurement
+        run: python -m scripts.package_p037_a4_demo --verify-only
       - name: Verify A.1 archive integrity and publication boundary
         run: python -m scripts.package_p037_a1_demo --verify-only
       - name: Verify Stage-A archive integrity and publication boundary
@@ -119,13 +126,15 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: a3-sqlite-verification
+          name: a4-sqlite-verification
           path: |
-            artifacts/p037-a3-ci/backend-junit.xml
-            artifacts/p037-a3-ci/workload/results.json
-            artifacts/p037-a3-ci/workload/*.log
-            artifacts/p037-a3-ci/workload/*/results.json
-            artifacts/p037-a3-ci/workload/*/*.jsonl
+            artifacts/p037-a4-ci/backend-junit.xml
+            artifacts/p037-a4-ci/workload/results.json
+            artifacts/p037-a4-ci/workload/*.log
+            artifacts/p037-a4-ci/workload/*/results.json
+            artifacts/p037-a4-ci/workload/*/*.jsonl
+            artifacts/p037-a4-ci/performance/results.json
+            artifacts/p037-a4-ci/performance/*.log
   pretrained-encoder:
     runs-on: ubuntu-24.04
     steps:

@@ -1,0 +1,116 @@
+........................................................................ [ 58%]
+........................................F...........                     [100%]
+=================================== FAILURES ===================================
+_ test_concurrent_threads_processes_cancelled_transactions_and_backup[DELETE] __
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-23/test_concurrent_threads_proces0')
+mode = 'DELETE'
+
+    @pytest.mark.parametrize('mode',['DELETE','WAL'])
+    def test_concurrent_threads_processes_cancelled_transactions_and_backup(tmp_path,mode):
+        path=tmp_path/'concurrent.sqlite';db=setup(path,mode)
+        with ThreadPoolExecutor(max_workers=6) as pool:
+>           list(pool.map(lambda n:writer(path,n*100,20,mode),range(6)))
+
+tests/test_sqlite_reliability.py:53:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py:619: in result_iterator
+    yield _result_or_cancel(fs.pop())
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py:317: in _result_or_cancel
+    return fut.result(timeout)
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py:449: in result
+    return self.__get_result()
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/_base.py:401: in __get_result
+    raise self._exception
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/concurrent/futures/thread.py:59: in run
+    result = self.fn(*self.args, **self.kwargs)
+tests/test_sqlite_reliability.py:53: in <lambda>
+    list(pool.map(lambda n:writer(path,n*100,20,mode),range(6)))
+tests/test_sqlite_reliability.py:33: in writer
+    session.execute(text('INSERT INTO probe VALUES (:i,:v)'),{'i':start+i,'v':i})
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2365: in execute
+    return self._execute_internal(
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2241: in _execute_internal
+    conn = self._connection_for_bind(bind)
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:2110: in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+<string>:2: in _connection_for_bind
+    ???
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py:1189: in _connection_for_bind
+    conn = bind.connect()
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:3274: in connect
+    return self._connection_cls(self)
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:146: in __init__
+    self._dbapi_connection = engine.raw_connection()
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py:3298: in raw_connection
+    return self.pool.connect()
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:449: in connect
+    return _ConnectionFairy._checkout(self)
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:1264: in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:713: in checkout
+    rec = pool._do_get()
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/impl.py:179: in _do_get
+    with util.safe_reraise():
+.venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/impl.py:177: in _do_get
+    return self._create_connection()
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:390: in _create_connection
+    return _ConnectionRecord(self)
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:675: in __init__
+    self.__connect()
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:901: in __connect
+    with util.safe_reraise():
+.venv/lib/python3.12/site-packages/sqlalchemy/util/langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py:897: in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/create.py:646: in connect
+    return dialect.connect(*cargs, **cparams)
+.venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py:625: in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+infra/sqlite_connection.py:19: in __init__
+    _owner._prepare_business()
+infra/database.py:264: in _prepare_business
+    prepare(self)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+owner = <infra.database.Database object at 0x7f2062882360>
+
+    def prepare(owner):
+        path=owner.local_path
+        if path is None:return
+        owner._assert_healthy()
+        if owner._business_registration is not None:return
+        if owner.commit_gate.held():
+            raise ContractError('DATABASE_ADMISSION_CHECK_REQUIRED','新业务连接须在提交闸门外完成准入检查')
+        with file_gate(str(path)+'.admission.lock',wait_timeout=owner.sqlite_settings.busy_timeout_ms/1000).hold():
+            owner._assert_healthy()
+            if not path.exists():
+                # An interrupted initialization leaves an unregistered file, which
+                # cannot be mistaken for a new approved DB on the next process.
+                descriptor=os.open(path,os.O_CREAT|os.O_EXCL|os.O_RDWR,0o600);os.close(descriptor)
+                record={'version':VERSION,'role':'Active','database_uuid':uuid.uuid4().hex,'path_sha256':binding(path),
+                    'origin':'new_business_database','registered_ns':time.time_ns()}
+                register(owner,record,new=True);return
+            role=lifecycle(path)
+            if role is not None and role.get('role')!='Active':assert_business({'role':'Backup'},path)
+            try:record=read_identity(path)
+            except sqlite3.Error as e:
+                owner._record_sqlite_fault(e)
+>               owner.check_integrity();raise ContractError('DATABASE_ADMISSION_UNAVAILABLE','无法读取数据库身份') from None
+E               packages.config.errors.ContractError: 无法读取数据库身份
+
+infra/sqlite_admission.py:138: ContractError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/starlette/testclient.py:37
+  /workspace/jianwei/.venv/lib/python3.12/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_sqlite_reliability.py::test_concurrent_threads_processes_cancelled_transactions_and_backup[DELETE]
+1 failed, 123 passed, 1 warning in 45.18s

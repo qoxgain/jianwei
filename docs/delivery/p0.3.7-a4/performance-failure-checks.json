@@ -1,0 +1,39 @@
+[
+  {
+    "case": "012-a3-160-wal",
+    "status_preserved": "failed",
+    "original_error": {
+      "type": "AssertionError",
+      "code": "AssertionError",
+      "message": "{'DATABASE_INTEGRITY_TIMEOUT': 1}"
+    },
+    "original_errors_by_code": {
+      "DATABASE_INTEGRITY_TIMEOUT": 1
+    },
+    "source_integrity": "ok",
+    "original_bytes_unchanged": true,
+    "working_copy_rows": 12,
+    "reported_committed": 12,
+    "root_cause": "root_cause_not_established",
+    "archive_integrity": "ok",
+    "iteration": "initial"
+  },
+  {
+    "case": "064-a3-79-wal",
+    "status_preserved": "failed",
+    "original_error": {
+      "type": "AssertionError",
+      "code": "AssertionError",
+      "message": "{'DATABASE_INTEGRITY_TIMEOUT': 1}"
+    },
+    "original_errors_by_code": {
+      "DATABASE_INTEGRITY_TIMEOUT": 1
+    },
+    "source_integrity": "ok",
+    "original_bytes_unchanged": true,
+    "working_copy_rows": 18,
+    "reported_committed": 18,
+    "root_cause": "root_cause_not_established",
+    "iteration": "initial"
+  }
+]

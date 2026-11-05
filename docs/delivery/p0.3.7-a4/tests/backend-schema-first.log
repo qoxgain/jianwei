@@ -1,0 +1,46 @@
+F....................................................................... [  9%]
+........................................................................ [ 18%]
+........................................................................ [ 28%]
+........................................................................ [ 37%]
+........................................................................ [ 47%]
+........................................................................ [ 56%]
+........................................................................ [ 66%]
+........................................................................ [ 75%]
+........................................................................ [ 85%]
+........................................................................ [ 94%]
+.......................................                                  [100%]
+=================================== FAILURES ===================================
+__________ test_migrations_are_idempotent_and_persist_across_restart ___________
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-28/test_migrations_are_idempotent0')
+
+    def test_migrations_are_idempotent_and_persist_across_restart(tmp_path):
+        url = f"sqlite:///{tmp_path / 'nested' / 'jianwei.db'}"
+        database = Database(url)
+        database.migrate()
+        database.migrate()
+>       assert set(inspect(database.engine).get_table_names()) == {
+            "alembic_version", "config_versions", "knowledge_versions", "audit_events", "legacy_knowledge_mappings",
+            "uploaded_artifacts", "import_jobs", "source_splits", "temporal_runs"
+        }
+E       AssertionError: assert {'_jianwei_da...ersions', ...} == {'alembic_ver...appings', ...}
+E
+E         Extra items in the left set:
+E         '_jianwei_database_identity'
+E         Use -v to get more diff
+
+tests/backend_database.py:19: AssertionError
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/starlette/testclient.py:37
+  /workspace/jianwei/.venv/lib/python3.12/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+tests/test_sqlite_reliability.py::test_fork_rejects_parent_connection_and_parent_remains_usable
+  /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=130796) is multi-threaded, use of fork() may lead to deadlocks in the child.
+    self.pid = os.fork()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+-- generated xml file: /workspace/jianwei/artifacts/p037-a4/backend-junit.xml --
+=========================== short test summary info ============================
+FAILED tests/backend_database.py::test_migrations_are_idempotent_and_persist_across_restart
+1 failed, 758 passed, 2 warnings in 230.57s (0:03:50)

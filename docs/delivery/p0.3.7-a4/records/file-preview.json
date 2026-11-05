@@ -1,0 +1,9 @@
+{
+  "protocol": "file",
+  "result": "blocked",
+  "browser_error": "net::ERR_BLOCKED_BY_ADMINISTRATOR",
+  "policy_modified": false,
+  "retried_to_bypass": false,
+  "supported_preview": "loopback_HTTP_verified",
+  "automatic_tool_approval_rejection": false
+}

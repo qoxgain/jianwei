@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "browser": "154.0.8037.57",
+  "desktop_mobile": true,
+  "performance_filters": true,
+  "all_failures_visible": 2,
+  "all_50_new_test_filters": true,
+  "unmeasured_not_fabricated": true,
+  "exact_export": true,
+  "api_or_remote_requests": 0,
+  "page_errors": [],
+  "original_corrupt_copy": "blocked_missing_original",
+  "fault_state_architecture_status": "pending_independent_review",
+  "stage_b_started": false,
+  "html_sha256": "0c8d4bea4f6b86fb2cce407411b898cbfafe233508821ab06ffd76d1f759f5a8"
+}
