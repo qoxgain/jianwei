@@ -1,0 +1,206 @@
+{
+  "run_id": 41964072654,
+  "url": "https://github.com/qoxgain/jianwei/actions/runs/41964072654",
+  "tested_code_sha": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+  "environment": {
+    "python": "3.12.16",
+    "sqlite": "3.45.1",
+    "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+  },
+  "backend": {
+    "collected": 767,
+    "passed": 764,
+    "skipped": [
+      {
+        "classname": "tests.test_pretrained_encoder",
+        "name": "test_numpy_preprocessing_matches_pinned_official_transform[shape0-roi0]",
+        "reason": "could not import 'torch': No module named 'torch'",
+        "covered_by_official_encoder_job": true
+      },
+      {
+        "classname": "tests.test_pretrained_encoder",
+        "name": "test_numpy_preprocessing_matches_pinned_official_transform[shape1-roi1]",
+        "reason": "could not import 'torch': No module named 'torch'",
+        "covered_by_official_encoder_job": true
+      },
+      {
+        "classname": "tests.test_pretrained_encoder",
+        "name": "test_numpy_preprocessing_matches_pinned_official_transform[shape2-roi2]",
+        "reason": "could not import 'torch': No module named 'torch'",
+        "covered_by_official_encoder_job": true
+      }
+    ],
+    "failures": 0,
+    "errors": 0,
+    "a4_new_passed": 57
+  },
+  "official_encoder": {
+    "passed": 9,
+    "skipped": 0,
+    "failure": 0,
+    "not_additive_to_backend_total": true
+  },
+  "generated_workload": {
+    "runs": 4,
+    "passed": 4,
+    "failed": 0,
+    "structural_damage_observed": 0
+  },
+  "generated_small_smoke": {
+    "runs": 16,
+    "passed": 16,
+    "failed": 0
+  },
+  "large_database_acceptance": false,
+  "artifact_sha256": {
+    "backend-junit.xml": "639e662482a8e4587dff75f3994219cee1e6261bcf20fce92cdeeeaee3382e25",
+    "encoder-junit.xml": "03a7df3353711aa6a7ee5d3737604b1b98d563fb48802df22c4c5d5c7964b3b0",
+    "workload-results.json": "1873694604a283bb6e9d7a02ea670e19aa99678f91020da53aa5c9bdcfd92067",
+    "performance-smoke-results.json": "10be44b4f4a7fecd7c8374041596a3895d40e949d0e15282efc70e89373b2326"
+  },
+  "original_damaged_copies": "blocked_missing_original",
+  "root_cause": "root_cause_not_established",
+  "fault_state_architecture_decision": "pending_independent_review",
+  "stage_b_started": false,
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "pretrained-encoder",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41964072654/job/127036884665",
+      "started_at": "2026-11-05T03:50:28Z",
+      "completed_at": "2026-11-05T03:52:09Z"
+    },
+    {
+      "name": "foundation",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41964072654/job/127036884871",
+      "started_at": "2026-11-05T03:50:28Z",
+      "completed_at": "2026-11-05T03:54:25Z"
+    },
+    {
+      "name": "browser",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/41964072654/job/127036884994",
+      "started_at": "2026-11-05T03:50:28Z",
+      "completed_at": "2026-11-05T04:03:57Z"
+    }
+  ],
+  "frontend_passed": 99,
+  "reference_passed": 29,
+  "builds": [
+    "production",
+    "demo"
+  ],
+  "browser_reports": [
+    {
+      "path": "p032-browser/research/results.json",
+      "passed": true,
+      "browser": "Google Chrome 156.0.8078.79",
+      "sha256": "a9dc8280087fcbaf78ce116c3548aee791e63e2d4c226587aa50711c11f53163"
+    },
+    {
+      "path": "p032-browser/video/browser.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "5177fe2500f9adb1a72c92b55c50d02aa275c444514251ba2291f7f1eda10747"
+    },
+    {
+      "path": "p034-browser/sampling/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "cdba3b11c4127742ef739ea24213c3db3efaf369dd99c5d55c02f971651dbce6"
+    },
+    {
+      "path": "p035-browser/protocol-browser.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "ff9d64ef5b7be0ec2f136d2258da5654f650c57da7cfbab540ebaeb0579c8643"
+    },
+    {
+      "path": "p036-browser/browser-results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "c49ace0bf04eb13f6917dda2969774952e842d7efbacebabbf364e68173de0c4"
+    },
+    {
+      "path": "p037-a-browser/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "1498d2a8a65176aefa3cec6d42faf92b02edaac0b9e8d80c74d20e2942f213cd"
+    },
+    {
+      "path": "p037-a-offline/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "b98c6925d50998a05486b14ee9bc4c10f9e2979f80564eda7e3e047f5d92b00c"
+    },
+    {
+      "path": "p037-a1-static/results.json",
+      "passed": true,
+      "browser": null,
+      "sha256": "4afac51adbda23bb9c1a3c76b5be1e5404766a7f675919089237f2999c941f92"
+    },
+    {
+      "path": "p037-a1-browser/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "0122ce7a6b3ad87a380833aee9c2aeed50e4aa90185f21a75fc677fdccfb2b45"
+    },
+    {
+      "path": "p037-a1-offline/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "53eb16a7903abd8e252d86f476b633bfba628ed8302ddcf1828acc3e69f25848"
+    },
+    {
+      "path": "p037-a2-optimizer/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "222fe83d0cee193967a5cb52181960928a68083ec01438be50248cd11d13d3c8"
+    },
+    {
+      "path": "p037-a2-offline/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "5d40d8a5ed61e9b615b8520eaa8f35371d0ee133a125d6c2eebdf8a63b3d4b76"
+    },
+    {
+      "path": "p037-a3-offline/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "64131a2518f0dddcdca473e36dfebf2ecca4069603186a02ad43019385b7169f"
+    },
+    {
+      "path": "p037-a4-offline/results.json",
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "sha256": "4b6b3eb1791417c7269aac00a0a18ab4ec4779098cc7529bdb1a5d477c6261c8"
+    }
+  ],
+  "browser_reports_passed": 14,
+  "a4_browser": {
+    "passed": true,
+    "browser": "156.0.8078.79",
+    "desktop_mobile": true,
+    "performance_filters": true,
+    "all_failures_visible": 2,
+    "all_new_test_filters": true,
+    "new_test_count": 57,
+    "unmeasured_not_fabricated": true,
+    "exact_export": true,
+    "api_or_remote_requests": 0,
+    "page_errors": [],
+    "original_corrupt_copy": "blocked_missing_original",
+    "fault_state_architecture_status": "pending_independent_review",
+    "stage_b_started": false,
+    "html_sha256": "f61c7197126843364a48e577f7a4f168cc1f522fe8785bcd684dacc56e44dea6"
+  },
+  "ci_raw_log_sha256": "c0e3bd9c708c7201dd48bc12927bc3eec53ccb679943fcdffd097d82deed7abc",
+  "formal_branch_head": "0bf8fbab9b986940eb8d24a92a7435db06f03ea3",
+  "demo_archive_sha256": "51f5e551af4c1291ba1aaf1d898f05132867baa01619eb7bca85456e167d6bb4"
+}

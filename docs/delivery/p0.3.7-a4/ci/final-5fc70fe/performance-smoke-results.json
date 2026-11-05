@@ -1,0 +1,1720 @@
+{
+  "schema": "sqlite-a4-performance-v1",
+  "generated_only": true,
+  "historical_independent_fixture_available": false,
+  "layout": {
+    "1": {
+      "requested_mib": 1,
+      "bytes": 1077248,
+      "payload_rows": 1024,
+      "sha256": "89535c519bd5f85d3490637be5ff0875af55f462c4459d4ed642662d48d385c6",
+      "layout": "900-byte generated zero BLOB rows, primary key + id modulo index; 64-byte event inserts"
+    }
+  },
+  "case_order": "seed-shuffled; same generated input per size, fresh copy each case",
+  "measurement": "warm retained connections; startup/full checks separately; FULL synchronous; 2MiB SQLite cache per connection",
+  "p99_scope": "finite-run descriptive statistic, not a production SLO or independent field validation",
+  "runs": [
+    {
+      "spec": {
+        "variant": "a4_fault_state",
+        "size_mib": 1,
+        "journal_mode": "WAL",
+        "clients": 1,
+        "backup": true,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "WAL",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "fault_state",
+        "integrity_check_interval_seconds": 1.0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.061233936000007816,
+      "initial_full_check": {
+        "ms": 1.3332749999790394,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 26,
+      "attempts": 26,
+      "write_seconds": 0.1044228179998754,
+      "tps": 248.98772603542477,
+      "successful_latency": {
+        "samples": 26,
+        "p50_ms": 0.7323314999894137,
+        "p95_ms": 14.102380999986508,
+        "p99_ms": 14.220356999942396,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "all_attempt_latency": {
+        "samples": 26,
+        "p50_ms": 0.7323314999894137,
+        "p95_ms": 14.102380999986508,
+        "p99_ms": 14.220356999942396,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.00955499999999998,
+        "system_cpu_seconds": 0.011290000000000001,
+        "peak_rss_kib": 66132,
+        "io_delta": {
+          "rchar": 2197617,
+          "wchar": 1199308,
+          "syscr": 543,
+          "syscw": 335,
+          "read_bytes": 0,
+          "write_bytes": 1372160,
+          "cancelled_write_bytes": 32768
+        }
+      },
+      "backup": {
+        "requested": true,
+        "start_offset_seconds": 6.606900001315807e-05,
+        "result": "ok",
+        "finish_offset_seconds": 0.11290781499997138,
+        "overlap_seconds": 0.10435674899986225
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "fault_state",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 1.0,
+        "monitor_running": true,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": true
+      },
+      "final_full_check": {
+        "ms": 1.0022350002145686,
+        "ok": true
+      },
+      "final_main_bytes": 1081344,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_fault_state",
+        "size_mib": 1,
+        "journal_mode": "WAL",
+        "clients": 4,
+        "backup": true,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "WAL",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "fault_state",
+        "integrity_check_interval_seconds": 1.0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.054114728000058676,
+      "initial_full_check": {
+        "ms": 1.2250610000137385,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 79,
+      "attempts": 79,
+      "write_seconds": 0.13253986399990936,
+      "tps": 596.0470881428853,
+      "successful_latency": {
+        "samples": 79,
+        "p50_ms": 0.6886000001031789,
+        "p95_ms": 35.27499040014841,
+        "p99_ms": 66.99405341987578,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "all_attempt_latency": {
+        "samples": 79,
+        "p50_ms": 0.6886000001031789,
+        "p95_ms": 35.27499040014841,
+        "p99_ms": 66.99405341987578,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.02784700000000001,
+        "system_cpu_seconds": 0.03951299999999999,
+        "peak_rss_kib": 70028,
+        "io_delta": {
+          "rchar": 17238429,
+          "wchar": 1433658,
+          "syscr": 3958,
+          "syscw": 459,
+          "read_bytes": 0,
+          "write_bytes": 1867776,
+          "cancelled_write_bytes": 32768
+        }
+      },
+      "backup": {
+        "requested": true,
+        "start_offset_seconds": 5.574400006480573e-05,
+        "result": "ok",
+        "finish_offset_seconds": 0.049890158999915,
+        "overlap_seconds": 0.049834414999850196
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "fault_state",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 1.0,
+        "monitor_running": true,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": true
+      },
+      "final_full_check": {
+        "ms": 0.9657399998559413,
+        "ok": true
+      },
+      "final_main_bytes": 1089536,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_full",
+        "size_mib": 1,
+        "journal_mode": "DELETE",
+        "clients": 4,
+        "backup": false,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "DELETE",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "full",
+        "integrity_check_interval_seconds": 0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.04798216499989394,
+      "initial_full_check": {
+        "ms": 1.1905090000254859,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 49,
+      "attempts": 49,
+      "write_seconds": 0.1272568259998934,
+      "tps": 385.0481073607874,
+      "successful_latency": {
+        "samples": 49,
+        "p50_ms": 1.3472360001287598,
+        "p95_ms": 80.81611940001449,
+        "p99_ms": 124.82482624001021,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "all_attempt_latency": {
+        "samples": 49,
+        "p50_ms": 1.3472360001287598,
+        "p95_ms": 80.81611940001449,
+        "p99_ms": 124.82482624001021,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.02881800000000001,
+        "system_cpu_seconds": 0.015961999999999997,
+        "peak_rss_kib": 70908,
+        "io_delta": {
+          "rchar": 3269781,
+          "wchar": 829276,
+          "syscr": 915,
+          "syscw": 490,
+          "read_bytes": 0,
+          "write_bytes": 4014080,
+          "cancelled_write_bytes": 0
+        }
+      },
+      "backup": {
+        "requested": false
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "full",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 0,
+        "monitor_running": false,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": false
+      },
+      "final_full_check": {
+        "ms": 0.8074699999269797,
+        "ok": true
+      },
+      "final_main_bytes": 1081344,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_full",
+        "size_mib": 1,
+        "journal_mode": "DELETE",
+        "clients": 1,
+        "backup": false,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "DELETE",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "full",
+        "integrity_check_interval_seconds": 0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.047488232999967295,
+      "initial_full_check": {
+        "ms": 1.262360000055196,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 56,
+      "attempts": 56,
+      "write_seconds": 0.10051972799988107,
+      "tps": 557.1045715530215,
+      "successful_latency": {
+        "samples": 56,
+        "p50_ms": 1.3894285000333184,
+        "p95_ms": 2.6442037499805338,
+        "p99_ms": 9.400451050009933,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "all_attempt_latency": {
+        "samples": 56,
+        "p50_ms": 1.3894285000333184,
+        "p95_ms": 2.6442037499805338,
+        "p99_ms": 9.400451050009933,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.02421699999999999,
+        "system_cpu_seconds": 0.020747999999999996,
+        "peak_rss_kib": 64748,
+        "io_delta": {
+          "rchar": 1012,
+          "wchar": 947744,
+          "syscr": 114,
+          "syscw": 560,
+          "read_bytes": 0,
+          "write_bytes": 4587520,
+          "cancelled_write_bytes": 0
+        }
+      },
+      "backup": {
+        "requested": false
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "full",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 0,
+        "monitor_running": false,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": false
+      },
+      "final_full_check": {
+        "ms": 0.7189780001226609,
+        "ok": true
+      },
+      "final_main_bytes": 1081344,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_full",
+        "size_mib": 1,
+        "journal_mode": "WAL",
+        "clients": 1,
+        "backup": false,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "WAL",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "full",
+        "integrity_check_interval_seconds": 0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.055461102000208484,
+      "initial_full_check": {
+        "ms": 1.5274720001343667,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 108,
+      "attempts": 108,
+      "write_seconds": 0.10017503100016256,
+      "tps": 1078.1129680890715,
+      "successful_latency": {
+        "samples": 108,
+        "p50_ms": 0.8784745000411931,
+        "p95_ms": 1.0402636500430162,
+        "p99_ms": 1.6763015100127605,
+        "tail_scope": "finite_run_descriptive_not_SLO"
+      },
+      "all_attempt_latency": {
+        "samples": 108,
+        "p50_ms": 0.8784745000411931,
+        "p95_ms": 1.0402636500430162,
+        "p99_ms": 1.6763015100127605,
+        "tail_scope": "finite_run_descriptive_not_SLO"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.05554999999999999,
+        "system_cpu_seconds": 0.015363000000000002,
+        "peak_rss_kib": 64812,
+        "io_delta": {
+          "rchar": 4213,
+          "wchar": 457352,
+          "syscr": 3,
+          "syscw": 223,
+          "read_bytes": 0,
+          "write_bytes": 901120,
+          "cancelled_write_bytes": 0
+        }
+      },
+      "backup": {
+        "requested": false
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "full",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 0,
+        "monitor_running": false,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": false
+      },
+      "final_full_check": {
+        "ms": 1.1443119999512419,
+        "ok": true
+      },
+      "final_main_bytes": 1089536,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_fault_state",
+        "size_mib": 1,
+        "journal_mode": "DELETE",
+        "clients": 1,
+        "backup": true,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "DELETE",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "fault_state",
+        "integrity_check_interval_seconds": 1.0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.05193544600001587,
+      "initial_full_check": {
+        "ms": 1.4624739999362646,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 78,
+      "attempts": 78,
+      "write_seconds": 0.10103739600003792,
+      "tps": 771.9913921769196,
+      "successful_latency": {
+        "samples": 78,
+        "p50_ms": 1.1053880000417848,
+        "p95_ms": 2.4359980999975046,
+        "p99_ms": 4.135533349956404,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "all_attempt_latency": {
+        "samples": 78,
+        "p50_ms": 1.1053880000417848,
+        "p95_ms": 2.4359980999975046,
+        "p99_ms": 4.135533349956404,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.020557999999999965,
+        "system_cpu_seconds": 0.027721999999999997,
+        "peak_rss_kib": 64988,
+        "io_delta": {
+          "rchar": 1888260,
+          "wchar": 1330070,
+          "syscr": 639,
+          "syscw": 786,
+          "read_bytes": 0,
+          "write_bytes": 6500352,
+          "cancelled_write_bytes": 0
+        }
+      },
+      "backup": {
+        "requested": true,
+        "start_offset_seconds": 6.604500003959402e-05,
+        "result": "ok",
+        "finish_offset_seconds": 0.11675503400010712,
+        "overlap_seconds": 0.10097135099999832
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "fault_state",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 1.0,
+        "monitor_running": true,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": true
+      },
+      "final_full_check": {
+        "ms": 0.9124910000082309,
+        "ok": true
+      },
+      "final_main_bytes": 1089536,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_full",
+        "size_mib": 1,
+        "journal_mode": "DELETE",
+        "clients": 1,
+        "backup": true,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "DELETE",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "full",
+        "integrity_check_interval_seconds": 0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.04709592899985182,
+      "initial_full_check": {
+        "ms": 1.3707650000469584,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 44,
+      "attempts": 44,
+      "write_seconds": 0.10111764899988884,
+      "tps": 435.13669903508503,
+      "successful_latency": {
+        "samples": 44,
+        "p50_ms": 1.5713810000761441,
+        "p95_ms": 3.7771367499203743,
+        "p99_ms": 13.078063900024972,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "all_attempt_latency": {
+        "samples": 44,
+        "p50_ms": 1.5713810000761441,
+        "p95_ms": 3.7771367499203743,
+        "p99_ms": 13.078063900024972,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.04017399999999999,
+        "system_cpu_seconds": 0.020849,
+        "peak_rss_kib": 66256,
+        "io_delta": {
+          "rchar": 6512392,
+          "wchar": 1849102,
+          "syscr": 1455,
+          "syscw": 724,
+          "read_bytes": 0,
+          "write_bytes": 4751360,
+          "cancelled_write_bytes": 0
+        }
+      },
+      "backup": {
+        "requested": true,
+        "start_offset_seconds": 9.866499999588996e-05,
+        "result": "ok",
+        "finish_offset_seconds": 0.06670688700000937,
+        "overlap_seconds": 0.06660822200001348
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "full",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 0,
+        "monitor_running": false,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": false
+      },
+      "final_full_check": {
+        "ms": 0.7857670000248618,
+        "ok": true
+      },
+      "final_main_bytes": 1081344,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_full",
+        "size_mib": 1,
+        "journal_mode": "WAL",
+        "clients": 1,
+        "backup": true,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "WAL",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "full",
+        "integrity_check_interval_seconds": 0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.04798784400009026,
+      "initial_full_check": {
+        "ms": 1.3406850000592385,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 72,
+      "attempts": 72,
+      "write_seconds": 0.10112769699981072,
+      "tps": 711.9711230063388,
+      "successful_latency": {
+        "samples": 72,
+        "p50_ms": 0.950470500015399,
+        "p95_ms": 1.8935045999796791,
+        "p99_ms": 11.876384289955697,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "all_attempt_latency": {
+        "samples": 72,
+        "p50_ms": 0.950470500015399,
+        "p95_ms": 1.8935045999796791,
+        "p99_ms": 11.876384289955697,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.04583799999999999,
+        "system_cpu_seconds": 0.028703000000000006,
+        "peak_rss_kib": 66216,
+        "io_delta": {
+          "rchar": 6527389,
+          "wchar": 1404818,
+          "syscr": 1343,
+          "syscw": 445,
+          "read_bytes": 0,
+          "write_bytes": 1810432,
+          "cancelled_write_bytes": 32768
+        }
+      },
+      "backup": {
+        "requested": true,
+        "start_offset_seconds": 8.347999983016052e-05,
+        "result": "ok",
+        "finish_offset_seconds": 0.08700064599997859,
+        "overlap_seconds": 0.08691716600014843
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "full",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 0,
+        "monitor_running": false,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": false
+      },
+      "final_full_check": {
+        "ms": 0.9643670000514248,
+        "ok": true
+      },
+      "final_main_bytes": 1089536,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_full",
+        "size_mib": 1,
+        "journal_mode": "WAL",
+        "clients": 4,
+        "backup": false,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "WAL",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "full",
+        "integrity_check_interval_seconds": 0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.04913083499991444,
+      "initial_full_check": {
+        "ms": 1.3961279998966347,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 84,
+      "attempts": 84,
+      "write_seconds": 0.16095580799992604,
+      "tps": 521.8823790443064,
+      "successful_latency": {
+        "samples": 84,
+        "p50_ms": 0.8990835000304287,
+        "p95_ms": 34.76013569996892,
+        "p99_ms": 108.5571382099147,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "all_attempt_latency": {
+        "samples": 84,
+        "p50_ms": 0.8990835000304287,
+        "p95_ms": 34.76013569996892,
+        "p99_ms": 108.5571382099147,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.04673700000000003,
+        "system_cpu_seconds": 0.021512000000000003,
+        "peak_rss_kib": 72160,
+        "io_delta": {
+          "rchar": 6606966,
+          "wchar": 358472,
+          "syscr": 1616,
+          "syscw": 175,
+          "read_bytes": 0,
+          "write_bytes": 704512,
+          "cancelled_write_bytes": 0
+        }
+      },
+      "backup": {
+        "requested": false
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "full",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 0,
+        "monitor_running": false,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": false
+      },
+      "final_full_check": {
+        "ms": 1.1474440000256436,
+        "ok": true
+      },
+      "final_main_bytes": 1089536,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_full",
+        "size_mib": 1,
+        "journal_mode": "DELETE",
+        "clients": 4,
+        "backup": true,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "DELETE",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "full",
+        "integrity_check_interval_seconds": 0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.05389163499989991,
+      "initial_full_check": {
+        "ms": 1.2944249999691237,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 40,
+      "attempts": 40,
+      "write_seconds": 0.12386639600003946,
+      "tps": 322.9285850860411,
+      "successful_latency": {
+        "samples": 40,
+        "p50_ms": 1.739637000014227,
+        "p95_ms": 63.69566685004882,
+        "p99_ms": 101.5957928998682,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "all_attempt_latency": {
+        "samples": 40,
+        "p50_ms": 1.739637000014227,
+        "p95_ms": 63.69566685004882,
+        "p99_ms": 101.5957928998682,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.03544400000000003,
+        "system_cpu_seconds": 0.03415499999999999,
+        "peak_rss_kib": 73376,
+        "io_delta": {
+          "rchar": 13045717,
+          "wchar": 1781406,
+          "syscr": 3064,
+          "syscw": 684,
+          "read_bytes": 0,
+          "write_bytes": 4423680,
+          "cancelled_write_bytes": 0
+        }
+      },
+      "backup": {
+        "requested": true,
+        "start_offset_seconds": 7.200899995041254e-05,
+        "result": "ok",
+        "finish_offset_seconds": 0.06796268700009023,
+        "overlap_seconds": 0.06789067800013981
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "full",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 0,
+        "monitor_running": false,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": false
+      },
+      "final_full_check": {
+        "ms": 0.9763150001163012,
+        "ok": true
+      },
+      "final_main_bytes": 1081344,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_fault_state",
+        "size_mib": 1,
+        "journal_mode": "WAL",
+        "clients": 1,
+        "backup": false,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "WAL",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "fault_state",
+        "integrity_check_interval_seconds": 1.0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.05160085500006062,
+      "initial_full_check": {
+        "ms": 1.4869260000978102,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 162,
+      "attempts": 162,
+      "write_seconds": 0.10017255499997191,
+      "tps": 1617.2094242783908,
+      "successful_latency": {
+        "samples": 162,
+        "p50_ms": 0.5769609999788372,
+        "p95_ms": 0.8100939999508224,
+        "p99_ms": 1.148297589961654,
+        "tail_scope": "finite_run_descriptive_not_SLO"
+      },
+      "all_attempt_latency": {
+        "samples": 162,
+        "p50_ms": 0.5769609999788372,
+        "p95_ms": 0.8100939999508224,
+        "p99_ms": 1.148297589961654,
+        "tail_scope": "finite_run_descriptive_not_SLO"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.02320099999999997,
+        "system_cpu_seconds": 0.031490000000000004,
+        "peak_rss_kib": 64728,
+        "io_delta": {
+          "rchar": 4213,
+          "wchar": 688072,
+          "syscr": 3,
+          "syscw": 335,
+          "read_bytes": 0,
+          "write_bytes": 1351680,
+          "cancelled_write_bytes": 0
+        }
+      },
+      "backup": {
+        "requested": false
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "fault_state",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 1.0,
+        "monitor_running": true,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": true
+      },
+      "final_full_check": {
+        "ms": 1.0593800000151532,
+        "ok": true
+      },
+      "final_main_bytes": 1093632,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_fault_state",
+        "size_mib": 1,
+        "journal_mode": "DELETE",
+        "clients": 4,
+        "backup": false,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "DELETE",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "fault_state",
+        "integrity_check_interval_seconds": 1.0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.051284242000065206,
+      "initial_full_check": {
+        "ms": 1.2719409999135678,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 57,
+      "attempts": 57,
+      "write_seconds": 0.11648053499993694,
+      "tps": 489.3521479793243,
+      "successful_latency": {
+        "samples": 57,
+        "p50_ms": 1.110547000052975,
+        "p95_ms": 37.4929070000688,
+        "p99_ms": 93.89277688005669,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "all_attempt_latency": {
+        "samples": 57,
+        "p50_ms": 1.110547000052975,
+        "p95_ms": 37.4929070000688,
+        "p99_ms": 93.89277688005669,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.01596700000000001,
+        "system_cpu_seconds": 0.018836,
+        "peak_rss_kib": 68632,
+        "io_delta": {
+          "rchar": 120229,
+          "wchar": 972860,
+          "syscr": 171,
+          "syscw": 572,
+          "read_bytes": 0,
+          "write_bytes": 4681728,
+          "cancelled_write_bytes": 0
+        }
+      },
+      "backup": {
+        "requested": false
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "fault_state",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 1.0,
+        "monitor_running": true,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": true
+      },
+      "final_full_check": {
+        "ms": 0.8615619999545743,
+        "ok": true
+      },
+      "final_main_bytes": 1089536,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_fault_state",
+        "size_mib": 1,
+        "journal_mode": "DELETE",
+        "clients": 1,
+        "backup": false,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "DELETE",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "fault_state",
+        "integrity_check_interval_seconds": 1.0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.04424344800008839,
+      "initial_full_check": {
+        "ms": 1.4481069999874308,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 82,
+      "attempts": 82,
+      "write_seconds": 0.10108861399999114,
+      "tps": 811.1694953103936,
+      "successful_latency": {
+        "samples": 82,
+        "p50_ms": 1.091433500050698,
+        "p95_ms": 2.048141399814087,
+        "p99_ms": 3.6242978999575812,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "all_attempt_latency": {
+        "samples": 82,
+        "p50_ms": 1.091433500050698,
+        "p95_ms": 2.048141399814087,
+        "p99_ms": 3.6242978999575812,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.020100000000000007,
+        "system_cpu_seconds": 0.020813999999999992,
+        "peak_rss_kib": 64832,
+        "io_delta": {
+          "rchar": 1428,
+          "wchar": 1395960,
+          "syscr": 166,
+          "syscw": 822,
+          "read_bytes": 0,
+          "write_bytes": 6828032,
+          "cancelled_write_bytes": 0
+        }
+      },
+      "backup": {
+        "requested": false
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "fault_state",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 1.0,
+        "monitor_running": true,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": true
+      },
+      "final_full_check": {
+        "ms": 0.9571660000347038,
+        "ok": true
+      },
+      "final_main_bytes": 1089536,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_fault_state",
+        "size_mib": 1,
+        "journal_mode": "DELETE",
+        "clients": 4,
+        "backup": true,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "DELETE",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "fault_state",
+        "integrity_check_interval_seconds": 1.0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.052547014000083436,
+      "initial_full_check": {
+        "ms": 1.364750999982789,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 67,
+      "attempts": 67,
+      "write_seconds": 0.13387338999996246,
+      "tps": 500.4728721668943,
+      "successful_latency": {
+        "samples": 67,
+        "p50_ms": 1.2039979999372008,
+        "p95_ms": 38.031618499962775,
+        "p99_ms": 94.51097735990975,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "all_attempt_latency": {
+        "samples": 67,
+        "p50_ms": 1.2039979999372008,
+        "p95_ms": 38.031618499962775,
+        "p99_ms": 94.51097735990975,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.03759000000000001,
+        "system_cpu_seconds": 0.027442999999999995,
+        "peak_rss_kib": 69944,
+        "io_delta": {
+          "rchar": 8250153,
+          "wchar": 2254738,
+          "syscr": 1966,
+          "syscw": 958,
+          "read_bytes": 0,
+          "write_bytes": 6701056,
+          "cancelled_write_bytes": 0
+        }
+      },
+      "backup": {
+        "requested": true,
+        "start_offset_seconds": 5.604500006484159e-05,
+        "result": "ok",
+        "finish_offset_seconds": 0.1228980529999717,
+        "overlap_seconds": 0.12284200799990685
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "fault_state",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 1.0,
+        "monitor_running": true,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": true
+      },
+      "final_full_check": {
+        "ms": 0.8413209998252569,
+        "ok": true
+      },
+      "final_main_bytes": 1089536,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_full",
+        "size_mib": 1,
+        "journal_mode": "WAL",
+        "clients": 4,
+        "backup": true,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "WAL",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "full",
+        "integrity_check_interval_seconds": 0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.0570474710000326,
+      "initial_full_check": {
+        "ms": 1.42969900002754,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 73,
+      "attempts": 73,
+      "write_seconds": 0.13342716600004678,
+      "tps": 547.1149705748409,
+      "successful_latency": {
+        "samples": 73,
+        "p50_ms": 1.0697860000163928,
+        "p95_ms": 17.651935799858506,
+        "p99_ms": 125.89178428000197,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "all_attempt_latency": {
+        "samples": 73,
+        "p50_ms": 1.0697860000163928,
+        "p95_ms": 17.651935799858506,
+        "p99_ms": 125.89178428000197,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.06124999999999997,
+        "system_cpu_seconds": 0.028992999999999998,
+        "peak_rss_kib": 73268,
+        "io_delta": {
+          "rchar": 10946973,
+          "wchar": 1417178,
+          "syscr": 2422,
+          "syscw": 451,
+          "read_bytes": 0,
+          "write_bytes": 1826816,
+          "cancelled_write_bytes": 32768
+        }
+      },
+      "backup": {
+        "requested": true,
+        "start_offset_seconds": 8.087299988801533e-05,
+        "result": "ok",
+        "finish_offset_seconds": 0.09795858100005717,
+        "overlap_seconds": 0.09787770800016915
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "full",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 0,
+        "monitor_running": false,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": false
+      },
+      "final_full_check": {
+        "ms": 1.0096050000356627,
+        "ok": true
+      },
+      "final_main_bytes": 1089536,
+      "process_returncode": 0
+    },
+    {
+      "spec": {
+        "variant": "a4_fault_state",
+        "size_mib": 1,
+        "journal_mode": "WAL",
+        "clients": 4,
+        "backup": false,
+        "quarantined": false,
+        "seed": 0,
+        "seconds": 0.1,
+        "min_transactions": 3
+      },
+      "status": "passed",
+      "generated_only": true,
+      "environment": {
+        "python": "3.12.16",
+        "sqlite": "3.45.1",
+        "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+      },
+      "code_commit": "5fc70feba7e1168898082f02ffb3b9f4d1cd23df",
+      "configuration": {
+        "journal_mode": "WAL",
+        "synchronous": "FULL",
+        "busy_timeout_ms": 1000,
+        "integrity_check_on_start": true,
+        "commit_integrity_check": "fault_state",
+        "integrity_check_interval_seconds": 1.0,
+        "min_free_bytes": 0,
+        "backup": {
+          "timeout_seconds": 20.0,
+          "pages_per_step": 16,
+          "retry_seconds": 0.001
+        }
+      },
+      "source_sha256": {
+        "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+        "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+        "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+        "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+        "infra/sqlite_health.py": "e520388eb0594b8b63c6fcd27b2db927c3ed93d19623a4a500a2a5d7f0a17f4c",
+        "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+      },
+      "startup_seconds": 0.04597353199983445,
+      "initial_full_check": {
+        "ms": 1.1752380000871199,
+        "ok": true
+      },
+      "initial_main_bytes": 1081344,
+      "committed": 87,
+      "attempts": 87,
+      "write_seconds": 0.11409257999980582,
+      "tps": 762.5386331008385,
+      "successful_latency": {
+        "samples": 87,
+        "p50_ms": 0.5523259999336005,
+        "p95_ms": 34.266671800037386,
+        "p99_ms": 74.62342076004917,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "all_attempt_latency": {
+        "samples": 87,
+        "p50_ms": 0.5523259999336005,
+        "p95_ms": 34.266671800037386,
+        "p99_ms": 74.62342076004917,
+        "tail_scope": "descriptive_only_small_sample"
+      },
+      "errors_by_code": {},
+      "lock_failure_fraction": 0.0,
+      "resources": {
+        "user_cpu_seconds": 0.017385999999999957,
+        "system_cpu_seconds": 0.014494,
+        "peak_rss_kib": 68528,
+        "io_delta": {
+          "rchar": 135285,
+          "wchar": 379072,
+          "syscr": 35,
+          "syscw": 185,
+          "read_bytes": 0,
+          "write_bytes": 737280,
+          "cancelled_write_bytes": 0
+        }
+      },
+      "backup": {
+        "requested": false
+      },
+      "integrity_policy_at_write_end": {
+        "commit_check": "fault_state",
+        "full_check_on_connection": true,
+        "monitor_interval_seconds": 1.0,
+        "monitor_running": true,
+        "monitor_attempts": 0,
+        "monitor_successes": 0,
+        "last_monitor_error": null,
+        "detection_delay_bound_seconds": null,
+        "fault_state_architecture_status": "pending_independent_review",
+        "unobserved_corruption_risk": true
+      },
+      "final_full_check": {
+        "ms": 0.9424160000435222,
+        "ok": true
+      },
+      "final_main_bytes": 1089536,
+      "process_returncode": 0
+    }
+  ],
+  "summary": {
+    "runs": 16,
+    "passed": 16,
+    "failed": 0
+  }
+}
