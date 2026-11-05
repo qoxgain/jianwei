@@ -9,7 +9,8 @@ def median(values):return statistics.median(values)
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--input',type=Path,required=True)
-    p.add_argument('--initial',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p.add_argument('--initial',type=Path,required=True);p.add_argument('--intermediate',type=Path)
+    p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     report=json.loads(a.input.read_text());initial=json.loads(a.initial.read_text());rows=report['runs'];out=a.output;out.mkdir(parents=True,exist_ok=True)
     assert len(rows)==report['summary']['runs'];assert sum(r['status']!='passed' for r in rows)==report['summary']['failed']
     light=[r for r in rows if r['spec']['variant']=='a4_fault_state' and not r['spec']['quarantined']]
@@ -75,6 +76,9 @@ def main():
         '默认full仍每笔完整扫描，不能用轻量成绩声称默认性能已根本改变。fault_state显著提高本生成布局的大库稳态吞吐，但未发现损坏时仍可能继续提交；必须独立确认保证变化后显式选用。连接/巡检/正式研究/备份完整检查和已确认故障强阻断保留，A.2只作存在已知隔离缺口的性能参考，不推荐回退。','',
         '2秒/至少12个成功提交的短跑百分位只是描述值，不能承诺生产p99；所有案例实际样本数保留。并发仍受SQLite单写者与监控/备份读取影响，锁失败率非零时不能声称所有请求成功。各版本使用相同1秒锁/检查预算和FULL同步；不靠放宽预算、批量改变事务口径或丢失败制造收益。','',
         '后续可评估批量事件事务、异步有界队列、存储职责分拆或专用高并发存储，本轮不全面迁移数据库，也不自动在客户环境启用可选策略。原结构损坏产生根因仍root_cause_not_established。']
+    if a.intermediate:
+        middle=json.loads(a.intermediate.read_text());text+=['',
+            f"中间版另有{middle['summary']['runs']}案例，{middle['summary']['passed']}通过/{middle['summary']['failed']}失败（核心55c0ac5）。本页最终数据来自失败收尾补充后的4c13aeb，三版均保留，不把旧版本SHA当作最终执行代码。"]
     (out/'PERFORMANCE.md').write_text('\n'.join(text)+'\n')
     print(json.dumps({'runs':len(rows),'failed':report['summary']['failed'],'light_monitor_completed_cases':completed,'light_cases':len(light)}))
 

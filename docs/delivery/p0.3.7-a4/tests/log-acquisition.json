@@ -1,12 +1,12 @@
 {
   "backend-junit.xml": {
-    "original_sha256": "1cd1601482582bad04c93549bd26d0bc25bb6c48534ca9f70aa827058dbed4ce",
-    "published_sha256": "1cd1601482582bad04c93549bd26d0bc25bb6c48534ca9f70aa827058dbed4ce",
+    "original_sha256": "8a5ea724fc6078f27640fb6eca1ae16c1f0f2bbe8b2e2dcffb9b6201d33b9dbb",
+    "published_sha256": "8a5ea724fc6078f27640fb6eca1ae16c1f0f2bbe8b2e2dcffb9b6201d33b9dbb",
     "normalization": "none"
   },
   "backend-full.log": {
-    "original_sha256": "13f2b9e233e714294b3405b06bf424b0ddf2da584a73ff177127df7be61a3f51",
-    "published_sha256": "13f2b9e233e714294b3405b06bf424b0ddf2da584a73ff177127df7be61a3f51",
+    "original_sha256": "1401d28abc262f7b2a6cebbc895d5e240d8ba7028bed21f401e6a8a9455fcef6",
+    "published_sha256": "1401d28abc262f7b2a6cebbc895d5e240d8ba7028bed21f401e6a8a9455fcef6",
     "normalization": "ANSI_and_trailing_whitespace_only"
   },
   "frontend.log": {
@@ -92,6 +92,21 @@
   "schema-migration-release.log": {
     "original_sha256": "ce1cd66cb576df8bbe980ab708e3014d5d3913274a3a593e12761d078b8c08e9",
     "published_sha256": "ce1cd66cb576df8bbe980ab708e3014d5d3913274a3a593e12761d078b8c08e9",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "failure-seal-first.log": {
+    "original_sha256": "d20034c3484707404d1ab0ab277550cb7ba56e0ae5ea82f71300b268c0e5825e",
+    "published_sha256": "07aea36d700f4b3d6ed0fbc1ee503da9d4d71c81953e1858af62f9bea6d75115",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "failure-seal-final.log": {
+    "original_sha256": "e08c8999b7c321fac115dcfbc084aea3bc525c76b5778a19bc918938cadae023",
+    "published_sha256": "e08c8999b7c321fac115dcfbc084aea3bc525c76b5778a19bc918938cadae023",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "performance-release.log": {
+    "original_sha256": "f57ae336f6442f0a214a505d31fca00321bd58163d6bc176c81d62edac1b3ed2",
+    "published_sha256": "f57ae336f6442f0a214a505d31fca00321bd58163d6bc176c81d62edac1b3ed2",
     "normalization": "ANSI_and_trailing_whitespace_only"
   }
 }

@@ -1,0 +1,403 @@
+FFF..FFF.FFF.FFF.....................................                    [100%]
+=================================== FAILURES ===================================
+_ test_last_page_failure_seals_active_identity_before_return_and_inplace_copy[cancel] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_last_page_failure_seals_a0')
+action = 'cancel'
+
+    @pytest.mark.parametrize('action',['cancel','exception','interrupt'])
+    def test_last_page_failure_seals_active_identity_before_return_and_inplace_copy(tmp_path,action):
+        db,path=business(tmp_path);target=tmp_path/'archive.sqlite';cancel=Event()
+        def progress(_status,remaining,_total):
+            if remaining:return
+            if action=='cancel':cancel.set()
+            elif action=='interrupt':raise KeyboardInterrupt('generated')
+            else:raise RuntimeError('generated')
+        with pytest.raises(KeyboardInterrupt if action=='interrupt' else ContractError):db.backup(target,cancel_event=cancel,progress=progress)
+>       partial=next(tmp_path.glob('archive.sqlite.partial-*'));assert read_identity(partial)['role']=='Backup'
+
+tests/test_p037_a4_failure_seal.py:22:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_last_page_failure_seals_a0/archive.sqlite.partial-fc8417993e0241df8fa3d3dbe962d5b6.raw-evidence.zip')
+
+    def read_identity(path,*,timeout_seconds=0):
+        with closing(sqlite3.connect(path.resolve().as_uri()+'?mode=ro',uri=True,timeout=timeout_seconds)) as c:
+>           exists=c.execute('SELECT 1 FROM sqlite_master WHERE type=? AND name=?',('table',TABLE)).fetchone()
+E           sqlite3.DatabaseError: file is not a database
+
+infra/sqlite_admission.py:51: DatabaseError
+_ test_last_page_failure_seals_active_identity_before_return_and_inplace_copy[exception] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_last_page_failure_seals_a1')
+action = 'exception'
+
+    @pytest.mark.parametrize('action',['cancel','exception','interrupt'])
+    def test_last_page_failure_seals_active_identity_before_return_and_inplace_copy(tmp_path,action):
+        db,path=business(tmp_path);target=tmp_path/'archive.sqlite';cancel=Event()
+        def progress(_status,remaining,_total):
+            if remaining:return
+            if action=='cancel':cancel.set()
+            elif action=='interrupt':raise KeyboardInterrupt('generated')
+            else:raise RuntimeError('generated')
+        with pytest.raises(KeyboardInterrupt if action=='interrupt' else ContractError):db.backup(target,cancel_event=cancel,progress=progress)
+>       partial=next(tmp_path.glob('archive.sqlite.partial-*'));assert read_identity(partial)['role']=='Backup'
+
+tests/test_p037_a4_failure_seal.py:22:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_last_page_failure_seals_a1/archive.sqlite.partial-9cdbe43694ce4a7da564e8ebc10e5ffd.raw-evidence.zip')
+
+    def read_identity(path,*,timeout_seconds=0):
+        with closing(sqlite3.connect(path.resolve().as_uri()+'?mode=ro',uri=True,timeout=timeout_seconds)) as c:
+>           exists=c.execute('SELECT 1 FROM sqlite_master WHERE type=? AND name=?',('table',TABLE)).fetchone()
+E           sqlite3.DatabaseError: file is not a database
+
+infra/sqlite_admission.py:51: DatabaseError
+_ test_last_page_failure_seals_active_identity_before_return_and_inplace_copy[interrupt] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_last_page_failure_seals_a2')
+action = 'interrupt'
+
+    @pytest.mark.parametrize('action',['cancel','exception','interrupt'])
+    def test_last_page_failure_seals_active_identity_before_return_and_inplace_copy(tmp_path,action):
+        db,path=business(tmp_path);target=tmp_path/'archive.sqlite';cancel=Event()
+        def progress(_status,remaining,_total):
+            if remaining:return
+            if action=='cancel':cancel.set()
+            elif action=='interrupt':raise KeyboardInterrupt('generated')
+            else:raise RuntimeError('generated')
+        with pytest.raises(KeyboardInterrupt if action=='interrupt' else ContractError):db.backup(target,cancel_event=cancel,progress=progress)
+>       partial=next(tmp_path.glob('archive.sqlite.partial-*'));assert read_identity(partial)['role']=='Backup'
+
+tests/test_p037_a4_failure_seal.py:22:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_last_page_failure_seals_a2/archive.sqlite.partial-d339ea58b2724f5c9fe31409f33cc2d3.raw-evidence.zip')
+
+    def read_identity(path,*,timeout_seconds=0):
+        with closing(sqlite3.connect(path.resolve().as_uri()+'?mode=ro',uri=True,timeout=timeout_seconds)) as c:
+>           exists=c.execute('SELECT 1 FROM sqlite_master WHERE type=? AND name=?',('table',TABLE)).fetchone()
+E           sqlite3.DatabaseError: file is not a database
+
+infra/sqlite_admission.py:51: DatabaseError
+_ test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[direct-invalidated] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can0')
+outcome = 'invalidated', relocation = 'direct'
+
+    @pytest.mark.parametrize('outcome',['invalidated','cancelled','failed','published'])
+    @pytest.mark.parametrize('relocation',['direct','rename','copy_without_xattrs'])
+    def test_any_archive_lifecycle_cannot_become_writable_business_after_relocation(tmp_path,outcome,relocation):
+        db,path=business(tmp_path);target=tmp_path/'archive.sqlite';cancel=Event()
+        def progress(_status,remaining,_total):
+            if remaining:return
+            if outcome=='invalidated':db.fault={'reason':'generated_fault_at_last_page'}
+            elif outcome=='cancelled':cancel.set()
+            elif outcome=='failed':raise RuntimeError('generated callback interruption')
+        if outcome=='published':assert db.backup(target)['status']=='ok';artifact=target
+        else:
+            with pytest.raises(ContractError):db.backup(target,progress=progress,cancel_event=cancel)
+            artifact=next(tmp_path.glob('archive.sqlite.partial-*'));assert not target.exists()
+        db.close();record=json.loads(next(tmp_path.glob('archive.sqlite.backup-*.json')).read_text());assert record['state']==outcome
+        if relocation=='rename':artifact=artifact.rename(tmp_path/'ordinary-business-name.data')
+        elif relocation=='copy_without_xattrs':
+            copied=tmp_path/'ordinary-copy.data';shutil.copyfile(artifact,copied);artifact=copied
+>       assert native_rows(artifact)==0;refuse(artifact);assert native_rows(artifact)==0
+
+tests/test_p037_a4_admission.py:52:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can0/archive.sqlite.partial-7097b6f6113c4257be2a55daeda5a0db.raw-evidence.zip')
+
+    def native_rows(path):
+>       with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True)) as c:return c.execute('SELECT COUNT(*) FROM probe').fetchone()[0]
+E       sqlite3.DatabaseError: file is not a database
+
+tests/test_p037_a4_admission.py:22: DatabaseError
+_ test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[direct-cancelled] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can1')
+outcome = 'cancelled', relocation = 'direct'
+
+    @pytest.mark.parametrize('outcome',['invalidated','cancelled','failed','published'])
+    @pytest.mark.parametrize('relocation',['direct','rename','copy_without_xattrs'])
+    def test_any_archive_lifecycle_cannot_become_writable_business_after_relocation(tmp_path,outcome,relocation):
+        db,path=business(tmp_path);target=tmp_path/'archive.sqlite';cancel=Event()
+        def progress(_status,remaining,_total):
+            if remaining:return
+            if outcome=='invalidated':db.fault={'reason':'generated_fault_at_last_page'}
+            elif outcome=='cancelled':cancel.set()
+            elif outcome=='failed':raise RuntimeError('generated callback interruption')
+        if outcome=='published':assert db.backup(target)['status']=='ok';artifact=target
+        else:
+            with pytest.raises(ContractError):db.backup(target,progress=progress,cancel_event=cancel)
+            artifact=next(tmp_path.glob('archive.sqlite.partial-*'));assert not target.exists()
+        db.close();record=json.loads(next(tmp_path.glob('archive.sqlite.backup-*.json')).read_text());assert record['state']==outcome
+        if relocation=='rename':artifact=artifact.rename(tmp_path/'ordinary-business-name.data')
+        elif relocation=='copy_without_xattrs':
+            copied=tmp_path/'ordinary-copy.data';shutil.copyfile(artifact,copied);artifact=copied
+>       assert native_rows(artifact)==0;refuse(artifact);assert native_rows(artifact)==0
+
+tests/test_p037_a4_admission.py:52:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can1/archive.sqlite.partial-4c3f13264841499c8747437696bede94.raw-evidence.zip')
+
+    def native_rows(path):
+>       with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True)) as c:return c.execute('SELECT COUNT(*) FROM probe').fetchone()[0]
+E       sqlite3.DatabaseError: file is not a database
+
+tests/test_p037_a4_admission.py:22: DatabaseError
+_ test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[direct-failed] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can2')
+outcome = 'failed', relocation = 'direct'
+
+    @pytest.mark.parametrize('outcome',['invalidated','cancelled','failed','published'])
+    @pytest.mark.parametrize('relocation',['direct','rename','copy_without_xattrs'])
+    def test_any_archive_lifecycle_cannot_become_writable_business_after_relocation(tmp_path,outcome,relocation):
+        db,path=business(tmp_path);target=tmp_path/'archive.sqlite';cancel=Event()
+        def progress(_status,remaining,_total):
+            if remaining:return
+            if outcome=='invalidated':db.fault={'reason':'generated_fault_at_last_page'}
+            elif outcome=='cancelled':cancel.set()
+            elif outcome=='failed':raise RuntimeError('generated callback interruption')
+        if outcome=='published':assert db.backup(target)['status']=='ok';artifact=target
+        else:
+            with pytest.raises(ContractError):db.backup(target,progress=progress,cancel_event=cancel)
+            artifact=next(tmp_path.glob('archive.sqlite.partial-*'));assert not target.exists()
+        db.close();record=json.loads(next(tmp_path.glob('archive.sqlite.backup-*.json')).read_text());assert record['state']==outcome
+        if relocation=='rename':artifact=artifact.rename(tmp_path/'ordinary-business-name.data')
+        elif relocation=='copy_without_xattrs':
+            copied=tmp_path/'ordinary-copy.data';shutil.copyfile(artifact,copied);artifact=copied
+>       assert native_rows(artifact)==0;refuse(artifact);assert native_rows(artifact)==0
+
+tests/test_p037_a4_admission.py:52:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can2/archive.sqlite.partial-249f3e4e015a4319837784d518f51ba4.raw-evidence.zip')
+
+    def native_rows(path):
+>       with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True)) as c:return c.execute('SELECT COUNT(*) FROM probe').fetchone()[0]
+E       sqlite3.DatabaseError: file is not a database
+
+tests/test_p037_a4_admission.py:22: DatabaseError
+_ test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[rename-invalidated] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can4')
+outcome = 'invalidated', relocation = 'rename'
+
+    @pytest.mark.parametrize('outcome',['invalidated','cancelled','failed','published'])
+    @pytest.mark.parametrize('relocation',['direct','rename','copy_without_xattrs'])
+    def test_any_archive_lifecycle_cannot_become_writable_business_after_relocation(tmp_path,outcome,relocation):
+        db,path=business(tmp_path);target=tmp_path/'archive.sqlite';cancel=Event()
+        def progress(_status,remaining,_total):
+            if remaining:return
+            if outcome=='invalidated':db.fault={'reason':'generated_fault_at_last_page'}
+            elif outcome=='cancelled':cancel.set()
+            elif outcome=='failed':raise RuntimeError('generated callback interruption')
+        if outcome=='published':assert db.backup(target)['status']=='ok';artifact=target
+        else:
+            with pytest.raises(ContractError):db.backup(target,progress=progress,cancel_event=cancel)
+            artifact=next(tmp_path.glob('archive.sqlite.partial-*'));assert not target.exists()
+        db.close();record=json.loads(next(tmp_path.glob('archive.sqlite.backup-*.json')).read_text());assert record['state']==outcome
+        if relocation=='rename':artifact=artifact.rename(tmp_path/'ordinary-business-name.data')
+        elif relocation=='copy_without_xattrs':
+            copied=tmp_path/'ordinary-copy.data';shutil.copyfile(artifact,copied);artifact=copied
+>       assert native_rows(artifact)==0;refuse(artifact);assert native_rows(artifact)==0
+
+tests/test_p037_a4_admission.py:52:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can4/ordinary-business-name.data')
+
+    def native_rows(path):
+>       with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True)) as c:return c.execute('SELECT COUNT(*) FROM probe').fetchone()[0]
+E       sqlite3.DatabaseError: file is not a database
+
+tests/test_p037_a4_admission.py:22: DatabaseError
+_ test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[rename-cancelled] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can5')
+outcome = 'cancelled', relocation = 'rename'
+
+    @pytest.mark.parametrize('outcome',['invalidated','cancelled','failed','published'])
+    @pytest.mark.parametrize('relocation',['direct','rename','copy_without_xattrs'])
+    def test_any_archive_lifecycle_cannot_become_writable_business_after_relocation(tmp_path,outcome,relocation):
+        db,path=business(tmp_path);target=tmp_path/'archive.sqlite';cancel=Event()
+        def progress(_status,remaining,_total):
+            if remaining:return
+            if outcome=='invalidated':db.fault={'reason':'generated_fault_at_last_page'}
+            elif outcome=='cancelled':cancel.set()
+            elif outcome=='failed':raise RuntimeError('generated callback interruption')
+        if outcome=='published':assert db.backup(target)['status']=='ok';artifact=target
+        else:
+            with pytest.raises(ContractError):db.backup(target,progress=progress,cancel_event=cancel)
+            artifact=next(tmp_path.glob('archive.sqlite.partial-*'));assert not target.exists()
+        db.close();record=json.loads(next(tmp_path.glob('archive.sqlite.backup-*.json')).read_text());assert record['state']==outcome
+        if relocation=='rename':artifact=artifact.rename(tmp_path/'ordinary-business-name.data')
+        elif relocation=='copy_without_xattrs':
+            copied=tmp_path/'ordinary-copy.data';shutil.copyfile(artifact,copied);artifact=copied
+>       assert native_rows(artifact)==0;refuse(artifact);assert native_rows(artifact)==0
+
+tests/test_p037_a4_admission.py:52:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can5/ordinary-business-name.data')
+
+    def native_rows(path):
+>       with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True)) as c:return c.execute('SELECT COUNT(*) FROM probe').fetchone()[0]
+E       sqlite3.DatabaseError: file is not a database
+
+tests/test_p037_a4_admission.py:22: DatabaseError
+_ test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[rename-failed] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can6')
+outcome = 'failed', relocation = 'rename'
+
+    @pytest.mark.parametrize('outcome',['invalidated','cancelled','failed','published'])
+    @pytest.mark.parametrize('relocation',['direct','rename','copy_without_xattrs'])
+    def test_any_archive_lifecycle_cannot_become_writable_business_after_relocation(tmp_path,outcome,relocation):
+        db,path=business(tmp_path);target=tmp_path/'archive.sqlite';cancel=Event()
+        def progress(_status,remaining,_total):
+            if remaining:return
+            if outcome=='invalidated':db.fault={'reason':'generated_fault_at_last_page'}
+            elif outcome=='cancelled':cancel.set()
+            elif outcome=='failed':raise RuntimeError('generated callback interruption')
+        if outcome=='published':assert db.backup(target)['status']=='ok';artifact=target
+        else:
+            with pytest.raises(ContractError):db.backup(target,progress=progress,cancel_event=cancel)
+            artifact=next(tmp_path.glob('archive.sqlite.partial-*'));assert not target.exists()
+        db.close();record=json.loads(next(tmp_path.glob('archive.sqlite.backup-*.json')).read_text());assert record['state']==outcome
+        if relocation=='rename':artifact=artifact.rename(tmp_path/'ordinary-business-name.data')
+        elif relocation=='copy_without_xattrs':
+            copied=tmp_path/'ordinary-copy.data';shutil.copyfile(artifact,copied);artifact=copied
+>       assert native_rows(artifact)==0;refuse(artifact);assert native_rows(artifact)==0
+
+tests/test_p037_a4_admission.py:52:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can6/ordinary-business-name.data')
+
+    def native_rows(path):
+>       with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True)) as c:return c.execute('SELECT COUNT(*) FROM probe').fetchone()[0]
+E       sqlite3.DatabaseError: file is not a database
+
+tests/test_p037_a4_admission.py:22: DatabaseError
+_ test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[copy_without_xattrs-invalidated] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can8')
+outcome = 'invalidated', relocation = 'copy_without_xattrs'
+
+    @pytest.mark.parametrize('outcome',['invalidated','cancelled','failed','published'])
+    @pytest.mark.parametrize('relocation',['direct','rename','copy_without_xattrs'])
+    def test_any_archive_lifecycle_cannot_become_writable_business_after_relocation(tmp_path,outcome,relocation):
+        db,path=business(tmp_path);target=tmp_path/'archive.sqlite';cancel=Event()
+        def progress(_status,remaining,_total):
+            if remaining:return
+            if outcome=='invalidated':db.fault={'reason':'generated_fault_at_last_page'}
+            elif outcome=='cancelled':cancel.set()
+            elif outcome=='failed':raise RuntimeError('generated callback interruption')
+        if outcome=='published':assert db.backup(target)['status']=='ok';artifact=target
+        else:
+            with pytest.raises(ContractError):db.backup(target,progress=progress,cancel_event=cancel)
+            artifact=next(tmp_path.glob('archive.sqlite.partial-*'));assert not target.exists()
+        db.close();record=json.loads(next(tmp_path.glob('archive.sqlite.backup-*.json')).read_text());assert record['state']==outcome
+        if relocation=='rename':artifact=artifact.rename(tmp_path/'ordinary-business-name.data')
+        elif relocation=='copy_without_xattrs':
+            copied=tmp_path/'ordinary-copy.data';shutil.copyfile(artifact,copied);artifact=copied
+>       assert native_rows(artifact)==0;refuse(artifact);assert native_rows(artifact)==0
+
+tests/test_p037_a4_admission.py:52:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can8/ordinary-copy.data')
+
+    def native_rows(path):
+>       with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True)) as c:return c.execute('SELECT COUNT(*) FROM probe').fetchone()[0]
+E       sqlite3.DatabaseError: file is not a database
+
+tests/test_p037_a4_admission.py:22: DatabaseError
+_ test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[copy_without_xattrs-cancelled] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can9')
+outcome = 'cancelled', relocation = 'copy_without_xattrs'
+
+    @pytest.mark.parametrize('outcome',['invalidated','cancelled','failed','published'])
+    @pytest.mark.parametrize('relocation',['direct','rename','copy_without_xattrs'])
+    def test_any_archive_lifecycle_cannot_become_writable_business_after_relocation(tmp_path,outcome,relocation):
+        db,path=business(tmp_path);target=tmp_path/'archive.sqlite';cancel=Event()
+        def progress(_status,remaining,_total):
+            if remaining:return
+            if outcome=='invalidated':db.fault={'reason':'generated_fault_at_last_page'}
+            elif outcome=='cancelled':cancel.set()
+            elif outcome=='failed':raise RuntimeError('generated callback interruption')
+        if outcome=='published':assert db.backup(target)['status']=='ok';artifact=target
+        else:
+            with pytest.raises(ContractError):db.backup(target,progress=progress,cancel_event=cancel)
+            artifact=next(tmp_path.glob('archive.sqlite.partial-*'));assert not target.exists()
+        db.close();record=json.loads(next(tmp_path.glob('archive.sqlite.backup-*.json')).read_text());assert record['state']==outcome
+        if relocation=='rename':artifact=artifact.rename(tmp_path/'ordinary-business-name.data')
+        elif relocation=='copy_without_xattrs':
+            copied=tmp_path/'ordinary-copy.data';shutil.copyfile(artifact,copied);artifact=copied
+>       assert native_rows(artifact)==0;refuse(artifact);assert native_rows(artifact)==0
+
+tests/test_p037_a4_admission.py:52:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can9/ordinary-copy.data')
+
+    def native_rows(path):
+>       with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True)) as c:return c.execute('SELECT COUNT(*) FROM probe').fetchone()[0]
+E       sqlite3.DatabaseError: file is not a database
+
+tests/test_p037_a4_admission.py:22: DatabaseError
+_ test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[copy_without_xattrs-failed] _
+
+tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can10')
+outcome = 'failed', relocation = 'copy_without_xattrs'
+
+    @pytest.mark.parametrize('outcome',['invalidated','cancelled','failed','published'])
+    @pytest.mark.parametrize('relocation',['direct','rename','copy_without_xattrs'])
+    def test_any_archive_lifecycle_cannot_become_writable_business_after_relocation(tmp_path,outcome,relocation):
+        db,path=business(tmp_path);target=tmp_path/'archive.sqlite';cancel=Event()
+        def progress(_status,remaining,_total):
+            if remaining:return
+            if outcome=='invalidated':db.fault={'reason':'generated_fault_at_last_page'}
+            elif outcome=='cancelled':cancel.set()
+            elif outcome=='failed':raise RuntimeError('generated callback interruption')
+        if outcome=='published':assert db.backup(target)['status']=='ok';artifact=target
+        else:
+            with pytest.raises(ContractError):db.backup(target,progress=progress,cancel_event=cancel)
+            artifact=next(tmp_path.glob('archive.sqlite.partial-*'));assert not target.exists()
+        db.close();record=json.loads(next(tmp_path.glob('archive.sqlite.backup-*.json')).read_text());assert record['state']==outcome
+        if relocation=='rename':artifact=artifact.rename(tmp_path/'ordinary-business-name.data')
+        elif relocation=='copy_without_xattrs':
+            copied=tmp_path/'ordinary-copy.data';shutil.copyfile(artifact,copied);artifact=copied
+>       assert native_rows(artifact)==0;refuse(artifact);assert native_rows(artifact)==0
+
+tests/test_p037_a4_admission.py:52:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = PosixPath('/tmp/pytest-of-agent/pytest-33/test_any_archive_lifecycle_can10/ordinary-copy.data')
+
+    def native_rows(path):
+>       with closing(sqlite3.connect(path.as_uri()+'?mode=ro',uri=True)) as c:return c.execute('SELECT COUNT(*) FROM probe').fetchone()[0]
+E       sqlite3.DatabaseError: file is not a database
+
+tests/test_p037_a4_admission.py:22: DatabaseError
+=========================== short test summary info ============================
+FAILED tests/test_p037_a4_failure_seal.py::test_last_page_failure_seals_active_identity_before_return_and_inplace_copy[cancel]
+FAILED tests/test_p037_a4_failure_seal.py::test_last_page_failure_seals_active_identity_before_return_and_inplace_copy[exception]
+FAILED tests/test_p037_a4_failure_seal.py::test_last_page_failure_seals_active_identity_before_return_and_inplace_copy[interrupt]
+FAILED tests/test_p037_a4_admission.py::test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[direct-invalidated]
+FAILED tests/test_p037_a4_admission.py::test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[direct-cancelled]
+FAILED tests/test_p037_a4_admission.py::test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[direct-failed]
+FAILED tests/test_p037_a4_admission.py::test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[rename-invalidated]
+FAILED tests/test_p037_a4_admission.py::test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[rename-cancelled]
+FAILED tests/test_p037_a4_admission.py::test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[rename-failed]
+FAILED tests/test_p037_a4_admission.py::test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[copy_without_xattrs-invalidated]
+FAILED tests/test_p037_a4_admission.py::test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[copy_without_xattrs-cancelled]
+FAILED tests/test_p037_a4_admission.py::test_any_archive_lifecycle_cannot_become_writable_business_after_relocation[copy_without_xattrs-failed]
+12 failed, 41 passed in 7.84s

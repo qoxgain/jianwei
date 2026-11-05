@@ -35,10 +35,10 @@ def main():
                 expect(page.locator('#runs tr')).to_have_count(4)
                 page.get_by_label('容量',exact=True).select_option('1');expect(page.locator('#runs tr')).to_have_count(0)
                 expect(page.locator('#selection')).to_contain_text('未测量，不补造数据')
-                for group,count in [('all',50),('isolation',11),('admission',22),('performance_policy',17)]:
+                for group,count in [('all',55),('isolation',11),('admission',22),('performance_policy',17),('failure_seal',5)]:
                     page.get_by_label('专项',exact=True).select_option(group);expect(page.locator('#tests tr')).to_have_count(count)
                 page.locator('details').evaluate('(e)=>e.open=true')
-                expect(page.locator('#failures tr')).to_have_count(expected['performance']['summary']['failed']+expected['initial_performance']['summary']['failed'])
+                expect(page.locator('#failures tr')).to_have_count(expected['performance']['summary']['failed']+expected['initial_performance']['summary']['failed']+expected['intermediate_performance']['summary']['failed'])
                 with page.expect_download() as download:page.get_by_role('button',name='下载全部实际执行证据',exact=True).click()
                 download.value.save_as(out/(mode+'.json'));assert json.loads((out/(mode+'.json')).read_text())==expected
                 for label,value in [('容量','79'),('日志','DELETE'),('写者','1'),('备份','false'),('状态','false'),('专项','all')]:
@@ -47,8 +47,8 @@ def main():
                 page.screenshot(path=str(out/(mode+'.png')),full_page=True,animations='disabled')
             assert not errors and all(r==url or r.startswith('blob:') for r in requests),(errors,requests)
             result={'passed':True,'browser':browser.version,'desktop_mobile':True,'performance_filters':True,
-                'all_failures_visible':expected['performance']['summary']['failed']+expected['initial_performance']['summary']['failed'],
-                'all_50_new_test_filters':True,
+                'all_failures_visible':expected['performance']['summary']['failed']+expected['initial_performance']['summary']['failed']+expected['intermediate_performance']['summary']['failed'],
+                'all_55_new_test_filters':True,
                 'unmeasured_not_fabricated':True,'exact_export':True,'api_or_remote_requests':0,'page_errors':errors,
                 'original_corrupt_copy':'blocked_missing_original','fault_state_architecture_status':'pending_independent_review',
                 'stage_b_started':False,'html_sha256':hashlib.sha256((source/'index.html').read_bytes()).hexdigest()}

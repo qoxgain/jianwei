@@ -4,20 +4,20 @@
 ........................................................................ [ 37%]
 ........................................................................ [ 47%]
 ........................................................................ [ 56%]
-........................................................................ [ 66%]
+........................................................................ [ 65%]
 ........................................................................ [ 75%]
-........................................................................ [ 85%]
+........................................................................ [ 84%]
 ........................................................................ [ 94%]
-........................................                                 [100%]
+.............................................                            [100%]
 =============================== warnings summary ===============================
 .venv/lib/python3.12/site-packages/starlette/testclient.py:37
   /workspace/jianwei/.venv/lib/python3.12/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
     _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
 
 tests/test_sqlite_reliability.py::test_fork_rejects_parent_connection_and_parent_remains_usable
-  /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=141665) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=151914) is multi-threaded, use of fork() may lead to deadlocks in the child.
     self.pid = os.fork()
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 -- generated xml file: /workspace/jianwei/artifacts/p037-a4/backend-junit.xml --
-760 passed, 2 warnings in 209.37s (0:03:29)
+765 passed, 2 warnings in 221.97s (0:03:41)

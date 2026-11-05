@@ -37,12 +37,13 @@ def main():
     if a.verify_only:print(json.dumps(verify()));return
     e=a.evidence.resolve();tree=E.parse(e/'backend-junit.xml')
     totals={k:sum(int(s.get(k,'0')) for s in tree.findall('.//testsuite')) for k in ['tests','failures','errors','skipped']}
-    assert totals['tests']>=760 and not totals['failures'] and not totals['errors']
+    assert totals['tests']>=765 and not totals['failures'] and not totals['errors']
     tests=[{'module':t.get('classname'),'name':t.get('name'),'status':'skipped' if t.find('skipped') is not None else 'passed'}
         for t in tree.findall('.//testcase') if t.get('classname','').startswith('tests.test_p037_a4_')]
-    assert len(tests)>=50 and all(t['status']=='passed' for t in tests)
-    performance=json.loads((e/'performance-final/results.json').read_text());assert len(performance['runs'])==performance['summary']['runs']==144
+    assert len(tests)>=55 and all(t['status']=='passed' for t in tests)
+    performance=json.loads((e/'performance-release/results.json').read_text());assert len(performance['runs'])==performance['summary']['runs']==144
     initial=json.loads((e/'performance-main/results.json').read_text());assert len(initial['runs'])==initial['summary']['runs']==144
+    intermediate=json.loads((e/'performance-final/results.json').read_text());assert intermediate['summary']['runs']==144
     assert sum(r['status']!='passed' for r in performance['runs'])==performance['summary']['failed']
     for r in performance['runs']:
         if r['spec']['quarantined']:assert r['committed']==0
@@ -51,17 +52,19 @@ def main():
     front=re.search(r'Tests\s+(\d+) passed',(e/'frontend.log').read_text());reference=re.search(r'Ran (\d+) tests',(e/'reference.log').read_text())
     assert front and reference and '\nOK\n' in (e/'reference.log').read_text()
     for f in ['build.log','build-demo.log']:assert 'built in ' in (e/f).read_text()
-    records={name:json.loads((e/path).read_text()) for name,path in [('protocol','browser-protocol-final/protocol-browser.json'),
-        ('media','browser-media-final/results.json')]};assert all(r['passed'] for r in records.values())
+    records={name:json.loads((e/path).read_text()) for name,path in [('protocol','browser-protocol-release/protocol-browser.json'),
+        ('media','browser-media-release/results.json')]};assert all(r['passed'] for r in records.values())
     sources=['infra/database.py','infra/sqlite_isolation.py','infra/sqlite_admission.py','infra/sqlite_guard.py',
-        'infra/sqlite_backup.py','infra/sqlite_health.py','infra/sqlite_connection.py','packages/contracts/database.py',
+        'infra/sqlite_backup.py','infra/sqlite_backup_artifacts.py','infra/sqlite_health.py','infra/sqlite_connection.py','packages/contracts/database.py',
         'packages/temporal_jobs/service.py','scripts/benchmark_sqlite_a4.py']
     payload=browser_safe({'stage':'P0.3.7-A.4','baseline':'fb69646336eb6346ea3cec498a08856a80a34e60',
         'tested_source_head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         'source_sha256':{s:sha(ROOT/s) for s in sources},'backend':totals,'counterexample_tests':tests,
         'frontend_passed':int(front[1]),'reference_passed':int(reference[1]),'builds':['production','demo'],
         'records':records,'baseline_counterexample':json.loads((e/'baseline/results.json').read_text()),
-        'performance':performance,'initial_performance':initial,
+        'performance':performance,'initial_performance':initial,'intermediate_performance':intermediate,
+        'last_page_before':json.loads((e/'last-page-admission-review/results.json').read_text()),
+        'last_page_after':json.loads((e/'last-page-admission-fixed/results.json').read_text()),
         'post_performance_failure_checks':json.loads((e/'performance-failure-checks.json').read_text()),
         'original_corrupt_copy':'blocked_missing_original','independent_original_available':False,
         'original_corruption_root_cause':'root_cause_not_established','fault_state_architecture_status':'pending_independent_review',
@@ -71,12 +74,14 @@ def main():
         'prior_a2_media_cache_case':'not_rerun; limitation_unchanged','stage_b_started':False,'p04_admitted':False,'independent_acceptance':'pending'})
     save(OUT/'verification.json',payload);save(OUT/'performance-results.json',performance)
     save(OUT/'performance-initial-results.json',initial)
+    save(OUT/'performance-intermediate-results.json',intermediate)
     save(OUT/'performance-failure-checks.json',payload['post_performance_failure_checks'])
     log_acquisition={}
     for name in ['backend-junit.xml','backend-full.log','frontend.log','reference.log','build.log','build-demo.log',
         'isolation.log','admission-first.log','admission-regression.log','admission-final.log','admission-release.log',
         'policy.log','policy-release.log','monitor-release.log','baseline.log','performance-main.log','performance-final.log',
-        'backend-schema-first.log','schema-migration-release.log']:
+        'backend-schema-first.log','schema-migration-release.log','failure-seal-first.log','failure-seal-final.log',
+        'performance-release.log']:
         original=(e/name).read_bytes();target=OUT/'tests'/name;target.parent.mkdir(exist_ok=True)
         if name.endswith('.log'):
             plain=re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]','',original.decode())
@@ -87,7 +92,7 @@ def main():
     save(OUT/'tests/log-acquisition.json',log_acquisition)
     for name,r in records.items():save(OUT/'records'/(name+'.json'),r)
     for name in ['desktop.png','mobile.png']:
-        target=OUT/'browser'/name;target.parent.mkdir(exist_ok=True);target.write_bytes((e/'browser-media-final'/name).read_bytes())
+        target=OUT/'browser'/name;target.parent.mkdir(exist_ok=True);target.write_bytes((e/'browser-media-release'/name).read_bytes())
     html=(ROOT/'demo/stage-a4-evidence.html').read_text().replace('__DATA__',json.dumps(payload,ensure_ascii=False,separators=(',',':')).replace('<','\\u003c'))
     files={'index.html':html.encode(),'evidence.json':(OUT/'verification.json').read_bytes(),
         '使用说明.txt':('解压后使用本地HTTP预览：在解压目录运行 python -m http.server 18064 --bind 127.0.0.1，打开 http://127.0.0.1:18064/index.html。\n'

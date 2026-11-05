@@ -1,0 +1,11 @@
+{
+  "generated_only": true,
+  "code_commit": "4c13aebde6e722af4f4e23da3c34470b102c82fc",
+  "backup_error": "DATABASE_BACKUP_CANCELLED",
+  "cancelled_partial_embedded_role": "Backup",
+  "new_managed_write": "DATABASE_RESTORE_REVIEW_REQUIRED",
+  "rows_after": [],
+  "untouched_raw_evidence_preserved": true,
+  "originals_used": false,
+  "same_inode_inplace_copy_test": true
+}
