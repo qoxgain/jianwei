@@ -90,7 +90,7 @@
     "tests/fixtures/v30/config/system.yaml": "f5df4449b0868510c2bfc9d7cfaa41d90ad40d5b84d79003dad6abe4cd92f25c",
     "tests/fixtures/v31-parity.json": "01f260506dc73a0a5c29676113ec2e89146f8260f9c908c94a596bd1d0855d56",
     "apps/web/src/data/localMotionStatistics.json": "b0efcfd64690caf1ed42ab1d96b1280ab75fc54576ffb7dc9fe18ccaffbe802a",
-    "apps/web/src/AnnotationPanel.tsx": "1de75df205eb0d33a4236f46152f4208078e04de09c79436ee66f2ac9e56a4c3",
+    "apps/web/src/AnnotationPanel.tsx": "0e7b0e24de2145b6d32494ac159c04daf8a639a67101a09d4ae71c6b6f2b3f54",
     "apps/web/src/annotation.ts": "d0ef2b4914913e6eeb057f4c197d96697ad6615a551118972828a8791ef84938",
     "apps/web/src/data/annotationDemoSource.json": "19a295daaee029fb6e5f86e3c1145865f4fbd0346cca58e523e5810d5770df7c",
     "apps/web/src/annotation.test.tsx": "afe32006a67e8c4c8eeb45d2d881143d644d0a77463b09efcab5701dab9d137c"

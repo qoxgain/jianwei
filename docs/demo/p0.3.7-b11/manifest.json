@@ -1,0 +1,33 @@
+{
+  "archive_sha256": "f839ff6fdfd70b4b10b8546ef2adf03a1b9d5a27422c8c2faa2bfe40bcea68ca",
+  "files": {
+    "index.html": {
+      "sha256": "dd1a0dd48393a115b1f20dfcc030a0b4bdbe07a88c433453f34ad17c95c80d6d",
+      "bytes": 24276259
+    },
+    "static/brand-mark.svg": {
+      "sha256": "e1ad8ace009192189f27ee9c0b7e739e0affda234b9cbbb468c709b5c06a86de",
+      "bytes": 262
+    },
+    "synthetic-source.json": {
+      "sha256": "19a295daaee029fb6e5f86e3c1145865f4fbd0346cca58e523e5810d5770df7c",
+      "bytes": 15165
+    },
+    "performance-aggregate.json": {
+      "sha256": "5ce5f025a42a84da47ebc36c4f13c5d1a6f77c3a8d51ea5bc984c62ffa5cd5e0",
+      "bytes": 2891
+    },
+    "generate_practice.py": {
+      "sha256": "7fcdf192b699c447cde24d8f5078d264bd29abde1cf4e853502b7afdd66ae19f",
+      "bytes": 3541
+    },
+    "\u4eba\u5de5\u64cd\u4f5c\u6e05\u5355.md": {
+      "sha256": "53c37973b1eded9167c6f079255a1cfb220db4670059c0dee10e25854a18d964",
+      "bytes": 5790
+    },
+    "\u4f7f\u7528\u8bf4\u660e.txt": {
+      "sha256": "ccb007125271ac1c1c25a6fea8484ae26756107eda38ec7402c250813ef8f4e8",
+      "bytes": 1257
+    }
+  }
+}

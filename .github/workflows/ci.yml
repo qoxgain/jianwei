@@ -186,6 +186,23 @@ jobs:
         run: python tests/browser_b1.py --chromium "$(command -v google-chrome)" --output artifacts/p037-b1-ci/browser --report artifacts/p037-b1-ci/report.json --video artifacts/p037-b1-ci/runtime/generated.mp4
       - name: B.1 reproducible public Demo archive
         run: python -m scripts.package_b1_demo --verify-only
+      - name: B.1.1 source-only PTS packet, no algorithm hints
+        run: python -m scripts.prepare_b11_annotation --config artifacts/p037-b1-ci/runtime/config/system.yaml --output artifacts/p037-b1-ci/b11-source.json
+      - name: B.1.1 standalone practice generator without model dependencies
+        run: python demo/generate_b11_practice.py --output artifacts/p037-b1-ci/b11-practice
+      - name: B.1.1 blind annotation, full tail, cross-language seals, fixed evaluation and second-rater differences
+        run: python tests/browser_b11.py --chromium "$(command -v google-chrome)" --output artifacts/p037-b1-ci/b11-browser --source artifacts/p037-b1-ci/b11-practice/source.json --video artifacts/p037-b1-ci/b11-practice/generated.mp4 --report artifacts/p037-b1-ci/report.json
+      - name: B.1.1 reviewed annotation Demo, no industrial PTS or labels
+        run: python -m scripts.package_b11_demo --verify-only
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b11-synthetic-annotation-verification
+          path: |
+            artifacts/p037-b1-ci/b11-source.json
+            artifacts/p037-b1-ci/b11-browser/results.json
+            artifacts/p037-b1-ci/b11-browser/*-synthetic-annotations.json
+            artifacts/p037-b1-ci/b11-browser/*-synthetic-evaluation.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
