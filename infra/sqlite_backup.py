@@ -130,12 +130,30 @@ def backup(owner,target,*,cancel_event=None,progress=None,phase_observer=None):
         return {'status':'ok','sha256':state['sha256'],'bytes':state['bytes'],
             'original_overwritten':False,'receipt':str(receipt),'operation_id':operation}
     except BaseException as error:
+        original_failure=type(error).__name__;copy_error=isinstance(error,sqlite3.DatabaseError)
+        # Remove only this operation's not-yet-acknowledged publication BEFORE
+        # changing staging provenance; never mutate another/historical target.
+        if published and staging.exists() and target.exists() and target.stat().st_ino==staging.stat().st_ino:
+            target.unlink();published=False
+        # A DONE progress callback may cancel/raise after SQLite has copied a
+        # completely valid Active source identity. Close/unwind first, then seal
+        # ALL leftover artifacts before returning failure to an ordinary caller.
+        if staging.exists():
+            from infra.sqlite_backup_artifacts import seal_failed
+            try:state['failed_artifact']=seal_failed(staging,operation,settings.timeout_seconds)
+            except BaseException as sealing_error:
+                state['artifact_seal_error']=type(sealing_error).__name__
+                try:owner.fault={'reason':'backup_artifact_sealing_failed','classification':'admission_safety_stop',
+                    'root_cause':'not_established','operation_id':operation}
+                except ContractError:pass # Persistent intent may be pending; never resume normal writes.
+                error=ContractError('DATABASE_BACKUP_SEAL_FAILED','失败备份无法安全封装；已关闭产物访问并停止源业务准入，须停止服务离线处置')
         # A corrupt copy alone does not prove a corrupt source. Confirm source
         # separately after SQLite resources have unwound, never under commit_gate.
-        if isinstance(error,sqlite3.DatabaseError):
-            state['copy_exception_type']=type(error).__name__
+        if copy_error:
+            state['copy_exception_type']=original_failure
             try:source_check('after_copy_error')
-            except ContractError as diagnosed:error=diagnosed
+            except ContractError as diagnosed:
+                if getattr(error,'code',None)!='DATABASE_BACKUP_SEAL_FAILED':error=diagnosed
         # Undo only this operation's link if final receipt failed. Existing files
         # and earlier valid backups are never overwritten or removed.
         if published and staging.exists() and target.exists() and target.stat().st_ino==staging.stat().st_ino:target.unlink()

@@ -1,0 +1,15 @@
+{
+  "generated_only": true,
+  "code_commit": "579bacb",
+  "backup_error": "DATABASE_BACKUP_CANCELLED",
+  "cancelled_partial_embedded_role": "Active",
+  "operation": "external_in_place_copy_after_closing_business; controls_unchanged",
+  "new_managed_write": "committed",
+  "rows_after": [
+    [
+      9
+    ]
+  ],
+  "scope": "manual raw replacement is beyond supported restore API; artifact closure review",
+  "originals_used": false
+}
