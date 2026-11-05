@@ -1,0 +1,96 @@
+{
+  "stage": "P0.3.7-B.1.1",
+  "code_commit": "3fb590df16d023a26501da08f20a3df2bc1128c9",
+  "backend_local": {
+    "tests": 914,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_backend_tests": 23,
+  "frontend_passed": 115,
+  "new_frontend_tests": 10,
+  "reference_passed": 29,
+  "production_and_demo_builds": "passed",
+  "demo_html_sha256": "dd1a0dd48393a115b1f20dfcc030a0b4bdbe07a88c433453f34ad17c95c80d6d",
+  "demo_zip_sha256": "f839ff6fdfd70b4b10b8546ef2adf03a1b9d5a27422c8c2faa2bfe40bcea68ca",
+  "browser_aggregate": [
+    {
+      "mode": "desktop",
+      "passed": true,
+      "pts_locations_tested": 7,
+      "max_industrial_frame_receipt_error_ms": 0.333,
+      "max_synthetic_frame_receipt_error_ms": 0.5,
+      "blind_dom_contains_predictions": false,
+      "cross_language_seal_and_evaluation": true,
+      "full_tail_required": true,
+      "reload_preserves_sealed_revision": true,
+      "second_synthetic_rater_disagreement_preserved": true,
+      "cross_source_rejected": true,
+      "post_exposure_draft_assisted": true,
+      "industrial_human_boundaries_created": 0,
+      "api_or_remote_requests": 0,
+      "page_errors": []
+    },
+    {
+      "mode": "mobile",
+      "passed": true,
+      "pts_locations_tested": 7,
+      "max_industrial_frame_receipt_error_ms": 0.333,
+      "max_synthetic_frame_receipt_error_ms": 0.5,
+      "blind_dom_contains_predictions": false,
+      "cross_language_seal_and_evaluation": true,
+      "full_tail_required": true,
+      "reload_preserves_sealed_revision": true,
+      "second_synthetic_rater_disagreement_preserved": true,
+      "cross_source_rejected": true,
+      "post_exposure_draft_assisted": true,
+      "industrial_human_boundaries_created": 0,
+      "api_or_remote_requests": 0,
+      "page_errors": []
+    }
+  ],
+  "standalone_generator": {
+    "passed": true,
+    "model_weights_required": false,
+    "project_python_packages_required": false,
+    "external_dependency": "FFmpeg/FFprobe; tested on actually encoded 192-frame rectangle video",
+    "cross_language_source_digest": "passed",
+    "synthetic_browser": "passed"
+  },
+  "preservation": {
+    "original_video_feature_report_hashes_match": true,
+    "original_b1_archive_unchanged": true,
+    "original_primary_candidates": 36,
+    "original_threshold_unchanged": true,
+    "new_human_industrial_boundaries": 0,
+    "formal_test_data_consumed": false
+  },
+  "human_industrial_boundaries": 0,
+  "human_industrial_precision": null,
+  "human_industrial_recall": null,
+  "human_industrial_f1": null,
+  "background_posthoc_new_pure_roi_experiment": "blocked_no_full_human_clearance",
+  "source_pts_annotations_windows_environment_details": "private_local_artifacts_only_not_published",
+  "failed_attempts": [
+    {
+      "case": "TypeScript fork return state narrowed too far",
+      "resolution": "explicit AnnotationDoc return; original test retained"
+    },
+    {
+      "case": "TypeScript seal return narrowed too far in test revision",
+      "resolution": "explicit AnnotationDoc return; original test retained"
+    }
+  ],
+  "ci": {
+    "status": "completed",
+    "conclusion": "success",
+    "code_commit": "3fb590df16d023a26501da08f20a3df2bc1128c9",
+    "url": "https://github.com/qoxgain/jianwei/actions/runs/42064375585",
+    "counts": "ci.json"
+  },
+  "independent_generalization": false,
+  "b2_started": false,
+  "p04_admitted": false,
+  "user_acceptance": "pending"
+}

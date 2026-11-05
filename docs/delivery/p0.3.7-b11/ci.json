@@ -1,0 +1,62 @@
+{
+  "code_commit": "3fb590df16d023a26501da08f20a3df2bc1128c9",
+  "url": "https://github.com/qoxgain/jianwei/actions/runs/42064375585",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "foundation",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/42064375585/job/127374326767"
+    },
+    {
+      "name": "pretrained-encoder",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/42064375585/job/127374326931"
+    },
+    {
+      "name": "browser",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/42064375585/job/127374327165"
+    }
+  ],
+  "foundation": {
+    "tests": 914,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 3,
+    "passed": 911
+  },
+  "foundation_skip_reason": "three official preprocessing comparisons require torch; torch absent in foundation; covered in separate encoder job",
+  "official_encoder": {
+    "tests": 9,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 9
+  },
+  "frontend_passed": 115,
+  "reference_passed": 29,
+  "production_and_demo_builds": "passed",
+  "b11_generated_pipeline": {
+    "passed": true,
+    "browser": "156.0.8078.79",
+    "modes": 2,
+    "evidence_class": "synthetic_engineering",
+    "evaluated_methods": 14,
+    "status": "evaluated_synthetic_engineering_only",
+    "standalone_practice_generator": "passed",
+    "cross_language_seals": "passed",
+    "b11_archive": "passed",
+    "build_sha256": "dd1a0dd48393a115b1f20dfcc030a0b4bdbe07a88c433453f34ad17c95c80d6d"
+  },
+  "industrial_human_precision": null,
+  "industrial_human_recall": null,
+  "industrial_human_f1": null,
+  "independent_acceptance": "pending_human_annotations_and_user_review",
+  "raw_industrial_or_environment_details_published": false,
+  "b2_started": false,
+  "p04_admitted": false
+}
