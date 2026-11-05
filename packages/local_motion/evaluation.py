@@ -79,7 +79,7 @@ def evaluate(source,report,document,*,report_file_sha256,code_identity,baseline=
             result['tolerance_sensitivity']=[metrics(predictions,a['boundaries'],a,t,s['last_pts_end_ms']) for t in [250,1000]]
         else:result.update(precision=None,recall=None,f1=None,reason=a['reason'])
         results.append(result)
-    return {'schema':'b11-frozen-boundary-evaluation-v1','status':'evaluated_retrospective_development_only' if eligible else 'blocked',
+    return {'schema':'b11-frozen-boundary-evaluation-v1','status':('evaluated_synthetic_engineering_only' if source['evidence_class']=='synthetic_engineering' else 'evaluated_retrospective_development_only') if eligible else 'blocked',
         'evidence_class':source['evidence_class'],'report_file_sha256':report_file_sha256,'candidate_run_id':report['run_id'],'recipe_hash':report['recipe_hash'],
         'source_sha256':s['sha256'],'descriptor_hash':source['descriptor_hash'],'code_identity':code_identity,
         'annotation':a,'methods':results,'primary_tolerance_ms':500,'threshold_selection_performed':False,

@@ -8,17 +8,26 @@ from packages.knowledge.service import content_hash
 from packages.local_motion.annotation import validate_source
 
 
+def frames_from_probe(raw):
+    """Explicit duration evidence, allowing only millisecond rounding joins."""
+    times=[float(f['best_effort_timestamp_time']) for f in raw];starts=[round(t*1000) for t in times];frames=[]
+    for i,f in enumerate(raw):
+        duration=float(f.get('duration_time',f.get('pkt_duration_time','0')))
+        if duration<=0:raise ValueError('Explicit positive frame duration required; do not guess gaps')
+        observed_end=round((times[i]+duration)*1000)
+        if i+1<len(starts) and abs(observed_end-starts[i+1])>1:raise ValueError('PTS duration gap/overlap requires separate domains; not a held frame guess')
+        frames.append({'index':i,'pts_ms':starts[i],'end_ms':starts[i+1] if i+1<len(starts) else observed_end})
+    return frames
+
+
 def prepare(config,output):
     bundle=load_bundle(config);path=admission(bundle);s=bundle.config.local_motion;geometry_check(path,bundle.config.ingestion,s)
     raw=json.loads(_run(['ffprobe','-v','error','-protocol_whitelist','file,pipe','-select_streams','v:0','-show_frames',
         '-show_entries','frame=best_effort_timestamp_time,pkt_duration_time,duration_time','-of','json',str(path)],bundle.config.ingestion.probe_timeout_seconds))['frames']
-    starts=[round(float(f['best_effort_timestamp_time'])*1000) for f in raw]
-    last_duration=round(float(raw[-1].get('duration_time',raw[-1].get('pkt_duration_time','0')))*1000)
-    if last_duration<=0:raise ValueError('Last frame duration unavailable; do not guess frame timing')
-    frames=[{'index':i,'pts_ms':t,'end_ms':starts[i+1] if i+1<len(starts) else t+last_duration} for i,t in enumerate(starts)]
+    frames=frames_from_probe(raw)
     result={'schema':'b11-annotation-source-v1','evidence_class':s.evidence_class,
         'source':{'asset_id':s.source_id,'sha256':s.source_sha256,'bytes':path.stat().st_size,'width':s.display_width,'height':s.display_height,
-            'first_pts_ms':starts[0],'last_pts_end_ms':frames[-1]['end_ms']},'frames':frames,
+            'first_pts_ms':frames[0]['pts_ms'],'last_pts_end_ms':frames[-1]['end_ms']},'frames':frames,
         'annotation_protocol':'source-only full PTS; no algorithm, candidate, response or run included',
         'clock_mapping':'browser_currentTime_plus_first_pts; verify observed mediaTime; gaps/nonmonotonic PTS rejected'}
     result['descriptor_hash']=content_hash(result);validate_source(result)

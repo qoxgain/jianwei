@@ -6,7 +6,7 @@
   },
   "files": {
     "apps/web/index.html": "fbf2f54996711d13920eee288007f1afcd9ff337645c40780441d3cb908c7d24",
-    "apps/web/src/App.tsx": "88c6d42847ee7a352d0bfe11e521f22f2df22b341fe759485fe46ac2e952a48b",
+    "apps/web/src/App.tsx": "09d48be3e7357d51f00140ff7ab9299b0dbdeac18820e4d34640d2dadaf133a9",
     "apps/web/src/FormField.tsx": "f2047bb910a1deb8739bc8d1755e8792b41aaaa38343091132a5021cd5495e41",
     "apps/web/src/ImportExplorationPanel.tsx": "a0f5acf059aff19e4ac3a3ab9e4009865e58c7c09184c5fae5d2f02c37efbc5d",
     "apps/web/src/IngestionPanel.tsx": "e738b2497ea05fbb8e666fc5063adbfc7d40bf547791eaa3b55f6adba2a3f526",
@@ -47,7 +47,7 @@
     "apps/web/src/service.ts": "9a0500afebcd98dcc92fc0b523fca5a7334a86bdad232a2e14fab50466c7c046",
     "apps/web/src/sop.test.ts": "bef2fd53a42584ff3c6c540aaeb3ff52c5581a714419936c0553b19a831f6ef6",
     "apps/web/src/sopService.ts": "1f3f12f08c75ea6714856781a6de49161445fab41b7c8030a020675a5c6e2078",
-    "apps/web/src/styles.css": "79e59efbbfaff8c4e7e1ca06cc0701af1c0d65d17b4878773edb4e26fe3e4ad1",
+    "apps/web/src/styles.css": "27188131934865088989ce246b46c1fb87a71f69170926889342a1241cbc64aa",
     "apps/web/src/temporal.test.ts": "3dec77dd404d7065e2af06a235b774c84f750880543b81867c2612946d62f062",
     "apps/web/src/temporalExample.json": "505303ae665a4a9e3f3feb851b880447878d503fe95a5be844009b72079e87d6",
     "apps/web/src/temporalService.ts": "d5c0aee815db4772758a1e17930b247cb2168a6606843738f837acf821b1b811",
@@ -89,7 +89,11 @@
     "schemas/temporal_train_request.schema.json": "ec9c0933be27ab8cb8cd4b753b8638f0ccb56d6711da8b9f963803d4d11027f5",
     "tests/fixtures/v30/config/system.yaml": "f5df4449b0868510c2bfc9d7cfaa41d90ad40d5b84d79003dad6abe4cd92f25c",
     "tests/fixtures/v31-parity.json": "01f260506dc73a0a5c29676113ec2e89146f8260f9c908c94a596bd1d0855d56",
-    "apps/web/src/data/localMotionStatistics.json": "b0efcfd64690caf1ed42ab1d96b1280ab75fc54576ffb7dc9fe18ccaffbe802a"
+    "apps/web/src/data/localMotionStatistics.json": "b0efcfd64690caf1ed42ab1d96b1280ab75fc54576ffb7dc9fe18ccaffbe802a",
+    "apps/web/src/AnnotationPanel.tsx": "1de75df205eb0d33a4236f46152f4208078e04de09c79436ee66f2ac9e56a4c3",
+    "apps/web/src/annotation.ts": "d0ef2b4914913e6eeb057f4c197d96697ad6615a551118972828a8791ef84938",
+    "apps/web/src/data/annotationDemoSource.json": "19a295daaee029fb6e5f86e3c1145865f4fbd0346cca58e523e5810d5770df7c",
+    "apps/web/src/annotation.test.tsx": "afe32006a67e8c4c8eeb45d2d881143d644d0a77463b09efcab5701dab9d137c"
   },
   "dependencies": {
     "apps/web/node_modules/ajv/package.json": "1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989",

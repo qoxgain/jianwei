@@ -32,7 +32,7 @@ class AnnotationDocument(Strict):
     annotation_id:str=Field(min_length=1,max_length=100)
     source_sha256:str=Field(pattern=SHA)
     descriptor_hash:str=Field(pattern=SHA)
-    annotator:str=Field(min_length=1,max_length=100)
+    annotator:str=Field(max_length=100)
     mode:Literal['blind','assisted']
     evidence_class:Literal['synthetic_engineering','development_exploration']
     start_ms:int=Field(ge=0)
@@ -69,6 +69,7 @@ def subtract(start,end,excluded):
 
 def validate_source(source):
     if source.get('schema')!='b11-annotation-source-v1':raise ContractError('ANNOTATION_SOURCE','Unsupported source descriptor')
+    if set(source)-{'schema','source','evidence_class','frames','annotation_protocol','clock_mapping','descriptor_hash'}:raise ContractError('ANNOTATION_SOURCE','Blind source packet cannot contain algorithm data')
     identity={k:v for k,v in source.items() if k!='descriptor_hash'}
     if content_hash(identity)!=source.get('descriptor_hash'):raise ContractError('ANNOTATION_SOURCE_CHANGED','源描述哈希不符')
     frames=source.get('frames',[]);s=source['source']
@@ -127,15 +128,17 @@ def compile_annotations(source,document):
     missing=subtract(d.start_ms,d.end_ms,reviewed);excluded=union([(v['start_ms'],v['end_ms']) for v in intervals.values() if v['kind'] in {'uncertain','occluded'}])
     valid=subtract(d.start_ms,d.end_ms,excluded);duration=d.end_ms-d.start_ms
     if d.status=='sealed':
+        if not d.annotator.strip():raise ContractError('ANNOTATION_SEAL','封存版本必须记录真实标注人员')
         if d.sealed_at is None:raise ContractError('ANNOTATION_SEAL','Missing seal timestamp')
         seal_time=AnnotationEvent.timestamp(d.sealed_at)
         if datetime.fromisoformat(seal_time.replace('Z','+00:00'))<datetime.fromisoformat(last_time.replace('Z','+00:00')):raise ContractError('ANNOTATION_SEAL','Seal predates last operation')
         if content_hash({k:v for k,v in document.items() if k!='sealed_hash'})!=d.sealed_hash:raise ContractError('ANNOTATION_SEAL','Sealed revision was modified')
-    eligible=d.status=='sealed' and d.coverage_complete and not missing and bool(valid) and d.human_attestation
+    coincident=len({v['pts_ms'] for v in boundaries.values()})!=len(boundaries)
+    eligible=d.status=='sealed' and d.coverage_complete and not missing and bool(valid) and d.human_attestation and not coincident
     return {'annotation_id':d.annotation_id,'annotation_hash':content_hash(document),'sealed_hash':d.sealed_hash,'revision':d.revision,
         'annotator':d.annotator,'annotation_mode':d.mode,'status':d.status,'evidence_class':d.evidence_class,
         'boundaries':sorted(boundaries.values(),key=lambda v:(v['pts_ms'],v['id'])),'intervals':list(intervals.values()),
         'reviewed':reviewed,'unreviewed':missing,'excluded':excluded,'valid_intervals':valid,
         'coverage_ratio':1-sum(b-a for a,b in missing)/duration,'uncertain_or_occluded_ratio':sum(b-a for a,b in excluded)/duration,
-        'eligible_for_evaluation':eligible,'reason':None if eligible else 'REQUIRES_SEALED_COMPLETE_HUMAN_REVIEW',
+        'eligible_for_evaluation':eligible,'reason':None if eligible else 'COINCIDENT_HUMAN_BOUNDARIES_REQUIRE_ADJUDICATION' if coincident else 'REQUIRES_SEALED_COMPLETE_HUMAN_REVIEW',
         'audit_log_is_self_reported':True,'independent_generalization':False}

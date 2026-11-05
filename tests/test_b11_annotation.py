@@ -61,7 +61,7 @@ def test_missing_final_half_second_cannot_pass_full_coverage():
 
 
 def test_full_synthetic_annotation_uses_frozen_primary_and_all_methods_same_scope():
-    out=run(complete());assert out['status']=='evaluated_retrospective_development_only'
+    out=run(complete());assert out['status']=='evaluated_synthetic_engineering_only'
     primary=next(m for m in out['methods'] if m['method']=='local_combined_original')
     assert primary['f1']==1 and primary['boundary_error_mae_ms']==0
     assert all(m['evaluated_duration_ms']==12000 for m in out['methods'])
@@ -158,3 +158,27 @@ def test_empty_exhaustive_truth_is_not_a_fabricated_perfect_f1():
 def test_interval_union_is_exact_and_does_not_discard_unreviewed_tail():
     assert union([(100,200),(0,150),(300,400)])==[(0,200),(300,400)]
     assert subtract(0,500,[(0,200),(300,400)])==[(200,300),(400,500)]
+
+
+def test_coincident_typed_boundaries_require_human_resolution_not_automatic_truth_merge():
+    d=complete();d['status']='draft';pts=d['events'][1]['pts_ms'];event(d,'boundary_add',pts_ms=pts,kind='offset');seal(d)
+    out=run(d);assert out['status']=='blocked' and len(out['annotation']['boundaries'])==len(d['events'])-1
+    assert out['annotation']['reason']=='COINCIDENT_HUMAN_BOUNDARIES_REQUIRE_ADJUDICATION'
+
+
+def test_explicit_frame_duration_cannot_bridge_a_real_pts_gap():
+    from scripts.prepare_b11_annotation import frames_from_probe
+    raw=[{'best_effort_timestamp_time':str(t),'duration_time':'.04'} for t in [0,.04,.12]]
+    with pytest.raises(ValueError,match='gap/overlap'):frames_from_probe(raw)
+
+
+def test_variable_frame_durations_and_rounding_are_not_replaced_by_average_fps():
+    from scripts.prepare_b11_annotation import frames_from_probe
+    raw=[{'best_effort_timestamp_time':'0','duration_time':'.04'},
+        {'best_effort_timestamp_time':'.04','duration_time':'.06'},{'best_effort_timestamp_time':'.1','duration_time':'.05'}]
+    assert [r['end_ms'] for r in frames_from_probe(raw)]==[40,100,150]
+
+
+def test_missing_frame_duration_is_blocked_instead_of_guessed():
+    from scripts.prepare_b11_annotation import frames_from_probe
+    with pytest.raises(ValueError,match='duration required'):frames_from_probe([{'best_effort_timestamp_time':'0'}])

@@ -49,3 +49,7 @@
 @media(max-width:600px){.lm-series-controls{grid-template-columns:1fr}.lm-toolbar>*{width:100%}.lm-version{grid-template-columns:1fr;gap:6px}.lm-version dd{margin-bottom:8px}.lm-notice{font-size:12px}.lm-box-fields{gap:6px}.lm-fields .button{font-size:12px}}
 
 .lm-panel>.panel,.lm-top-grid>.panel{padding:20px}.lm-panel .panel-heading{padding:0 0 18px}
+
+.annotation-coverage{height:24px;position:relative;border-radius:6px;background:#627271;overflow:hidden;margin:15px 0}.annotation-coverage span{position:absolute;top:0;bottom:0;background:#54ad8c}.annotation-attest{display:grid;gap:14px;margin:12px 0 20px;font-size:13px;line-height:1.7}.annotation-log{font-size:12px;line-height:1.8;overflow-wrap:anywhere;max-height:280px;overflow:auto}.annotation-panel .button-row{margin:10px 0}.annotation-panel .field{margin:8px 0}
+
+.annotation-coverage span.uncertain{background:repeating-linear-gradient(45deg,#b7853c,#b7853c 4px,#e7b56e 4px,#e7b56e 8px)}

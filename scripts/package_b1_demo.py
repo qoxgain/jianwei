@@ -15,17 +15,20 @@ def verify():
     inspect_file(ARCHIVE)
     outer=json.loads((DEMO/'manifest.json').read_text())
     assert sha(ARCHIVE.read_bytes())==outer['archive_sha256']
+    # B.1 is historical after B.1.1: pin the already verified immutable archive,
+    # rather than requiring future workbench sources to equal its old snapshot.
+    assert outer['archive_sha256']=='2a31b1952fc597d455d87a6970f172ca1778eb1cce3f2bca797506bc0c654239'
     with zipfile.ZipFile(ARCHIVE) as z:
         assert z.testzip() is None
         manifest=json.loads(z.read('manifest.json'))
         assert set(z.namelist())==set(manifest['files'])|{'manifest.json'}
         for name,record in manifest['files'].items():assert sha(z.read(name))==record['sha256']
-        for name,value in manifest['reviewed_source_sha256'].items():assert sha((ROOT/name).read_bytes())==value
         assert z.read('index.html')==(DEMO/'index.html').read_bytes()
         assert z.read('industrial-aggregate.json')==(ROOT/'apps/web/src/data/localMotionStatistics.json').read_bytes()
         assert manifest['industrial_frames_included'] is False and manifest['embeddings_included'] is False
     return {'passed':True,'archive_sha256':outer['archive_sha256'],'build_sha256':sha((DEMO/'index.html').read_bytes()),
-        'public_scope':'synthetic executed curves and aggregate industrial statistics; local file association only','b2_started':False}
+        'public_scope':'synthetic executed curves and aggregate industrial statistics; local file association only','b2_started':False,
+        'source_snapshot_scope':'historical fed06d8 verified archive, not a claim about current workbench source'}
 
 
 def main():
