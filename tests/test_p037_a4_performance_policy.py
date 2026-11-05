@@ -1,7 +1,7 @@
 """Detection is explicit; every strategy still enforces durable stop admission."""
 from contextlib import closing
 import sqlite3,time
-from threading import Lock
+from threading import Lock,Event
 import pytest
 from infra.database import Database
 from infra.sqlite_connection import _backup_native_source
@@ -97,3 +97,20 @@ def test_default_keeps_full_check_and_monitor_requires_explicit_start(tmp_path):
     assert SQLiteSettings().commit_integrity_check=='full' and SQLiteSettings().integrity_check_interval_seconds==0
     db=Database('sqlite:///'+str(tmp_path/'fresh.sqlite'));db.migrate();db.start_integrity_monitor()
     assert db._integrity_thread is None and not db.integrity_policy()['unobserved_corruption_risk'];db.close()
+
+
+def test_monitor_bounded_wait_completes_after_a_short_exclusive_writer(tmp_path,monkeypatch):
+    db,path,raw,c=setup(tmp_path,interval=.2);c.execute('BEGIN EXCLUSIVE');c.execute('INSERT INTO probe VALUES(1)')
+    entered,finished=Event(),Event();original=db.check_integrity
+    def observed(*args,**kwargs):
+        entered.set()
+        try:return original(*args,**kwargs)
+        finally:finished.set()
+    monkeypatch.setattr(db,'check_integrity',observed);db.start_integrity_monitor()
+    try:
+        assert entered.wait(1)
+        assert not finished.wait(.02),'zero-wait inspection was abandoned before writer could finish'
+    finally:c.rollback()
+    assert finished.wait(1);deadline=time.monotonic()+.1
+    while db.integrity_monitor_successes==0 and time.monotonic()<deadline:time.sleep(.005)
+    assert db.integrity_monitor_successes>=1 and db.fault is None;raw.close();db.close()

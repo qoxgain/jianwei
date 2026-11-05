@@ -373,7 +373,10 @@ class Database:
                 while not self._integrity_stop.wait(interval):
                     self.integrity_monitor_attempts+=1
                     try:
-                        self.check_integrity(busy_timeout_ms=0,cancel_event=self._integrity_stop)
+                        # A zero-wait reader can be starved by frequent healthy
+                        # EXCLUSIVE commits. Use the configured bounded wait;
+                        # the checker never owns commit_gate while reading.
+                        self.check_integrity(cancel_event=self._integrity_stop)
                         self.integrity_monitor_successes+=1
                         self.last_monitor_error=None
                     except ContractError as error:
