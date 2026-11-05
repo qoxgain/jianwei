@@ -43,6 +43,7 @@ class GuardedConnection(sqlite3.Connection):
                 elif operation=='BEGIN':self.owner._assert_healthy()
             if action in WRITE_ACTIONS or (action==sqlite3.SQLITE_PRAGMA and arg2 is not None and arg1.lower() in
                 {'journal_mode','wal_checkpoint','auto_vacuum','page_size','user_version','schema_version','application_id'}):
+                self.owner._assert_healthy()
                 self._statement_writes=True
                 self.owner._check_space()
             if action==sqlite3.SQLITE_ATTACH:

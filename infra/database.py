@@ -46,6 +46,7 @@ class Database:
         if local_path is not None:
             url=url.set(database=str(local_path));database_url=url
         self.quarantine_path=Path(str(local_path)+'.fault.json') if local_path else None
+        self.fault_intent_path=Path(str(local_path)+'.fault-intent') if local_path else None
         self.commit_gate=file_gate(str(local_path)+'.commit.lock' if local_path else None,
             wait_timeout=self.sqlite_settings.busy_timeout_ms/1000)
         options = {"pool_pre_ping": True}
@@ -124,6 +125,9 @@ class Database:
                 self._fault=json.loads(self.quarantine_path.read_text())
             except (OSError,ValueError):self._fault={'code':'DATABASE_UNAVAILABLE','root_cause':'invalid_quarantine_marker'}
             if not isinstance(self._fault,dict):self._fault={'code':'DATABASE_UNAVAILABLE','root_cause':'invalid_quarantine_marker'}
+        if self._fault is None:
+            from infra.sqlite_isolation import read_intent
+            self._fault=read_intent(self.fault_intent_path)
         if self._fault is None and self.commit_gate.path is not None:
             try:
                 info=self.commit_gate.path.lstat()
@@ -145,15 +149,25 @@ class Database:
             if self.fault is not None:raise ContractError('DATABASE_UNAVAILABLE','故障隔离不可由运行进程清除或自动恢复')
             return
         if self.fault is not None:return
+        value={**value,'version':'sqlite-isolation-v4','confirmed_ns':time.time_ns(),
+            'database_identity':self._identity_record(),'phase':'intent_pending'}
+        intent_failures=[]
+        if self.fault_intent_path is not None:
+            from infra.sqlite_isolation import publish_intent
+            try:publish_intent(self.fault_intent_path,value)
+            except OSError as error:intent_failures.append('independent_intent:'+type(error).__name__)
+        # This intent closes new admission BEFORE any potentially busy gate wait.
+        # An already admitted native COMMIT may finish; formal isolation is only
+        # acknowledged once the gate drains that earlier admission.
+        self._fault=value
         with self._isolation_boundary(value):
-            if self.fault is not None:return # Never rewrite an earlier fault or upgrade/clear history in place.
-            value={**value,'version':'sqlite-isolation-v3','confirmed_ns':time.time_ns(),
-                'database_identity':self._identity_record()}
+            if self.quarantine_path is not None and self.quarantine_path.exists():return
+            value={**value,'phase':'isolated','drained_ns':time.time_ns()}
             self._fault=value
             if self.quarantine_path is not None:
                 # Existing coordination FD is an independent durable intent.
                 # Any partial/nonempty intent fails closed if primary JSON creation fails.
-                failures=[];intent_ok=False;primary_ok=False
+                failures=list(intent_failures);intent_ok=False;primary_ok=False
                 try:self.commit_gate._write_fault_intent((json.dumps(value)+'\n').encode())
                 except OSError as error:failures.append(type(error).__name__)
                 else:intent_ok=True
@@ -182,9 +196,24 @@ class Database:
             with self.commit_gate.hold():yield
         except (ContractError,OSError) as error:
             if isinstance(error,ContractError) and error.code not in {'RESOURCE_LOCK_TIMEOUT','RESOURCE_LOCK_IDENTITY_UNSAFE','RESOURCE_LOCK_QUARANTINED'}:raise
-            self._fault={**value,'persistence_error':['coordination_unavailable']}
+            from infra.sqlite_isolation import read_intent,close_coordination_access,sync_directory
+            if self.fault_intent_path is not None and read_intent(self.fault_intent_path) is not None:
+                self._fault={**value,'phase':'intent_pending','coordination':'not_drained'}
+                raise ContractError('DATABASE_ISOLATION_PENDING','故障意图已持久化并禁止新提交；提交闸门未排空，不能宣称此前已准入的提交全部结束') from None
+            # An unavailable claim must not degrade to process memory. Try a
+            # durable primary stop marker and metadata latch without a gate wait.
+            failures=['coordination_unavailable']
+            if self.quarantine_path is not None:
+                try:
+                    with self.quarantine_path.open('x') as stream:
+                        json.dump({**value,'phase':'intent_pending'},stream);stream.flush();os.fsync(stream.fileno())
+                    sync_directory(self.quarantine_path.parent)
+                except OSError as failed:failures.append('primary:'+type(failed).__name__)
+                try:close_coordination_access(self.commit_gate.path)
+                except OSError as failed:failures.append('access_latch:'+type(failed).__name__)
+            self._fault={**value,'persistence_error':failures}
             if self.local_path is not None:_ISOLATION_FAILURES[str(self.local_path)]=self._fault
-            raise ContractError('DATABASE_ISOLATION_PERSISTENCE_FAILED','已确认故障但无法取得隔离协调权；本进程停写，需离线处置') from None
+            raise ContractError('DATABASE_ISOLATION_PERSISTENCE_FAILED','故障隔离协调或持久化失败；必须停止应用写入并离线处置，不可忽略后恢复服务') from None
 
     def _identity_record(self):
         result={'binding':'canonical_path','path_sha256':hashlib.sha256(str(self.local_path).encode()).hexdigest()}
