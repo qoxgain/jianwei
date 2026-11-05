@@ -15,13 +15,16 @@ def settings(source,source_sha,width,height,end,synthetic=False):
         {'id':'background','role':'background','xyxy':[.78,.64,.98,.94]}]
     if synthetic:
         rois[1]['xyxy']=[.08,.15,.5,.7];rois[2]['xyxy']=[.1,.1,.65,.85];rois[3]['xyxy']=[.75,.1,.95,.9]
+    else:
+        rois.extend([{'id':'hands_left_shift','role':'offset_control','xyxy':[.07,.02,.67,.63],'encode_r3d':False},
+            {'id':'hands_right_shift','role':'offset_control','xyxy':[.17,.02,.77,.63],'encode_r3d':False}])
     return {'enabled':True,'evidence_class':'synthetic_engineering' if synthetic else 'development_exploration',
         'source_id':source,'source_sha256':source_sha,'display_width':width,'display_height':height,'start_ms':0,'end_ms':end,
-        'rois':rois,'window_ms':[1000,2000],'sample_fps':[4,8],'stride_ms':500,'max_pts_error_ms':50,
+        'rois':rois,'window_ms':[1000,2000],'sample_fps':[4,8],'stride_ms':500 if synthetic else 1000,'max_pts_error_ms':50,
         'min_valid_fraction':.95,'max_windows':1000,'motion_size':32,'block_size':8,'search_radius':3,
-        'texture_floor':.015,'motion_improvement':.05,'baseline_fraction':.2,'thresholds':[1.5,2.5,3.5],
-        'smoothing_ms':[0,500,1000],'primary_window_ms':2000,'primary_fps':8,'primary_threshold':2.5,
-        'primary_smoothing_ms':500,'refractory_ms':1000,'candidate_budget':50,'boundary_tolerance_ms':500}
+        'texture_floor':.015,'motion_improvement':.05,'baseline_fraction':.4 if synthetic else .2,'thresholds':[1.5,2.5,3.5],
+        'smoothing_ms':[0,500,1000] if synthetic else [0,1000,2000],'primary_window_ms':2000,'primary_fps':8,'primary_threshold':2.5,
+        'primary_smoothing_ms':500 if synthetic else 1000,'refractory_ms':1000,'candidate_budget':50,'boundary_tolerance_ms':500}
 
 
 def synthetic_video(path):

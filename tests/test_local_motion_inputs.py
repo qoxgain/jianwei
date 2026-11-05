@@ -22,7 +22,7 @@ def test_invalid_roi_never_silently_clamps(box):
 
 
 def test_required_controls_unique_ids_primary_arm_and_sampling_budget():
-    for change in [{'rois':config()['rois'][:-1]},{'sample_fps':[32]},{'primary_fps':16},{'window_ms':[1000,1000]}]:
+    for change in [{'rois':[r for r in config()['rois'] if r['role']!='background']},{'sample_fps':[32]},{'primary_fps':16},{'window_ms':[1000,1000]}]:
         with pytest.raises(ValidationError):LocalMotionSettings.model_validate({**config(),**change})
 
 
@@ -52,3 +52,17 @@ def test_sealed_registry_rejected_before_any_source_bytes(tmp_path,monkeypatch):
     bundle=N(config=N(local_motion=s,temporal=N(dataset_manifest=registry)),profile=N(sources=[source]),root=tmp_path)
     with pytest.raises(ContractError) as e:admission(bundle)
     assert e.value.code=='MOTION_SEALED_FORBIDDEN'
+
+
+def test_display_dimension_mismatch_and_midstream_resize_are_distinct(monkeypatch,tmp_path):
+    from packages.local_motion import extraction
+    s=LocalMotionSettings.model_validate(config());ingestion=N(decode_width=640,encoder_input_size=112,probe_timeout_seconds=1,max_frames=100)
+    def run(args,*_,**__):
+        import json
+        return json.dumps({'streams':[{'width':640,'height':480,'sample_aspect_ratio':'1:1'}]} if '-show_streams' in args else {'frames':[{'width':640,'height':480},{'width':320,'height':240}]}).encode()
+    monkeypatch.setattr(extraction,'_run',run)
+    with pytest.raises(ContractError) as e:geometry_check(tmp_path/'generated.mp4',ingestion,s)
+    assert e.value.code=='MOTION_DIMENSIONS_CHANGED'
+    s.display_width=641
+    with pytest.raises(ContractError) as e:geometry_check(tmp_path/'generated.mp4',ingestion,s)
+    assert e.value.code=='MOTION_DIMENSION_MISMATCH'

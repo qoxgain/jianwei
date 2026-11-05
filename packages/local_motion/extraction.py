@@ -25,7 +25,7 @@ def write(path,value):
 
 
 def admission(bundle):
-    s=bundle.config.local_motion
+    s=getattr(bundle.config,'local_motion',None)
     if s is None or not s.enabled:raise ContractError('MOTION_DISABLED','须在system.yaml显式启用局部动态探索')
     source=next((v for v in bundle.profile.sources if v.id==s.source_id),None)
     if source is None or source.type!='file':raise ContractError('MOTION_SOURCE_INVALID','仅支持已注册本地开发文件')
@@ -56,13 +56,14 @@ def geometry_check(path,ingestion,settings):
     w,h=round(int(stream['width'])*sar_value),int(stream['height'])
     if g['rotation_degrees_ccw'] in {-90,90}:w,h=h,w
     if (w,h)!=(settings.display_width,settings.display_height):raise ContractError('MOTION_DIMENSION_MISMATCH','ROI登记显示尺寸与实际视频不一致')
-    frames=json.loads(_run([*args,'-show_frames','-show_entries','frame=width,height','-of','json',str(path)],ingestion.probe_timeout_seconds))['frames']
+    frames=json.loads(_run([*args,'-read_intervals',f'%+#{ingestion.max_frames+1}','-show_frames','-show_entries','frame=width,height','-of','json',str(path)],ingestion.probe_timeout_seconds))['frames']
+    if not 2<=len(frames)<=ingestion.max_frames:raise ContractError('MOTION_FRAME_BUDGET','原视频帧数超过统一预算或不足')
     if any((f.get('width'),f.get('height'))!=(int(stream['width']),int(stream['height'])) for f in frames):raise ContractError('MOTION_DIMENSIONS_CHANGED','视频运行中尺寸变化，必须分段重新登记ROI')
     return g
 
 
 def recipe(bundle):
-    production=production_snapshot();paths=sorted((PROJECT_ROOT/'packages/local_motion').glob('*.py'))
+    production=production_snapshot();paths=[PROJECT_ROOT/'packages/local_motion'/name for name in ('__init__.py','extraction.py','motion.py')]
     payload={'version':VERSION,'settings':bundle.config.local_motion.model_dump(mode='json'),'config_hash':bundle.config_hash,
         'production':production,'source_files':{str(p.relative_to(PROJECT_ROOT)):sha(p) for p in paths},
         'sampling':'original_PTS_nearest_then_nearest_repeat_to_16_v1','motion':'gray_nearest_block_translation_v1',
@@ -81,7 +82,7 @@ def sample_indices(pts,start,window,fps,tolerance):
 def extract(bundle,output,progress=None):
     output=Path(output).resolve()
     if not output.is_relative_to(PROJECT_ROOT/'artifacts'):raise ValueError('Private artifacts output required')
-    output.mkdir(parents=True,exist_ok=False);s=bundle.config.local_motion;pixels=None;started=time.monotonic()
+    output.mkdir(parents=True,exist_ok=False);s=getattr(bundle.config,'local_motion',None);pixels=None;started=time.monotonic()
     try:
         path=admission(bundle);geometry_check(path,bundle.config.ingestion,s);before=recipe(bundle)
         if bundle.config.encoder.adapter!='onnx' or not bundle.config.encoder.frozen or bundle.config.encoder.weights_sha256!=OFFICIAL_SHA or bundle.config.encoder.preprocessing_version!=PREPROCESSING_VERSION:raise ContractError('MOTION_ENCODER_REQUIRED','必须配置已核验的冻结官方R3D-18；不回退诊断编码器')
@@ -102,19 +103,24 @@ def extract(bundle,output,progress=None):
                     index=len(rows);record={'index':index,'roi':roi.id,'role':roi.role,'start_ms':start,'end_ms':start+window,
                         'center_ms':start+window//2,'window_ms':window,'fps':fps,'source_frame_indices':indices.tolist(),
                         'observed_pts_ms':pts[indices].tolist(),'encoder_frame_indices':indices[repeated].tolist(),
-                        'visibility':roi.visibility,'status':'valid'}
+                        'visibility':roi.visibility,'r3d_computed':False,'status':'valid'}
                     excluded=next((e for e in roi.exclusions if e.start_ms<start+window and e.end_ms>start),None)
                     reason='occluded' if roi.visibility=='occluded' else excluded.reason if excluded else 'invalid_frame' if float(quality[indices].mean())<s.min_valid_fraction else None
                     if reason:
                         record.update(status=reason);feature=np.full(512,np.nan,dtype=np.float32)
                     else:
                         roi_frames=crop(frames,roi.xyxy);record.update(descriptors(roi_frames,pts[indices],s))
-                        feature=encoder.encode(clip_tensor(frames,repeated,roi.xyxy,112),deadline=started+bundle.config.ingestion.encode_timeout_seconds)[0]
+                        if roi.encode_r3d:
+                            feature=encoder.encode(clip_tensor(frames,repeated,roi.xyxy,112),deadline=started+bundle.config.ingestion.encode_timeout_seconds)[0];record['r3d_computed']=True
+                        else:feature=np.full(512,np.nan,dtype=np.float32)
                     rows.append(record);features.append(feature);statuses.append(reason is None)
             if progress:progress(len(rows),len(starts)*len(arms)*len(s.rois))
         after=recipe(bundle)
         if before['sha256']!=after['sha256'] or sha(path)!=s.source_sha256:raise ContractError('MOTION_PRODUCTION_CHANGED','来源或生产依赖在执行期间发生变化；本次特征不可复用')
-        matrix=np.asarray(features,dtype=np.float32);np.savez_compressed(output/'features.npz',features=matrix,valid=np.array(statuses,dtype=bool))
+        if not any(statuses):
+            write(output/'invalid-windows.json',{'rows':rows,'source_sha256':s.source_sha256})
+            raise ContractError('MOTION_NO_VALID_WINDOWS','所有窗口无效或遮挡；不能形成有效研究特征')
+        matrix=np.asarray(features,dtype=np.float32);np.savez_compressed(output/'features.npz',features=matrix,valid=np.array(statuses,dtype=bool),r3d_valid=np.array([r['r3d_computed'] for r in rows],dtype=bool))
         manifest={'schema':'b1-local-motion-features-v1','evidence_class':s.evidence_class,'source':{'asset_id':s.source_id,'sha256':s.source_sha256,
             'bytes':path.stat().st_size,'width':s.display_width,'height':s.display_height,'first_pts_ms':int(pts[0]),'last_pts_end_ms':int(pts[-1]+durations[-1])},
             'settings':s.model_dump(mode='json'),'recipe':before,'recipe_hash':before['sha256'],'encoder':'frozen_official_r3d18_512',

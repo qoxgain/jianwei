@@ -22,6 +22,7 @@ class MotionROI(Strict):
     role:Literal['global','hands','interaction','background','offset_control']
     xyxy:list[float]=Field(min_length=4,max_length=4)
     visibility:Literal['unverified','visible','occluded']='unverified'
+    encode_r3d:bool=True
     exclusions:list[MotionExclusion]=Field(default_factory=list,max_length=100)
 
     @model_validator(mode='after')

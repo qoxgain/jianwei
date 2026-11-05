@@ -1293,6 +1293,11 @@
           "title": "Visibility",
           "type": "string"
         },
+        "encode_r3d": {
+          "default": true,
+          "title": "Encode R3D",
+          "type": "boolean"
+        },
         "exclusions": {
           "items": {
             "$ref": "#/$defs/MotionExclusion"
