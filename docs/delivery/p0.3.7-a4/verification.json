@@ -1,7 +1,7 @@
 {
   "stage": "P0.3.7-A.4",
   "baseline": "fb69646336eb6346ea3cec498a08856a80a34e60",
-  "tested_source_head": "4c13aebde6e722af4f4e23da3c34470b102c82fc",
+  "tested_source_head": "0244e9020b28da4fdfc4d21875147a0756252d05",
   "source_sha256": {
     "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
     "infra/sqlite_isolation.py": "0157eb213fb58d627aca566bec6d9fdf5000c32ef176d06b73411c40c6904615",
@@ -13,10 +13,11 @@
     "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
     "packages/contracts/database.py": "09a41a7caaa70da9f0b5ff845fcd7f18bc57c1bd76765f7161c4cd61455dbd0a",
     "packages/temporal_jobs/service.py": "049fbbd49462befc60cec98e4fd3686a64d704fe851f33482856b7cab170bfa1",
-    "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0"
+    "scripts/benchmark_sqlite_a4.py": "38e5b3c3a4c37205328fd677251f7dcc72cbcec03b8410ce88d21547b32cb8b0",
+    "scripts/investigate_sqlite_workload.py": "dc20226602558320c4805abc12df5ca8dc7e73add5d36b7b6abda284bbb6a58a"
   },
   "backend": {
-    "tests": 765,
+    "tests": 767,
     "failures": 0,
     "errors": 0,
     "skipped": 0
@@ -295,6 +296,16 @@
     {
       "module": "tests.test_p037_a4_performance_policy",
       "name": "test_monitor_bounded_wait_completes_after_a_short_exclusive_writer",
+      "status": "passed"
+    },
+    {
+      "module": "tests.test_p037_a4_workload_budget",
+      "name": "test_wal_slow_preflight_does_not_confuse_deadline_with_callback_cancellation[0.05-DATABASE_BACKUP_TIMEOUT-False]",
+      "status": "passed"
+    },
+    {
+      "module": "tests.test_p037_a4_workload_budget",
+      "name": "test_wal_slow_preflight_does_not_confuse_deadline_with_callback_cancellation[2-DATABASE_BACKUP_CANCELLED-True]",
       "status": "passed"
     }
   ],
@@ -43859,6 +43870,1157 @@
     "untouched_raw_evidence_preserved": true,
     "originals_used": false,
     "same_inode_inplace_copy_test": true
+  },
+  "prior_ci_workload_failure": {
+    "schema": "generated-sqlite-workload-v1",
+    "generated_only": true,
+    "exact_independent_workload": false,
+    "independent_evidence_available": false,
+    "root_cause": "root_cause_not_established",
+    "environment": {
+      "python": "3.12.16",
+      "sqlite": "3.45.1",
+      "platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39"
+    },
+    "code_commit": "e7cb80129d1b3d851b3f67b06a9b634876b3c9dd",
+    "source_sha256": {
+      "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+      "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+      "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+      "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+      "scripts/inspect_sqlite_copy.py": "12a08b5dd6f836f19867b05b755fc86e337a6860172467672f4cefeb9666945b",
+      "scripts/investigate_sqlite_workload.py": "9e92ef861e8bb0835045e8b40d66630974ce4ce95dd8ccd69493cf1cc660b55c"
+    },
+    "runs": [
+      {
+        "journal_mode": "DELETE",
+        "seed": 0,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          },
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          },
+          {
+            "action": "normal",
+            "status": "ok"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      },
+      {
+        "journal_mode": "DELETE",
+        "seed": 1,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "normal",
+            "status": "ok"
+          },
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          },
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      },
+      {
+        "journal_mode": "WAL",
+        "seed": 0,
+        "generated_only": true,
+        "status": "failed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [
+          {
+            "type": "AssertionError",
+            "code": null,
+            "message": ""
+          }
+        ],
+        "backup_results": [
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          },
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          },
+          {
+            "action": "normal",
+            "status": "ok"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 1
+      },
+      {
+        "journal_mode": "WAL",
+        "seed": 1,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "normal",
+            "status": "ok"
+          },
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          },
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      }
+    ],
+    "summary": {
+      "runs": 4,
+      "passed": 3,
+      "failed": 1,
+      "structural_damage_observed": 0
+    }
+  },
+  "workload_budget_repetition": {
+    "schema": "generated-sqlite-workload-v1",
+    "generated_only": true,
+    "exact_independent_workload": false,
+    "independent_evidence_available": false,
+    "root_cause": "root_cause_not_established",
+    "environment": {
+      "python": "3.12.14",
+      "sqlite": "3.53.1",
+      "platform": "Linux-6.18.57-x86_64-with-glibc2.41"
+    },
+    "code_commit": "e7cb80129d1b3d851b3f67b06a9b634876b3c9dd",
+    "source_sha256": {
+      "infra/database.py": "33de96619c5155b18b9a0e5c54e7267f4cb41cd7d4ce448f453860e1b4e62e3c",
+      "infra/sqlite_connection.py": "76448b08349e8d227d82db3f051457ff163535d6350d8278b365436806882eef",
+      "infra/sqlite_guard.py": "bfcc006afbf28ad80a6d767c168e6f8a9844891226d7f754bf3c1431668c3550",
+      "infra/sqlite_backup.py": "26ca396c2150a025f0d30a844658ec0a4abdeac5a51d9b9f62afc4c40b3f247c",
+      "scripts/inspect_sqlite_copy.py": "12a08b5dd6f836f19867b05b755fc86e337a6860172467672f4cefeb9666945b",
+      "scripts/investigate_sqlite_workload.py": "dc20226602558320c4805abc12df5ca8dc7e73add5d36b7b6abda284bbb6a58a"
+    },
+    "runs": [
+      {
+        "journal_mode": "DELETE",
+        "seed": 0,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          },
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          },
+          {
+            "action": "normal",
+            "status": "ok"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      },
+      {
+        "journal_mode": "DELETE",
+        "seed": 1,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "normal",
+            "status": "ok"
+          },
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          },
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      },
+      {
+        "journal_mode": "DELETE",
+        "seed": 2,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "normal",
+            "status": "ok"
+          },
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          },
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      },
+      {
+        "journal_mode": "DELETE",
+        "seed": 3,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "normal",
+            "status": "ok"
+          },
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          },
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      },
+      {
+        "journal_mode": "DELETE",
+        "seed": 4,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          },
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          },
+          {
+            "action": "normal",
+            "status": "ok"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      },
+      {
+        "journal_mode": "DELETE",
+        "seed": 5,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "normal",
+            "status": "ok"
+          },
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          },
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      },
+      {
+        "journal_mode": "WAL",
+        "seed": 0,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          },
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          },
+          {
+            "action": "normal",
+            "status": "ok"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      },
+      {
+        "journal_mode": "WAL",
+        "seed": 1,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "normal",
+            "status": "ok"
+          },
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          },
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      },
+      {
+        "journal_mode": "WAL",
+        "seed": 2,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "normal",
+            "status": "ok"
+          },
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          },
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      },
+      {
+        "journal_mode": "WAL",
+        "seed": 3,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "normal",
+            "status": "ok"
+          },
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          },
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      },
+      {
+        "journal_mode": "WAL",
+        "seed": 4,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          },
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          },
+          {
+            "action": "normal",
+            "status": "ok"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      },
+      {
+        "journal_mode": "WAL",
+        "seed": 5,
+        "generated_only": true,
+        "status": "passed",
+        "checks": [
+          {
+            "stage": "before_concurrent_work",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "concurrent_integrity",
+            "status": "ok"
+          },
+          {
+            "stage": "after_threads_and_import",
+            "status": "ok"
+          },
+          {
+            "stage": "after_exclusive_backup",
+            "status": "ok"
+          },
+          {
+            "stage": "after_cancel_timeout",
+            "status": "ok"
+          },
+          {
+            "stage": "after_reopen",
+            "status": "ok"
+          },
+          {
+            "stage": "after_spawn_commits",
+            "status": "ok"
+          },
+          {
+            "stage": "after_abrupt_exit_recovery",
+            "status": "ok"
+          }
+        ],
+        "root_cause": "root_cause_not_established",
+        "failures": [],
+        "backup_results": [
+          {
+            "action": "normal",
+            "status": "ok"
+          },
+          {
+            "action": "exception",
+            "status": "DATABASE_BACKUP_FAILED"
+          },
+          {
+            "action": "cancel",
+            "status": "DATABASE_BACKUP_CANCELLED"
+          }
+        ],
+        "synthetic_import": "succeeded",
+        "independent_expected_rows": 27,
+        "final_full_integrity": "ok",
+        "source_evidence_unchanged": true,
+        "process_returncode": 0
+      }
+    ],
+    "summary": {
+      "runs": 12,
+      "passed": 12,
+      "failed": 0,
+      "structural_damage_observed": 0
+    }
   },
   "post_performance_failure_checks": [
     {

@@ -1,0 +1,22 @@
+{
+  "frontend-budget-release.log": {
+    "original_sha256": "8e99cf657207b61b8bc873bb9f4eedb5eb8245a4babbad1d2d4a9ab57361f556",
+    "published_sha256": "1cfe1d17b01ad39ead2969709bf198b6154c9a2c72a1fdf4ac72e613033297d1",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "reference-budget-release.log": {
+    "original_sha256": "d6cd108342f428e02fb5721abf568fa96be050cb559cdf1b87c490ea2a495639",
+    "published_sha256": "d6cd108342f428e02fb5721abf568fa96be050cb559cdf1b87c490ea2a495639",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "build-budget-release.log": {
+    "original_sha256": "7aabf4451dd14287f6a588d2fd5378339cc0fd700c7f7f3006a4798cd50777ce",
+    "published_sha256": "5b50947b8626e97485ba73027935f46cbff509849becaba94fb4c7e62a6d3044",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "build-demo-budget-release.log": {
+    "original_sha256": "98c19e749c33af61df35a6b69730e905e3dc60b5328ab710dcbde6401fed132a",
+    "published_sha256": "1f0ea2bf007b15de83ff03f13e458659c30f8bd2e8aa953d99f7188b05de8a1b",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  }
+}

@@ -1,12 +1,12 @@
 {
   "backend-junit.xml": {
-    "original_sha256": "8a5ea724fc6078f27640fb6eca1ae16c1f0f2bbe8b2e2dcffb9b6201d33b9dbb",
-    "published_sha256": "8a5ea724fc6078f27640fb6eca1ae16c1f0f2bbe8b2e2dcffb9b6201d33b9dbb",
+    "original_sha256": "e1579d12160e36de720e90e99e2ea027d089e758f892114a03c4d936c9cd20df",
+    "published_sha256": "e1579d12160e36de720e90e99e2ea027d089e758f892114a03c4d936c9cd20df",
     "normalization": "none"
   },
   "backend-full.log": {
-    "original_sha256": "1401d28abc262f7b2a6cebbc895d5e240d8ba7028bed21f401e6a8a9455fcef6",
-    "published_sha256": "1401d28abc262f7b2a6cebbc895d5e240d8ba7028bed21f401e6a8a9455fcef6",
+    "original_sha256": "e4d9f7a79e52d2065934c7f1a10990f6513b5edfdf1539b0243e7cd10e37832e",
+    "published_sha256": "e4d9f7a79e52d2065934c7f1a10990f6513b5edfdf1539b0243e7cd10e37832e",
     "normalization": "ANSI_and_trailing_whitespace_only"
   },
   "frontend.log": {
@@ -107,6 +107,16 @@
   "performance-release.log": {
     "original_sha256": "f57ae336f6442f0a214a505d31fca00321bd58163d6bc176c81d62edac1b3ed2",
     "published_sha256": "f57ae336f6442f0a214a505d31fca00321bd58163d6bc176c81d62edac1b3ed2",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "workload-budget-regression.log": {
+    "original_sha256": "c015fad4100dcbc36039c3b07739746853f1ffbcbb898127392fa3b52e378379",
+    "published_sha256": "c015fad4100dcbc36039c3b07739746853f1ffbcbb898127392fa3b52e378379",
+    "normalization": "ANSI_and_trailing_whitespace_only"
+  },
+  "workload-ci-budget-fix.log": {
+    "original_sha256": "76cbe033ec893e57730f980c1c6a0f897508054b775da0462d8695bb2d825bd3",
+    "published_sha256": "76cbe033ec893e57730f980c1c6a0f897508054b775da0462d8695bb2d825bd3",
     "normalization": "ANSI_and_trailing_whitespace_only"
   }
 }

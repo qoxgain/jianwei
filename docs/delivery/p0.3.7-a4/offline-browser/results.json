@@ -4,7 +4,8 @@
   "desktop_mobile": true,
   "performance_filters": true,
   "all_failures_visible": 2,
-  "all_55_new_test_filters": true,
+  "all_new_test_filters": true,
+  "new_test_count": 57,
   "unmeasured_not_fabricated": true,
   "exact_export": true,
   "api_or_remote_requests": 0,
@@ -12,5 +13,5 @@
   "original_corrupt_copy": "blocked_missing_original",
   "fault_state_architecture_status": "pending_independent_review",
   "stage_b_started": false,
-  "html_sha256": "07cb2b6757c1fa04c281a7bcb438b7b1901536770c899e1d72f4e7151943d30d"
+  "html_sha256": "f61c7197126843364a48e577f7a4f168cc1f522fe8785bcd684dacc56e44dea6"
 }

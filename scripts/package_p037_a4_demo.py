@@ -33,14 +33,16 @@ def verify():
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--evidence',type=Path,default=ROOT/'artifacts/p037-a4')
+    p.add_argument('--backend-junit',type=Path);p.add_argument('--backend-log',type=Path)
     p.add_argument('--verify-only',action='store_true');a=p.parse_args()
     if a.verify_only:print(json.dumps(verify()));return
-    e=a.evidence.resolve();tree=E.parse(e/'backend-junit.xml')
+    e=a.evidence.resolve();backend_junit=a.backend_junit or e/'backend-junit.xml';backend_log=a.backend_log or e/'backend-full.log'
+    tree=E.parse(backend_junit)
     totals={k:sum(int(s.get(k,'0')) for s in tree.findall('.//testsuite')) for k in ['tests','failures','errors','skipped']}
-    assert totals['tests']>=765 and not totals['failures'] and not totals['errors']
+    assert totals['tests']>=767 and not totals['failures'] and not totals['errors']
     tests=[{'module':t.get('classname'),'name':t.get('name'),'status':'skipped' if t.find('skipped') is not None else 'passed'}
         for t in tree.findall('.//testcase') if t.get('classname','').startswith('tests.test_p037_a4_')]
-    assert len(tests)>=55 and all(t['status']=='passed' for t in tests)
+    assert len(tests)>=57 and all(t['status']=='passed' for t in tests)
     performance=json.loads((e/'performance-release/results.json').read_text());assert len(performance['runs'])==performance['summary']['runs']==144
     initial=json.loads((e/'performance-main/results.json').read_text());assert len(initial['runs'])==initial['summary']['runs']==144
     intermediate=json.loads((e/'performance-final/results.json').read_text());assert intermediate['summary']['runs']==144
@@ -56,7 +58,7 @@ def main():
         ('media','browser-media-release/results.json')]};assert all(r['passed'] for r in records.values())
     sources=['infra/database.py','infra/sqlite_isolation.py','infra/sqlite_admission.py','infra/sqlite_guard.py',
         'infra/sqlite_backup.py','infra/sqlite_backup_artifacts.py','infra/sqlite_health.py','infra/sqlite_connection.py','packages/contracts/database.py',
-        'packages/temporal_jobs/service.py','scripts/benchmark_sqlite_a4.py']
+        'packages/temporal_jobs/service.py','scripts/benchmark_sqlite_a4.py','scripts/investigate_sqlite_workload.py']
     payload=browser_safe({'stage':'P0.3.7-A.4','baseline':'fb69646336eb6346ea3cec498a08856a80a34e60',
         'tested_source_head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         'source_sha256':{s:sha(ROOT/s) for s in sources},'backend':totals,'counterexample_tests':tests,
@@ -65,6 +67,8 @@ def main():
         'performance':performance,'initial_performance':initial,'intermediate_performance':intermediate,
         'last_page_before':json.loads((e/'last-page-admission-review/results.json').read_text()),
         'last_page_after':json.loads((e/'last-page-admission-fixed/results.json').read_text()),
+        'prior_ci_workload_failure':json.loads((e/'ci-foundation/workload/results.json').read_text()),
+        'workload_budget_repetition':json.loads((e/'workload-ci-budget-fix/results.json').read_text()),
         'post_performance_failure_checks':json.loads((e/'performance-failure-checks.json').read_text()),
         'original_corrupt_copy':'blocked_missing_original','independent_original_available':False,
         'original_corruption_root_cause':'root_cause_not_established','fault_state_architecture_status':'pending_independent_review',
@@ -81,8 +85,9 @@ def main():
         'isolation.log','admission-first.log','admission-regression.log','admission-final.log','admission-release.log',
         'policy.log','policy-release.log','monitor-release.log','baseline.log','performance-main.log','performance-final.log',
         'backend-schema-first.log','schema-migration-release.log','failure-seal-first.log','failure-seal-final.log',
-        'performance-release.log']:
-        original=(e/name).read_bytes();target=OUT/'tests'/name;target.parent.mkdir(exist_ok=True)
+        'performance-release.log','workload-budget-regression.log','workload-ci-budget-fix.log']:
+        source=backend_junit if name=='backend-junit.xml' else backend_log if name=='backend-full.log' else e/name
+        original=source.read_bytes();target=OUT/'tests'/name;target.parent.mkdir(exist_ok=True)
         if name.endswith('.log'):
             plain=re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]','',original.decode())
             target.write_text('\n'.join(line.rstrip() for line in plain.splitlines()).rstrip()+'\n')

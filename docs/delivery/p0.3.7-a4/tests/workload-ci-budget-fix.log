@@ -1,0 +1,13 @@
+{"mode": "DELETE", "seed": 0, "status": "passed", "integrity": "ok"}
+{"mode": "DELETE", "seed": 1, "status": "passed", "integrity": "ok"}
+{"mode": "DELETE", "seed": 2, "status": "passed", "integrity": "ok"}
+{"mode": "DELETE", "seed": 3, "status": "passed", "integrity": "ok"}
+{"mode": "DELETE", "seed": 4, "status": "passed", "integrity": "ok"}
+{"mode": "DELETE", "seed": 5, "status": "passed", "integrity": "ok"}
+{"mode": "WAL", "seed": 0, "status": "passed", "integrity": "ok"}
+{"mode": "WAL", "seed": 1, "status": "passed", "integrity": "ok"}
+{"mode": "WAL", "seed": 2, "status": "passed", "integrity": "ok"}
+{"mode": "WAL", "seed": 3, "status": "passed", "integrity": "ok"}
+{"mode": "WAL", "seed": 4, "status": "passed", "integrity": "ok"}
+{"mode": "WAL", "seed": 5, "status": "passed", "integrity": "ok"}
+{"runs": 12, "passed": 12, "failed": 0, "structural_damage_observed": 0}
