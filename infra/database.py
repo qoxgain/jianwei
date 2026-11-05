@@ -16,7 +16,7 @@ from infra.sqlite_connection import ManagedConnection
 from sqlalchemy.exc import DisconnectionError
 from packages.contracts.database import SQLiteSettings
 from packages.config.errors import ContractError
-from threading import Lock, Event
+from threading import Lock, Event, Thread, current_thread
 
 from alembic import command
 from alembic.config import Config
@@ -38,6 +38,9 @@ class Database:
         self.last_integrity_check = None
         self._fault = None
         self._backup_shutdown = Event()
+        self._integrity_stop=Event();self._integrity_thread=None;self._monitor_lock=Lock()
+        self.last_monitor_error=None;self.last_boundary_checks=[]
+        self.integrity_monitor_attempts=0;self.integrity_monitor_successes=0
         url = make_url(database_url)
         local_path=Path(url.database).expanduser().resolve() if url.get_backend_name()=='sqlite' and url.database not in (None,'',':memory:') else None
         if url.get_backend_name()=='sqlite' and url.query.get('uri'):
@@ -344,6 +347,45 @@ class Database:
             foreign_keys=foreign_keys,cancel_event=cancel_event)
         return self._apply_integrity(result)
 
+    def full_check_boundary(self,name):
+        """Mandatory full detection; fault_state mode never substitutes for it."""
+        result=self.check_integrity()
+        self.last_boundary_checks=(self.last_boundary_checks+[{'boundary':name,'checked_ns':result.get('checked_ns'),
+            'category':result.get('category')}])[-16:]
+        return result
+
+    def integrity_policy(self):
+        return {'commit_check':self.sqlite_settings.commit_integrity_check,'full_check_on_connection':True,
+            'monitor_interval_seconds':self.sqlite_settings.integrity_check_interval_seconds,
+            'monitor_running':self._integrity_thread is not None and self._integrity_thread.is_alive(),
+            'monitor_attempts':self.integrity_monitor_attempts,'monitor_successes':self.integrity_monitor_successes,
+            'last_monitor_error':self.last_monitor_error,'detection_delay_bound_seconds':None,
+            'fault_state_architecture_status':'pending_independent_review',
+            'unobserved_corruption_risk':self.sqlite_settings.commit_integrity_check=='fault_state'}
+
+    def start_integrity_monitor(self):
+        interval=self.sqlite_settings.integrity_check_interval_seconds
+        if not interval:return
+        with self._monitor_lock:
+            if self._integrity_thread is not None and self._integrity_thread.is_alive():return
+            if self._integrity_stop.is_set():raise ContractError('DATABASE_UNAVAILABLE','已关闭的数据库不能重新启动巡检')
+            def monitor():
+                while not self._integrity_stop.wait(interval):
+                    self.integrity_monitor_attempts+=1
+                    try:
+                        self.check_integrity(busy_timeout_ms=0,cancel_event=self._integrity_stop)
+                        self.integrity_monitor_successes+=1
+                        self.last_monitor_error=None
+                    except ContractError as error:
+                        self.last_monitor_error={'code':error.code,'checked_ns':time.time_ns()}
+                        if self.fault is not None:break
+                    except Exception as error:
+                        # Unknown check failure is visible, never physical fault
+                        # by default and never a fabricated healthy result.
+                        self.last_monitor_error={'code':'DATABASE_INTEGRITY_CHECK_FAILED','exception_type':type(error).__name__}
+            self._integrity_thread=Thread(target=monitor,name='sqlite-full-integrity-monitor',daemon=True)
+            self._integrity_thread.start()
+
     def backup(self, target, *, cancel_event=None, progress=None,phase_observer=None):
         """Consistent SQLite online backup to a NEW file; never restore in place."""
         if self.engine.dialect.name!='sqlite':
@@ -353,4 +395,7 @@ class Database:
 
     def close(self) -> None:
         self._backup_shutdown.set()
+        self._integrity_stop.set()
+        if self._integrity_thread is not None and self._integrity_thread is not current_thread():
+            self._integrity_thread.join(timeout=self.sqlite_settings.busy_timeout_ms/1000+1)
         self.engine.dispose()

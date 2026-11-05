@@ -90,6 +90,7 @@ class TemporalService:
 
     def _consume_test(self,identifier,binding):
         if binding is None:return
+        self.database.full_check_boundary('sealed_test_before_consumption')
         with self.lock,self.database.session() as session:
             session.execute(text('BEGIN IMMEDIATE'))
             row=session.get(TemporalRun,identifier)
@@ -138,6 +139,7 @@ class TemporalService:
                 binding=expected.get('research_protocol')
                 assert_frozen_protocol(binding,snapshot,self.bundle,scene)
         self._window_preflight(scene,snapshot,expected if kind=='evaluate' else None)
+        if binding is not None:self.database.full_check_boundary('formal_research_before_reservation')
         body=request.model_dump();body['import_ids']=sorted(body['import_ids'])
         if binding is not None:body['_research_protocol']=binding
         knowledge=self._knowledge_hash(scene);code=engine.code_hash()
@@ -260,6 +262,7 @@ class TemporalService:
             current=snapshot_imports(self.bundle,self.database,scene,request['import_ids'],{'train','calibration'} if kind=='train' else {'test'})
             if current!=snapshot:fail('TEMPORAL_SNAPSHOT_CHANGED','执行时数据快照已变化')
             binding=request.get('_research_protocol')
+            if binding is not None:self.database.full_check_boundary('formal_research_before_feature_read')
             self._window_preflight(scene,snapshot,expected if kind=='evaluate' else None)
             if kind=='train':
                 if freeze_protocol(self.bundle,scene,snapshot)!=binding:

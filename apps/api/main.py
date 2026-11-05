@@ -121,6 +121,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
                 baseline(scene_id)
             imports.start()
             temporal.start()
+            database.start_integrity_monitor()
             yield
         finally:
             temporal.close()
@@ -209,6 +210,7 @@ def create_app(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", pr
             session.execute(text('SELECT 1'))
             revision = session.execute(text('SELECT version_num FROM alembic_version')).scalar_one()
         return {'status':'ok','stage':'P0.3.2','database':'ok','integrity_check':application.state.database.last_integrity_check,'schema_version':revision,
+                'integrity_policy':application.state.database.integrity_policy(),
                 'active_profile':application.state.bundle.config.active_profile}
 
     @application.get('/api/scenes')

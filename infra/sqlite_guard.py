@@ -68,7 +68,7 @@ class GuardedConnection(sqlite3.Connection):
                 super().rollback();self.owner._record_sqlite_fault(error);raise
     def _before_commit(self):
         self.owner._assert_healthy()
-        if self.in_transaction and self._write_pending:
+        if self.in_transaction and self._write_pending and self.owner.sqlite_settings.commit_integrity_check=='full':
             # This connection already owns SQLite's writer lock. No new SQLite
             # connection or external reader waits inside the app commit gate.
             self.owner._validate_native(self)

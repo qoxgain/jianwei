@@ -15,5 +15,7 @@ class SQLiteSettings(Strict):
     synchronous: Literal['FULL','EXTRA'] = 'FULL'
     busy_timeout_ms: int = Field(default=10000, ge=100, le=120000)
     integrity_check_on_start: bool = True
+    commit_integrity_check: Literal['full','fault_state'] = 'full'
+    integrity_check_interval_seconds: float = Field(default=0, ge=0, le=86400)
     min_free_bytes: int = Field(default=16777216, ge=0, le=10737418240)
     backup: SQLiteBackupSettings = Field(default_factory=SQLiteBackupSettings)
