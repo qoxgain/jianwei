@@ -925,6 +925,247 @@
       "title": "Learning",
       "type": "object"
     },
+    "LocalMotionSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "evidence_class": {
+          "enum": [
+            "development_exploration",
+            "synthetic_engineering"
+          ],
+          "title": "Evidence Class",
+          "type": "string"
+        },
+        "formal_research_access": {
+          "const": false,
+          "default": false,
+          "title": "Formal Research Access",
+          "type": "boolean"
+        },
+        "source_id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "source_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Sha256",
+          "type": "string"
+        },
+        "display_width": {
+          "maximum": 16384,
+          "minimum": 16,
+          "title": "Display Width",
+          "type": "integer"
+        },
+        "display_height": {
+          "maximum": 16384,
+          "minimum": 16,
+          "title": "Display Height",
+          "type": "integer"
+        },
+        "start_ms": {
+          "minimum": 0,
+          "title": "Start Ms",
+          "type": "integer"
+        },
+        "end_ms": {
+          "exclusiveMinimum": 0,
+          "title": "End Ms",
+          "type": "integer"
+        },
+        "rois": {
+          "items": {
+            "$ref": "#/$defs/MotionROI"
+          },
+          "maxItems": 12,
+          "minItems": 4,
+          "title": "Rois",
+          "type": "array"
+        },
+        "window_ms": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Window Ms",
+          "type": "array"
+        },
+        "sample_fps": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Sample Fps",
+          "type": "array"
+        },
+        "stride_ms": {
+          "maximum": 5000,
+          "minimum": 100,
+          "title": "Stride Ms",
+          "type": "integer"
+        },
+        "encoder_frames": {
+          "const": 16,
+          "default": 16,
+          "title": "Encoder Frames",
+          "type": "integer"
+        },
+        "max_pts_error_ms": {
+          "maximum": 250,
+          "minimum": 1,
+          "title": "Max Pts Error Ms",
+          "type": "integer"
+        },
+        "min_valid_fraction": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Min Valid Fraction",
+          "type": "number"
+        },
+        "max_windows": {
+          "maximum": 10000,
+          "minimum": 1,
+          "title": "Max Windows",
+          "type": "integer"
+        },
+        "motion_size": {
+          "maximum": 128,
+          "minimum": 16,
+          "title": "Motion Size",
+          "type": "integer"
+        },
+        "block_size": {
+          "maximum": 32,
+          "minimum": 4,
+          "title": "Block Size",
+          "type": "integer"
+        },
+        "search_radius": {
+          "maximum": 8,
+          "minimum": 1,
+          "title": "Search Radius",
+          "type": "integer"
+        },
+        "texture_floor": {
+          "exclusiveMaximum": 1,
+          "minimum": 0,
+          "title": "Texture Floor",
+          "type": "number"
+        },
+        "motion_improvement": {
+          "exclusiveMaximum": 1,
+          "minimum": 0,
+          "title": "Motion Improvement",
+          "type": "number"
+        },
+        "baseline_fraction": {
+          "exclusiveMinimum": 0,
+          "maximum": 0.5,
+          "title": "Baseline Fraction",
+          "type": "number"
+        },
+        "thresholds": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "title": "Thresholds",
+          "type": "array"
+        },
+        "smoothing_ms": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 5,
+          "minItems": 1,
+          "title": "Smoothing Ms",
+          "type": "array"
+        },
+        "primary_window_ms": {
+          "maximum": 8000,
+          "minimum": 500,
+          "title": "Primary Window Ms",
+          "type": "integer"
+        },
+        "primary_fps": {
+          "maximum": 32,
+          "minimum": 1,
+          "title": "Primary Fps",
+          "type": "integer"
+        },
+        "primary_threshold": {
+          "exclusiveMinimum": 0,
+          "title": "Primary Threshold",
+          "type": "number"
+        },
+        "primary_smoothing_ms": {
+          "maximum": 5000,
+          "minimum": 0,
+          "title": "Primary Smoothing Ms",
+          "type": "integer"
+        },
+        "refractory_ms": {
+          "maximum": 10000,
+          "minimum": 100,
+          "title": "Refractory Ms",
+          "type": "integer"
+        },
+        "candidate_budget": {
+          "maximum": 200,
+          "minimum": 1,
+          "title": "Candidate Budget",
+          "type": "integer"
+        },
+        "boundary_tolerance_ms": {
+          "maximum": 5000,
+          "minimum": 0,
+          "title": "Boundary Tolerance Ms",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "evidence_class",
+        "source_id",
+        "source_sha256",
+        "display_width",
+        "display_height",
+        "start_ms",
+        "end_ms",
+        "rois",
+        "window_ms",
+        "sample_fps",
+        "stride_ms",
+        "max_pts_error_ms",
+        "min_valid_fraction",
+        "max_windows",
+        "motion_size",
+        "block_size",
+        "search_radius",
+        "texture_floor",
+        "motion_improvement",
+        "baseline_fraction",
+        "thresholds",
+        "smoothing_ms",
+        "primary_window_ms",
+        "primary_fps",
+        "primary_threshold",
+        "primary_smoothing_ms",
+        "refractory_ms",
+        "candidate_budget",
+        "boundary_tolerance_ms"
+      ],
+      "title": "LocalMotionSettings",
+      "type": "object"
+    },
     "Media": {
       "additionalProperties": false,
       "properties": {
@@ -981,6 +1222,92 @@
         }
       },
       "title": "MediaAccessSettings",
+      "type": "object"
+    },
+    "MotionExclusion": {
+      "additionalProperties": false,
+      "properties": {
+        "start_ms": {
+          "minimum": 0,
+          "title": "Start Ms",
+          "type": "integer"
+        },
+        "end_ms": {
+          "exclusiveMinimum": 0,
+          "title": "End Ms",
+          "type": "integer"
+        },
+        "reason": {
+          "enum": [
+            "occluded",
+            "outside_view",
+            "invalid_frame"
+          ],
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start_ms",
+        "end_ms",
+        "reason"
+      ],
+      "title": "MotionExclusion",
+      "type": "object"
+    },
+    "MotionROI": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "global",
+            "hands",
+            "interaction",
+            "background",
+            "offset_control"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "xyxy": {
+          "items": {
+            "type": "number"
+          },
+          "maxItems": 4,
+          "minItems": 4,
+          "title": "Xyxy",
+          "type": "array"
+        },
+        "visibility": {
+          "default": "unverified",
+          "enum": [
+            "unverified",
+            "visible",
+            "occluded"
+          ],
+          "title": "Visibility",
+          "type": "string"
+        },
+        "exclusions": {
+          "items": {
+            "$ref": "#/$defs/MotionExclusion"
+          },
+          "maxItems": 100,
+          "title": "Exclusions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "role",
+        "xyxy"
+      ],
+      "title": "MotionROI",
       "type": "object"
     },
     "Paths": {
@@ -2367,6 +2694,17 @@
       "anyOf": [
         {
           "$ref": "#/$defs/ExploratorySettings"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "local_motion": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LocalMotionSettings"
         },
         {
           "type": "null"

@@ -10,6 +10,7 @@ from .sop import SopSettings
 from .database import SQLiteSettings
 from .media import MediaAccessSettings
 from .exploratory import ExploratorySettings
+from .local_motion import LocalMotionSettings
 
 class SourceBinding(Strict):
     id: Identifier
@@ -28,6 +29,7 @@ class SceneEncoder(Encoder):
 class SceneConfig(SystemConfig):
     config_version: Literal['3.1']
     exploratory: ExploratorySettings | None = None
+    local_motion: LocalMotionSettings | None = None
     sqlite: SQLiteSettings | None = None
     media_access: MediaAccessSettings | None = None
     ingestion: IngestionSettings | None = None
