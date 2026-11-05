@@ -11,6 +11,7 @@ describe('B.1 local dynamics evidence and independent human records',()=>{
   const html=renderToStaticMarkup(<LocalMotionPanel/>);
   expect(html).toContain('合成素材 · 工程演示');expect(html).toContain('无完整人工边界');expect(html).toContain('原片不会上传');
   expect(html).toContain('导出ROI配置草稿');expect(html).toContain('全部阈值和平滑组合');
+  expect(html).toContain('已执行工业视频 · 汇总证据');expect(html).toContain('不能视为纯净负对照');
  });
  it('rejects unsupported report types, sealed-style admission and nonfinite curves',()=>{
   const r=structuredClone(data) as any;r.formal_research_passed=true;expect(()=>parseMotionReport(JSON.stringify(r))).toThrow();

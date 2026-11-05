@@ -1,0 +1,4907 @@
+{
+  "schema": "b1-public-aggregate-v1",
+  "evidence_class": "development_exploration",
+  "run_id": "f63bd84ecdf749e03f31ac27900181d647589ece1246063aa18faaf08a8926b5",
+  "recipe_hash": "01d6b23ede163fb3127ae8d204f4b52a617b503c9133ec4d972e8ee001220469",
+  "features_sha256": "fffb59c221a2e0e549b572772ebcce002df417772ed8873c8d2f0e6c2b82ea01",
+  "source": {
+    "asset_id": "garment_test",
+    "sha256": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+    "bytes": 20848517,
+    "width": 640,
+    "height": 480,
+    "first_pts_ms": 0
+  },
+  "encoder": "frozen_official_r3d18_512",
+  "model_sha256": "2979019509005056778db9f462e9eed212c40f02d5e5bf1d6fc9e06caf2ebab8",
+  "settings": {
+    "enabled": true,
+    "evidence_class": "development_exploration",
+    "formal_research_access": false,
+    "source_id": "garment_test",
+    "source_sha256": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+    "display_width": 640,
+    "display_height": 480,
+    "start_ms": 0,
+    "end_ms": 118500,
+    "rois": [
+      {
+        "id": "global",
+        "role": "global",
+        "xyxy": [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        "visibility": "unverified",
+        "encode_r3d": true,
+        "exclusions": []
+      },
+      {
+        "id": "hands",
+        "role": "hands",
+        "xyxy": [
+          0.12,
+          0.02,
+          0.72,
+          0.63
+        ],
+        "visibility": "unverified",
+        "encode_r3d": true,
+        "exclusions": []
+      },
+      {
+        "id": "interaction",
+        "role": "interaction",
+        "xyxy": [
+          0.22,
+          0.25,
+          0.78,
+          0.84
+        ],
+        "visibility": "unverified",
+        "encode_r3d": true,
+        "exclusions": []
+      },
+      {
+        "id": "background",
+        "role": "background",
+        "xyxy": [
+          0.78,
+          0.64,
+          0.98,
+          0.94
+        ],
+        "visibility": "unverified",
+        "encode_r3d": true,
+        "exclusions": []
+      },
+      {
+        "id": "hands_left_shift",
+        "role": "offset_control",
+        "xyxy": [
+          0.07,
+          0.02,
+          0.67,
+          0.63
+        ],
+        "visibility": "unverified",
+        "encode_r3d": false,
+        "exclusions": []
+      },
+      {
+        "id": "hands_right_shift",
+        "role": "offset_control",
+        "xyxy": [
+          0.17,
+          0.02,
+          0.77,
+          0.63
+        ],
+        "visibility": "unverified",
+        "encode_r3d": false,
+        "exclusions": []
+      }
+    ],
+    "window_ms": [
+      1000,
+      2000
+    ],
+    "sample_fps": [
+      4,
+      8
+    ],
+    "stride_ms": 1000,
+    "encoder_frames": 16,
+    "max_pts_error_ms": 50,
+    "min_valid_fraction": 0.95,
+    "max_windows": 1000,
+    "motion_size": 32,
+    "block_size": 8,
+    "search_radius": 3,
+    "texture_floor": 0.015,
+    "motion_improvement": 0.05,
+    "baseline_fraction": 0.2,
+    "thresholds": [
+      1.5,
+      2.5,
+      3.5
+    ],
+    "smoothing_ms": [
+      0,
+      1000,
+      2000
+    ],
+    "primary_window_ms": 2000,
+    "primary_fps": 8,
+    "primary_threshold": 2.5,
+    "primary_smoothing_ms": 1000,
+    "refractory_ms": 1000,
+    "candidate_budget": 50,
+    "boundary_tolerance_ms": 500
+  },
+  "feature_rows": 2808,
+  "elapsed_extraction_seconds": 1097.3409523209993,
+  "quality": {
+    "method": "decoded_luma_and_contrast_v1",
+    "decoded_frames": 2844,
+    "dark_frames": 0,
+    "bright_frames": 0,
+    "low_contrast_frames": 0,
+    "score": 1.0,
+    "semantic_accuracy": null
+  },
+  "primary": {
+    "arm": "w2000-f8",
+    "threshold": 2.5,
+    "smoothing_ms": 1000,
+    "count": 36,
+    "selection": {
+      "eligible": 90,
+      "temporal_suppressed": 54,
+      "budget_omitted": 0
+    },
+    "budget_is_not_a_quota": true
+  },
+  "arms": [
+    {
+      "id": "w1000-f4",
+      "window_ms": 1000,
+      "fps": 4,
+      "operation_background": [
+        {
+          "operation": "hands:r3d",
+          "control": "background:r3d",
+          "aligned_points": 116,
+          "correlation": 0.4891322307332996,
+          "mean_ratio": 2.7528498416926803,
+          "relative_absolute_change": 0.7474790830845397,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "interaction:r3d",
+          "control": "background:r3d",
+          "aligned_points": 116,
+          "correlation": 0.5701120878011425,
+          "mean_ratio": 2.6218842384139793,
+          "relative_absolute_change": 0.7122397361832647,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "hands:frame_difference",
+          "control": "background:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.5203642313898746,
+          "mean_ratio": 7.721295726960861,
+          "relative_absolute_change": 0.8704880585640249,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "interaction:frame_difference",
+          "control": "background:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.5798514418888757,
+          "mean_ratio": 6.452477649680092,
+          "relative_absolute_change": 0.8452187769441388,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "hands:block_motion",
+          "control": "background:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.4535596636593254,
+          "mean_ratio": 8.59468754996564,
+          "relative_absolute_change": 0.9084001575278432,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "interaction:block_motion",
+          "control": "background:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.4951821327589537,
+          "mean_ratio": 8.889850768887676,
+          "relative_absolute_change": 0.9054530962889826,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        }
+      ],
+      "offset_sensitivity": [
+        {
+          "base": "hands:frame_difference",
+          "offset": "hands_left_shift:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.9931782328887139,
+          "mean_ratio": 1.054826840505048,
+          "relative_absolute_change": 0.06575232152355898,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        },
+        {
+          "base": "hands:block_motion",
+          "offset": "hands_left_shift:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.9632444112810886,
+          "mean_ratio": 1.0945400118042141,
+          "relative_absolute_change": 0.1480623458679756,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        },
+        {
+          "base": "hands:frame_difference",
+          "offset": "hands_right_shift:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.9953789841867514,
+          "mean_ratio": 0.9829168667535859,
+          "relative_absolute_change": 0.04566787945597545,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        },
+        {
+          "base": "hands:block_motion",
+          "offset": "hands_right_shift:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.9772830904797474,
+          "mean_ratio": 0.9867810339039793,
+          "relative_absolute_change": 0.11214983896539381,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        }
+      ],
+      "series_statistics": [
+        {
+          "id": "global:r3d",
+          "roi": "global",
+          "role": "global",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.07328406901195131,
+            "p50": 0.05914488434791565,
+            "p90": 0.142950177192688
+          }
+        },
+        {
+          "id": "global:frame_difference",
+          "roi": "global",
+          "role": "global",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.16753409416587264,
+            "p50": 0.12581166500846544,
+            "p90": 0.33778718610604624
+          }
+        },
+        {
+          "id": "global:block_motion",
+          "roi": "global",
+          "role": "global",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.06269695071521846,
+            "p50": 0.033417510515308196,
+            "p90": 0.16501376217823627
+          }
+        },
+        {
+          "id": "hands:r3d",
+          "roi": "hands",
+          "role": "hands",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.10930280130485008,
+            "p50": 0.10216495394706726,
+            "p90": 0.19659778475761414
+          }
+        },
+        {
+          "id": "hands:frame_difference",
+          "roi": "hands",
+          "role": "hands",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.2931103278747481,
+            "p50": 0.2545749992132187,
+            "p90": 0.5390431046485901
+          }
+        },
+        {
+          "id": "hands:block_motion",
+          "roi": "hands",
+          "role": "hands",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.1328046965561822,
+            "p50": 0.10916877963727949,
+            "p90": 0.2676888451900595
+          }
+        },
+        {
+          "id": "interaction:r3d",
+          "roi": "interaction",
+          "role": "interaction",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.10410276928852344,
+            "p50": 0.084286630153656,
+            "p90": 0.19363147020339966
+          }
+        },
+        {
+          "id": "interaction:frame_difference",
+          "roi": "interaction",
+          "role": "interaction",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.24494435990818292,
+            "p50": 0.1893992560605208,
+            "p90": 0.5239205876986186
+          }
+        },
+        {
+          "id": "interaction:block_motion",
+          "roi": "interaction",
+          "role": "interaction",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.13736554434682047,
+            "p50": 0.10434477087338057,
+            "p90": 0.299205923379813
+          }
+        },
+        {
+          "id": "background:r3d",
+          "roi": "background",
+          "role": "background",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.03970532633107284,
+            "p50": 0.008521884679794312,
+            "p90": 0.12144342064857483
+          }
+        },
+        {
+          "id": "background:frame_difference",
+          "roi": "background",
+          "role": "background",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.03796128761799385,
+            "p50": 0.021554946588973205,
+            "p90": 0.0693467934926351
+          }
+        },
+        {
+          "id": "background:block_motion",
+          "roi": "background",
+          "role": "background",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.01545195166015234,
+            "p50": 0.0,
+            "p90": 0.04110612946855744
+          }
+        },
+        {
+          "id": "hands_left_shift:frame_difference",
+          "roi": "hands_left_shift",
+          "role": "offset_control",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.2778753029591167,
+            "p50": 0.24314887821674347,
+            "p90": 0.4939214428265892
+          }
+        },
+        {
+          "id": "hands_left_shift:block_motion",
+          "roi": "hands_left_shift",
+          "role": "offset_control",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.12133379787301704,
+            "p50": 0.10491216174257771,
+            "p90": 0.22787611507065259
+          }
+        },
+        {
+          "id": "hands_right_shift:frame_difference",
+          "roi": "hands_right_shift",
+          "role": "offset_control",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.2982045967354734,
+            "p50": 0.25864457587401074,
+            "p90": 0.5674895465373994
+          }
+        },
+        {
+          "id": "hands_right_shift:block_motion",
+          "roi": "hands_right_shift",
+          "role": "offset_control",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.13458375464592182,
+            "p50": 0.11312252531512645,
+            "p90": 0.2735932352948297
+          }
+        }
+      ],
+      "grid": [
+        {
+          "series": "global:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 18
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 13
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 10
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 10
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 9
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 5
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 9
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 6
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 3
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 28
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 22
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 19
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 28
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 18
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 21
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 16
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 34
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 28
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 25
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 23
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 27
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 25
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 22
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 21
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 19
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 20
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 9
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 8
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 11
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 7
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 0
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 9
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 4
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 0
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 22
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 16
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 10
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 20
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 11
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 3
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 16
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 4
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 0
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 30
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 22
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 18
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 26
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 16
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 11
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 19
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 13
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 7
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 20
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 15
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 9
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 12
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 9
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 3
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 4
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 1
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 22
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 16
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 10
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 15
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 4
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 19
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 6
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 0
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 31
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 28
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 22
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 26
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 20
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 16
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 16
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 30
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 29
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 29
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 20
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 20
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 20
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 14
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 14
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 32
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 19
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 15
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 23
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 19
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 12
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 22
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 9
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 14
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 14
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 14
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 20
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 20
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 20
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 19
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 19
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 19
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 19
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 12
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 9
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 17
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 8
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 1
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 11
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 1
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 0
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 18
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 7
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 3
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 14
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 1
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 0
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 11
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 0
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 0
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 24
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 16
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 13
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 22
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 16
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 5
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 18
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 8
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 0
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 27
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 20
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 13
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 24
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 15
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 7
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 15
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 3
+        }
+      ]
+    },
+    {
+      "id": "w1000-f8",
+      "window_ms": 1000,
+      "fps": 8,
+      "operation_background": [
+        {
+          "operation": "hands:r3d",
+          "control": "background:r3d",
+          "aligned_points": 116,
+          "correlation": 0.4951571814101973,
+          "mean_ratio": 2.7996568585581634,
+          "relative_absolute_change": 0.7317156382455922,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "interaction:r3d",
+          "control": "background:r3d",
+          "aligned_points": 116,
+          "correlation": 0.5617833453276947,
+          "mean_ratio": 2.6611607751856057,
+          "relative_absolute_change": 0.6992901421539871,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "hands:frame_difference",
+          "control": "background:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.4697024469161046,
+          "mean_ratio": 7.259464606221706,
+          "relative_absolute_change": 0.8647924770605424,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "interaction:frame_difference",
+          "control": "background:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.5348994166587275,
+          "mean_ratio": 5.969286113457486,
+          "relative_absolute_change": 0.8333156860418609,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "hands:block_motion",
+          "control": "background:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.5138752441527836,
+          "mean_ratio": 9.929432768366361,
+          "relative_absolute_change": 0.9068275426375795,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "interaction:block_motion",
+          "control": "background:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.5804902524280606,
+          "mean_ratio": 10.530086444083816,
+          "relative_absolute_change": 0.9060503439082168,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        }
+      ],
+      "offset_sensitivity": [
+        {
+          "base": "hands:frame_difference",
+          "offset": "hands_left_shift:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.994163485272797,
+          "mean_ratio": 1.055126874175777,
+          "relative_absolute_change": 0.06553631416074462,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        },
+        {
+          "base": "hands:block_motion",
+          "offset": "hands_left_shift:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.9818366162782074,
+          "mean_ratio": 1.1014530635289237,
+          "relative_absolute_change": 0.13346568689366697,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        },
+        {
+          "base": "hands:frame_difference",
+          "offset": "hands_right_shift:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.9963288212232483,
+          "mean_ratio": 0.9855496283236393,
+          "relative_absolute_change": 0.04297043120351587,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        },
+        {
+          "base": "hands:block_motion",
+          "offset": "hands_right_shift:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.9855561148713533,
+          "mean_ratio": 0.9755280400238324,
+          "relative_absolute_change": 0.10814711623610172,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        }
+      ],
+      "series_statistics": [
+        {
+          "id": "global:r3d",
+          "roi": "global",
+          "role": "global",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.07854216982578409,
+            "p50": 0.06406986713409424,
+            "p90": 0.14478018879890442
+          }
+        },
+        {
+          "id": "global:frame_difference",
+          "roi": "global",
+          "role": "global",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.2376041652677951,
+            "p50": 0.17058514058589935,
+            "p90": 0.47567458152771
+          }
+        },
+        {
+          "id": "global:block_motion",
+          "roi": "global",
+          "role": "global",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.09159680270724875,
+            "p50": 0.044801490651485434,
+            "p90": 0.25839994942178046
+          }
+        },
+        {
+          "id": "hands:r3d",
+          "roi": "hands",
+          "role": "hands",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.11237160861492157,
+            "p50": 0.10296428203582764,
+            "p90": 0.18227118253707886
+          }
+        },
+        {
+          "id": "hands:frame_difference",
+          "roi": "hands",
+          "role": "hands",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.4221665779440249,
+            "p50": 0.3567107788154057,
+            "p90": 0.736512555394854
+          }
+        },
+        {
+          "id": "hands:block_motion",
+          "roi": "hands",
+          "role": "hands",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.20219497668913827,
+            "p50": 0.1542877591652932,
+            "p90": 0.4332387453322517
+          }
+        },
+        {
+          "id": "interaction:r3d",
+          "roi": "interaction",
+          "role": "interaction",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.10681270319840004,
+            "p50": 0.08953160047531128,
+            "p90": 0.20283883810043335
+          }
+        },
+        {
+          "id": "interaction:frame_difference",
+          "roi": "interaction",
+          "role": "interaction",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.3471375959498924,
+            "p50": 0.2677737538303648,
+            "p90": 0.6982360380036495
+          }
+        },
+        {
+          "id": "interaction:block_motion",
+          "roi": "interaction",
+          "role": "interaction",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.2144262046749759,
+            "p50": 0.13734844574609648,
+            "p90": 0.5384512277900193
+          }
+        },
+        {
+          "id": "background:r3d",
+          "roi": "background",
+          "role": "background",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.04013763625046302,
+            "p50": 0.009696811437606812,
+            "p90": 0.1230466365814209
+          }
+        },
+        {
+          "id": "background:frame_difference",
+          "roi": "background",
+          "role": "background",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.05815395498756314,
+            "p50": 0.022750287649354765,
+            "p90": 0.09861507894737383
+          }
+        },
+        {
+          "id": "background:block_motion",
+          "roi": "background",
+          "role": "background",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.02036319509945223,
+            "p50": 0.0,
+            "p90": 0.044745335211452936
+          }
+        },
+        {
+          "id": "hands_left_shift:frame_difference",
+          "roi": "hands_left_shift",
+          "role": "offset_control",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.4001097766311796,
+            "p50": 0.3380498524223055,
+            "p90": 0.6975950224058969
+          }
+        },
+        {
+          "id": "hands_left_shift:block_motion",
+          "roi": "hands_left_shift",
+          "role": "offset_control",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.18357112380379587,
+            "p50": 0.13858919450892118,
+            "p90": 0.3850710205499006
+          }
+        },
+        {
+          "id": "hands_right_shift:frame_difference",
+          "roi": "hands_right_shift",
+          "role": "offset_control",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.4283564884115525,
+            "p50": 0.3553393930196762,
+            "p90": 0.7532260469027928
+          }
+        },
+        {
+          "id": "hands_right_shift:block_motion",
+          "roi": "hands_right_shift",
+          "role": "offset_control",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.2072672115956796,
+            "p50": 0.15287165734572186,
+            "p90": 0.4460256953496357
+          }
+        }
+      ],
+      "grid": [
+        {
+          "series": "global:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 25
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 23
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 19
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 20
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 16
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 14
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 13
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 10
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 8
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 29
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 26
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 18
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 27
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 22
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 18
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 21
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 21
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 17
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 29
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 29
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 24
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 23
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 23
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 20
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 21
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 21
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 20
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 15
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 7
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 14
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 6
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 2
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 11
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 5
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 0
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 29
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 24
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 17
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 25
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 18
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 16
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 16
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 9
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 28
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 22
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 18
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 22
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 17
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 14
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 6
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 20
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 14
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 8
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 12
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 6
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 2
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 8
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 5
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 0
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 20
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 12
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 8
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 12
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 2
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 14
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 3
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 0
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 33
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 28
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 26
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 25
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 23
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 21
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 16
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 31
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 30
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 30
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 17
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 17
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 17
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 17
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 16
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 15
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 33
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 24
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 18
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 25
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 23
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 19
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 24
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 22
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 18
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 13
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 13
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 13
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 19
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 19
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 19
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 27
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 19
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 11
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 22
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 17
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 10
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 19
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 11
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 3
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 28
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 24
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 20
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 25
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 18
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 17
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 21
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 14
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 11
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 26
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 21
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 11
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 17
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 11
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 17
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 3
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 30
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 27
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 24
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 24
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 18
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 22
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 19
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 13
+        }
+      ]
+    },
+    {
+      "id": "w2000-f4",
+      "window_ms": 2000,
+      "fps": 4,
+      "operation_background": [
+        {
+          "operation": "hands:r3d",
+          "control": "background:r3d",
+          "aligned_points": 116,
+          "correlation": 0.504692267084132,
+          "mean_ratio": 2.609440431458005,
+          "relative_absolute_change": 0.6962521746652846,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "interaction:r3d",
+          "control": "background:r3d",
+          "aligned_points": 116,
+          "correlation": 0.5267995310972605,
+          "mean_ratio": 2.5437138705985927,
+          "relative_absolute_change": 0.6969903515529811,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "hands:frame_difference",
+          "control": "background:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.523593726443328,
+          "mean_ratio": 7.742958121990145,
+          "relative_absolute_change": 0.8708503928027221,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "interaction:frame_difference",
+          "control": "background:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.5459157414339265,
+          "mean_ratio": 6.4580285499051,
+          "relative_absolute_change": 0.8453234534281006,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "hands:block_motion",
+          "control": "background:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.5491288515344107,
+          "mean_ratio": 9.486661434538961,
+          "relative_absolute_change": 0.8945888385602958,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "interaction:block_motion",
+          "control": "background:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.5797231304796745,
+          "mean_ratio": 9.846366114129768,
+          "relative_absolute_change": 0.898439689484532,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        }
+      ],
+      "offset_sensitivity": [
+        {
+          "base": "hands:frame_difference",
+          "offset": "hands_left_shift:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.9918222488885067,
+          "mean_ratio": 1.0543900066700125,
+          "relative_absolute_change": 0.061345099211068475,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        },
+        {
+          "base": "hands:block_motion",
+          "offset": "hands_left_shift:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.9765824146414755,
+          "mean_ratio": 1.0918375285396773,
+          "relative_absolute_change": 0.11537741867421131,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        },
+        {
+          "base": "hands:frame_difference",
+          "offset": "hands_right_shift:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.9954563656276747,
+          "mean_ratio": 0.9830829941757661,
+          "relative_absolute_change": 0.038146041930980645,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        },
+        {
+          "base": "hands:block_motion",
+          "offset": "hands_right_shift:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.9823618746545694,
+          "mean_ratio": 0.9824955207772563,
+          "relative_absolute_change": 0.0825267564718536,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        }
+      ],
+      "series_statistics": [
+        {
+          "id": "global:r3d",
+          "roi": "global",
+          "role": "global",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.06075242778350567,
+            "p50": 0.054301828145980835,
+            "p90": 0.10868814587593079
+          }
+        },
+        {
+          "id": "global:frame_difference",
+          "roi": "global",
+          "role": "global",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.16816648838175083,
+            "p50": 0.12610202708414622,
+            "p90": 0.3344493435961861
+          }
+        },
+        {
+          "id": "global:block_motion",
+          "roi": "global",
+          "role": "global",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.06356437628003432,
+            "p50": 0.04296383927762308,
+            "p90": 0.15213826678934872
+          }
+        },
+        {
+          "id": "hands:r3d",
+          "roi": "hands",
+          "role": "hands",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.08739136570486529,
+            "p50": 0.07419201731681824,
+            "p90": 0.1568596363067627
+          }
+        },
+        {
+          "id": "hands:frame_difference",
+          "roi": "hands",
+          "role": "hands",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.29305134856020426,
+            "p50": 0.2635828969734056,
+            "p90": 0.49000368118286164
+          }
+        },
+        {
+          "id": "hands:block_motion",
+          "roi": "hands",
+          "role": "hands",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.13423752091212748,
+            "p50": 0.11312027508412184,
+            "p90": 0.2426726917323433
+          }
+        },
+        {
+          "id": "interaction:r3d",
+          "roi": "interaction",
+          "role": "interaction",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.08519015281364836,
+            "p50": 0.07607322931289673,
+            "p90": 0.1482270061969757
+          }
+        },
+        {
+          "id": "interaction:frame_difference",
+          "roi": "interaction",
+          "role": "interaction",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.24442001955494996,
+            "p50": 0.21269517711230687,
+            "p90": 0.5225286432674953
+          }
+        },
+        {
+          "id": "interaction:block_motion",
+          "roi": "interaction",
+          "role": "interaction",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.1393273899647915,
+            "p50": 0.10967330260327701,
+            "p90": 0.2995653485762083
+          }
+        },
+        {
+          "id": "background:r3d",
+          "roi": "background",
+          "role": "background",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.03349046203596839,
+            "p50": 0.010001957416534424,
+            "p90": 0.09814852476119995
+          }
+        },
+        {
+          "id": "background:frame_difference",
+          "roi": "background",
+          "role": "background",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.03784746655518296,
+            "p50": 0.020587424814168895,
+            "p90": 0.07128048927656243
+          }
+        },
+        {
+          "id": "background:block_motion",
+          "roi": "background",
+          "role": "background",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.014150132988133906,
+            "p50": 0.0,
+            "p90": 0.051233059052661435
+          }
+        },
+        {
+          "id": "hands_left_shift:frame_difference",
+          "roi": "hands_left_shift",
+          "role": "offset_control",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.2779344898058382,
+            "p50": 0.24663774349859782,
+            "p90": 0.44197358701910305
+          }
+        },
+        {
+          "id": "hands_left_shift:block_motion",
+          "roi": "hands_left_shift",
+          "role": "offset_control",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.12294642508915127,
+            "p50": 0.10815427208238228,
+            "p90": 0.2197232055259407
+          }
+        },
+        {
+          "id": "hands_right_shift:frame_difference",
+          "roi": "hands_right_shift",
+          "role": "offset_control",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.2980942100477525,
+            "p50": 0.2705784333603723,
+            "p90": 0.5194393775292806
+          }
+        },
+        {
+          "id": "hands_right_shift:block_motion",
+          "roi": "hands_right_shift",
+          "role": "offset_control",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.1366291429053352,
+            "p50": 0.11698359378484142,
+            "p90": 0.24109139439752758
+          }
+        }
+      ],
+      "grid": [
+        {
+          "series": "global:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 22
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 17
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 13
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 11
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 11
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 9
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 13
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 9
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 4
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 28
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 22
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 18
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 24
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 23
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 19
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 22
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 21
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 16
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 37
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 30
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 28
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 24
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 18
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 19
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 24
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 21
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 17
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 16
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 14
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 9
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 15
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 10
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 5
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 29
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 23
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 12
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 23
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 17
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 11
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 18
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 3
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 30
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 27
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 23
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 24
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 24
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 15
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 15
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 13
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 18
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 15
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 11
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 16
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 12
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 7
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 9
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 4
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 23
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 18
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 14
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 15
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 6
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 7
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 1
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 32
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 29
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 18
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 22
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 18
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 18
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 17
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 17
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 24
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 20
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 17
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 18
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 12
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 9
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 9
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 7
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 40
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 30
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 26
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 24
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 24
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 18
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 14
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 14
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 14
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 19
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 19
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 19
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 31
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 20
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 11
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 17
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 7
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 18
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 0
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 28
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 27
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 19
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 24
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 18
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 14
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 17
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 13
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 27
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 15
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 11
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 15
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 6
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 17
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 11
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 0
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 30
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 21
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 15
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 16
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 13
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 17
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 13
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 10
+        }
+      ]
+    },
+    {
+      "id": "w2000-f8",
+      "window_ms": 2000,
+      "fps": 8,
+      "operation_background": [
+        {
+          "operation": "hands:r3d",
+          "control": "background:r3d",
+          "aligned_points": 116,
+          "correlation": 0.519394807653994,
+          "mean_ratio": 2.5565456206313657,
+          "relative_absolute_change": 0.6857049867629397,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "interaction:r3d",
+          "control": "background:r3d",
+          "aligned_points": 116,
+          "correlation": 0.5375477594761672,
+          "mean_ratio": 2.549686312461417,
+          "relative_absolute_change": 0.6916074201733806,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "hands:frame_difference",
+          "control": "background:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.4940140130158568,
+          "mean_ratio": 7.334810424194721,
+          "relative_absolute_change": 0.8636638246707257,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "interaction:frame_difference",
+          "control": "background:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.5111214814939903,
+          "mean_ratio": 6.025920802628617,
+          "relative_absolute_change": 0.8341570132294767,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "hands:block_motion",
+          "control": "background:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.5606727554708242,
+          "mean_ratio": 10.483605838830735,
+          "relative_absolute_change": 0.9046129723519315,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        },
+        {
+          "operation": "interaction:block_motion",
+          "control": "background:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.6166707415096456,
+          "mean_ratio": 11.166088617283949,
+          "relative_absolute_change": 0.9104431252272076,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ"
+        }
+      ],
+      "offset_sensitivity": [
+        {
+          "base": "hands:frame_difference",
+          "offset": "hands_left_shift:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.993110228225112,
+          "mean_ratio": 1.0549370399026874,
+          "relative_absolute_change": 0.06171536473965347,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        },
+        {
+          "base": "hands:block_motion",
+          "offset": "hands_left_shift:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.9854585589827505,
+          "mean_ratio": 1.103481932792511,
+          "relative_absolute_change": 0.11524748227761951,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        },
+        {
+          "base": "hands:frame_difference",
+          "offset": "hands_right_shift:frame_difference",
+          "aligned_points": 117,
+          "correlation": 0.996208263431398,
+          "mean_ratio": 0.986624395516877,
+          "relative_absolute_change": 0.03603635623312947,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        },
+        {
+          "base": "hands:block_motion",
+          "offset": "hands_right_shift:block_motion",
+          "aligned_points": 117,
+          "correlation": 0.9884363300313868,
+          "mean_ratio": 0.9740705121019249,
+          "relative_absolute_change": 0.08189377386095557,
+          "interpretation": "descriptive_only_not_boundary_accuracy; ROI magnification and content differ",
+          "deep_offset_tested": false
+        }
+      ],
+      "series_statistics": [
+        {
+          "id": "global:r3d",
+          "roi": "global",
+          "role": "global",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.06013929586986016,
+            "p50": 0.05258926749229431,
+            "p90": 0.11224958300590515
+          }
+        },
+        {
+          "id": "global:frame_difference",
+          "roi": "global",
+          "role": "global",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.23650496545489186,
+            "p50": 0.16874506225188574,
+            "p90": 0.47458305577437115
+          }
+        },
+        {
+          "id": "global:block_motion",
+          "roi": "global",
+          "role": "global",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.09128402206048843,
+            "p50": 0.05206396830190536,
+            "p90": 0.23675770216627398
+          }
+        },
+        {
+          "id": "hands:r3d",
+          "roi": "hands",
+          "role": "hands",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.08845715481659462,
+            "p50": 0.07904529571533203,
+            "p90": 0.14912375807762146
+          }
+        },
+        {
+          "id": "hands:frame_difference",
+          "roi": "hands",
+          "role": "hands",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.41957402388509524,
+            "p50": 0.36011130015055337,
+            "p90": 0.7177283197641376
+          }
+        },
+        {
+          "id": "hands:block_motion",
+          "roi": "hands",
+          "role": "hands",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.20180316353396432,
+            "p50": 0.1580000432536809,
+            "p90": 0.39843027388986857
+          }
+        },
+        {
+          "id": "interaction:r3d",
+          "roi": "interaction",
+          "role": "interaction",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.08821982093926134,
+            "p50": 0.07173168659210205,
+            "p90": 0.16870519518852234
+          }
+        },
+        {
+          "id": "interaction:frame_difference",
+          "roi": "interaction",
+          "role": "interaction",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.34470145682727343,
+            "p50": 0.2909739583730698,
+            "p90": 0.6945555023352308
+          }
+        },
+        {
+          "id": "interaction:block_motion",
+          "roi": "interaction",
+          "role": "interaction",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.2149405502181502,
+            "p50": 0.15499717788664966,
+            "p90": 0.46680130239768025
+          }
+        },
+        {
+          "id": "background:r3d",
+          "roi": "background",
+          "role": "background",
+          "method": "r3d",
+          "stats": {
+            "valid": 116,
+            "missing": 1,
+            "mean": 0.03460026455336604,
+            "p50": 0.010890692472457886,
+            "p90": 0.10538366436958313
+          }
+        },
+        {
+          "id": "background:frame_difference",
+          "roi": "background",
+          "role": "background",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.05720311768400745,
+            "p50": 0.023601513107617697,
+            "p90": 0.09169847038264077
+          }
+        },
+        {
+          "id": "background:block_motion",
+          "roi": "background",
+          "role": "background",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.01924940393948195,
+            "p50": 0.0,
+            "p90": 0.06492939549328769
+          }
+        },
+        {
+          "id": "hands_left_shift:frame_difference",
+          "roi": "hands_left_shift",
+          "role": "offset_control",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.3977242318876194,
+            "p50": 0.33924987316131594,
+            "p90": 0.657247299849987
+          }
+        },
+        {
+          "id": "hands_left_shift:block_motion",
+          "roi": "hands_left_shift",
+          "role": "offset_control",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.18287853886585528,
+            "p50": 0.14089875920146303,
+            "p90": 0.35011639157336055
+          }
+        },
+        {
+          "id": "hands_right_shift:frame_difference",
+          "roi": "hands_right_shift",
+          "role": "offset_control",
+          "method": "frame_difference",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.42526216237060205,
+            "p50": 0.3648593599597613,
+            "p90": 0.7288471094767254
+          }
+        },
+        {
+          "id": "hands_right_shift:block_motion",
+          "roi": "hands_right_shift",
+          "role": "offset_control",
+          "method": "block_motion",
+          "stats": {
+            "valid": 117,
+            "missing": 0,
+            "mean": 0.20717510798935676,
+            "p50": 0.15913242162070537,
+            "p90": 0.3971454333012119
+          }
+        }
+      ],
+      "grid": [
+        {
+          "series": "global:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 18
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 14
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 9
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 11
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 7
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 3
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 10
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 3
+        },
+        {
+          "series": "global:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 1
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 29
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 26
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 19
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 23
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 23
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 19
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "global:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 18
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 30
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 26
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 27
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 24
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 22
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 22
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 19
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 19
+        },
+        {
+          "series": "global:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 20
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 13
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 9
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 14
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 9
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 3
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 11
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 4
+        },
+        {
+          "series": "hands:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 2
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 32
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 28
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 23
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 26
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 17
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 22
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 15
+        },
+        {
+          "series": "hands:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 15
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 29
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 24
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 19
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 18
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 14
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "hands:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 18
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 12
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 9
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 14
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 9
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 6
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 11
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 7
+        },
+        {
+          "series": "interaction:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 3
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 21
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 14
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 6
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 23
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 12
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 2
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 18
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 4
+        },
+        {
+          "series": "interaction:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 0
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 27
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 25
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 17
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 22
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 15
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 17
+        },
+        {
+          "series": "interaction:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 26
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 23
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 19
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 17
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 13
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 10
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 13
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 11
+        },
+        {
+          "series": "background:r3d",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 10
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 37
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 30
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 26
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 23
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 22
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 25
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 18
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "background:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 20
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 16
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 16
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 16
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 22
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 22
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 22
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 21
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 21
+        },
+        {
+          "series": "background:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 21
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 29
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 20
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 13
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 19
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 13
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 17
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 14
+        },
+        {
+          "series": "hands_left_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 4
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 32
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 26
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 21
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 22
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 19
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 16
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 18
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 17
+        },
+        {
+          "series": "hands_left_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 13
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 28
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 15
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 11
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 18
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 17
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 9
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 15
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "hands_right_shift:frame_difference",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 1
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 0,
+          "count": 27
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 0,
+          "count": 23
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 0,
+          "count": 20
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 1000,
+          "count": 21
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 1000,
+          "count": 18
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 1000,
+          "count": 15
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 1.5,
+          "smoothing_ms": 2000,
+          "count": 18
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 2.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        },
+        {
+          "series": "hands_right_shift:block_motion",
+          "threshold": 3.5,
+          "smoothing_ms": 2000,
+          "count": 12
+        }
+      ]
+    }
+  ],
+  "parameter_configurations": 576,
+  "modality_agreement": {
+    "r3d_only_candidates": 13,
+    "motion_only_candidates": 33,
+    "matched_between_algorithms": 10,
+    "tolerance_ms": 500,
+    "interpretation": "algorithm agreement, not precision/recall/F1 or evidence of better boundaries"
+  },
+  "boundary_evaluation": {
+    "status": "blocked",
+    "reason": "NO_EXHAUSTIVE_HUMAN_BOUNDARIES",
+    "precision": null,
+    "recall": null,
+    "f1": null
+  },
+  "human_industrial_boundaries": 0,
+  "background_control_status": "contamination_observed_not_pure_negative_control",
+  "industrial_curves_included": false,
+  "raw_embeddings_included": false,
+  "formal_research_passed": false,
+  "b2_started": false,
+  "private_report_sha256": "3e5fde56a6b9615c4edcb7ec6e635f8e757d309acd7940bf790d62518f8a271a"
+}

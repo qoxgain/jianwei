@@ -28,6 +28,13 @@ def main():
                 page.get_by_role('button',name='局部动态研究',exact=True).click()
                 expect(page.get_by_role('heading',name='局部动态，回到操作现场。')).to_be_visible()
                 expect(page.locator('.lm-notice')).to_contain_text('合成素材')
+                public=json.loads((ROOT/'apps/web/src/data/localMotionStatistics.json').read_text())
+                expect(page.locator('.lm-industrial-summary')).to_contain_text('不能视为纯净负对照')
+                for arm in public['arms']:
+                    page.get_by_label('工业汇总窗口',exact=True).select_option(arm['id'])
+                    expect(page.locator('.lm-industrial-summary tbody tr').first.locator('td').nth(1)).to_have_text(f"{arm['operation_background'][0]['correlation']:.4f}")
+                with page.expect_download() as download:page.get_by_role('button',name='导出工业汇总',exact=True).click()
+                aggregate=out/(mode+'-industrial-aggregate.json');download.value.save_as(aggregate);assert json.loads(aggregate.read_text())==public
                 # Exercise edits on the executed synthetic run only. No automatic
                 # UI click is accepted as a real industrial human annotation.
                 page.get_by_label('编辑ROI',exact=True).select_option('hands')
@@ -37,7 +44,7 @@ def main():
                 page.get_by_role('button',name='框选ROI',exact=True).click();canvas=page.get_by_label('ROI框选画布',exact=True);canvas.scroll_into_view_if_needed();box=canvas.bounding_box()
                 page.mouse.move(box['x']+box['width']*.2,box['y']+box['height']*.2);page.mouse.down();page.mouse.move(box['x']+box['width']*.75,box['y']+box['height']*.7,steps=6);page.mouse.up()
                 page.get_by_role('button',name='退出框选',exact=True).click()
-                expect(page.locator('.lm-warning').first).to_contain_text('曲线仍对应原已执行ROI')
+                expect(page.locator('.lm-top-grid .lm-warning').first).to_contain_text('曲线仍对应原已执行ROI')
                 with page.expect_download() as download:page.get_by_role('button',name='导出ROI配置草稿',exact=True).click()
                 path=out/(mode+'-roi.yaml');download.value.save_as(path);draft=yaml.safe_load(path.read_text())
                 chosen=next(r for r in draft['local_motion']['rois'] if r['id']=='hands');assert abs(chosen['xyxy'][0]-.2)<.02 and abs(chosen['xyxy'][2]-.75)<.02

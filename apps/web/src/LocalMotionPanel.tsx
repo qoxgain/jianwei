@@ -3,6 +3,7 @@ import {Download,Upload,Play,ScanLine,CheckCircle2,TriangleAlert} from 'lucide-r
 import {stringify} from 'yaml';
 import {sha256} from 'js-sha256';
 import demoData from './data/localMotionDemo.json';
+import industrialSummary from './data/localMotionStatistics.json';
 import {blankReview,candidateEvaluationNote,formatPts,latestDecisions,parseMotionReport,parseReview,roiDraft,validBox} from './localMotion';
 import type {ManualDocument,ManualEvent,MotionReport,MotionSeries,MotionCandidate,Roi} from './localMotion';
 import {downloadText} from './service';
@@ -12,6 +13,18 @@ const roleNames:Record<string,string>={global:'全局画面',hands:'手部操作
 const methods:Record<string,string>={r3d:'冻结R3D变化',frame_difference:'连续采样帧差',block_motion:'轻量块运动'};
 const colors=['#167d8d','#e18b35','#816bc5','#448451','#c55769','#7a817e'];
 const number=(v:number|null|undefined)=>v==null?'—':v.toFixed(4);
+
+function IndustrialSummary(){
+ const [armId,setArmId]=useState(industrialSummary.primary.arm);
+ const arm=industrialSummary.arms.find(a=>a.id===armId)!;
+ return <section className="panel lm-industrial-summary"><div className="panel-heading"><h2>已执行工业视频 · 汇总证据</h2><span className="pill">单一开发来源，尚无人工真值</span></div>
+  <p>{industrialSummary.source.asset_id} · {industrialSummary.quality.decoded_frames} 帧 · {industrialSummary.feature_rows} 条ROI记录 · 主配置 {industrialSummary.primary.count} 个待复核候选 · 全部 {industrialSummary.parameter_configurations} 组参数保留。</p>
+  <p className="lm-warning">背景ROI在衣物展开时被进入，不能视为纯净负对照。响应较大不证明动作检测更好；没有真实动作边界F1。下方默认曲线来自合成执行，查看工业曲线须载入本机私有实验JSON与原片。</p>
+  <div className="lm-fields"><label className="field"><span>工业汇总窗口</span><select aria-label="工业汇总窗口" value={armId} onChange={e=>setArmId(e.target.value)}>{industrialSummary.arms.map(a=><option key={a.id} value={a.id}>{a.window_ms} ms · {a.fps} fps</option>)}</select></label><button className="button secondary" onClick={()=>downloadText('b1-industrial-aggregate.json',JSON.stringify(industrialSummary,null,2))}><Download size={14}/>导出工业汇总</button></div>
+  <div className="lm-scroll"><table className="lm-table"><thead><tr><th>操作 / 背景</th><th>相关性</th><th>响应均值比（非准确率）</th></tr></thead><tbody>{arm.operation_background.map(v=><tr key={v.operation}><td>{v.operation}</td><td>{number(v.correlation)}</td><td>{number(v.mean_ratio)}</td></tr>)}</tbody></table></div>
+  <p className="muted">R3D单独 {industrialSummary.modality_agreement.r3d_only_candidates} 个候选，运动单独 {industrialSummary.modality_agreement.motion_only_candidates} 个，500ms容差内算法间重合 {industrialSummary.modality_agreement.matched_between_algorithms} 个；不是人工命中数。工业实验 {industrialSummary.run_id.slice(0,12)}，不包含逐窗口曲线、帧图、特征或权重。</p>
+ </section>;
+}
 
 function Curves({series,start,end,cursor,onSeek,marks}:{series:MotionSeries[];start:number;end:number;cursor:number;onSeek:(pts:number)=>void;marks:MotionCandidate[]}){
  const values=series.flatMap(s=>s.points.filter(p=>p.normalized!==null).map(p=>p.normalized!));
@@ -65,6 +78,7 @@ export default function LocalMotionPanel(){
  function pointerDown(e:React.PointerEvent<SVGSVGElement>){if(!drawing)return;drag.current=point(e);e.currentTarget.setPointerCapture(e.pointerId);}
  function pointerMove(e:React.PointerEvent<SVGSVGElement>){if(!drawing||!drag.current)return;const p=point(e),start=drag.current;const box=[Math.min(start[0],p[0]),Math.min(start[1],p[1]),Math.max(start[0],p[0]),Math.max(start[1],p[1])];setRois(old=>old.map(r=>r.id===roi.id?{...r,xyxy:box.map(v=>Math.round(v*10000)/10000)}:r));}
  return <div className="lm-panel">
+  <IndustrialSummary/>
   <div className="lm-notice"><strong>{report.evidence_class==='synthetic_engineering'?'合成素材 · 工程演示':'真实开发视频 · 回顾性探索'}</strong><span>无动作识别结论，不开放正式科研或P0.4；来源以实验文件为准，本轮仅B.1。</span></div>
   <div className="panel lm-toolbar"><label className="field"><span>实验版本</span><select aria-label="局部动态实验版本" value={runId} onChange={e=>setRunId(e.target.value)}>{runs.map(r=><option key={r.run_id} value={r.run_id}>{r.source.asset_id} · {r.run_id.slice(0,12)}</option>)}</select></label><button className="button secondary" onClick={()=>reportInput.current?.click()}><Upload size={15}/>载入实验JSON</button><button className="button secondary" onClick={()=>downloadText(`b1-${report.run_id.slice(0,12)}-report.json`,JSON.stringify(report,null,2))}><Download size={15}/>导出实验结果</button><input hidden ref={reportInput} type="file" accept=".json" aria-label="局部动态实验JSON" onChange={e=>{void loadReport(e.target.files?.[0]);e.target.value='';}}/></div>
   {notice&&<div className="lm-message" role="status">{notice}</div>}

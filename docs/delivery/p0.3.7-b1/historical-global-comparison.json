@@ -1,0 +1,11 @@
+{
+  "old_feature_sha256": "e35470849539db47fa677160b6301713309066d951dfc8f12c52035dddc4f856",
+  "old_rows": 231,
+  "new_global_primary_rows": 117,
+  "matching_nominal_windows": 116,
+  "max_abs_difference": 0.0,
+  "mean_squared_difference": 0.0,
+  "old_features_preserved": true,
+  "recipe_identity_preserved": "distinct recipes; matching values do not relabel caches",
+  "interpretation": "same source nominal window control, not independent sources or boundary accuracy"
+}

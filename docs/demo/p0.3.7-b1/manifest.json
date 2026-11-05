@@ -1,0 +1,21 @@
+{
+  "archive_sha256": "2a31b1952fc597d455d87a6970f172ca1778eb1cce3f2bca797506bc0c654239",
+  "files": {
+    "index.html": {
+      "sha256": "0fae391347574b76050ff8364fdcca6171088ab5dd7f89c363f1c5077ed77e75",
+      "bytes": 24233637
+    },
+    "static/brand-mark.svg": {
+      "sha256": "e1ad8ace009192189f27ee9c0b7e739e0affda234b9cbbb468c709b5c06a86de",
+      "bytes": 262
+    },
+    "industrial-aggregate.json": {
+      "sha256": "b0efcfd64690caf1ed42ab1d96b1280ab75fc54576ffb7dc9fe18ccaffbe802a",
+      "bytes": 130925
+    },
+    "\u4f7f\u7528\u8bf4\u660e.txt": {
+      "sha256": "bae98e515dae80842f44db54f08138acc23da5961c45bdd31f2a4c18d34e099b",
+      "bytes": 866
+    }
+  }
+}

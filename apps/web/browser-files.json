@@ -10,7 +10,7 @@
     "apps/web/src/FormField.tsx": "f2047bb910a1deb8739bc8d1755e8792b41aaaa38343091132a5021cd5495e41",
     "apps/web/src/ImportExplorationPanel.tsx": "a0f5acf059aff19e4ac3a3ab9e4009865e58c7c09184c5fae5d2f02c37efbc5d",
     "apps/web/src/IngestionPanel.tsx": "e738b2497ea05fbb8e666fc5063adbfc7d40bf547791eaa3b55f6adba2a3f526",
-    "apps/web/src/LocalMotionPanel.tsx": "5072a71ffbb29a3ce25f84d8484619350c40c2a5c59c63c13338c9ce7a5c69fb",
+    "apps/web/src/LocalMotionPanel.tsx": "89b2fb1853ad83c2d894ad6db62c975fa7d1f614d063c586c275c1f96a43f4fb",
     "apps/web/src/ReadinessPanel.tsx": "829775117c4e17a8e1d9eb126d6144d715e024e8cac027920b00c5ec14d3b35f",
     "apps/web/src/RealVideoLearningPanel.tsx": "ae46c1dc67fed38be38aa515b2683890fb955ddc8b59f3229e87571b4ea596c0",
     "apps/web/src/ResearchProtocolPanel.tsx": "dee74e61f9476e0655e0621c4204ac03cfea26f2a258f2b3aab5b581a4ad0b02",
@@ -28,7 +28,7 @@
     "apps/web/src/ingestionService.ts": "c3e7fa44b6746970ce61d949b26749e051f1de871042e295f39945621bdbacd5",
     "apps/web/src/ingestionTypes.ts": "f39b9f0a1641c710e2307dddf227f34a40ea9bb27d4ae89e76305d9ab648647b",
     "apps/web/src/ingestionUpload.test.ts": "9d80c94c7f066fca18d5bde09854bfd36d0180cba20fade96ee34ff10740233c",
-    "apps/web/src/localMotion.test.tsx": "ef0deba1282ec8c2ccdb7c01bfa4d62a9659d354a8b50e99230a5ebeb0eeba41",
+    "apps/web/src/localMotion.test.tsx": "48303cf52147eeaabb65f7ad0ea2da32be1d8dd3af3aa2b8daffc507415b7b73",
     "apps/web/src/localMotion.ts": "bb629ad73a15b16a2880fc9d599de46eaf411ece0158d351fcfb623b122a9c41",
     "apps/web/src/main.tsx": "e81aec37c1befe991a35934ed8b90b73e7262a01e4dffae60e1ce87967ff09b4",
     "apps/web/src/readinessExample.json": "4a586a202d5c1818edfb0317ad6ec71d840e8842e650a57e48aec7e221a27b2c",
@@ -88,7 +88,8 @@
     "schemas/temporal_readiness_request.schema.json": "846fe52ac3a61a2070db479db5e4101576664f5903fb01cb00dfda1905941b2d",
     "schemas/temporal_train_request.schema.json": "ec9c0933be27ab8cb8cd4b753b8638f0ccb56d6711da8b9f963803d4d11027f5",
     "tests/fixtures/v30/config/system.yaml": "f5df4449b0868510c2bfc9d7cfaa41d90ad40d5b84d79003dad6abe4cd92f25c",
-    "tests/fixtures/v31-parity.json": "01f260506dc73a0a5c29676113ec2e89146f8260f9c908c94a596bd1d0855d56"
+    "tests/fixtures/v31-parity.json": "01f260506dc73a0a5c29676113ec2e89146f8260f9c908c94a596bd1d0855d56",
+    "apps/web/src/data/localMotionStatistics.json": "b0efcfd64690caf1ed42ab1d96b1280ab75fc54576ffb7dc9fe18ccaffbe802a"
   },
   "dependencies": {
     "apps/web/node_modules/ajv/package.json": "1f9033ee5a6515e7d76938b7072941862d1ed228a6879cc7fe10cdeb75107989",

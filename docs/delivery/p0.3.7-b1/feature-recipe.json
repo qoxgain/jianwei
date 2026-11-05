@@ -1,0 +1,226 @@
+{
+  "version": "p037-b1-local-motion-v1",
+  "settings": {
+    "enabled": true,
+    "evidence_class": "development_exploration",
+    "formal_research_access": false,
+    "source_id": "garment_test",
+    "source_sha256": "a5ba7ed75052efd280114c382bd996d8a8a22b8664244fe7af99afb83300ce16",
+    "display_width": 640,
+    "display_height": 480,
+    "start_ms": 0,
+    "end_ms": 118500,
+    "rois": [
+      {
+        "id": "global",
+        "role": "global",
+        "xyxy": [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        "visibility": "unverified",
+        "encode_r3d": true,
+        "exclusions": []
+      },
+      {
+        "id": "hands",
+        "role": "hands",
+        "xyxy": [
+          0.12,
+          0.02,
+          0.72,
+          0.63
+        ],
+        "visibility": "unverified",
+        "encode_r3d": true,
+        "exclusions": []
+      },
+      {
+        "id": "interaction",
+        "role": "interaction",
+        "xyxy": [
+          0.22,
+          0.25,
+          0.78,
+          0.84
+        ],
+        "visibility": "unverified",
+        "encode_r3d": true,
+        "exclusions": []
+      },
+      {
+        "id": "background",
+        "role": "background",
+        "xyxy": [
+          0.78,
+          0.64,
+          0.98,
+          0.94
+        ],
+        "visibility": "unverified",
+        "encode_r3d": true,
+        "exclusions": []
+      },
+      {
+        "id": "hands_left_shift",
+        "role": "offset_control",
+        "xyxy": [
+          0.07,
+          0.02,
+          0.67,
+          0.63
+        ],
+        "visibility": "unverified",
+        "encode_r3d": false,
+        "exclusions": []
+      },
+      {
+        "id": "hands_right_shift",
+        "role": "offset_control",
+        "xyxy": [
+          0.17,
+          0.02,
+          0.77,
+          0.63
+        ],
+        "visibility": "unverified",
+        "encode_r3d": false,
+        "exclusions": []
+      }
+    ],
+    "window_ms": [
+      1000,
+      2000
+    ],
+    "sample_fps": [
+      4,
+      8
+    ],
+    "stride_ms": 1000,
+    "encoder_frames": 16,
+    "max_pts_error_ms": 50,
+    "min_valid_fraction": 0.95,
+    "max_windows": 1000,
+    "motion_size": 32,
+    "block_size": 8,
+    "search_radius": 3,
+    "texture_floor": 0.015,
+    "motion_improvement": 0.05,
+    "baseline_fraction": 0.2,
+    "thresholds": [
+      1.5,
+      2.5,
+      3.5
+    ],
+    "smoothing_ms": [
+      0,
+      1000,
+      2000
+    ],
+    "primary_window_ms": 2000,
+    "primary_fps": 8,
+    "primary_threshold": 2.5,
+    "primary_smoothing_ms": 1000,
+    "refractory_ms": 1000,
+    "candidate_budget": 50,
+    "boundary_tolerance_ms": 500
+  },
+  "config_hash": "70717044784a7ecd281359d018143ad7619485a82ff8158d3b223beba1f4d235",
+  "production": {
+    "version": "p037-a2-feature-production-v5",
+    "source_files": {
+      "packages/config/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "packages/config/errors.py": "1b0881d1b84b5510b777e8ed98876f3c091eaf919464898c1ec18d678d7da1d5",
+      "packages/config/loader.py": "d12845943941d1ceb54e99da0899ea2eef1e96e41d9a6c814f2bbaf648a2af19",
+      "packages/config/yaml.py": "9ab68a5a596b1bfdea817a3f8d63209d15d84e6a84fa1380fa430f18b56e1991",
+      "packages/contracts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "packages/contracts/capture.py": "29b99b983e2743c5f4e89d146c4f38f54c7fce532b4892f62b7a6c6b720d3a9d",
+      "packages/contracts/configuration.py": "a7036e56f0a511a40252db11f1d67f3e7a6f719d7bdf0e06d211a82bbe217eff",
+      "packages/contracts/database.py": "09a41a7caaa70da9f0b5ff845fcd7f18bc57c1bd76765f7161c4cd61455dbd0a",
+      "packages/contracts/dataset.py": "0c3e8dc0b0ad6443ec8d8e1ebba85278645c3b8976f6702690a4f2e17413f059",
+      "packages/contracts/exploratory.py": "0b689f028dc7b3fe25ea2e175c5669f776c1db7b8b71a04fd1a6984cf87b0fe8",
+      "packages/contracts/ingestion.py": "d3eb2eab1f38df4be677512049d3106f09c6f1f71d0678e115af9754af7a3805",
+      "packages/contracts/learning.py": "e0417a1a3ac694afd8ad0bca46ea13c5e4bf8589e8871716b030bc275eef15da",
+      "packages/contracts/local_motion.py": "9872f24e5483cc6c4582e774d4caaa854b8d73a24c80fc050dbb2385c84ee9de",
+      "packages/contracts/media.py": "d06154340734f2676a65ee28ae23135639632dc84b3de0992149c766b9c7e7f0",
+      "packages/contracts/models.py": "6f9da0c1abe0a3b0f385a6aa59bd603617c3908fecb2c562496ec9d804c0b4a1",
+      "packages/contracts/research.py": "49bb644cf2d4372d15d3df6701439bdcd0dd67af5cdc3e0cc9ee2b30a8e75632",
+      "packages/contracts/scenes.py": "a560ff29fb935548f21d988a5d9830ca11042bbb25138dfc79b38a311a4a2187",
+      "packages/contracts/sop.py": "eac8685619a879499cd1699bba4c0b6a5169e568615c512fc7ba0f842e1befdf",
+      "packages/contracts/temporal.py": "d2c5a5f36081a28682fd8c812d99082b7b0989d633b98f4b3bde541171a5e3f9",
+      "packages/encoders/__init__.py": "b5c588b9e4a1869317d9d7abad0bd5064b204b05c7098f1df1e20a8b7b0d5b57",
+      "packages/encoders/onnx_cpu.py": "18859e829d0b1c23f8db880814ca86b9736da1a1907789407178815e09e9fd2f",
+      "packages/encoders/pretrained.py": "36f75f267db5830c2006035d3a1859d3e5c078553454151699d5aa33eb2eaf3b",
+      "packages/ingestion/__init__.py": "73132dd7435f2f93002888e89ae829a406ca36dd757bfbf016e6d85400acfd89",
+      "packages/ingestion/capture.py": "cc20a2faa00b6ce48cc3824cc8a33d2174ab8e0cb199d72a7faae4b36fe868ca",
+      "packages/ingestion/npz.py": "8271d9ce410073fb330dd5f4cf29aee38507ef32b56a03e99256589ab12bc324",
+      "packages/ingestion/pipeline.py": "8f0b1161a4274340bb27f2035c117e36f949cb7e7023551a5d6f9fcd8d796b39",
+      "packages/ingestion/recipe.py": "6d661f20a7428947c9b384afaa2e4ee41c1e170f45ea9860ec338586958e1696",
+      "packages/ingestion/time.py": "6d7d7a9e5d3e10cbf30df2d0407d2fad532c4eb9f96935f6a0baca48c5748f36",
+      "packages/ingestion/video.py": "ed25cf15d49e8e1af536dfe6014bbe8d5c038b6c5ba578efb4dba555bc9bdfed",
+      "packages/knowledge/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "packages/knowledge/service.py": "b8b89a554813f971a6180d5f25d645b03e54152fd8e324ae0c07361e542a69d1",
+      "packages/migrations/__init__.py": "04d42505cb5c1d8eaf3d1c96969a42f9287dccda79f5c11519783678315da823",
+      "packages/migrations/legacy_v3.py": "0e83476213470153c7c9175bae95e25c1607fbad4e634d2658c717fc15ec22db",
+      "requirements.lock": "f56da4c1a4f857f2ed47c667f019c8f1aa49d438e989bb03087fc377e87f3d11",
+      "requirements-encoder.txt": "3f4294de0bfeafcf70a15e4da12fa092a0057166b2d09da9a93bd722c3515129"
+    },
+    "runtime": {
+      "python": "3.12.14",
+      "machine": "x86_64",
+      "system": "Linux",
+      "packages": {
+        "numpy": "2.2.5",
+        "onnx": "1.17.0",
+        "onnxruntime": "1.20.1",
+        "pydantic": "2.11.4",
+        "rfc8785": "0.1.4"
+      },
+      "tools": {
+        "ffmpeg": {
+          "executable_sha256": "e8a8d46f5225f3062cec7c07fb145d58ae73c603cb740dcd5bad34bfb54e455a",
+          "version": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+          "libraries": [
+            "libavutil      59. 39.100 / 59. 39.100",
+            "libavcodec     61. 19.101 / 61. 19.101",
+            "libavformat    61.  7.103 / 61.  7.103",
+            "libavdevice    61.  3.100 / 61.  3.100",
+            "libavfilter    10.  5.100 / 10.  5.100",
+            "libswscale      8.  3.100 /  8.  3.100",
+            "libswresample   5.  3.100 /  5.  3.100",
+            "libpostproc    58.  3.100 / 58.  3.100"
+          ]
+        },
+        "ffprobe": {
+          "executable_sha256": "cefc5f81c0b18429cdbf8fa5a89e1e9c759235e10f93f9b329ff1b2fdff26f46",
+          "version": "ffprobe version 7.1.5-0+deb13u1 Copyright (c) 2007-2026 the FFmpeg developers",
+          "libraries": [
+            "libavutil      59. 39.100 / 59. 39.100",
+            "libavcodec     61. 19.101 / 61. 19.101",
+            "libavformat    61.  7.103 / 61.  7.103",
+            "libavdevice    61.  3.100 / 61.  3.100",
+            "libavfilter    10.  5.100 / 10.  5.100",
+            "libswscale      8.  3.100 /  8.  3.100",
+            "libswresample   5.  3.100 /  5.  3.100",
+            "libpostproc    58.  3.100 / 58.  3.100"
+          ]
+        }
+      },
+      "execution_provider": "CPUExecutionProvider",
+      "execution_mode": "ORT_SEQUENTIAL"
+    },
+    "sha256": "972ca56a683c8d31bdb100698f30b54647292e1b03076b3bdf757dc2fe4446de"
+  },
+  "source_files": {
+    "packages/local_motion/__init__.py": "41bfb6b750e78a77f6e53c4470f29f881fa31beba7c08950203f1ce75a2a2680",
+    "packages/local_motion/extraction.py": "e049480137c3acf552d804b24e262ab02fe368a0dd4408cec8a07120e8724080",
+    "packages/local_motion/motion.py": "abb662e064e13aa70d8e12da15769a1f8393e239cb4ef9a13a091b70dbbdfc50"
+  },
+  "sampling": "original_PTS_nearest_then_nearest_repeat_to_16_v1",
+  "motion": "gray_nearest_block_translation_v1",
+  "model_sha256": "2979019509005056778db9f462e9eed212c40f02d5e5bf1d6fc9e06caf2ebab8",
+  "preprocessing": "torchvision-r3d18-kinetics400-v1",
+  "sha256": "01d6b23ede163fb3127ae8d204f4b52a617b503c9133ec4d972e8ee001220469"
+}
