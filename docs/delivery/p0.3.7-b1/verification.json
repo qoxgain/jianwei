@@ -1,0 +1,56 @@
+{
+  "stage": "P0.3.7-B.1",
+  "code_commit": "fed06d8d0c36c93bb7d9d87359306a321096be21",
+  "backend_local": {
+    "passed": 891,
+    "skipped": 0,
+    "failed": 0
+  },
+  "frontend_passed": 105,
+  "reference_passed": 29,
+  "production_and_demo_builds": "passed",
+  "desktop_mobile_real_video_interaction": "passed; per-source evidence private",
+  "public_synthetic_browser": "passed",
+  "human_industrial_boundaries": 0,
+  "boundary_f1": null,
+  "background_control": "contamination_observed_not_pure_negative_control",
+  "formal_test_data_consumed": false,
+  "b2_started": false,
+  "independent_acceptance": "pending_user_review",
+  "ci": {
+    "url": "https://github.com/qoxgain/jianwei/actions/runs/42029125981",
+    "conclusion": "success"
+  },
+  "full_logs_and_source_metadata": "private_local_artifacts; not_published",
+  "failed_attempts": [
+    {
+      "case": "invalid_test_selection",
+      "resolution": "corrected; full891 passed"
+    },
+    {
+      "case": "SSR_missing_location",
+      "resolution": "SSR fixture corrected; test retained"
+    },
+    {
+      "case": "notice_text_assertion",
+      "resolution": "message corrected; test retained"
+    },
+    {
+      "case": "ordinary_sandbox_backend_stall",
+      "resolution": "incomplete run terminated; authorized complete run891 passed; cause not inferred"
+    },
+    {
+      "case": "loopback_socket_permission",
+      "resolution": "authorized test environment passed"
+    },
+    {
+      "case": "warning_locator",
+      "resolution": "scoped to ROI section; desktop/mobile passed"
+    },
+    {
+      "case": "final_evidence_push",
+      "status": "auto_review_rejected_sensitive_source_metadata",
+      "resolution": "metadata/logs kept private; public revision limited to aggregate counts and synthetic evidence"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "url": "https://github.com/qoxgain/jianwei/actions/runs/42029125981",
+  "head_sha": "fed06d8d0c36c93bb7d9d87359306a321096be21",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "foundation",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/42029125981/job/127250734880",
+      "started_at": "2026-11-05T12:40:23Z",
+      "completed_at": "2026-11-05T12:47:00Z"
+    },
+    {
+      "name": "pretrained-encoder",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/42029125981/job/127250734974",
+      "started_at": "2026-11-05T12:40:23Z",
+      "completed_at": "2026-11-05T12:46:40Z"
+    },
+    {
+      "name": "browser",
+      "conclusion": "success",
+      "url": "https://github.com/qoxgain/jianwei/actions/runs/42029125981/job/127250735022",
+      "started_at": "2026-11-05T12:40:23Z",
+      "completed_at": "2026-11-05T12:44:48Z"
+    }
+  ],
+  "foundation": {
+    "tests": 891,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 3,
+    "passed": 888
+  },
+  "foundation_skips_reason": "three official preprocessing comparisons require torch; torch not installed in foundation job; these run in pretrained-encoder job",
+  "pretrained_encoder": {
+    "tests": 9,
+    "skipped": 0,
+    "passed": 9,
+    "onnx_sha256": "2979019509005056778db9f462e9eed212c40f02d5e5bf1d6fc9e06caf2ebab8",
+    "export_passed": true
+  },
+  "legacy_static_publication": {
+    "passed": true,
+    "requests_checked": 216,
+    "builds": {
+      "production": {
+        "members": [
+          "build-members.json",
+          "index.html",
+          "static/brand-mark.svg"
+        ],
+        "protected_bytes_present": false
+      },
+      "demo": {
+        "members": [
+          "build-members.json",
+          "index.html",
+          "static/brand-mark.svg"
+        ],
+        "protected_bytes_present": false
+      }
+    },
+    "protected_cache_bytes_present": false
+  },
+  "legacy_optimizer": {
+    "passed": true,
+    "scope": "inert text marker only; original media/Base64 case not rerun",
+    "note": "inert-marker regression only; historical original-media/Base64 counterexample not rerun"
+  },
+  "local_full_backend": {
+    "passed": 891,
+    "skipped": 0
+  },
+  "human_industrial_boundaries": 0,
+  "independent_acceptance": "pending_user_review",
+  "b2_started": false,
+  "b1_synthetic_execution": {
+    "run_id": "fbbb9eeb28d389fb8ca0dd0c41b8bb3f5a448db7119e4edb83a0c6cb63a6a51a",
+    "recipe_hash": "57f87b4e06ec5012beef07989454034a42c11f8c1bafc04034bfe0c1543f0e56",
+    "feature_rows": 336,
+    "primary_candidates": 1,
+    "boundary_f1": null,
+    "browser": {
+      "passed": true,
+      "browser": "156.0.8078.79",
+      "records": [
+        {
+          "mode": "desktop",
+          "passed": true,
+          "roi_drag_and_invalid_rejection": true,
+          "manual_confirm_adjust_delete_add": "synthetic_only_not_truth",
+          "review_source_mismatch_rejected": true,
+          "all_sampling_arms": 4,
+          "exact_report_export": true,
+          "original_video_playback": true,
+          "seek_error_seconds": 0,
+          "industrial_frames_published": false,
+          "remote_or_api_requests": 0,
+          "console_page_errors": []
+        },
+        {
+          "mode": "mobile",
+          "passed": true,
+          "roi_drag_and_invalid_rejection": true,
+          "manual_confirm_adjust_delete_add": "synthetic_only_not_truth",
+          "review_source_mismatch_rejected": true,
+          "all_sampling_arms": 4,
+          "exact_report_export": true,
+          "original_video_playback": true,
+          "seek_error_seconds": 0,
+          "industrial_frames_published": false,
+          "remote_or_api_requests": 0,
+          "console_page_errors": []
+        }
+      ],
+      "source_asset": "b1_generated",
+      "run_id": "fbbb9eeb28d389fb8ca0dd0c41b8bb3f5a448db7119e4edb83a0c6cb63a6a51a",
+      "real_human_annotations_created": false,
+      "b2_started": false,
+      "build_sha256": "0fae391347574b76050ff8364fdcca6171088ab5dd7f89c363f1c5077ed77e75"
+    }
+  },
+  "raw_industrial_evidence_publication": "not_authorized; kept_in_local_artifacts_only"
+}
