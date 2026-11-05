@@ -1,0 +1,94 @@
+{
+  "schema": "b11-bounded-execution-profile-v1",
+  "evidence_class": "development_exploration",
+  "measurement": "actual instrumented single execution; no extrapolation to entire B.1 or realtime",
+  "sampled_duration_ms": 4000,
+  "decoded_frames": 2844,
+  "feature_rows": 12,
+  "r3d_vectors": 12,
+  "modules": {
+    "admission": {
+      "calls": 1,
+      "wall_seconds": 0.02269686499494128,
+      "process_cpu_seconds": 0.02234194700000014
+    },
+    "probe_geometry": {
+      "calls": 1,
+      "wall_seconds": 4.358485456003109,
+      "process_cpu_seconds": 0.15271889100000013
+    },
+    "encoder_load": {
+      "calls": 1,
+      "wall_seconds": 3.429754173994297,
+      "process_cpu_seconds": 3.4436694990000003
+    },
+    "decode": {
+      "calls": 1,
+      "wall_seconds": 32.26009737199638,
+      "process_cpu_seconds": 26.912843016
+    },
+    "motion_preprocessing": {
+      "calls": 12,
+      "wall_seconds": 0.008539323054719716,
+      "process_cpu_seconds": 0.028023948000001297
+    },
+    "frame_difference": {
+      "calls": 12,
+      "wall_seconds": 0.0013785259798169136,
+      "process_cpu_seconds": 0.0013799540000078991
+    },
+    "block_motion": {
+      "calls": 12,
+      "wall_seconds": 1.0404561929753982,
+      "process_cpu_seconds": 1.266406723000003
+    },
+    "r3d_preprocessing": {
+      "calls": 12,
+      "wall_seconds": 0.2759347290266305,
+      "process_cpu_seconds": 0.2761069709999937
+    },
+    "r3d:global": {
+      "calls": 3,
+      "wall_seconds": 1.5369778030144516,
+      "process_cpu_seconds": 3.057907183000001
+    },
+    "r3d:hands": {
+      "calls": 3,
+      "wall_seconds": 1.2077342540142126,
+      "process_cpu_seconds": 2.402062407999999
+    },
+    "r3d:interaction": {
+      "calls": 3,
+      "wall_seconds": 1.275558141991496,
+      "process_cpu_seconds": 2.5416421660000026
+    },
+    "r3d:background": {
+      "calls": 3,
+      "wall_seconds": 1.218502009025542,
+      "process_cpu_seconds": 2.4250443229999945
+    }
+  },
+  "analysis_wall_seconds": 0.010481595003511757,
+  "total_wall_seconds": 48.64133552700514,
+  "process_cpu_seconds": 42.836389834,
+  "child_cpu_seconds": 20.323159,
+  "peak_process_rss_bytes": 717889536,
+  "kernel_io_bytes": {
+    "read_bytes": 57344,
+    "write_bytes": 61440
+  },
+  "historical_full_run_breakdown": "not_recorded_cannot_reconstruct",
+  "centered_smoothing_is_offline": true,
+  "b2_started": false,
+  "p04_admitted": false,
+  "numerical_compatibility": {
+    "matched_records": 12,
+    "max_r3d_abs_difference": 0.0,
+    "max_frame_difference_abs_difference": 0.0,
+    "max_block_motion_abs_difference": 0.0,
+    "old_results_preserved": true,
+    "different_producer_hashes": true,
+    "purpose": "bounded profiling numerical compatibility, not action accuracy"
+  },
+  "publication_scope": "aggregate execution timings and compatibility errors only; no source metadata, windows or feature values"
+}

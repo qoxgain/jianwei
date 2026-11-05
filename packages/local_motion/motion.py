@@ -20,7 +20,14 @@ def gray_resize(frames,size):
 def descriptors(frames,pts,settings):
     gray=gray_resize(frames,settings.motion_size);dt=np.diff(pts)/1000
     if not len(dt) or np.any(dt<=0):raise ContractError('MOTION_PTS_INVALID','连续样本PTS必须严格递增')
-    difference=float(np.mean(np.abs(np.diff(gray,axis=0)).mean(axis=(1,2))/dt))
+    return {'frame_difference':frame_difference(gray,dt),**block_translation(gray,dt,settings)}
+
+
+def frame_difference(gray,dt):
+    return float(np.mean(np.abs(np.diff(gray,axis=0)).mean(axis=(1,2))/dt))
+
+
+def block_translation(gray,dt,settings):
     radius= settings.search_radius;b=settings.block_size;size=settings.motion_size
     offsets=sorted([(dx,dy) for dy in range(-radius,radius+1) for dx in range(-radius,radius+1)],key=lambda v:(v[0]*v[0]+v[1]*v[1],v))
     vectors=[];textured=0;total=0
@@ -36,6 +43,6 @@ def descriptors(frames,pts,settings):
                 if zero<=1e-12 or zero-float(costs[best])<settings.motion_improvement*zero:dx=dy=0
                 vectors.append((dx/size/dt[k],dy/size/dt[k]))
     a=np.asarray(vectors,dtype=np.float64).reshape(-1,2);magnitude=np.linalg.norm(a,axis=1)
-    return {'frame_difference':difference,'block_motion':float(magnitude.mean()) if len(a) else 0.,
+    return {'block_motion':float(magnitude.mean()) if len(a) else 0.,
         'motion_p90':float(np.quantile(magnitude,.9)) if len(a) else 0.,'textured_fraction':textured/max(1,total),
         'moving_fraction':float(np.mean(magnitude>0)) if len(a) else 0.}
