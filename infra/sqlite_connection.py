@@ -16,6 +16,7 @@ class ManagedConnection:
     __slots__=('__native','__row_factory')
     _properties={'isolation_level','autocommit','in_transaction','total_changes','row_factory','text_factory'}
     def __init__(self,*args,_owner,**kwargs):
+        _owner._prepare_business()
         object.__setattr__(self,'_ManagedConnection__native',GuardedConnection(*args,_owner=_owner,**kwargs))
         object.__setattr__(self,'_ManagedConnection__row_factory',None)
     def __getattr__(self,name):

@@ -43,6 +43,8 @@ class GuardedConnection(sqlite3.Connection):
                 elif operation=='BEGIN':self.owner._assert_healthy()
             if action in WRITE_ACTIONS or (action==sqlite3.SQLITE_PRAGMA and arg2 is not None and arg1.lower() in
                 {'journal_mode','wal_checkpoint','auto_vacuum','page_size','user_version','schema_version','application_id'}):
+                if '_jianwei_database_identity' in {arg1,arg2}:
+                    raise ContractError('DATABASE_ADMISSION_PROTECTED','业务SQL不能改写内部数据库身份')
                 self.owner._assert_healthy()
                 self._statement_writes=True
                 self.owner._check_space()

@@ -43,6 +43,8 @@ class Database:
         if url.get_backend_name()=='sqlite' and url.query.get('uri'):
             raise ContractError('DATABASE_POLICY_UNAVAILABLE','受管隔离仅支持普通文件SQLite或本进程独立内存库')
         self.local_path=local_path;self._file_identity=None
+        self._business_registration=None;self._registration_identity=None
+        self.admission_path=Path(str(local_path)+'.admission.json') if local_path else None
         if local_path is not None:
             url=url.set(database=str(local_path));database_url=url
         self.quarantine_path=Path(str(local_path)+'.fault.json') if local_path else None
@@ -254,6 +256,17 @@ class Database:
                 self._file_identity=identity
             elif identity!=self._file_identity:
                 raise ContractError('DATABASE_IDENTITY_CHANGED','数据库文件身份已变化；禁止继续使用旧连接，需离线核对封存消费记录')
+            from infra.sqlite_admission import fast_check
+            fast_check(self)
+
+    def _prepare_business(self):
+        from infra.sqlite_admission import prepare
+        prepare(self)
+
+    def register_legacy(self,review):
+        """Explicit offline business admission; never approves a backup restore."""
+        from infra.sqlite_admission import register_legacy
+        return register_legacy(self,review)
 
     def _record_sqlite_fault(self,error):
         name=getattr(error,'sqlite_errorname','')

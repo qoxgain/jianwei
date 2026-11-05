@@ -28,6 +28,9 @@ apps/web/dist-demo/
 # P0.3.7-A: runtime quarantine and coordination evidence stays local.
 *.fault.json
 *.fault-intent/
+*.admission.json
+*.admission.lock
+*.recovery-request-*.json
 *.commit.lock
 *.migrate.lock
 .ordinary-media.lock

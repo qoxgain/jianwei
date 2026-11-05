@@ -9,6 +9,7 @@ from infra.file_gate import FileGate
 from packages.config.errors import ContractError
 from packages.contracts.database import SQLiteSettings
 from tests.sqlite_corruption_fixture import generated_corrupt_index
+from tests.sqlite_admission_fixtures import approve_generated_legacy
 
 
 def damaged(tmp_path):
@@ -56,7 +57,7 @@ def test_confirmed_structural_rows_persist_isolation_without_repair(tmp_path):
 @pytest.mark.parametrize('route',['connection','sql_release','isolation_level','session'])
 def test_existing_inflight_write_cannot_commit_after_integrity_isolation(tmp_path,route):
     fixture=generated_corrupt_index(tmp_path/'raw');path=tmp_path/'working.sqlite';shutil.copyfile(fixture['clean'],path)
-    db=Database('sqlite:///'+str(path));raw=db.engine.raw_connection();c=raw.driver_connection
+    db=Database('sqlite:///'+str(path));approve_generated_legacy(db);raw=db.engine.raw_connection();c=raw.driver_connection
     c.execute('SAVEPOINT[s]');c.execute("INSERT INTO probe(value) VALUES('generated-inflight')");inject(path)
     detector=Database('sqlite:///'+str(path))
     with pytest.raises(ContractError):detector.check_integrity()
@@ -131,7 +132,7 @@ def test_all_marker_writes_fail_process_stops_and_keeps_coordination_lock(tmp_pa
 
 def test_busy_and_timeout_checks_are_not_permanent_physical_faults(tmp_path):
     fixture=generated_corrupt_index(tmp_path/'raw');path=tmp_path/'working.sqlite';shutil.copyfile(fixture['clean'],path)
-    db=Database('sqlite:///'+str(path),SQLiteSettings(busy_timeout_ms=100));raw=db.engine.raw_connection();c=raw.driver_connection
+    db=Database('sqlite:///'+str(path),SQLiteSettings(busy_timeout_ms=100));approve_generated_legacy(db);raw=db.engine.raw_connection();c=raw.driver_connection
     c.execute('BEGIN EXCLUSIVE');other=Database('sqlite:///'+str(path))
     try:
         with pytest.raises(ContractError) as e:other.check_integrity(timeout_seconds=.03,busy_timeout_ms=10)
@@ -206,7 +207,7 @@ def test_healthy_migration_commit_backup_close_and_restart(tmp_path):
 
 def test_commit_already_in_gate_finishes_before_later_fault_persistence(tmp_path):
     fixture=generated_corrupt_index(tmp_path/'raw');path=tmp_path/'working.sqlite';shutil.copyfile(fixture['clean'],path)
-    db=Database('sqlite:///'+str(path));raw=db.engine.raw_connection();c=raw.driver_connection
+    db=Database('sqlite:///'+str(path));approve_generated_legacy(db);raw=db.engine.raw_connection();c=raw.driver_connection
     c.execute("INSERT INTO probe(value) VALUES('generated-commit-first')");inject(path)
     detector=Database('sqlite:///'+str(path));checked,committing,finish=Event(),Event(),Event();original=detector._apply_integrity
     def apply(result):
@@ -230,7 +231,7 @@ def test_commit_already_in_gate_finishes_before_later_fault_persistence(tmp_path
 def test_app_result_factory_cannot_hide_real_structural_check_rows(tmp_path,factory):
     from infra.sqlite_connection import _backup_native_source
     fixture=generated_corrupt_index(tmp_path/'raw');path=tmp_path/'working.sqlite';shutil.copyfile(fixture['clean'],path)
-    db=Database('sqlite:///'+str(path));raw=db.engine.raw_connection();c=raw.driver_connection
+    db=Database('sqlite:///'+str(path));approve_generated_legacy(db);raw=db.engine.raw_connection();c=raw.driver_connection
     # Ordinary application factories remain supported, but must not alter the
     # private native check used by connection validation and commit protection.
     setattr(c,factory,(lambda *_:('ok',)) if factory=='row_factory' else (lambda *_:'ok'))

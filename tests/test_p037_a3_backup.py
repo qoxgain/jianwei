@@ -8,11 +8,13 @@ from infra.database import Database
 from packages.config.errors import ContractError
 from tests.sqlite_corruption_fixture import generated_corrupt_index
 from tests.test_p037_a3_integrity import inject,count
+from tests.sqlite_admission_fixtures import approve_generated_legacy
 
 
 def setup(tmp_path):
     fixture=generated_corrupt_index(tmp_path/'raw');path=tmp_path/'working.sqlite';shutil.copyfile(fixture['clean'],path)
-    return Database('sqlite:///'+str(path)),path,fixture
+    db=Database('sqlite:///'+str(path));approve_generated_legacy(db)
+    return db,path,fixture
 
 
 def receipt(target):return json.loads(next(target.parent.glob(target.name+'.backup-*.json')).read_text())

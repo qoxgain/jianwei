@@ -34,6 +34,10 @@ def backup(owner,target,*,cancel_event=None,progress=None,phase_observer=None):
     published=False
 
     def record():
+        if staging.exists():
+            from infra.sqlite_admission import tag
+            state['lifecycle_tag_supported']=tag(staging,{'role':'Backup','state':state['state'],
+                'operation_id':operation})
         temp=receipt.with_suffix('.writing')
         with temp.open('x') as stream:
             json.dump(state,stream);stream.flush();os.fsync(stream.fileno())
@@ -91,6 +95,7 @@ def backup(owner,target,*,cancel_event=None,progress=None,phase_observer=None):
         record()
         with boundary():check()
         source_check('before_copy')
+        owner._prepare_business()
         descriptor=os.open(staging,os.O_CREAT|os.O_EXCL|os.O_RDWR,0o600);os.close(descriptor)
         state['state']='copying';record()
         phase('before_copy')
@@ -99,6 +104,8 @@ def backup(owner,target,*,cancel_event=None,progress=None,phase_observer=None):
             try:
                 source.backup(output,pages=settings.pages_per_step,progress=step,sleep=settings.retry_seconds)
             finally:output.close()
+        from infra.sqlite_admission import mark_archive
+        state['artifact_identity']=mark_archive(staging,operation)
         phase('after_copy');state['state']='validating';record()
         from infra.sqlite_health import inspect_file
         validation=inspect_file(staging,timeout_seconds=max(.001,deadline-time.monotonic()),

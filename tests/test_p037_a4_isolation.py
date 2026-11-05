@@ -9,6 +9,7 @@ from packages.contracts.database import SQLiteSettings
 from scripts.reproduce_p037_a4_baseline import holder
 from tests.sqlite_corruption_fixture import generated_corrupt_index
 from tests.test_p037_a3_integrity import inject,count
+from tests.sqlite_admission_fixtures import approve_generated_legacy
 
 
 def policy():return SQLiteSettings(busy_timeout_ms=100)
@@ -89,6 +90,7 @@ def test_gate_timeout_diagnostic_exit_and_two_spawn_restarts_never_reopen(tmp_pa
 @pytest.mark.parametrize('route',['commit','release','implicit'])
 def test_pending_durable_intent_rolls_back_preexisting_other_process_transaction(tmp_path,route):
     fixture=generated_corrupt_index(tmp_path/'raw');path=tmp_path/'working.sqlite';shutil.copyfile(fixture['clean'],path)
+    approved=Database('sqlite:///'+str(path));approve_generated_legacy(approved);approved.close()
     ctx=multiprocessing.get_context('spawn');written,finish,locked,release=[ctx.Event() for _ in range(4)];q=ctx.Queue()
     writer=ctx.Process(target=preexisting_transaction,args=(path,route,written,finish,q));writer.start();assert written.wait(4)
     gate=ctx.Process(target=holder,args=(path,locked,release));gate.start();assert locked.wait(4)
