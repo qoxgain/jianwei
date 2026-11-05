@@ -100,6 +100,17 @@ jobs:
       - run: npm ci
         working-directory: apps/web
       - run: python -m pytest tests -q --junitxml=artifacts/p037-a4-ci/backend-junit.xml
+      - name: Fixed A.4 generated query counterexamples, expected vulnerable baseline
+        run: |
+          mkdir -p artifacts/p037-query-fault-ci
+          GIT_LFS_SKIP_SMUDGE=1 git worktree add --detach /tmp/jianwei-query-a4-baseline 5fc70feba7e1168898082f02ffb3b9f4d1cd23df
+          cp scripts/reproduce_sqlite_query_fault.py /tmp/jianwei-query-a4-baseline/scripts/
+          cp tests/sqlite_query_fixture.py tests/sqlite_corruption_fixture.py /tmp/jianwei-query-a4-baseline/tests/
+          git -C /tmp/jianwei-query-a4-baseline diff --exit-code HEAD -- infra packages
+          cd /tmp/jianwei-query-a4-baseline
+          python -m scripts.reproduce_sqlite_query_fault --expect-vulnerable --output "$GITHUB_WORKSPACE/artifacts/p037-query-fault-ci/before" > "$GITHUB_WORKSPACE/artifacts/p037-query-fault-ci/before.log"
+      - name: Unified native query fault isolation, full and fault_state, DELETE and WAL
+        run: python -m scripts.reproduce_sqlite_query_fault --output artifacts/p037-query-fault-ci/after > artifacts/p037-query-fault-ci/after.log
       - name: A.3 generated DELETE/WAL API, concurrent commits, backup and abrupt-exit repetition
         run: python -m scripts.investigate_sqlite_workload --output artifacts/p037-a4-ci/workload --seeds 0 1
       - name: A.4 generated performance instrumentation smoke, not a large-database acceptance result
@@ -135,6 +146,15 @@ jobs:
             artifacts/p037-a4-ci/workload/*/*.jsonl
             artifacts/p037-a4-ci/performance/results.json
             artifacts/p037-a4-ci/performance/*.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sqlite-query-verification
+          path: |
+            artifacts/p037-a4-ci/backend-junit.xml
+            artifacts/p037-query-fault-ci/before/results.json
+            artifacts/p037-query-fault-ci/after/results.json
+            artifacts/p037-query-fault-ci/*.log
   pretrained-encoder:
     runs-on: ubuntu-24.04
     steps:

@@ -37,6 +37,7 @@ class Database:
         self.sqlite_settings = sqlite_settings or SQLiteSettings()
         self.last_integrity_check = None
         self._fault = None
+        self._sqlite_fault_token=object()
         self._backup_shutdown = Event()
         self._integrity_stop=Event();self._integrity_thread=None;self._monitor_lock=Lock()
         self.last_monitor_error=None;self.last_boundary_checks=[]
@@ -272,9 +273,21 @@ class Database:
         return register_legacy(self,review)
 
     def _record_sqlite_fault(self,error):
-        name=getattr(error,'sqlite_errorname','')
-        if name.startswith(('SQLITE_CORRUPT','SQLITE_NOTADB','SQLITE_IOERR','SQLITE_FULL')):
-            self.fault={'code':'DATABASE_UNAVAILABLE','sqlite_errorname':name,'root_cause':'not_established'}
+        # Numeric primary codes include SQLite's extended result codes; a
+        # name-shaped application exception is not a native database failure.
+        if not isinstance(error,sqlite3.Error) or getattr(error,'_jianwei_sqlite_callback',False):return
+        code=getattr(error,'sqlite_errorcode',None)
+        severe={sqlite3.SQLITE_CORRUPT:'SQLITE_CORRUPT',sqlite3.SQLITE_NOTADB:'SQLITE_NOTADB',
+            sqlite3.SQLITE_IOERR:'SQLITE_IOERR',sqlite3.SQLITE_FULL:'SQLITE_FULL'}
+        if not isinstance(code,int) or code&255 not in severe:return
+        observed=getattr(error,'_jianwei_sqlite_fault_observers',None)
+        if observed is None:error._jianwei_sqlite_fault_observers=observed=set()
+        if self._sqlite_fault_token in observed:return
+        observed.add(self._sqlite_fault_token)
+        if self.fault is not None:return
+        self.fault={'code':'DATABASE_UNAVAILABLE','sqlite_errorname':getattr(error,'sqlite_errorname',severe[code&255]),
+            'sqlite_errorcode':code,'classification':'structural_corruption' if code&255 in
+            {sqlite3.SQLITE_CORRUPT,sqlite3.SQLITE_NOTADB} else 'storage_failure','root_cause':'not_established'}
 
     def _record_fault(self, context):
         self._record_sqlite_fault(context.original_exception)

@@ -1,6 +1,5 @@
 """Native source.backup cannot accept any supported managed target handle."""
 import sqlite3
-from types import SimpleNamespace as N
 import pytest
 from sqlalchemy import text
 from infra.database import Database
@@ -23,7 +22,7 @@ def test_native_backup_cannot_write_managed_target(tmp_path,faulted,handle):
   cursor=c.cursor();cursor.row_factory=lambda cursor,row:cursor.connection
   target=cursor.execute('SELECT 1').fetchone()
  else:target=c
- if faulted:db._record_fault(N(original_exception=N(sqlite_errorname='SQLITE_IOERR')))
+ if faulted:db.fault={'sqlite_errorname':'SQLITE_IOERR','root_cause':'explicit_generated_fault_injection'}
  assert not isinstance(target,sqlite3.Connection)
  with sqlite3.connect(':memory:') as source:
   source.execute('CREATE TABLE injected(id INTEGER)');source.commit()
@@ -54,7 +53,7 @@ def test_only_new_file_backup_remains_verified_and_fault_does_not_restore(tmp_pa
  with pytest.raises(FileExistsError):db.backup(target)
  raw=db.engine.raw_connection()
  with pytest.raises(ContractError):raw.driver_connection.backup(sqlite3.connect(':memory:'))
- raw.close();db._record_fault(N(original_exception=N(sqlite_errorname='SQLITE_IOERR')))
+ raw.close();db.fault={'sqlite_errorname':'SQLITE_IOERR','root_cause':'explicit_generated_fault_injection'}
  with pytest.raises(ContractError):
   with db.session():pytest.fail('fault cleared')
  db.close();again=Database('sqlite:///'+str(path));assert again.fault is not None;again.close()

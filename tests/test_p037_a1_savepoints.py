@@ -2,7 +2,6 @@
 from concurrent.futures import ThreadPoolExecutor
 from threading import Event
 import multiprocessing,sqlite3
-from types import SimpleNamespace as N
 import pytest
 from sqlalchemy import text
 from infra.database import Database
@@ -16,7 +15,7 @@ def setup(path):
  with db.session() as s:s.execute(text('CREATE TABLE probe(id INTEGER)'))
  return db
 
-def fault(db):db._record_fault(N(original_exception=N(sqlite_errorname='SQLITE_IOERR')))
+def fault(db):db.fault={'sqlite_errorname':'SQLITE_IOERR','root_cause':'explicit_generated_fault_injection'}
 def count(path):
  with sqlite3.connect(path) as c:return c.execute('SELECT COUNT(*) FROM probe').fetchone()[0]
 

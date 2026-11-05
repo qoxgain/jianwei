@@ -11,6 +11,29 @@ WRITE_ACTIONS={getattr(sqlite3,n) for n in ('SQLITE_INSERT','SQLITE_UPDATE','SQL
  'SQLITE_ALTER_TABLE','SQLITE_REINDEX','SQLITE_ANALYZE')}
 
 
+def sqlite_operation(owner,method,*args):
+    """Call a native DBAPI method once; retain its exception and provenance.
+
+    All callers pass a bound sqlite3 C method, never a Python adapter. A SQLite
+    exception raised by application row/text factories or parameter iterators
+    has Python frames *below* this invocation. Such an exception is not evidence
+    about this database (it can even originate from another SQLite file).
+    SQLAlchemy's later handle_error sees the same exception and provenance.
+    """
+    try:return method(*args)
+    except sqlite3.Error as error:
+        if error.__traceback__.tb_next is not None:
+            error._jianwei_sqlite_callback=True
+        else:
+            try:owner._record_sqlite_fault(error)
+            except (ContractError,OSError) as isolation_error:
+                # Keep DBAPI type/code/identity for both raw and SQLAlchemy users;
+                # coordination/persistence failure is explicit, never discarded.
+                error.add_note('SQLite isolation failed or pending: '+getattr(isolation_error,'code',type(isolation_error).__name__))
+                raise error from isolation_error
+        raise
+
+
 class GuardedConnection(sqlite3.Connection):
     def __init__(self,*args,_owner,**kwargs):
         super().__init__(*args,**kwargs);self.owner=_owner;self.authorization_error=None
@@ -26,7 +49,7 @@ class GuardedConnection(sqlite3.Connection):
                 try:self.owner._assert_healthy()
                 except ContractError:self.rollback();raise
                 self._before_commit()
-                return super().__setattr__(name,value)
+                return sqlite_operation(self.owner,super().__setattr__,name,value)
         return super().__setattr__(name,value)
     def blobopen(self,*args,**kwargs):
         raise ContractError('DATABASE_POLICY_UNAVAILABLE','受管理连接不支持绕过SQL事务的blob写入')
@@ -63,9 +86,12 @@ class GuardedConnection(sqlite3.Connection):
     def commit(self):
         with self._healthy_boundary():
             try:
-                self._before_commit();result=super().commit();self._write_pending=False;return result
+                self._before_commit();result=sqlite_operation(self.owner,super().commit);self._write_pending=False;return result
             except BaseException as error:
-                super().rollback();self.owner._record_sqlite_fault(error);raise
+                try:self.rollback()
+                except sqlite3.Error as rollback_error:
+                    error.add_note('SQLite rollback also failed: '+str(getattr(rollback_error,'sqlite_errorname',type(rollback_error).__name__)))
+                raise
     def _before_commit(self):
         self.owner._assert_healthy()
         if self.in_transaction and self._write_pending and self.owner.sqlite_settings.commit_integrity_check=='full':
@@ -79,7 +105,7 @@ class GuardedConnection(sqlite3.Connection):
         except ContractError:
             self.rollback();raise
     def rollback(self):
-        result=super().rollback();self._write_pending=False;return result
+        result=sqlite_operation(self.owner,super().rollback);self._write_pending=False;return result
     def __enter__(self):
         with self._healthy_boundary():pass
         return self
@@ -104,13 +130,12 @@ class GuardedCursor(sqlite3.Cursor):
         def execute():
             c.authorization_error=None;c._statement_writes=False;changes=c.total_changes
             try:
-                result=method(*args)
+                result=sqlite_operation(c.owner,method,*args)
                 if c._statement_writes:c._write_pending=True
                 if not c.in_transaction:c._write_pending=False
                 return result
             except BaseException as error:
                 if c.total_changes>changes:c._write_pending=True
-                c.owner._record_sqlite_fault(error)
                 if c.authorization_error is not None:raise c.authorization_error from None
                 raise
         if first in controls and first!='BEGIN':
@@ -125,9 +150,13 @@ class GuardedCursor(sqlite3.Cursor):
             # Include DDL and autocommit-mode callers in explicit transactions.
             # Never hold the process gate while waiting for another SQLite writer:
             # that writer must be able to enter the commit gate to release its lock.
-            if not c.in_transaction and first not in {'SELECT','EXPLAIN','BEGIN'}:super().execute('BEGIN')
+            if not c.in_transaction and first not in {'SELECT','EXPLAIN','BEGIN'}:sqlite_operation(c.owner,super().execute,'BEGIN')
         return execute()
     def execute(self,*args):return self._run(super().execute,*args)
     def executemany(self,*args):return self._run(super().executemany,*args)
+    def fetchone(self):return sqlite_operation(self.connection.owner,super().fetchone)
+    def fetchmany(self,*args):return sqlite_operation(self.connection.owner,super().fetchmany,*args)
+    def fetchall(self):return sqlite_operation(self.connection.owner,super().fetchall)
+    def __next__(self):return sqlite_operation(self.connection.owner,super().__next__)
     def executescript(self,*args):
         raise ContractError('DATABASE_POLICY_UNAVAILABLE','受管理连接禁止隐式提交的executescript')

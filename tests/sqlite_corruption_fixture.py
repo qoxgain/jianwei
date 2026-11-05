@@ -24,3 +24,23 @@ def generated_corrupt_index(root):
     damaged.write_bytes(raw);damaged.chmod(0o400)
     return {'clean':clean,'damaged':damaged,'kind':'generated_freelist_count_mismatch',
         'sha256':hashlib.sha256(raw).hexdigest(),'page_size':page_size,'index_root_page':page}
+
+
+def damage_generated_leaf(path,page_size,page):
+    """Child-PID target for the late-query fixture; generated data only.
+
+    Caller owns a newly created isolated fixture. No original or user-supplied
+    database path is accepted by the public reproduction CLI. Keeping this FD
+    outside the live SQLite PID preserves the A.3 POSIX-lock protection.
+    """
+    with open(path,'r+b') as stream:
+        stream.seek((page-1)*page_size);assert stream.read(1)==b'\x0d'
+        stream.seek((page-1)*page_size);stream.write(b'\x00');stream.flush()
+        __import__('os').fsync(stream.fileno())
+
+
+def damage_generated_header(path):
+    """Late NOTADB variant for a newly generated query case, in a child PID."""
+    with open(path,'r+b') as stream:
+        assert stream.read(16)==b'SQLite format 3\x00'
+        stream.seek(0);stream.write(b'X'*16);stream.flush();__import__('os').fsync(stream.fileno())

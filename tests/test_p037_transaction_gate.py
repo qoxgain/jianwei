@@ -10,7 +10,7 @@ from infra.models import AuditEvent
 from packages.config.errors import ContractError
 
 
-def inject(db):db._record_fault(N(original_exception=N(sqlite_errorname='SQLITE_IOERR')))
+def inject(db):db.fault={'sqlite_errorname':'SQLITE_IOERR','root_cause':'explicit_generated_fault_injection'}
 def make(path):
     db=Database('sqlite:///'+str(path));db.migrate()
     with db.session() as s:s.execute(text('CREATE TABLE probe(id INTEGER)'))
