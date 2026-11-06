@@ -1,8 +1,8 @@
 {
   "schema": "b2u-public-aggregate-v1",
   "evidence_class": "development_exploration",
-  "run_id": "0fc8363fd37fb3b3eff05f179773e778552ed5163d3e052dfba8abb71dff4f60",
-  "code_commit": "f157c201e37376bb3621f6763d3e5c77936e609c",
+  "run_id": "8ae46dbbb8623b545be1abcce63ef4937452b75f62f1d28353c76478476d955e",
+  "code_commit": "4cc9f58dfc1be45124f377ba53650a37cc0c40db",
   "original_sources": 1,
   "methods": [
     {
@@ -94,7 +94,7 @@
         "prediction_exceeds_persistence_at_all_registered_lags"
       ],
       "gate_frozen_before_replay": true,
-      "elapsed_seconds": 0.36558410900761373,
+      "elapsed_seconds": 0.44078105699736625,
       "calibration_noise": [
         {
           "seed": 11,
@@ -876,7 +876,7 @@
         "prediction_exceeds_persistence_at_all_registered_lags"
       ],
       "gate_frozen_before_replay": true,
-      "elapsed_seconds": 0.428922713996144,
+      "elapsed_seconds": 0.4823022659984417,
       "calibration_noise": [
         {
           "seed": 11,
@@ -1660,7 +1660,7 @@
         "prediction_exceeds_persistence_at_all_registered_lags"
       ],
       "gate_frozen_before_replay": true,
-      "elapsed_seconds": 0.827639401977649,
+      "elapsed_seconds": 0.49003368002013303,
       "calibration_noise": [
         {
           "seed": 11,
@@ -2442,7 +2442,7 @@
         "prediction_exceeds_persistence_at_all_registered_lags"
       ],
       "gate_frozen_before_replay": true,
-      "elapsed_seconds": 0.8257766379974782,
+      "elapsed_seconds": 0.451428781991126,
       "calibration_noise": [
         {
           "seed": 11,
@@ -3221,7 +3221,7 @@
         "prediction_exceeds_persistence_at_all_registered_lags"
       ],
       "gate_frozen_before_replay": true,
-      "elapsed_seconds": 0.42505271700792946,
+      "elapsed_seconds": 0.22217488498426974,
       "calibration_noise": [
         {
           "seed": 11,
@@ -4022,7 +4022,7 @@
         "prediction_exceeds_persistence_at_all_registered_lags"
       ],
       "gate_frozen_before_replay": true,
-      "elapsed_seconds": 0.44996794598409906,
+      "elapsed_seconds": 0.3065977599762846,
       "calibration_noise": [
         {
           "seed": 11,
@@ -4821,7 +4821,7 @@
         "prediction_exceeds_persistence_at_all_registered_lags"
       ],
       "gate_frozen_before_replay": true,
-      "elapsed_seconds": 0.2799375080212485,
+      "elapsed_seconds": 0.2691094320034608,
       "calibration_noise": [
         {
           "seed": 11,
@@ -5618,7 +5618,7 @@
         "prediction_exceeds_persistence_at_all_registered_lags"
       ],
       "gate_frozen_before_replay": true,
-      "elapsed_seconds": 0.3258898700005375,
+      "elapsed_seconds": 0.27521489598439075,
       "calibration_noise": [
         {
           "seed": 11,
@@ -6416,7 +6416,7 @@
         "prediction_exceeds_persistence_at_all_registered_lags"
       ],
       "gate_frozen_before_replay": true,
-      "elapsed_seconds": 0.4774547840061132,
+      "elapsed_seconds": 0.4420824749977328,
       "calibration_noise": [
         {
           "seed": 11,
@@ -7199,7 +7199,7 @@
         "not_background_control"
       ],
       "gate_frozen_before_replay": true,
-      "elapsed_seconds": 0.2607347999874037,
+      "elapsed_seconds": 0.24394202799885534,
       "calibration_noise": [
         {
           "seed": 11,
@@ -7983,7 +7983,7 @@
         "not_background_control"
       ],
       "gate_frozen_before_replay": true,
-      "elapsed_seconds": 0.4331940159900114,
+      "elapsed_seconds": 0.3989398539997637,
       "calibration_noise": [
         {
           "seed": 11,
@@ -8675,7 +8675,7 @@
     }
   ],
   "unavailable_methods": [],
-  "elapsed_seconds": 5.2418678200047,
+  "elapsed_seconds": 4.215325891011162,
   "real_precision": null,
   "real_recall": null,
   "real_f1": null,

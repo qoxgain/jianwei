@@ -1,0 +1,41 @@
+{
+  "archive_sha256": "6cd43aea9fad490fd6b57278e5ef70ee326fabc0890a2aafeea954ba2158f74e",
+  "files": {
+    "index.html": {
+      "sha256": "c129e3579b434acbba4ea42c1db35e44048a85e5650ddf58d10c00b1d3799d9c",
+      "bytes": 24685623
+    },
+    "static/brand-mark.svg": {
+      "sha256": "e1ad8ace009192189f27ee9c0b7e739e0affda234b9cbbb468c709b5c06a86de",
+      "bytes": 262
+    },
+    "synthetic-study.json": {
+      "sha256": "e5620dbc413ab108c228ce97533e625437cf493589800bd0c38915298e43630e",
+      "bytes": 249728
+    },
+    "synthetic-query.json": {
+      "sha256": "8bae0023418a11b6e29d56c69e02906a7c45f10db4eb735cd401a287537a9259",
+      "bytes": 185887
+    },
+    "industrial-aggregate.json": {
+      "sha256": "438562560b1aa553e7ec1dab5c3c7b378972b9e0db49daa123edb5df22d62b8f",
+      "bytes": 295010
+    },
+    "generate_b2u_practice.py": {
+      "sha256": "cfae93ccde715541de89da72d8a9cb2db1b345417a14b544640ac8e06f6a9748",
+      "bytes": 3090
+    },
+    "\u4f7f\u7528\u4e0e\u590d\u9a8c.md": {
+      "sha256": "00f546141443a0260ac9d3e776aa144dc81e3f37799e2c8eb2ecb58bc4faa425",
+      "bytes": 5291
+    },
+    "ENCODER-CI.md": {
+      "sha256": "63575bd438156df511da8952d649d863381a7d2f368b8cfb76b30fc733708f1a",
+      "bytes": 2127
+    },
+    "RESULTS.md": {
+      "sha256": "ca21d262488b57caad61c430f36e285c30cbf6d8e189e2bc910e51c2dcd1a978",
+      "bytes": 3773
+    }
+  }
+}

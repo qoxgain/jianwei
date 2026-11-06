@@ -96,9 +96,9 @@
     "apps/web/src/annotation.test.tsx": "afe32006a67e8c4c8eeb45d2d881143d644d0a77463b09efcab5701dab9d137c",
     "apps/web/src/UnlabeledPanel.tsx": "29a331db9ed69002e7e93dd5f61f964bdcd46ce86b796724c1e37f7547207125",
     "apps/web/src/unlabeled.ts": "e7e6ee9223b56cd2f56f3e9fd7ea2e60e00dd151bf53a2b8b32880868d18060a",
-    "apps/web/src/data/unlabeledStatistics.json": "0958b5239c161f12f8c4e62a1c172e077a7d1af6f89dc4a577c0e56ac75fe499",
-    "apps/web/src/data/unlabeledDemo.json": "e29f7fa2de65cc078edee856ea47a8d0a338ac5f25c7d0c95ee3c7415674e96e",
-    "apps/web/src/data/unlabeledQueryDemo.json": "8304cd8f84389d27c34fcee7907b18336560b78c923c9323ee0681d6b4fb5ac6",
+    "apps/web/src/data/unlabeledStatistics.json": "438562560b1aa553e7ec1dab5c3c7b378972b9e0db49daa123edb5df22d62b8f",
+    "apps/web/src/data/unlabeledDemo.json": "e5620dbc413ab108c228ce97533e625437cf493589800bd0c38915298e43630e",
+    "apps/web/src/data/unlabeledQueryDemo.json": "8bae0023418a11b6e29d56c69e02906a7c45f10db4eb735cd401a287537a9259",
     "apps/web/src/unlabeled.test.tsx": "a418211e2f5c80e52c606e6261ba81208aec99ef9de53edf7a8c4ba6312256e2"
   },
   "dependencies": {

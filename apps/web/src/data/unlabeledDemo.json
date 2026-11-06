@@ -93,14 +93,14 @@
     "production_updates": false
   },
   "code_identity": {
-    "git_head": "f157c201e37376bb3621f6763d3e5c77936e609c",
+    "git_head": "4cc9f58dfc1be45124f377ba53650a37cc0c40db",
     "source_sha256": {
       "packages/unlabeled/engine.py": "8af0e8bd03d2e60da3bab54062011a4f44f7ff94ae54ba7614f966e8b69027b0",
       "packages/unlabeled/forecast.py": "1908143c9c4cba08d9a1213d69fb91919e7c860ff7387060f6d014c80a68edd6",
       "packages/unlabeled/__init__.py": "57b46d2999306caf15d5dde5ca3c78ae98b3a1e8ce7541892b74c6b8c9c7400a",
       "packages/unlabeled/algorithms.py": "7b9e301f41b5b37c48361d9d284e9f536cd318098a3385f7e3d8706a5d9b8f8a",
       "packages/unlabeled/memory.py": "d5ea9b24be757a511a90b4a0695aeeefdc35ac2d276781b5c47121de70e46860",
-      "packages/unlabeled/data.py": "0856575ad14387151d614ed3010c7f073c65fceba74f9c0b602dcb6e034d1145",
+      "packages/unlabeled/data.py": "ee9af1a6a61af36f578a0b95bf50bda982129018d0f78bc23ff0dc98d3bd5313",
       "packages/unlabeled/study.py": "40988e9f982bcadee62516d39609feffcc947deff43533b4f9e95bed81937a4c",
       "packages/contracts/unlabeled.py": "883c7e1bddd7edacf72f38978da3b434da46a0baf88ae729d8d4de5f16b9605d",
       "packages/temporal/models.py": "5c451c3e124bf9f5d72c11614755ca83249e8b27df83bcdf284b05522876fd16"
@@ -1529,7 +1529,7 @@
           "seed": null
         }
       ],
-      "elapsed_seconds": 0.1675414589990396,
+      "elapsed_seconds": 0.08859565199236386,
       "semantics": "anonymous recurring feature patterns, not observed action classes",
       "real_precision": null,
       "real_recall": null,
@@ -3069,7 +3069,7 @@
           "seed": null
         }
       ],
-      "elapsed_seconds": 0.19251980099943466,
+      "elapsed_seconds": 0.09552125300979242,
       "semantics": "anonymous recurring feature patterns, not observed action classes",
       "real_precision": null,
       "real_recall": null,
@@ -4513,7 +4513,7 @@
           "seed": null
         }
       ],
-      "elapsed_seconds": 0.1533466950058937,
+      "elapsed_seconds": 0.0769499320012983,
       "semantics": "anonymous recurring feature patterns, not observed action classes",
       "real_precision": null,
       "real_recall": null,
@@ -5975,7 +5975,7 @@
           "seed": null
         }
       ],
-      "elapsed_seconds": 0.17618385498644784,
+      "elapsed_seconds": 0.09690036298707128,
       "semantics": "anonymous recurring feature patterns, not observed action classes",
       "real_precision": null,
       "real_recall": null,
@@ -7334,7 +7334,7 @@
           "seed": null
         }
       ],
-      "elapsed_seconds": 0.10037999600172043,
+      "elapsed_seconds": 0.05807143199490383,
       "semantics": "anonymous recurring feature patterns, not observed action classes",
       "real_precision": null,
       "real_recall": null,
@@ -7375,7 +7375,7 @@
       "reason": "R3D_NOT_EXECUTED_OR_INVALID_WINDOWS; not filled with zeros"
     }
   ],
-  "elapsed_seconds": 0.8269130940025207,
+  "elapsed_seconds": 0.4418234260228928,
   "annotation_required": false,
   "real_precision": null,
   "real_recall": null,
@@ -7392,5 +7392,5 @@
     "Cross-space MSE is not a representation accuracy ranking.",
     "No confirmed independent field query source is fabricated."
   ],
-  "run_id": "9a67067e7e404c2768a3fdd144902b45065f0fb6bc5d6c1b1d59a60ad92a0c66"
+  "run_id": "a17ba7001b4474fb8a70dc49c8b02d689cf979d119ac072ccd949a6fc812b048"
 }
