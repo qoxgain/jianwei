@@ -50,6 +50,7 @@ def main():
                 assert page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),'responsive viewport overflow';assert not errors,errors
                 # This screenshot is generated material only; industrial import happens afterwards.
                 page.screenshot(path=str(out/(mode+'-synthetic.png')),full_page=True,animations='disabled')
+                page.locator('.b2u-grid').screenshot(path=str(out/(mode+'-synthetic-detail.png')),animations='disabled')
                 field_check=False
                 if a.industrial_report:
                     assert a.industrial_video;real=json.loads(a.industrial_report.read_text());page.get_by_label('无标注研究文件',exact=True).set_input_files(a.industrial_report)

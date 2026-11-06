@@ -192,6 +192,27 @@ jobs:
         run: python demo/generate_b11_practice.py --output artifacts/p037-b1-ci/b11-practice
       - name: B.1.1 blind annotation, full tail, cross-language seals, fixed evaluation and second-rater differences
         run: python tests/browser_b11.py --chromium "$(command -v google-chrome)" --output artifacts/p037-b1-ci/b11-browser --source artifacts/p037-b1-ci/b11-practice/source.json --video artifacts/p037-b1-ci/b11-practice/generated.mp4 --report artifacts/p037-b1-ci/report.json
+      - name: B.2-U two separately generated sources, reused B.1 lightweight feature pipeline
+        run: |
+          python -m scripts.prepare_b2u --synthetic-pair --output artifacts/p037-b2u-ci/pair --model artifacts/models/r3d18-kinetics400-v1.onnx
+          python -m scripts.extract_b1 --config artifacts/p037-b2u-ci/pair/runtime-0/config/system.yaml --output artifacts/p037-b2u-ci/pair/features-0
+          python -m scripts.extract_b1 --config artifacts/p037-b2u-ci/pair/runtime-1/config/system.yaml --output artifacts/p037-b2u-ci/pair/features-1
+          OPENBLAS_NUM_THREADS=2 python -m scripts.run_b2u --config artifacts/p037-b2u-ci/pair/runtime-0/config/system.yaml --output artifacts/p037-b2u-ci/study
+          OPENBLAS_NUM_THREADS=2 python -m scripts.run_b2u --config artifacts/p037-b2u-ci/pair/runtime-1/config/system.yaml --parent artifacts/p037-b2u-ci/study --shadow-update --output artifacts/p037-b2u-ci/query
+          python -m scripts.verify_b2u --parent artifacts/p037-b2u-ci/study --updated artifacts/p037-b2u-ci/query --query-config artifacts/p037-b2u-ci/pair/runtime-1/config/system.yaml --output artifacts/p037-b2u-ci/verification
+      - name: B.2-U desktop/mobile actual traces, candidate seeks, source hashes and frozen queries
+        run: python tests/browser_b2u.py --chromium "$(command -v google-chrome)" --output artifacts/p037-b2u-ci/browser --report artifacts/p037-b2u-ci/study/report-private.json --query artifacts/p037-b2u-ci/query/query-private.json --video artifacts/p037-b2u-ci/pair/generated-0.mp4
+      - name: B.2-U synthetic-only Demo and industrial aggregate boundary
+        run: python -m scripts.package_b2u_demo --verify-only
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: b2u-synthetic-verification
+          path: |
+            artifacts/p037-b2u-ci/browser/results.json
+            artifacts/p037-b2u-ci/verification/results.json
+            artifacts/p037-b2u-ci/study/failure.json
+            artifacts/p037-b2u-ci/query/failure.json
       - name: B.1.1 reviewed annotation Demo, no industrial PTS or labels
         run: python -m scripts.package_b11_demo --verify-only
       - uses: actions/upload-artifact@v4

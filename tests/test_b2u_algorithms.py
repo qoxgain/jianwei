@@ -182,3 +182,18 @@ def test_discovered_support_is_inside_the_final_representative_radius():
         for i in p['members']:
             r=p['records'][i];v=descriptor(z[r['row_start']:r['row_end']],s.context_weight)
             assert np.linalg.norm(v-p['descriptor'])<=p['radius']+1e-12
+
+
+
+def test_public_aggregate_drops_industrial_trajectories_and_arbitrary_private_fields():
+    from scripts.export_b2u_public import aggregate
+    report=json.loads((PROJECT_ROOT/'apps/web/src/data/unlabeledDemo.json').read_text())
+    report['evidence_class']='development_exploration'
+    for method in report['methods']:
+        method['private_arbitrary_marker']='DO_NOT_PUBLISH_INDUSTRIAL_VALUES'
+        method['matrix_profiles'][0]['profile']=['DO_NOT_PUBLISH_INDUSTRIAL_VALUES']
+        method['prototypes'].append({'private_value':'DO_NOT_PUBLISH_INDUSTRIAL_VALUES','support_count':3})
+    public=aggregate(report);text=json.dumps(public)
+    assert 'DO_NOT_PUBLISH_INDUSTRIAL_VALUES' not in text
+    assert '"trace"' not in text and '"occurrences"' not in text and '"prototypes"' not in text
+    assert public['real_f1'] is None and not public['industrial_trajectories_or_prototype_values_included']
