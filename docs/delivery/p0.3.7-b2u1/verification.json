@@ -3,8 +3,8 @@
   "baseline_commit": "755aefd8e623b130f83282f6ad40d0fe50b21757",
   "branch": "codex/p0-3-7-b2u1-data-validity",
   "implementation_commits": [
-    "f738d05",
-    "6f5923f"
+    "f738d0572d297cbb890d2b7c394581d1c526a867",
+    "6f5923f8e748a2be217944e602b45a8138b888b0"
   ],
   "new_mechanism_tests": 25,
   "local": {
@@ -38,7 +38,8 @@
       ],
       "generated_video_only": true,
       "original_build_bytes_unchanged": true
-    }
+    },
+    "historical_b2u_and_b11_archive_verification": true
   },
   "private_execution_artifacts": "artifacts/p037-b2u1",
   "new_field_transfer_executed": false,
@@ -65,13 +66,14 @@
     }
   ],
   "historical_risks": {
-    "media_cancel_fd": "not_reproduced_in_12_local_trials_root_cause_unconfirmed",
+    "media_cancel_fd": "not_reproduced_in_12_local_plus_6_CI_trials_root_cause_unconfirmed",
     "sqlite_corruption": "root_cause_not_established_no_database_runtime_changes"
   },
   "public_data_boundary": {
     "originals_frames_features_prototypes_or_sensitive_provenance_added": false,
     "private_9_source_visual_review": "not_published",
-    "private_52_candidate_timeline": "not_published"
+    "private_52_candidate_timeline": "not_published",
+    "publication_check_passed": true
   },
   "protocol_hash": "7e43bd1ab324f1266be25c72bb83b608491113a36853455439c0b6f60270e0ee",
   "preserved_demo": {
@@ -79,13 +81,450 @@
     "sha256": "6cd43aea9fad490fd6b57278e5ef70ee326fabc0890a2aafeea954ba2158f74e"
   },
   "ci": {
-    "status": "pending_push",
-    "tested_commit": null,
-    "url": null
+    "status": "completed",
+    "conclusion": "success",
+    "tested_commit": "91ac5338d2b13705f4de1dc53d8ac58c65f13df4",
+    "run_id": 42177838779,
+    "url": "https://github.com/qoxgain/jianwei/actions/runs/42177838779",
+    "jobs": [
+      {
+        "name": "foundation",
+        "conclusion": "success",
+        "url": "https://github.com/qoxgain/jianwei/actions/runs/42177838779/job/127760332208",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Reject new private media, high-dimensional features and weight packages",
+            "conclusion": "success"
+          },
+          {
+            "name": "Materialize only the regression video",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python3 scripts/audit_video_samples.py --asset garment_test --output artifacts/sample-integrity.json",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run bash scripts/ci_system_deps.sh ffmpeg poppler-utils",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python -m pip install -r requirements-encoder.txt",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm ci",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python -m pytest tests -q --junitxml=artifacts/p037-a4-ci/backend-junit.xml",
+            "conclusion": "success"
+          },
+          {
+            "name": "B.2-U.1 blank prospective intake must block before field evaluation",
+            "conclusion": "success"
+          },
+          {
+            "name": "Fixed A.4 generated query counterexamples, expected vulnerable baseline",
+            "conclusion": "success"
+          },
+          {
+            "name": "Unified native query fault isolation, full and fault_state, DELETE and WAL",
+            "conclusion": "success"
+          },
+          {
+            "name": "A.3 generated DELETE/WAL API, concurrent commits, backup and abrupt-exit repetition",
+            "conclusion": "success"
+          },
+          {
+            "name": "A.4 generated performance instrumentation smoke, not a large-database acceptance result",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python -m unittest discover -s reference/tests -v",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm test",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm run build:demo",
+            "conclusion": "success"
+          },
+          {
+            "name": "Preserve P0.3.6 archive against its original manifest and browser hash",
+            "conclusion": "success"
+          },
+          {
+            "name": "Verify A.2 sanitized evidence and pending original-media scope",
+            "conclusion": "success"
+          },
+          {
+            "name": "Verify A.3 SQLite evidence without databases or numerical packages",
+            "conclusion": "success"
+          },
+          {
+            "name": "Verify A.4 generated-data evidence and every failed measurement",
+            "conclusion": "success"
+          },
+          {
+            "name": "Verify A.1 archive integrity and publication boundary",
+            "conclusion": "success"
+          },
+          {
+            "name": "Verify Stage-A archive integrity and publication boundary",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "name": "browser",
+        "conclusion": "success",
+        "url": "https://github.com/qoxgain/jianwei/actions/runs/42177838779/job/127760332345",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Materialize only the regression video",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python3 scripts/audit_video_samples.py --asset garment_test --output artifacts/sample-integrity.json",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python -m venv .venv",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run .venv/bin/python -m pip install -r requirements-encoder.txt -r requirements-browser.txt",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run bash scripts/ci_system_deps.sh fonts-noto-cjk ffmpeg",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm ci && npm run build && npm run build:demo",
+            "conclusion": "success"
+          },
+          {
+            "name": "Four scenes, metadata checks, training, sealed evaluation and downloads",
+            "conclusion": "success"
+          },
+          {
+            "name": "Original real-video playback",
+            "conclusion": "success"
+          },
+          {
+            "name": "Sampling diagnostics from recorded timestamps, blocked admission and mobile layout",
+            "conclusion": "success"
+          },
+          {
+            "name": "Preregistered protocol, session uncertainty and desktop/mobile research review",
+            "conclusion": "success"
+          },
+          {
+            "name": "Actual P0.3.6 scalar statistics, all seeds, mobile and local original-video association",
+            "conclusion": "success"
+          },
+          {
+            "name": "P0.3.7-A generated-media admission and Vite access boundaries on desktop and mobile",
+            "conclusion": "success"
+          },
+          {
+            "name": "P0.3.7-A shipped offline evidence and pending user acceptance",
+            "conclusion": "success"
+          },
+          {
+            "name": "A.1 reviewed publication, hardlink variants, builds, preview and cache bytes",
+            "conclusion": "success"
+          },
+          {
+            "name": "A.1 five-state real HTTP interaction on two I/O tokens",
+            "conclusion": "success"
+          },
+          {
+            "name": "A.1 media-free offline evidence filters and export",
+            "conclusion": "success"
+          },
+          {
+            "name": "A.2 inert-text optimizer integrity, real HMR and source-map regression",
+            "conclusion": "success"
+          },
+          {
+            "name": "A.2 offline evidence, accurate pending scope and downloads",
+            "conclusion": "success"
+          },
+          {
+            "name": "A.3 SQLite evidence, all repeated runs, accurate blocked status and exports",
+            "conclusion": "success"
+          },
+          {
+            "name": "A.4 isolation, all performance failures, policy limits and exact exports",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      },
+      {
+        "name": "pretrained-encoder",
+        "conclusion": "success",
+        "url": "https://github.com/qoxgain/jianwei/actions/runs/42177838779/job/127760332476",
+        "steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Materialize only the regression video",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python3 scripts/audit_video_samples.py --asset garment_test --output artifacts/sample-integrity.json",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run bash scripts/ci_system_deps.sh ffmpeg poppler-utils",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python -m pip install -r requirements-pretrained.txt --extra-index-url https://download.pytorch.org/whl/cpu",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python -m pytest tests/test_pretrained_encoder.py -q --junitxml=artifacts/encoder-junit.xml",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python scripts/export_pretrained_encoder.py --download --report artifacts/encoder-export.json",
+            "conclusion": "success"
+          },
+          {
+            "name": "B.2-U.1 bounded media-cancel diagnosis, generated R3D load, not research acceptance",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "B.1 executed synthetic ROI/motion pipeline with official frozen weights",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run python -m pip install -r requirements-browser.txt",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run npm ci && npm run build:demo",
+            "conclusion": "success"
+          },
+          {
+            "name": "B.1 desktop/mobile local video, ROI, separate review and exact results",
+            "conclusion": "success"
+          },
+          {
+            "name": "B.1 reproducible public Demo archive",
+            "conclusion": "success"
+          },
+          {
+            "name": "B.1.1 source-only PTS packet, no algorithm hints",
+            "conclusion": "success"
+          },
+          {
+            "name": "B.1.1 standalone practice generator without model dependencies",
+            "conclusion": "success"
+          },
+          {
+            "name": "B.1.1 blind annotation, full tail, cross-language seals, fixed evaluation and second-rater differences",
+            "conclusion": "success"
+          },
+          {
+            "name": "B.2-U two separately generated sources, reused B.1 lightweight feature pipeline",
+            "conclusion": "success"
+          },
+          {
+            "name": "B.2-U desktop/mobile actual traces, candidate seeks, source hashes and frozen queries",
+            "conclusion": "success"
+          },
+          {
+            "name": "B.2-U synthetic-only Demo and industrial aggregate boundary",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "B.1.1 reviewed annotation Demo, no industrial PTS or labels",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ]
+      }
+    ],
+    "backend": {
+      "total": 974,
+      "passed": 971,
+      "skipped": 3,
+      "failed": 0,
+      "skip_reason": "Optional torch unavailable in foundation; three official preprocessing parity shapes skipped. Independent pretrained job executed 9/9 without skips."
+    },
+    "pretrained_encoder": {
+      "passed": 9,
+      "skipped": 0,
+      "failed": 0
+    },
+    "frontend": {
+      "passed": 127,
+      "failed": 0
+    },
+    "reference": {
+      "passed": 29,
+      "failed": 0
+    },
+    "both_builds_passed": true,
+    "new_intake_expected_block_passed": true,
+    "b11_blind_annotation_regression": true,
+    "b2u_two_generated_source_frozen_query_and_browser": true,
+    "media_cancel_diagnosis": {
+      "passed": 6,
+      "failed": 0,
+      "blocked": 0,
+      "fd_failures": 0,
+      "root_cause_established": false
+    },
+    "industrial_transfer_executed": false,
+    "first_attempt_no_failed_or_cancelled_runs": true
   },
   "formal_test_data_consumed": false,
   "old_failed_candidates_promoted": false,
   "production_activated": false,
   "p04_admitted": false,
-  "next_stage_started": false
+  "next_stage_started": false,
+  "evidence_and_ci_commit": "91ac5338d2b13705f4de1dc53d8ac58c65f13df4",
+  "old_baseline_remote_head_preserved": "755aefd8e623b130f83282f6ad40d0fe50b21757",
+  "final_documentation_commit_policy": "Final evidence-only commit uses skip ci; tested implementation remains 91ac5338d2b13705f4de1dc53d8ac58c65f13df4."
 }

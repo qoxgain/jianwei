@@ -1,0 +1,90 @@
+{
+  "schema": "b2u1-media-limited-stress-v1",
+  "case_sha256": "d2f87a2febd498c3658c64dde47e06b06bbdfc9f5e63581ee59129fe3506b66b",
+  "repeats_per_mode": 3,
+  "records": [
+    {
+      "mode": "idle",
+      "trial": 0,
+      "case": "test_cancelled_and_exceptional_file_send_release_file_and_lease",
+      "case_sha256": "d2f87a2febd498c3658c64dde47e06b06bbdfc9f5e63581ee59129fe3506b66b",
+      "criterion_changed": false,
+      "status": "passed",
+      "fd_check_failed": false,
+      "elapsed_seconds": 0.05186276499998144
+    },
+    {
+      "mode": "idle",
+      "trial": 1,
+      "case": "test_cancelled_and_exceptional_file_send_release_file_and_lease",
+      "case_sha256": "d2f87a2febd498c3658c64dde47e06b06bbdfc9f5e63581ee59129fe3506b66b",
+      "criterion_changed": false,
+      "status": "passed",
+      "fd_check_failed": false,
+      "elapsed_seconds": 0.05404907499999467
+    },
+    {
+      "mode": "idle",
+      "trial": 2,
+      "case": "test_cancelled_and_exceptional_file_send_release_file_and_lease",
+      "case_sha256": "d2f87a2febd498c3658c64dde47e06b06bbdfc9f5e63581ee59129fe3506b66b",
+      "criterion_changed": false,
+      "status": "passed",
+      "fd_check_failed": false,
+      "elapsed_seconds": 0.05432658600000195
+    },
+    {
+      "mode": "r3d",
+      "trial": 0,
+      "case": "test_cancelled_and_exceptional_file_send_release_file_and_lease",
+      "case_sha256": "d2f87a2febd498c3658c64dde47e06b06bbdfc9f5e63581ee59129fe3506b66b",
+      "criterion_changed": false,
+      "status": "passed",
+      "fd_check_failed": false,
+      "elapsed_seconds": 0.05222044600000686
+    },
+    {
+      "mode": "r3d",
+      "trial": 1,
+      "case": "test_cancelled_and_exceptional_file_send_release_file_and_lease",
+      "case_sha256": "d2f87a2febd498c3658c64dde47e06b06bbdfc9f5e63581ee59129fe3506b66b",
+      "criterion_changed": false,
+      "status": "passed",
+      "fd_check_failed": false,
+      "elapsed_seconds": 0.05287246999998274
+    },
+    {
+      "mode": "r3d",
+      "trial": 2,
+      "case": "test_cancelled_and_exceptional_file_send_release_file_and_lease",
+      "case_sha256": "d2f87a2febd498c3658c64dde47e06b06bbdfc9f5e63581ee59129fe3506b66b",
+      "criterion_changed": false,
+      "status": "passed",
+      "fd_check_failed": false,
+      "elapsed_seconds": 0.05882950699998446
+    }
+  ],
+  "counts": {
+    "passed": 6,
+    "failed": 0,
+    "blocked": 0,
+    "worker_error": 0,
+    "timeout": 0
+  },
+  "fd_failures": 0,
+  "all_executed_trials_passed": true,
+  "risk_status": "not_reproduced_in_bounded_sample_original_risk_unconfirmed",
+  "root_cause_established": false,
+  "runtime_changed": false,
+  "diagnosis_completed": true,
+  "industrial_data_used": false,
+  "r3d_load": {
+    "status": "executed",
+    "frozen_encoder_sha256": "2979019509005056778db9f462e9eed212c40f02d5e5bf1d6fc9e06caf2ebab8",
+    "encoder_threads": 2,
+    "iterations": 6,
+    "generated_tensor_only": true,
+    "industrial_frames_read": 0,
+    "elapsed_seconds": 5.746583044999994
+  }
+}
