@@ -1,0 +1,77 @@
+{
+  "schema": "b2u1-baseline-fingerprint-v1",
+  "delivered_commit": "755aefd8e623b130f83282f6ad40d0fe50b21757",
+  "run_id": "8ae46dbbb8623b545be1abcce63ef4937452b75f62f1d28353c76478476d955e",
+  "report_sha256": "3c08dfb0e615d0433ad7ee248c885c37ddb0bff8a3445689d0c5ba29b849b6b0",
+  "candidate_count": 52,
+  "method_count": 11,
+  "algorithm_commit": "f157c20",
+  "runtime_identity_commit": "4cc9f58dfc1be45124f377ba53650a37cc0c40db",
+  "old_results_must_remain_failed": true,
+  "legacy_math_settings": {
+    "enabled": true,
+    "window_ms": 2000,
+    "sample_fps": 8,
+    "fit_fraction": 0.5,
+    "calibration_fraction": 0.25,
+    "purge_ms": 2000,
+    "projection_dim": 8,
+    "change_quantile": 0.8,
+    "scales": [
+      1,
+      2,
+      4
+    ],
+    "min_segment_windows": 2,
+    "max_segment_windows": 20,
+    "fixed_segment_windows": 4,
+    "dp_penalty_multiplier": 1.0,
+    "motif_lengths": [
+      2,
+      4,
+      6
+    ],
+    "min_repeats": 3,
+    "max_prototypes": 8,
+    "motif_neighbor_quantile": 0.35,
+    "motif_radius_factor": 1.2,
+    "min_shape_rms": 0.15,
+    "context_weight": 0.25,
+    "activity_quantile": 0.25,
+    "max_profile_windows": 512,
+    "seeds": [
+      11,
+      23,
+      37,
+      53,
+      71
+    ],
+    "noise_sigma": 0.05,
+    "background_mix": 0.3,
+    "boundary_tolerance_ms": 1000,
+    "forecast_history": 6,
+    "forecast_lags": [
+      2,
+      4
+    ],
+    "ridge_lambda": 1.0,
+    "retrieval_k": 3,
+    "min_gate_stability": 0.65,
+    "min_gate_null_margin": 0.02,
+    "min_gate_prediction_gain": 0.0,
+    "max_gate_coverage": 0.9,
+    "formal_research_access": false,
+    "production_updates": false
+  },
+  "observed_source_identity_digests": [
+    "048d170a0f74dd4f558ee8318967f7744b285ec604365f6d86d907dd93f944f8",
+    "36f042db73d593194f6d5a898f3d6ab7f9a99ddc8fe29dc92a3d2ed59174313e",
+    "689a173752186860f434b64b774a8d9c6ed227b0afe16b5758b8bbd9c74931d3",
+    "777dec6e63e42856306fa48110f130d4350e931bd21d01a552f4b05a78f748e1",
+    "591b420e9c122f6dd4a854eac70e25dcbf8d886f2ae192fe19ee0a7891ff4e25",
+    "3cf00179d1892afda24ad404735fa08260a7b7157b3a86a9bfbcfedf803620a1",
+    "932960605dc3fc526f66c929f8a0f026026121e006a6e69f905d883ec36850ee",
+    "3d2c465376cfef2041e915fb559f02daefe96abb1f60c108a014a1b9ab1abfb3",
+    "122ea9c4b4f0ade6cba184bdb9c9acf98204142cb13dbf477bd617784e0228ba"
+  ]
+}
