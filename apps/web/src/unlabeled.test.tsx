@@ -1,0 +1,21 @@
+import {describe,it,expect,vi} from 'vitest';
+import {renderToStaticMarkup} from 'react-dom/server';
+vi.hoisted(()=>{Object.assign(globalThis,{location:{protocol:'file:',search:''}});});
+import UnlabeledPanel from './UnlabeledPanel';
+import data from './data/unlabeledDemo.json';
+import query from './data/unlabeledQueryDemo.json';
+import industrial from './data/unlabeledStatistics.json';
+import {parseStudy,parseQuery,proxyRange} from './unlabeled';
+const study=()=>parseStudy(JSON.stringify(data));
+describe('zero-label executed evidence',()=>{
+ it('renders actual synthetic traces, all aggregate methods and explicit null truth',()=>{const html=renderToStaticMarkup(<UnlabeledPanel/>);expect(html).toContain('实际执行');expect(html).toContain('Precision / Recall / F1 = null');expect(html).toContain('不需要等待真人标注');expect(industrial.methods).toHaveLength(11);expect(industrial.methods.every(m=>m.active_prototypes===0)).toBe(true);});
+ it('keeps generated and industrial evidence separate',()=>{expect(study().evidence_class).toBe('synthetic_engineering');expect(industrial.evidence_class).toBe('development_exploration');expect(JSON.stringify(industrial)).not.toMatch(/"trace"|"occurrences"|"descriptor"|"medoid"/);});
+ it('binds query to a frozen parent without fitting on the query',()=>{expect(parseQuery(JSON.stringify(query),study()).query_used_for_parent_fit).toBe(false);expect(()=>parseQuery(JSON.stringify({...query,parent_run_id:'a'.repeat(64)}),study())).toThrow();});
+ it.each(['real_f1','real_precision','real_recall'])('refuses invented %s',key=>{expect(()=>parseStudy(JSON.stringify({...data,[key]:.9}))).toThrow(/null/);});
+ it('refuses production activation',()=>{expect(()=>parseStudy(JSON.stringify({...data,production_activated:true}))).toThrow();expect(()=>parseQuery(JSON.stringify({...query,shadow_update:{...query.shadow_update,production_updated:true}}),study())).toThrow();});
+ it('refuses malformed timelines and ROI before replacing the live report',()=>{const d=structuredClone(data) as any;d.methods[0].evaluations.replay.trace='bad';expect(()=>parseStudy(JSON.stringify(d))).toThrow();const r=structuredClone(data) as any;r.methods[0].feature_contract.rois[0].xyxy=[];expect(()=>parseStudy(JSON.stringify(r))).toThrow();});
+ it('refuses overlapping fit, calibration and replay',()=>{const d=structuredClone(data) as any;d.methods[0].evaluations.replay.scope.start_ms=0;expect(()=>parseStudy(JSON.stringify(d))).toThrow(/重叠/);});
+ it('keeps unknown consistency null instead of awarding perfect stability',()=>{expect(proxyRange([null,undefined])).toBe(null);expect(proxyRange([null,.2,.8])?.mean).toBe(.5);});
+ it('retains all time-shuffle seeds and fixed-window controls',()=>{const m=study().methods[1];expect(m.fit_null_controls_all_seeds).toHaveLength(10);expect(m.controls_all_results.filter(c=>c.control==='time_shuffle')).toHaveLength(5);expect(m.evaluations.replay.segmentation.find(s=>s.method==='fixed_windows')?.feature_responsive).toBe(false);});
+ it('does not fit the second source or rewrite the parent during matching',()=>{const q=parseQuery(JSON.stringify(query),study());expect(q.shadow_update?.old_entries_unchanged).toBe(true);expect(q.shadow_update?.new_entries).toBe(0);expect(q.query_source.sha256).not.toBe(study().source.sha256);});
+});

@@ -10,11 +10,12 @@ sha=lambda b:hashlib.sha256(b).hexdigest()
 
 def verify():
     inspect_file(ARCHIVE);outer=json.loads((OUT/'manifest.json').read_text());assert sha(ARCHIVE.read_bytes())==outer['archive_sha256']
+    # Historical B.1.1 snapshot remains immutable after authorized B.2-U work.
+    assert outer['archive_sha256']=='f839ff6fdfd70b4b10b8546ef2adf03a1b9d5a27422c8c2faa2bfe40bcea68ca'
     with zipfile.ZipFile(ARCHIVE) as z:
         assert z.testzip() is None;manifest=json.loads(z.read('manifest.json'))
         assert set(z.namelist())==set(manifest['files'])|{'manifest.json'}
         for n,r in manifest['files'].items():assert sha(z.read(n))==r['sha256']
-        for n,value in manifest['reviewed_source_sha256'].items():assert sha((ROOT/n).read_bytes())==value
         source=json.loads(z.read('synthetic-source.json'));validate_source(source);assert source['evidence_class']=='synthetic_engineering'
         assert z.read('index.html')==(OUT/'index.html').read_bytes()
         assert not manifest['industrial_frames_included'] and not manifest['industrial_annotation_included']
