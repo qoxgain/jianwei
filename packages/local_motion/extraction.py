@@ -40,7 +40,7 @@ def admission(bundle):
         receipt=path.with_suffix('.generated.json')
         if not path.is_relative_to(PROJECT_ROOT/'artifacts') or not receipt.is_file():raise ContractError('MOTION_SYNTHETIC_RECEIPT_REQUIRED','合成素材必须由本地生成器输出并保留回执')
         record=json.loads(receipt.read_text())
-        if record.get('kind')!='b1-generated-rectangles-v1' or record.get('sha256')!=s.source_sha256:raise ContractError('MOTION_SYNTHETIC_RECEIPT_REQUIRED','合成素材回执与配置不匹配')
+        if record.get('kind') not in {'b1-generated-rectangles-v1','b2u-generated-motifs-v1'} or record.get('sha256')!=s.source_sha256:raise ContractError('MOTION_SYNTHETIC_RECEIPT_REQUIRED','合成素材回执与配置不匹配')
     if not path.is_file():raise ContractError('MOTION_SOURCE_MISSING','原视频不可用；不能生成真实实验指标')
     if path.stat().st_size>bundle.config.ingestion.max_upload_bytes:raise ContractError('MOTION_SOURCE_TOO_LARGE','原视频超过统一接入预算')
     if sha(path)!=s.source_sha256:raise ContractError('MOTION_SOURCE_CHANGED','视频哈希与已授权开发来源不一致')

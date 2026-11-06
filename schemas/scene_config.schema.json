@@ -2542,6 +2542,372 @@
       "title": "UI",
       "type": "object"
     },
+    "UnlabeledSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "default": false,
+          "title": "Enabled",
+          "type": "boolean"
+        },
+        "feature_manifest": {
+          "title": "Feature Manifest",
+          "type": "string"
+        },
+        "window_ms": {
+          "maximum": 8000,
+          "minimum": 500,
+          "title": "Window Ms",
+          "type": "integer"
+        },
+        "sample_fps": {
+          "maximum": 32,
+          "minimum": 1,
+          "title": "Sample Fps",
+          "type": "integer"
+        },
+        "fit_fraction": {
+          "exclusiveMinimum": 0.2,
+          "maximum": 0.7,
+          "title": "Fit Fraction",
+          "type": "number"
+        },
+        "calibration_fraction": {
+          "exclusiveMinimum": 0.05,
+          "maximum": 0.3,
+          "title": "Calibration Fraction",
+          "type": "number"
+        },
+        "purge_ms": {
+          "maximum": 30000,
+          "minimum": 0,
+          "title": "Purge Ms",
+          "type": "integer"
+        },
+        "projection_dim": {
+          "maximum": 16,
+          "minimum": 1,
+          "title": "Projection Dim",
+          "type": "integer"
+        },
+        "change_quantile": {
+          "exclusiveMaximum": 1,
+          "exclusiveMinimum": 0.5,
+          "title": "Change Quantile",
+          "type": "number"
+        },
+        "scales": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 4,
+          "minItems": 1,
+          "title": "Scales",
+          "type": "array"
+        },
+        "min_segment_windows": {
+          "maximum": 20,
+          "minimum": 2,
+          "title": "Min Segment Windows",
+          "type": "integer"
+        },
+        "max_segment_windows": {
+          "maximum": 100,
+          "minimum": 4,
+          "title": "Max Segment Windows",
+          "type": "integer"
+        },
+        "fixed_segment_windows": {
+          "maximum": 60,
+          "minimum": 2,
+          "title": "Fixed Segment Windows",
+          "type": "integer"
+        },
+        "dp_penalty_multiplier": {
+          "exclusiveMinimum": 0,
+          "maximum": 10,
+          "title": "Dp Penalty Multiplier",
+          "type": "number"
+        },
+        "motif_lengths": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 5,
+          "minItems": 1,
+          "title": "Motif Lengths",
+          "type": "array"
+        },
+        "min_repeats": {
+          "maximum": 10,
+          "minimum": 3,
+          "title": "Min Repeats",
+          "type": "integer"
+        },
+        "max_prototypes": {
+          "maximum": 20,
+          "minimum": 1,
+          "title": "Max Prototypes",
+          "type": "integer"
+        },
+        "motif_neighbor_quantile": {
+          "exclusiveMinimum": 0,
+          "maximum": 0.8,
+          "title": "Motif Neighbor Quantile",
+          "type": "number"
+        },
+        "motif_radius_factor": {
+          "exclusiveMinimum": 0,
+          "maximum": 3,
+          "title": "Motif Radius Factor",
+          "type": "number"
+        },
+        "min_shape_rms": {
+          "exclusiveMinimum": 0,
+          "maximum": 2,
+          "title": "Min Shape Rms",
+          "type": "number"
+        },
+        "context_weight": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Context Weight",
+          "type": "number"
+        },
+        "activity_quantile": {
+          "exclusiveMaximum": 0.8,
+          "minimum": 0,
+          "title": "Activity Quantile",
+          "type": "number"
+        },
+        "max_profile_windows": {
+          "maximum": 1500,
+          "minimum": 16,
+          "title": "Max Profile Windows",
+          "type": "integer"
+        },
+        "seeds": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 10,
+          "minItems": 3,
+          "title": "Seeds",
+          "type": "array"
+        },
+        "noise_sigma": {
+          "exclusiveMinimum": 0,
+          "maximum": 0.5,
+          "title": "Noise Sigma",
+          "type": "number"
+        },
+        "background_mix": {
+          "exclusiveMinimum": 0,
+          "maximum": 0.5,
+          "title": "Background Mix",
+          "type": "number"
+        },
+        "boundary_tolerance_ms": {
+          "maximum": 3000,
+          "minimum": 0,
+          "title": "Boundary Tolerance Ms",
+          "type": "integer"
+        },
+        "forecast_history": {
+          "maximum": 12,
+          "minimum": 2,
+          "title": "Forecast History",
+          "type": "integer"
+        },
+        "forecast_lags": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 3,
+          "minItems": 1,
+          "title": "Forecast Lags",
+          "type": "array"
+        },
+        "ridge_lambda": {
+          "exclusiveMinimum": 0,
+          "maximum": 100,
+          "title": "Ridge Lambda",
+          "type": "number"
+        },
+        "retrieval_k": {
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Retrieval K",
+          "type": "integer"
+        },
+        "min_gate_stability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Min Gate Stability",
+          "type": "number"
+        },
+        "min_gate_null_margin": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Min Gate Null Margin",
+          "type": "number"
+        },
+        "min_gate_prediction_gain": {
+          "exclusiveMaximum": 1,
+          "minimum": 0,
+          "title": "Min Gate Prediction Gain",
+          "type": "number"
+        },
+        "max_gate_coverage": {
+          "exclusiveMaximum": 1,
+          "exclusiveMinimum": 0.2,
+          "title": "Max Gate Coverage",
+          "type": "number"
+        },
+        "source_evidence": {
+          "items": {
+            "$ref": "#/$defs/UnlabeledSourceEvidence"
+          },
+          "maxItems": 100,
+          "title": "Source Evidence",
+          "type": "array"
+        },
+        "formal_research_access": {
+          "const": false,
+          "default": false,
+          "title": "Formal Research Access",
+          "type": "boolean"
+        },
+        "production_updates": {
+          "const": false,
+          "default": false,
+          "title": "Production Updates",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "feature_manifest",
+        "window_ms",
+        "sample_fps",
+        "fit_fraction",
+        "calibration_fraction",
+        "purge_ms",
+        "projection_dim",
+        "change_quantile",
+        "scales",
+        "min_segment_windows",
+        "max_segment_windows",
+        "fixed_segment_windows",
+        "dp_penalty_multiplier",
+        "motif_lengths",
+        "min_repeats",
+        "max_prototypes",
+        "motif_neighbor_quantile",
+        "motif_radius_factor",
+        "min_shape_rms",
+        "context_weight",
+        "activity_quantile",
+        "max_profile_windows",
+        "seeds",
+        "noise_sigma",
+        "background_mix",
+        "boundary_tolerance_ms",
+        "forecast_history",
+        "forecast_lags",
+        "ridge_lambda",
+        "retrieval_k",
+        "min_gate_stability",
+        "min_gate_null_margin",
+        "min_gate_prediction_gain",
+        "max_gate_coverage"
+      ],
+      "title": "UnlabeledSettings",
+      "type": "object"
+    },
+    "UnlabeledSourceEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "source_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Source Sha256",
+          "type": "string"
+        },
+        "root_source_sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Root Source Sha256",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "field",
+            "generated"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "independence_review": {
+          "enum": [
+            "pending",
+            "verified"
+          ],
+          "title": "Independence Review",
+          "type": "string"
+        },
+        "near_duplicate_review": {
+          "enum": [
+            "pending",
+            "clear"
+          ],
+          "title": "Near Duplicate Review",
+          "type": "string"
+        },
+        "capture_session_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capture Session Id"
+        },
+        "view_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "View Id"
+        },
+        "captured_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Captured At"
+        }
+      },
+      "required": [
+        "source_sha256",
+        "root_source_sha256",
+        "kind",
+        "independence_review",
+        "near_duplicate_review"
+      ],
+      "title": "UnlabeledSourceEvidence",
+      "type": "object"
+    },
     "Video": {
       "additionalProperties": false,
       "properties": {
@@ -2710,6 +3076,17 @@
       "anyOf": [
         {
           "$ref": "#/$defs/LocalMotionSettings"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "unlabeled": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/UnlabeledSettings"
         },
         {
           "type": "null"

@@ -163,6 +163,7 @@ def load_bundle(config_path: str | Path = PROJECT_ROOT / "config/system.yaml", p
     snapshot = _redact(config.model_dump(exclude=excluded))
     if snapshot.get('exploratory') is None: snapshot.pop('exploratory', None)
     if snapshot.get('local_motion') is None: snapshot.pop('local_motion', None)
+    if snapshot.get('unlabeled') is None: snapshot.pop('unlabeled', None)
     if snapshot.get('sqlite') is None: snapshot.pop('sqlite', None)
     elif 'backup' not in config.sqlite.model_fields_set: snapshot['sqlite'].pop('backup',None)
     for name in ('commit_integrity_check','integrity_check_interval_seconds'):
