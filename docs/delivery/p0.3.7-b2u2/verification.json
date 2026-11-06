@@ -1,0 +1,72 @@
+{
+  "schema": "b2u2-admission-verification-v1",
+  "baseline_commit": "7079601f7dce873ce8c3930c469d4f7324b7594f",
+  "branch": "codex/p0-3-7-b2u2-independent-sessions",
+  "task_status": "blocked_at_data_admission",
+  "protocol_hash": "7e43bd1ab324f1266be25c72bb83b608491113a36853455439c0b6f60270e0ee",
+  "preserved_files_match_baseline": {
+    "docs/plans/p0.3.7-b2u1/routes-sealed.json": true,
+    "docs/plans/p0.3.7-b2u1/baseline-seal.json": true,
+    "scripts/validate_b2u1.py": true,
+    "datasets/video_samples/catalog.json": true,
+    "config/system.yaml": true
+  },
+  "new_models_or_runtime_changes": false,
+  "input_inventory": "Selected authorized workspace directories plus existing registry; not an assertion about undeclared external storage.",
+  "private_evidence": [
+    {
+      "relative_path": "artifacts/p037-b2u2/inventory-private.json",
+      "sha256": "0e09b00042e241f5c58c9aca069ab45147be6a70b45e6b4b5031198c73d7230a"
+    },
+    {
+      "relative_path": "artifacts/p037-b2u2/new-sources-intake-private.json",
+      "sha256": "2f4d81623bb6819b4540724342b4647fabccf349f101a9697bf3af83f0b2a44d"
+    },
+    {
+      "relative_path": "artifacts/p037-b2u2/admission/current/admission.json",
+      "sha256": "78276c7c6311226b65c05046d71bee358459bf69d7a380556c8045e5013a169c"
+    },
+    {
+      "relative_path": "artifacts/p037-b2u2/admission.log",
+      "sha256": "c32891b2fa3ab8ed740bb091d7291919aecbe4b16eedf4d782ce80ed7581b136"
+    },
+    {
+      "relative_path": "artifacts/p037-b2u2/admission-tools-junit.xml",
+      "sha256": "e903f319f601f60d457d4d59186d0ddc35fbf464b072848c8477773dfd7c7ab3"
+    }
+  ],
+  "executed_admission": {
+    "exit_code": 2,
+    "ready": false,
+    "new_verified_independent_sessions": 0,
+    "issue_count": 4,
+    "industrial_transfer_executed": false
+  },
+  "local_tool_regression": {
+    "passed": 25,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 0.878,
+    "command": "OPENBLAS_NUM_THREADS=2 .venv/bin/python -m pytest tests/test_b2u1_diagnosis.py tests/test_b2u1_sources.py -q --junitxml=artifacts/p037-b2u2/admission-tools-junit.xml",
+    "scope": "Existing generated numeric/metadata tool regression only; NOT field-transfer evidence."
+  },
+  "build_and_browser": "Not rerun: documentation/evidence-only change, no runtime/frontend changes.",
+  "ci": {
+    "new_run": false,
+    "reason": "Documentation/evidence-only blocked-data report uses skip ci. No fresh full-CI or field-experiment pass claimed.",
+    "historical_tested_code": "91ac5338d2b13705f4de1dc53d8ac58c65f13df4",
+    "historical_run": "https://github.com/qoxgain/jianwei/actions/runs/42177838779",
+    "historical_conclusion": "success; historical engineering evidence only"
+  },
+  "public_upload_review": "New files limited to deidentified counts, blocked status, protocol fingerprints, instructions and report. Detailed original/workstation identities retained privately.",
+  "route_a_status": "blocked",
+  "route_b_status": "blocked",
+  "real_precision": null,
+  "real_recall": null,
+  "real_f1": null,
+  "formal_test_data_consumed": false,
+  "production_model_or_registry_updated": false,
+  "b3_started": false,
+  "p04_admitted": false
+}

@@ -1,0 +1,87 @@
+{
+  "schema": "b2u2-independent-field-admission-summary-v1",
+  "checked_at_utc": "2026-11-06T07:23:33.039058+00:00",
+  "baseline_commit": "7079601f7dce873ce8c3930c469d4f7324b7594f",
+  "protocol_hash": "7e43bd1ab324f1266be25c72bb83b608491113a36853455439c0b6f60270e0ee",
+  "protocol_file_sha256": "b0a18be4f1b29843101c39c7d39668363b3e7ec1820e998ca5733184e10fdace",
+  "protocol_validator_and_baseline_verified_unchanged": true,
+  "catalog_registered_videos": 9,
+  "registered_video_paths_present": 9,
+  "catalog_matches_B2U1_baseline": true,
+  "observed_historical_sources_excluded": 9,
+  "sources_missing_capture_session": 9,
+  "sources_missing_camera_and_view": 9,
+  "sources_missing_verified_capture_time": 9,
+  "sources_lineage_pending": 9,
+  "new_verified_protocol_compliant_sessions": 0,
+  "new_filled_intake_found": false,
+  "new_fit_freeze_receipt_found": false,
+  "inspected_scope": "Selected authorized workspace directories and known source registry, not undeclared external storage.",
+  "admission": {
+    "schema": "b2u1-prospective-admission-v1",
+    "ready": false,
+    "issues": [
+      {
+        "role": "all",
+        "code": "EXACTLY_THREE_INDEPENDENT_DEVELOPMENT_ROLES_REQUIRED"
+      },
+      {
+        "role": "all",
+        "code": "MISSING_DEVELOPMENT_ROLE"
+      },
+      {
+        "role": "all",
+        "code": "CROSS_VIEW_MATCHING_NOT_PREREGISTERED"
+      },
+      {
+        "role": "all",
+        "code": "TWO_CAPTURE_DATES_REQUIRED"
+      }
+    ],
+    "protocol_hash": "7e43bd1ab324f1266be25c72bb83b608491113a36853455439c0b6f60270e0ee",
+    "field_transfer_executed": false,
+    "action_labels_required": false,
+    "formal_test_access": false,
+    "production_activated": false
+  },
+  "admission_exit_code": 2,
+  "status": "blocked",
+  "reason": "No new verified independent three-session intake and pre-validation model-freeze evidence available.",
+  "route_a": {
+    "status": "blocked",
+    "proxy_supported": null,
+    "matching_metrics": null,
+    "negative_controls": null
+  },
+  "route_b": {
+    "status": "blocked",
+    "proxy_supported": null,
+    "forecast_metrics": null,
+    "history_ablations": null,
+    "negative_controls": null
+  },
+  "real_precision": null,
+  "real_recall": null,
+  "real_f1": null,
+  "industrial_semantic_action_correctness": "unverified",
+  "research_resource_usage": {
+    "industrial_frames_decoded": 0,
+    "industrial_feature_vectors_extracted": 0,
+    "model_fits": 0,
+    "frozen_queries": 0,
+    "assessment_runs": 0,
+    "experiment_cpu_seconds": null,
+    "experiment_peak_memory_bytes": null,
+    "experiment_io_bytes": null
+  },
+  "admission_resource_usage": {
+    "wall_seconds": 0.4792289770266507,
+    "process_cumulative_cpu_seconds_including_startup_imports": 1.7322440000000001
+  },
+  "frozen_protocol_modified": false,
+  "formal_test_data_consumed": false,
+  "production_database_or_registry_updated": false,
+  "historical_failed_candidates_promoted": false,
+  "b3_started": false,
+  "p04_admitted": false
+}
