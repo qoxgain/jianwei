@@ -171,3 +171,14 @@ def test_cache_values_are_not_opened_when_formal_source_guard_rejects(monkeypatc
 def test_too_short_video_after_support_purging_is_not_filled_or_split_into_fake_sources():
     with pytest.raises(ContractError) as e:time_roles(periodic(16),settings())
     assert e.value.code=='UNLABELED_TOO_SHORT'
+
+
+def test_discovered_support_is_inside_the_final_representative_radius():
+    s=settings();z=np.random.default_rng(3).normal(size=(80,3));starts=np.arange(80)*1000;activity=np.ones(80)
+    prototypes,_=discover(z,starts,starts+2000,activity,s,0.)
+    assert prototypes,'exercise actual nontrivial groups'
+    for p in prototypes:
+        assert p['medoid'] in p['members']
+        for i in p['members']:
+            r=p['records'][i];v=descriptor(z[r['row_start']:r['row_end']],s.context_weight)
+            assert np.linalg.norm(v-p['descriptor'])<=p['radius']+1e-12

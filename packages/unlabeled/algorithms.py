@@ -55,9 +55,18 @@ def discover(z,starts,ends,activity,s,activity_floor):
             if not np.isfinite(profile[seed]):continue
             d=np.linalg.norm(vec-vec[seed],axis=1);members=nonoverlapping(np.flatnonzero(d<=radius),records)
             if len(members)<s.min_repeats:continue
+            # Moving from a seed to a medoid may push seed-neighbors OUTSIDE
+            # the final matching radius. Recompute the medoid on a monotonically
+            # shrinking support set until every reported member really matches.
+            while len(members)>=s.min_repeats:
+                within=np.linalg.norm(vec[members,None,:]-vec[None,members,:],axis=-1)
+                medoid=members[int(within.sum(1).argmin())]
+                retained=[i for i in members if np.linalg.norm(vec[i]-vec[medoid])<=radius]
+                if len(retained)==len(members):break
+                members=retained
+            if len(members)<s.min_repeats:continue
             if any(set(members)==set(p['members']) for p in pool if p['length']==length):continue
-            within=np.linalg.norm(vec[members,None,:]-vec[None,members,:],axis=-1)
-            medoid=members[int(within.sum(1).argmin())];mean_distance=float(np.linalg.norm(vec[members]-vec[medoid],axis=1).mean())
+            mean_distance=float(np.linalg.norm(vec[members]-vec[medoid],axis=1).mean())
             separation=max(0.,1-mean_distance/max(typical,1e-9))
             pool.append({'length':length,'members':members,'records':records,'medoid':medoid,'descriptor':vec[medoid].copy(),
                 'radius':radius,'mean_member_distance':mean_distance,'separation':separation,'support_count':len(members),
