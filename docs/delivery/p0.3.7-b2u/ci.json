@@ -1,0 +1,111 @@
+{
+  "status": "completed",
+  "conclusion": "success",
+  "code_commit": "f4c39e0925205863d10025692d88743a1731d03a",
+  "url": "https://github.com/qoxgain/jianwei/actions/runs/42156757538",
+  "jobs": [
+    {
+      "name": "browser",
+      "status": "completed",
+      "conclusion": "success",
+      "job_id": 127692635097
+    },
+    {
+      "name": "foundation",
+      "status": "completed",
+      "conclusion": "success",
+      "job_id": 127692635287
+    },
+    {
+      "name": "pretrained-encoder",
+      "status": "completed",
+      "conclusion": "success",
+      "job_id": 127692635505
+    }
+  ],
+  "foundation_backend": {
+    "total": 949,
+    "passed": 946,
+    "skipped": 3,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 227.174
+  },
+  "official_encoder": {
+    "total": 9,
+    "passed": 9,
+    "skipped": 0,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 2.634
+  },
+  "foundation_skip_explanation": "3 torch/torchvision official-preprocessing parity cases skipped in the lean job; separate official-encoder job has all 9 cases passed, zero skips. Skips are not counted as passes.",
+  "b2u_browser": {
+    "passed": true,
+    "browser": "156.0.8078.79",
+    "build_sha256": "c129e3579b434acbba4ea42c1db35e44048a85e5650ddf58d10c00b1d3799d9c",
+    "records": [
+      {
+        "mode": "desktop",
+        "passed": true,
+        "four_segment_methods_and_all_roles": 40,
+        "method_comparison_count": 5,
+        "actual_video_playback": true,
+        "sha_refusal": true,
+        "candidate_seek": true,
+        "report_exact_export": true,
+        "invalid_truth_import_refused": true,
+        "frozen_parent_query_refused": true,
+        "industrial_private_read_and_seek": false,
+        "api_or_remote_requests": 0,
+        "page_errors": []
+      },
+      {
+        "mode": "mobile",
+        "passed": true,
+        "four_segment_methods_and_all_roles": 40,
+        "method_comparison_count": 5,
+        "actual_video_playback": true,
+        "sha_refusal": true,
+        "candidate_seek": true,
+        "report_exact_export": true,
+        "invalid_truth_import_refused": true,
+        "frozen_parent_query_refused": true,
+        "industrial_private_read_and_seek": false,
+        "api_or_remote_requests": 0,
+        "page_errors": []
+      }
+    ],
+    "real_precision": null,
+    "real_recall": null,
+    "real_f1": null,
+    "production_updated": false,
+    "p04_admitted": false
+  },
+  "b2u_state_counterchecks": {
+    "passed": true,
+    "parent_branches_unchanged": true,
+    "old_registry_entries_unchanged": true,
+    "distinct_source_roots": true,
+    "separate_fit_groups": 2,
+    "shadow_entries_added": 0,
+    "admission_counterexamples": [
+      {
+        "case": "frozen-parameters",
+        "code": "UNLABELED_QUERY_CONFIG_CHANGED",
+        "passed": true
+      },
+      {
+        "case": "repeated-source",
+        "code": "UNLABELED_SAME_ROOT",
+        "passed": true
+      }
+    ],
+    "original_field_independence_validated": false,
+    "real_precision": null,
+    "real_recall": null,
+    "real_f1": null,
+    "production_updated": false
+  },
+  "publication_scope": "generated fixtures, reviewed code, scalar reports only; no industrial frames/features/prototype arrays or model weights"
+}
