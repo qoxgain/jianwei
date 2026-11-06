@@ -1,0 +1,150 @@
+{
+  "schema": "new-video-intake-redacted-v1",
+  "code_baseline": "89d37c11c27e501099415fdaa5a31641f4395504",
+  "private_data_commit": "49e0ad27efa0fc6c09fd6736e1cdd7e18467cf4b",
+  "status": "blocked_integrity_stop",
+  "allow_experiment_start": false,
+  "download": {
+    "lfs_pull_exit_code": 0,
+    "files_downloaded": 8,
+    "files_matching_expected_size": 8,
+    "total_bytes": 1003907772,
+    "independent_sha256_verified": 1,
+    "unverified_after_stop": 7
+  },
+  "files": [
+    {
+      "audit_id": "video-01",
+      "MiB": 22.448,
+      "download": "completed_size_matches",
+      "independent_sha256": "passed",
+      "ffprobe": "passed",
+      "strict_full_decode": "failed_h264_decode"
+    },
+    {
+      "audit_id": "video-02",
+      "MiB": 35.749,
+      "download": "completed_size_matches",
+      "independent_sha256": "not_run_after_stop",
+      "ffprobe": "not_run_after_stop",
+      "strict_full_decode": "not_run_after_stop"
+    },
+    {
+      "audit_id": "video-03",
+      "MiB": 22.168,
+      "download": "completed_size_matches",
+      "independent_sha256": "not_run_after_stop",
+      "ffprobe": "not_run_after_stop",
+      "strict_full_decode": "not_run_after_stop"
+    },
+    {
+      "audit_id": "video-04",
+      "MiB": 39.066,
+      "download": "completed_size_matches",
+      "independent_sha256": "not_run_after_stop",
+      "ffprobe": "not_run_after_stop",
+      "strict_full_decode": "not_run_after_stop"
+    },
+    {
+      "audit_id": "video-05",
+      "MiB": 146.309,
+      "download": "completed_size_matches",
+      "independent_sha256": "not_run_after_stop",
+      "ffprobe": "not_run_after_stop",
+      "strict_full_decode": "not_run_after_stop"
+    },
+    {
+      "audit_id": "video-06",
+      "MiB": 143.635,
+      "download": "completed_size_matches",
+      "independent_sha256": "not_run_after_stop",
+      "ffprobe": "not_run_after_stop",
+      "strict_full_decode": "not_run_after_stop"
+    },
+    {
+      "audit_id": "video-07",
+      "MiB": 512.223,
+      "download": "completed_size_matches",
+      "independent_sha256": "not_run_after_stop",
+      "ffprobe": "not_run_after_stop",
+      "strict_full_decode": "not_run_after_stop"
+    },
+    {
+      "audit_id": "video-08",
+      "MiB": 35.803,
+      "download": "completed_size_matches",
+      "independent_sha256": "not_run_after_stop",
+      "ffprobe": "not_run_after_stop",
+      "strict_full_decode": "not_run_after_stop"
+    }
+  ],
+  "failure": {
+    "audit_id": "video-01",
+    "category": "H264_CABAC_macroblock_invalid_data",
+    "exit_code": 183,
+    "timeout": false,
+    "full_decode_passed": false,
+    "progress_end_is_not_success": true,
+    "source_vs_decoder_root_cause": "not_established",
+    "byte_hash_matches_LFS_object": true
+  },
+  "labels": {
+    "preliminary_counts": [
+      10,
+      13
+    ],
+    "format": "CSV in TXT; quoted comma/newline handling required",
+    "final_independent_dictionaries_exported": false,
+    "time_boundary_or_frame_truth": false
+  },
+  "lineage": {
+    "same_style_fixed_view_or_same_session": "not_verified",
+    "style2_same_root": "not_verified_must_not_treat_as_independent_roles",
+    "near_duplicate_analysis": "not_run_after_integrity_stop"
+  },
+  "resource": {
+    "raw_bytes": 1003907772,
+    "largest_bytes": 537105100,
+    "largest_exceeds_512MiB_by_bytes": 234188,
+    "repository_logical_bytes": 2007852830,
+    "private_filesystem_free_bytes": 13567123456,
+    "cpu_quota_cores": 4,
+    "cgroup_memory_bytes": 34359738368,
+    "download_elapsed_seconds": null,
+    "first_hash_seconds": 0.05258307300391607,
+    "first_probe_seconds": 0.20069545798469335,
+    "first_failed_decode": {
+      "exit_code": 183,
+      "wall_seconds": 1.5020292219996918,
+      "cpu_user_seconds": 2.398478,
+      "cpu_system_seconds": 0.161556,
+      "peak_rss_KiB": 57740,
+      "filesystem_input_blocks": 0,
+      "filesystem_output_blocks": 0
+    },
+    "full_eight_video_decode_resource_usage": null
+  },
+  "old_prospective_protocol_applicable": false,
+  "research_plan_scope": "Retrospective development only, after integrity and root-lineage checks and subsequent user experiment instruction; old prospective protocol unchanged.",
+  "model_features_extracted": 0,
+  "model_training_runs": 0,
+  "formal_test_data_consumed": false,
+  "production_database_or_registry_updated": false,
+  "real_precision": null,
+  "real_recall": null,
+  "real_f1": null,
+  "public_boundary": "Deidentified counts and status only; no source paths, original labels, frames, feature values, private model or raw runtime logs.",
+  "tool_versions": {
+    "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "ffprobe": "ffprobe version 7.1.5-0+deb13u1 Copyright (c) 2007-2026 the FFmpeg developers",
+    "git-lfs": "git-lfs/3.6.1 (GitHub; linux amd64; go 1.24.4)",
+    "python": "3.12.14"
+  },
+  "audit_policy": {
+    "strict_h264_error_detection": true,
+    "all_audio_streams_checked": true,
+    "video_threads": 2,
+    "per_video_timeout_seconds": 3600,
+    "stop_on_first_integrity_failure": true
+  }
+}
