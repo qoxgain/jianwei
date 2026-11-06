@@ -14,6 +14,17 @@ from .motion import crop,descriptors
 
 VERSION='p037-b1-local-motion-v1'
 OFFICIAL_SHA='2979019509005056778db9f462e9eed212c40f02d5e5bf1d6fc9e06caf2ebab8'
+# Independently frozen export of the SAME pinned public checkpoint, with
+# different Conv/BN constant-fold rounding. Engineering-generated media ONLY.
+# It is NOT interchangeable with the industrial baseline, even within 1e-4.
+SYNTHETIC_EXPORT_SHA='36408854debf56e529e1fdafceb0d2dc27e03e230ef4fe5eb034828779f8f141'
+
+
+def frozen_encoder_sha(declared,evidence_class):
+    allowed={OFFICIAL_SHA}
+    if evidence_class=='synthetic_engineering':allowed.add(SYNTHETIC_EXPORT_SHA)
+    if declared not in allowed:raise ContractError('MOTION_ENCODER_REQUIRED','冻结编码器身份未核验；合成导出变体不可用于现场特征生产')
+    return declared
 
 
 def sha(path):
@@ -85,8 +96,9 @@ def extract(bundle,output,progress=None):
     output.mkdir(parents=True,exist_ok=False);s=getattr(bundle.config,'local_motion',None);pixels=None;started=time.monotonic()
     try:
         path=admission(bundle);geometry_check(path,bundle.config.ingestion,s);before=recipe(bundle)
-        if bundle.config.encoder.adapter!='onnx' or not bundle.config.encoder.frozen or bundle.config.encoder.weights_sha256!=OFFICIAL_SHA or bundle.config.encoder.preprocessing_version!=PREPROCESSING_VERSION:raise ContractError('MOTION_ENCODER_REQUIRED','必须配置已核验的冻结官方R3D-18；不回退诊断编码器')
-        encoder=load_encoder(resolve_path(bundle.root,bundle.profile.encoder_weights),OFFICIAL_SHA,512,112,bundle.config.ingestion.encoder_threads)
+        expected=frozen_encoder_sha(bundle.config.encoder.weights_sha256,s.evidence_class)
+        if bundle.config.encoder.adapter!='onnx' or not bundle.config.encoder.frozen or bundle.config.encoder.preprocessing_version!=PREPROCESSING_VERSION:raise ContractError('MOTION_ENCODER_REQUIRED','必须配置已核验的冻结官方R3D-18；不回退诊断编码器')
+        encoder=load_encoder(resolve_path(bundle.root,bundle.profile.encoder_weights),expected,512,112,bundle.config.ingestion.encoder_threads)
         pixels,pts,durations,quality,quality_report,metadata=decode_video(path,output,bundle.config.ingestion)
         if s.start_ms<int(pts[0]) or s.end_ms>int(pts[-1]+durations[-1]):raise ContractError('MOTION_TIME_RANGE','实验时间范围超出真实PTS')
         starts=list(range(s.start_ms,s.end_ms-max(s.window_ms)+1,s.stride_ms))

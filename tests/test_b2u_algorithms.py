@@ -197,3 +197,23 @@ def test_public_aggregate_drops_industrial_trajectories_and_arbitrary_private_fi
     assert 'DO_NOT_PUBLISH_INDUSTRIAL_VALUES' not in text
     assert '"trace"' not in text and '"occurrences"' not in text and '"prototypes"' not in text
     assert public['real_f1'] is None and not public['industrial_trajectories_or_prototype_values_included']
+
+
+
+@pytest.mark.parametrize('declared,kind,allowed',[
+    ('primary','development_exploration',True),('primary','synthetic_engineering',True),
+    ('variant','synthetic_engineering',True),('variant','development_exploration',False),
+    ('unknown','synthetic_engineering',False),('unknown','development_exploration',False)])
+def test_export_variant_is_frozen_and_cannot_enter_field_feature_space(declared,kind,allowed):
+    from packages.local_motion.extraction import OFFICIAL_SHA,SYNTHETIC_EXPORT_SHA,frozen_encoder_sha
+    value={'primary':OFFICIAL_SHA,'variant':SYNTHETIC_EXPORT_SHA,'unknown':'a'*64}[declared]
+    if allowed:assert frozen_encoder_sha(value,kind)==value
+    else:
+        with pytest.raises(ContractError):frozen_encoder_sha(value,kind)
+
+
+def test_registered_export_versions_do_not_share_prototype_space():
+    from packages.local_motion.extraction import OFFICIAL_SHA,SYNTHETIC_EXPORT_SHA
+    with pytest.raises(ContractError) as error:
+        cross_source_admission({'sha256':'a'*64},{'sha256':'b'*64},cross_settings(),{'encoder_sha256':SYNTHETIC_EXPORT_SHA},{'encoder_sha256':OFFICIAL_SHA})
+    assert error.value.code=='UNLABELED_SPACE_CHANGED'

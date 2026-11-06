@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 import yaml
 from packages.config.loader import PROJECT_ROOT,load_bundle
-from packages.local_motion.extraction import sha,write,OFFICIAL_SHA
+from packages.local_motion.extraction import sha,write,OFFICIAL_SHA,frozen_encoder_sha
 from packages.encoders.pretrained import PREPROCESSING_VERSION
 from scripts.prepare_b1 import settings as roi_settings
 
@@ -54,7 +54,8 @@ def runtime(output,manifest,source,local_settings,evidence,model):
     cfg=yaml.safe_load((PROJECT_ROOT/'config/system.yaml').read_text());cfg['active_profile']='demo';cfg['active_scene']='anonymous_observation'
     p=cfg['profiles']['demo'];p['data_root']='./data';p['database_url']='sqlite:///./data/unused-b2u.db';p['encoder_weights']=os.path.relpath(model,output)
     p['sources']=[{'id':local_settings['source_id'],'type':'file','uri':os.path.relpath(source,output),'scene_ids':['anonymous_observation'],'roi_xyxy':[0,0,1,1]}]
-    cfg['encoder'].update(adapter='onnx',feature_dim=512,weights_sha256=OFFICIAL_SHA,preprocessing_version=PREPROCESSING_VERSION,checkpoint_revision='torchvision-v0.22.1-R3D_18_Weights.KINETICS400_V1')
+    expected=frozen_encoder_sha(sha(model),local_settings['evidence_class']) if local_settings['evidence_class']=='synthetic_engineering' else OFFICIAL_SHA
+    cfg['encoder'].update(adapter='onnx',feature_dim=512,weights_sha256=expected,preprocessing_version=PREPROCESSING_VERSION,checkpoint_revision='torchvision-v0.22.1-R3D_18_Weights.KINETICS400_V1')
     cfg['ingestion'].update(decode_width=local_settings['display_width'],encoder_input_size=112,encoder_threads=2,encode_timeout_seconds=7200,decode_timeout_seconds=600)
     cfg['local_motion']=local_settings;cfg['unlabeled']=research_settings(os.path.relpath(manifest,output));cfg['unlabeled']['source_evidence']=evidence
     shutil.copytree(PROJECT_ROOT/'knowledge',output/'knowledge');path=output/'config/system.yaml';path.parent.mkdir();path.write_text(yaml.safe_dump(cfg,allow_unicode=True,sort_keys=False));load_bundle(path);return path

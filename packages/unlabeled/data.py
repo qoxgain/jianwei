@@ -5,7 +5,7 @@ import json
 import numpy as np
 from packages.config.loader import resolve_path
 from packages.config.errors import ContractError
-from packages.local_motion.extraction import admission,sha,OFFICIAL_SHA
+from packages.local_motion.extraction import admission,sha,frozen_encoder_sha
 from packages.knowledge.service import content_hash
 
 
@@ -28,7 +28,8 @@ def load_features(bundle):
     path=admission(bundle)
     manifest_path=resolve_path(bundle.root,s.feature_manifest);m=json.loads(manifest_path.read_text());lm=bundle.config.local_motion
     if m.get('schema')!='b1-local-motion-features-v1' or m['source']['sha256']!=lm.source_sha256 or m['evidence_class']!=lm.evidence_class:raise ContractError('UNLABELED_SOURCE','缓存必须绑定同一已核验开发来源')
-    if m['recipe']['model_sha256']!=OFFICIAL_SHA or m['source']['bytes']!=path.stat().st_size:raise ContractError('UNLABELED_ENCODER','缓存编码器或源字节数不符')
+    frozen_encoder_sha(m['recipe']['model_sha256'],m['evidence_class'])
+    if m['recipe']['model_sha256']!=bundle.config.encoder.weights_sha256 or m['source']['bytes']!=path.stat().st_size:raise ContractError('UNLABELED_ENCODER','缓存编码器或源字节数不符；不混用合成导出版本')
     recipe_payload={k:v for k,v in m['recipe'].items() if k!='sha256'}
     if m['recipe_hash']!=m['recipe']['sha256'] or content_hash(recipe_payload)!=m['recipe_hash'] or m['settings']!=m['recipe']['settings'] or m['settings']!=lm.model_dump(mode='json'):
         raise ContractError('UNLABELED_RECIPE','缓存生产配方/ROI与配置不一致，不把旧特征改标为新生产版本')

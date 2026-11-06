@@ -55,7 +55,9 @@ def prepare(output,model,encoder_report,synthetic=False):
     if not output.is_relative_to(PROJECT_ROOT/'artifacts'):raise ValueError('Private new artifacts directory required')
     output.mkdir(parents=True,exist_ok=False)
     record=json.loads(Path(encoder_report).read_text())
-    if not record.get('passed') or record.get('onnx_sha256')!=OFFICIAL_SHA or sha(model)!=OFFICIAL_SHA:raise ValueError('Official frozen encoder/export receipt required')
+    from packages.local_motion.extraction import frozen_encoder_sha
+    expected=frozen_encoder_sha(sha(model),'synthetic_engineering' if synthetic else 'development_exploration')
+    if not record.get('passed') or record.get('onnx_sha256')!=expected:raise ValueError('Official frozen encoder/export receipt required')
     config=yaml.safe_load((PROJECT_ROOT/'config/system.yaml').read_text());config['active_profile']='demo';config['active_scene']='anonymous_observation'
     profile=config['profiles']['demo'];profile['data_root']='./data';profile['database_url']='sqlite:///./data/b1-unused.db';profile['api_port']=18071
     profile['encoder_weights']=os.path.relpath(model,output)
@@ -65,7 +67,7 @@ def prepare(output,model,encoder_report,synthetic=False):
         asset=next(a for a in json.loads((PROJECT_ROOT/'datasets/video_samples/catalog.json').read_text())['assets'] if a['asset_id']=='garment_test')
         source=PROJECT_ROOT/asset['path'];source_id=asset['asset_id'];width,height,end=640,480,118500
     profile['sources']=[{'id':source_id,'type':'file','uri':os.path.relpath(source,output),'scene_ids':['anonymous_observation'],'roi_xyxy':[0,0,1,1]}]
-    config['encoder'].update(adapter='onnx',feature_dim=512,weights_sha256=OFFICIAL_SHA,preprocessing_version=PREPROCESSING_VERSION,
+    config['encoder'].update(adapter='onnx',feature_dim=512,weights_sha256=expected,preprocessing_version=PREPROCESSING_VERSION,
         checkpoint_revision='torchvision-v0.22.1-R3D_18_Weights.KINETICS400_V1')
     config['ingestion'].update(decode_width=640 if not synthetic else 160,encoder_input_size=112,encoder_threads=2,
         encode_timeout_seconds=7200,probe_timeout_seconds=300,decode_timeout_seconds=600)
