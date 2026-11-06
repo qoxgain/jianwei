@@ -1,0 +1,15 @@
+{
+  "schema": "b2u1-source-audit-aggregate-v1",
+  "catalog_videos": 9,
+  "development_bytes_verified": 9,
+  "blocked_or_failed": 0,
+  "unique_byte_identities": 9,
+  "exact_byte_duplicate_groups": 0,
+  "sources_missing_capture_metadata": 9,
+  "verified_independent_pairs": 0,
+  "cross_session_transfer": "blocked_pending_capture_lineage_and_fixed_view_evidence",
+  "preview_scope": "private sparse technical screening, not action ground truth",
+  "independence_not_inferred_from_filename_sha_or_creation_hint": true,
+  "source_identifiers_locations_times_or_frames_included": false,
+  "formal_test_data_consumed": false
+}

@@ -1,0 +1,91 @@
+{
+  "schema": "b2u1-verification-v1",
+  "baseline_commit": "755aefd8e623b130f83282f6ad40d0fe50b21757",
+  "branch": "codex/p0-3-7-b2u1-data-validity",
+  "implementation_commits": [
+    "f738d05",
+    "6f5923f"
+  ],
+  "new_mechanism_tests": 25,
+  "local": {
+    "python": "3.12.14",
+    "backend": {
+      "passed": 974,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 257.15,
+      "junit_private": "artifacts/p037-b2u1/backend-junit.xml"
+    },
+    "frontend": {
+      "passed": 127,
+      "failed": 0
+    },
+    "reference": {
+      "passed": 29,
+      "failed": 0
+    },
+    "build": {
+      "passed": true
+    },
+    "demo_build": {
+      "passed": true
+    },
+    "browser": {
+      "passed": true,
+      "modes": [
+        "desktop",
+        "mobile"
+      ],
+      "generated_video_only": true,
+      "original_build_bytes_unchanged": true
+    }
+  },
+  "private_execution_artifacts": "artifacts/p037-b2u1",
+  "new_field_transfer_executed": false,
+  "field_transfer_status": "blocked_no_verified_independent_capture_lineage",
+  "real_precision": null,
+  "real_recall": null,
+  "real_f1": null,
+  "earlier_attempts_retained": [
+    {
+      "name": "unit-first.log",
+      "passed": 18,
+      "failed": 2,
+      "cause": "Incomplete draft baseline seal lacked legacy_math_settings; corrected before final freeze, no removed test."
+    },
+    {
+      "name": "source-audit.log",
+      "verified": 2,
+      "blocked": 7,
+      "cause": "64MiB configured budget; explicit isolated 512MiB config rerun verified all9."
+    },
+    {
+      "name": "initial_interactive_attempts",
+      "cause": "System Python lacked rfc8785, switched to project venv; diagnostic Markdown generator first failed syntax parsing; no research input was changed."
+    }
+  ],
+  "historical_risks": {
+    "media_cancel_fd": "not_reproduced_in_12_local_trials_root_cause_unconfirmed",
+    "sqlite_corruption": "root_cause_not_established_no_database_runtime_changes"
+  },
+  "public_data_boundary": {
+    "originals_frames_features_prototypes_or_sensitive_provenance_added": false,
+    "private_9_source_visual_review": "not_published",
+    "private_52_candidate_timeline": "not_published"
+  },
+  "protocol_hash": "7e43bd1ab324f1266be25c72bb83b608491113a36853455439c0b6f60270e0ee",
+  "preserved_demo": {
+    "path": "docs/demo/p0.3.7-b2u-r1/jianwei-p0.3.7-b2u-demo.zip",
+    "sha256": "6cd43aea9fad490fd6b57278e5ef70ee326fabc0890a2aafeea954ba2158f74e"
+  },
+  "ci": {
+    "status": "pending_push",
+    "tested_commit": null,
+    "url": null
+  },
+  "formal_test_data_consumed": false,
+  "old_failed_candidates_promoted": false,
+  "production_activated": false,
+  "p04_admitted": false,
+  "next_stage_started": false
+}

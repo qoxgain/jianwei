@@ -1,0 +1,172 @@
+{
+  "schema": "b2u1-sealed-development-protocol-v1",
+  "sealed_at": "2026-11-06T14:50:11.456697+08:00",
+  "scope": "new independent development captures, NOT formal sealed tests",
+  "protocol": {
+    "schema": "b2u1-prospective-development-routes-v1",
+    "purpose": "Separate motif reuse from dynamic forecasting; no semantic action accuracy or formal research admission",
+    "authored_after_observing_old_development_results": true,
+    "reject_baseline_catalog_sources": true,
+    "minimum_sessions": 3,
+    "minimum_capture_dates": 2,
+    "roles": [
+      "fit",
+      "calibration",
+      "confirmation"
+    ],
+    "minimum_duration_ms": 240000,
+    "maximum_duration_ms": 480000,
+    "primary_feature": "frame_difference",
+    "secondary_features": [
+      "global_r3d",
+      "hands_r3d",
+      "interaction_r3d",
+      "local_r3d",
+      "block_motion",
+      "hands_motion",
+      "motion_fusion",
+      "local_fusion",
+      "background_motion",
+      "background_r3d"
+    ],
+    "frozen_algorithm": {
+      "window_ms": 2000,
+      "sample_fps": 8,
+      "forecast_history": 6,
+      "forecast_lags": [
+        2,
+        4
+      ],
+      "motif_lengths": [
+        2,
+        4,
+        6
+      ],
+      "seeds": [
+        11,
+        23,
+        37,
+        53,
+        71
+      ],
+      "ridge_lambda": 1.0
+    },
+    "route_a": {
+      "question": "Recurring anonymous feature motifs in independent new sessions, not future-feature MSE",
+      "minimum_occurrences_per_session": 3,
+      "coverage_min": 0.05,
+      "coverage_max": 0.85,
+      "noise_agreement_min": 0.8,
+      "roi_agreement_min": 0.7,
+      "coverage_excess_over_all_time_shuffles_min": 0.1,
+      "coverage_excess_over_background_min": 0.1,
+      "block_shuffle_role": "report content-preserving control, not a motif-existence rejection gate",
+      "fixed_window_role": "report boundary stability; fixed-window invariance is not evidence of learned actions",
+      "future_prediction_required": false
+    },
+    "route_b": {
+      "question": "Frozen Ridge reduces unseen-session feature forecast error beyond persistence and training mean",
+      "primary_predictor": "ridge",
+      "minimum_pairs_each_lag": 30,
+      "gain_vs_persistence_min": 0.05,
+      "gain_vs_trainmean_min": 0.05,
+      "must_exceed_all_shuffled_target_ridge_controls": true,
+      "history_ablation_gain_for_history_claim": 0.02,
+      "history_ablation_is_not_retraining": true,
+      "anonymous_motif_discovery_required": false
+    },
+    "threshold_status": "prospective fixed feasibility hypotheses, not empirically validated acceptance thresholds",
+    "old_gate_must_remain_unchanged": true,
+    "old_failed_candidates_promoted": false,
+    "production_activation": false,
+    "formal_test_access": false,
+    "p04_admitted": false,
+    "frozen_unlabeled_settings": {
+      "enabled": true,
+      "window_ms": 2000,
+      "sample_fps": 8,
+      "fit_fraction": 0.5,
+      "calibration_fraction": 0.25,
+      "purge_ms": 2000,
+      "projection_dim": 8,
+      "change_quantile": 0.8,
+      "scales": [
+        1,
+        2,
+        4
+      ],
+      "min_segment_windows": 2,
+      "max_segment_windows": 20,
+      "fixed_segment_windows": 4,
+      "dp_penalty_multiplier": 1.0,
+      "motif_lengths": [
+        2,
+        4,
+        6
+      ],
+      "min_repeats": 3,
+      "max_prototypes": 8,
+      "motif_neighbor_quantile": 0.35,
+      "motif_radius_factor": 1.2,
+      "min_shape_rms": 0.15,
+      "context_weight": 0.25,
+      "activity_quantile": 0.25,
+      "max_profile_windows": 512,
+      "seeds": [
+        11,
+        23,
+        37,
+        53,
+        71
+      ],
+      "noise_sigma": 0.05,
+      "background_mix": 0.3,
+      "boundary_tolerance_ms": 1000,
+      "forecast_history": 6,
+      "forecast_lags": [
+        2,
+        4
+      ],
+      "ridge_lambda": 1.0,
+      "retrieval_k": 3,
+      "min_gate_stability": 0.65,
+      "min_gate_null_margin": 0.02,
+      "min_gate_prediction_gain": 0.0,
+      "max_gate_coverage": 0.9,
+      "formal_research_access": false,
+      "production_updates": false
+    },
+    "roi_selection": "Fit-source preview only; lock full ROI/feature contract and model receipt before calibration capture",
+    "model_freeze_must_precede_calibration_capture": true,
+    "sampling_sensitivity": {
+      "primary": "2s/8fps/1s-stride",
+      "secondary": "2s/4fps separately fitted and separately frozen parent; no cross-space prototype-ID matching",
+      "decision_scope": "Primary decision remains 8fps; without secondary evidence no sampling-robustness claim",
+      "execute_with": "existing run_b2u/query commands under a separately recorded 4fps runtime, before any confirmation selection"
+    }
+  },
+  "baseline_commit": "755aefd8e623b130f83282f6ad40d0fe50b21757",
+  "frozen_algorithm_identity": {
+    "git_head": "6f5923f8e748a2be217944e602b45a8138b888b0",
+    "source_sha256": {
+      "packages/unlabeled/engine.py": "8af0e8bd03d2e60da3bab54062011a4f44f7ff94ae54ba7614f966e8b69027b0",
+      "packages/unlabeled/forecast.py": "1908143c9c4cba08d9a1213d69fb91919e7c860ff7387060f6d014c80a68edd6",
+      "packages/unlabeled/__init__.py": "57b46d2999306caf15d5dde5ca3c78ae98b3a1e8ce7541892b74c6b8c9c7400a",
+      "packages/unlabeled/algorithms.py": "7b9e301f41b5b37c48361d9d284e9f536cd318098a3385f7e3d8706a5d9b8f8a",
+      "packages/unlabeled/memory.py": "d5ea9b24be757a511a90b4a0695aeeefdc35ac2d276781b5c47121de70e46860",
+      "packages/unlabeled/data.py": "ee9af1a6a61af36f578a0b95bf50bda982129018d0f78bc23ff0dc98d3bd5313",
+      "packages/unlabeled/study.py": "40988e9f982bcadee62516d39609feffcc947deff43533b4f9e95bed81937a4c",
+      "packages/contracts/unlabeled.py": "883c7e1bddd7edacf72f38978da3b434da46a0baf88ae729d8d4de5f16b9605d",
+      "packages/temporal/models.py": "5c451c3e124bf9f5d72c11614755ca83249e8b27df83bcdf284b05522876fd16"
+    },
+    "dependencies": {
+      "numpy": "2.2.5",
+      "pydantic": "2.11.4",
+      "rfc8785": "0.1.4"
+    },
+    "python": "3.12.14"
+  },
+  "validator_sha256": "49664f5a7a400973b6d499bc36a00b2f4a5d6ed53d77511ad08931a801221f4e",
+  "baseline_seal_sha256": "df188fc026c6272288398863cb41517465f71dc06b6dcb9edd65ecad935e7d65",
+  "protocol_hash": "7e43bd1ab324f1266be25c72bb83b608491113a36853455439c0b6f60270e0ee"
+}

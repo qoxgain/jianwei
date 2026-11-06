@@ -1,0 +1,171 @@
+{
+  "schema": "b2u1-prospective-admission-v1",
+  "ready": false,
+  "issues": [
+    {
+      "role": "fit",
+      "code": "SOURCE_IDENTITY_MISSING"
+    },
+    {
+      "role": "fit",
+      "code": "SOURCE_IDENTITY_MISSING"
+    },
+    {
+      "role": "fit",
+      "code": "ONLY_VERIFIED_ORIGINAL_CAPTURE_NOT_CROPPED_OR_TRANSCODED_ALIASES"
+    },
+    {
+      "role": "fit",
+      "code": "CAPTURE_LINEAGE_REVIEW_PENDING"
+    },
+    {
+      "role": "fit",
+      "code": "CONTAINER_CREATION_HINT_IS_NOT_CAPTURE_EVIDENCE"
+    },
+    {
+      "role": "fit",
+      "code": "VIEW_OR_BACKGROUND_CONTROL_NOT_VERIFIED"
+    },
+    {
+      "role": "fit",
+      "code": "INSUFFICIENT_OR_UNBOUNDED_CAPTURE_DURATION"
+    },
+    {
+      "role": "fit",
+      "code": "INDEPENDENT_ROOT_AND_SESSION_NOT_ESTABLISHED"
+    },
+    {
+      "role": "fit",
+      "code": "INDEPENDENT_ROOT_AND_SESSION_NOT_ESTABLISHED"
+    },
+    {
+      "role": "fit",
+      "code": "FIXED_VIEW_IDENTITY_MISSING"
+    },
+    {
+      "role": "fit",
+      "code": "FIXED_VIEW_IDENTITY_MISSING"
+    },
+    {
+      "role": "fit",
+      "code": "FIXED_VIEW_IDENTITY_MISSING"
+    },
+    {
+      "role": "fit",
+      "code": "VERIFIED_ZONED_CAPTURE_TIME_MISSING"
+    },
+    {
+      "role": "calibration",
+      "code": "SOURCE_IDENTITY_MISSING"
+    },
+    {
+      "role": "calibration",
+      "code": "SOURCE_IDENTITY_MISSING"
+    },
+    {
+      "role": "calibration",
+      "code": "ONLY_VERIFIED_ORIGINAL_CAPTURE_NOT_CROPPED_OR_TRANSCODED_ALIASES"
+    },
+    {
+      "role": "calibration",
+      "code": "CAPTURE_LINEAGE_REVIEW_PENDING"
+    },
+    {
+      "role": "calibration",
+      "code": "CONTAINER_CREATION_HINT_IS_NOT_CAPTURE_EVIDENCE"
+    },
+    {
+      "role": "calibration",
+      "code": "VIEW_OR_BACKGROUND_CONTROL_NOT_VERIFIED"
+    },
+    {
+      "role": "calibration",
+      "code": "INSUFFICIENT_OR_UNBOUNDED_CAPTURE_DURATION"
+    },
+    {
+      "role": "calibration",
+      "code": "INDEPENDENT_ROOT_AND_SESSION_NOT_ESTABLISHED"
+    },
+    {
+      "role": "calibration",
+      "code": "INDEPENDENT_ROOT_AND_SESSION_NOT_ESTABLISHED"
+    },
+    {
+      "role": "calibration",
+      "code": "FIXED_VIEW_IDENTITY_MISSING"
+    },
+    {
+      "role": "calibration",
+      "code": "FIXED_VIEW_IDENTITY_MISSING"
+    },
+    {
+      "role": "calibration",
+      "code": "FIXED_VIEW_IDENTITY_MISSING"
+    },
+    {
+      "role": "calibration",
+      "code": "VERIFIED_ZONED_CAPTURE_TIME_MISSING"
+    },
+    {
+      "role": "confirmation",
+      "code": "SOURCE_IDENTITY_MISSING"
+    },
+    {
+      "role": "confirmation",
+      "code": "SOURCE_IDENTITY_MISSING"
+    },
+    {
+      "role": "confirmation",
+      "code": "ONLY_VERIFIED_ORIGINAL_CAPTURE_NOT_CROPPED_OR_TRANSCODED_ALIASES"
+    },
+    {
+      "role": "confirmation",
+      "code": "CAPTURE_LINEAGE_REVIEW_PENDING"
+    },
+    {
+      "role": "confirmation",
+      "code": "CONTAINER_CREATION_HINT_IS_NOT_CAPTURE_EVIDENCE"
+    },
+    {
+      "role": "confirmation",
+      "code": "VIEW_OR_BACKGROUND_CONTROL_NOT_VERIFIED"
+    },
+    {
+      "role": "confirmation",
+      "code": "INSUFFICIENT_OR_UNBOUNDED_CAPTURE_DURATION"
+    },
+    {
+      "role": "confirmation",
+      "code": "INDEPENDENT_ROOT_AND_SESSION_NOT_ESTABLISHED"
+    },
+    {
+      "role": "confirmation",
+      "code": "INDEPENDENT_ROOT_AND_SESSION_NOT_ESTABLISHED"
+    },
+    {
+      "role": "confirmation",
+      "code": "FIXED_VIEW_IDENTITY_MISSING"
+    },
+    {
+      "role": "confirmation",
+      "code": "FIXED_VIEW_IDENTITY_MISSING"
+    },
+    {
+      "role": "confirmation",
+      "code": "FIXED_VIEW_IDENTITY_MISSING"
+    },
+    {
+      "role": "confirmation",
+      "code": "VERIFIED_ZONED_CAPTURE_TIME_MISSING"
+    },
+    {
+      "role": "all",
+      "code": "TWO_CAPTURE_DATES_REQUIRED"
+    }
+  ],
+  "protocol_hash": "7e43bd1ab324f1266be25c72bb83b608491113a36853455439c0b6f60270e0ee",
+  "field_transfer_executed": false,
+  "action_labels_required": false,
+  "formal_test_access": false,
+  "production_activated": false
+}
