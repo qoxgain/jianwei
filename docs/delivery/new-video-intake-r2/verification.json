@@ -1,0 +1,90 @@
+{
+  "schema": "new-video-intake-r2-verification-v1",
+  "baseline_commit": "5954e30e7eea25839ca20d475e40099277b7e175",
+  "tested_code_commit": "724e0418000b7c8dbb6fdde24e54c39c693b0068",
+  "data_commit": "49e0ad27efa0fc6c09fd6736e1cdd7e18467cf4b",
+  "branch": "codex/new-industrial-video-intake-r2",
+  "local": {
+    "new_rules_passed": 8,
+    "related_regression_passed": 33,
+    "failed": 0,
+    "scope": "Generated numeric rule tests only. Actual eight-video diagnostics separately recorded; no simulation substitutes for them."
+  },
+  "ci": {
+    "id": 42195912122,
+    "url": "https://github.com/qoxgain/jianwei/actions/runs/42195912122",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "foundation",
+        "conclusion": "success",
+        "url": "https://github.com/qoxgain/jianwei/actions/runs/42195912122/job/127818997153"
+      },
+      {
+        "name": "browser",
+        "conclusion": "success",
+        "url": "https://github.com/qoxgain/jianwei/actions/runs/42195912122/job/127818997530"
+      },
+      {
+        "name": "pretrained-encoder",
+        "conclusion": "success",
+        "url": "https://github.com/qoxgain/jianwei/actions/runs/42195912122/job/127818997568"
+      }
+    ],
+    "backend_passed": 979,
+    "backend_optional_skipped": 3,
+    "backend_failed": 0,
+    "optional_skip_reason": "Foundation lacks optional torch for 3 official preprocessing parity tests; separate encoder job9 passed with0 skips.",
+    "encoder_passed": 9,
+    "frontend_passed": 127,
+    "reference_passed": 29,
+    "build_and_demo_build_passed": true,
+    "browser_jobs_passed": true,
+    "historical_synthetic_encoder_regression_executed": true,
+    "industrial_sources_available_in_CI": false
+  },
+  "actual_private_diagnostics": {
+    "source_identity_passed": 8,
+    "post_audit_source_identity_unchanged": 8,
+    "grade_counts": {
+      "A": 1,
+      "B": 7,
+      "C": 0
+    },
+    "B_verified_intervals": 15,
+    "private_dictionaries": [
+      10,
+      13
+    ],
+    "decoder_builds": [
+      "FFmpeg7.1.5",
+      "FFmpeg7.0.2-static",
+      "PyAV16.0.1/libavcodec62"
+    ],
+    "original_device_export_available": false,
+    "root_cause": "unknown",
+    "R3D_industrial_vectors": 0,
+    "action_training_runs": 0
+  },
+  "safety_boundary": {
+    "old_prospective_protocol_and_root_config_unchanged": true,
+    "private_media_labels_frames_logs_masks_and_source_paths_not_published": true,
+    "original_media_not_modified": true,
+    "formal_test_data_consumed": false,
+    "b3_started": false,
+    "p04_admitted": false,
+    "real_precision": null,
+    "real_recall": null,
+    "real_f1": null
+  },
+  "failure_evidence_preserved": [
+    "R1 strict failure",
+    "R2 video01-04 strict failures",
+    "Random-seek missing-reference previews",
+    "Private codec tool import-path mistakes",
+    "Out-of-domain damaged-tail packet timestamp",
+    "Existing output directory overwrite refusal",
+    "Video07 original whole-range cross-decoder frame mismatch"
+  ],
+  "report_commit_policy": "Evidence/docs only after tested724e041; final commit skipsCI, no new code pass implied."
+}
